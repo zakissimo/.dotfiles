@@ -1,3 +1,4 @@
+;; -*- no-byte-compile: t -*-
 ;; -*- mode: emacs-lisp; lexical-binding: t -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
@@ -534,8 +535,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first.")
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump.")
-
-
 
 (defun dotspacemacs/user-config ()
   "Configuration for user code:
