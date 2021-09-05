@@ -170,11 +170,12 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Systray(),
-                widget.BatteryIcon(),
+                widget.BatteryIcon(padding=9),
                 # widget.Bluetooth(hci='/dev_B0:C0:90:9D:F1:E5', padding=25),
                 widget.Volume(emoji=True),
+                widget.Volume(fontsize=15),
                 # widget.Wlan(),
-                widget.Clock(foreground=colors[7], format="%H:%M"),
+                widget.Clock(foreground=colors[7], format="%H:%M", padding=9),
             ],
             # bar height
             29, background="{0}4F".format(colors[0])
