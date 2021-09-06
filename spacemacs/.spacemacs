@@ -543,6 +543,35 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+;; Package Manager Configuration -----------------------------------------------
+
+;; Initialize package sources
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                        ("org" . "https://orgmode.org/elpa/")
+                        ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+(use-package command-log-mode)
+
+;; Font Settings & Bidi Activation ------------------------------------------------------
+
+(set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Mono") 
+
 (set-fontset-font t 'arabic "Kawkab Mono")
     (setq face-font-rescale-alist
          '(
@@ -557,7 +586,30 @@ before packages are loaded."
 (setq-default default-input-method "arabic")
 
 (global-unset-key (kbd "M-SPC"))
-(global-set-key (kbd "M-SPC") 'toggle-input-method))
+(global-set-key (kbd "M-SPC") 'toggle-input-method)
+
+;; Org Mode Configuration ------------------------------------------------------
+
+(defun efs/org-font-setup ()
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-table nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch))
+
+(use-package org-bullets
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●"))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -571,20 +623,20 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(spacemacs-theme-custom-colors
-   '((base . "#ffffff")
-     (bg1 . "#282a36")
-     (cblk-ln-bg . "#ffffff")
-     (comment  . "#6272a4")
-     (comment-bg . "#282a36")
-     (func . "#50fa7b")
-     (head3-bg . "#ffffff")
-     (keyword . "#ff79c6")
-     (mat . "#ffffff")
-     (meta . "#86dc2f")
-     (str . "#f1fa8c")
-     (type . "#8be9fd")
-     (var . "#7590db")))
+ ;; '(spacemacs-theme-custom-colors
+ ;;   '((base . "#ffffff")
+ ;;     (bg1 . "#282a36")
+ ;;     (cblk-ln-bg . "#ffffff")
+ ;;     (comment  . "#6272a4")
+ ;;     (comment-bg . "#282a36")
+ ;;     (func . "#50fa7b")
+ ;;     (head3-bg . "#ffffff")
+ ;;     (keyword . "#ff79c6")
+ ;;     (mat . "#ffffff")
+ ;;     (meta . "#86dc2f")
+ ;;     (str . "#f1fa8c")
+ ;;     (type . "#8be9fd")
+ ;;     (var . "#7590db")))
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    '(yapfify sphinx-doc pytest pyenv-mode py-isort poetry pippel pipenv pyvenv pip-requirements nose live-py-mode importmagic epc ctable concurrent deferred helm-pydoc cython-mode blacken anaconda-mode pythonic treemacs-magit smeargle orgit-forge orgit helm-gitignore helm-git-grep gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link forge yaml magit ghub closql emacsql-sqlite emacsql treepy magit-section git-commit with-editor transient ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file nameless multi-line mmm-mode markdown-toc macrostep lorem-ipsum link-hint info+ indent-guide hybrid-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio gnuplot gh-md font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
