@@ -570,13 +570,12 @@ before packages are loaded."
 
 ;; Font Settings & Bidi Activation ------------------------------------------------------
 
-(set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Mono") 
+(set-face-attribute 'default nil :font "CaskaydiaCove Nerd Font Mono")
 
 (set-fontset-font t 'arabic "Kawkab Mono")
     (setq face-font-rescale-alist
          '(
-           (".*Katibeh.*" . 1.9)
-           (".*Kawkab Mono.*" . 1.3)))
+           (".*Kawkab Mono.*" . 1.0)))
 
 (defun set-bidi-env ()
   "interactive"
@@ -587,6 +586,18 @@ before packages are loaded."
 
 (global-unset-key (kbd "M-SPC"))
 (global-set-key (kbd "M-SPC") 'toggle-input-method)
+
+;; Load Theme -------------------------------------------------------------------
+
+(use-package tron-legacy-theme
+  :config
+  (load-theme 'tron-legacy t))
+
+(use-package all-the-icons)
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))
 
 ;; Org Mode Configuration ------------------------------------------------------
 
@@ -623,23 +634,28 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(spacemacs-theme-custom-colors
- ;;   '((base . "#ffffff")
- ;;     (bg1 . "#282a36")
- ;;     (cblk-ln-bg . "#ffffff")
- ;;     (comment  . "#6272a4")
- ;;     (comment-bg . "#282a36")
- ;;     (func . "#50fa7b")
- ;;     (head3-bg . "#ffffff")
- ;;     (keyword . "#ff79c6")
- ;;     (mat . "#ffffff")
- ;;     (meta . "#86dc2f")
- ;;     (str . "#f1fa8c")
- ;;     (type . "#8be9fd")
- ;;     (var . "#7590db")))
+ '(custom-safe-themes
+   '("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default))
  '(evil-want-Y-yank-to-eol nil)
+ '(hl-todo-keyword-faces
+   '(("TODO" . "#dc752f")
+     ("NEXT" . "#dc752f")
+     ("THEM" . "#2d9574")
+     ("PROG" . "#4f97d7")
+     ("OKAY" . "#4f97d7")
+     ("DONT" . "#f2241f")
+     ("FAIL" . "#f2241f")
+     ("DONE" . "#86dc2f")
+     ("NOTE" . "#b1951d")
+     ("KLUDGE" . "#b1951d")
+     ("HACK" . "#b1951d")
+     ("TEMP" . "#b1951d")
+     ("FIXME" . "#dc752f")
+     ("XXX+" . "#dc752f")
+     ("\\?\\?\\?+" . "#dc752f")))
  '(package-selected-packages
-   '(yapfify sphinx-doc pytest pyenv-mode py-isort poetry pippel pipenv pyvenv pip-requirements nose live-py-mode importmagic epc ctable concurrent deferred helm-pydoc cython-mode blacken anaconda-mode pythonic treemacs-magit smeargle orgit-forge orgit helm-gitignore helm-git-grep gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link forge yaml magit ghub closql emacsql-sqlite emacsql treepy magit-section git-commit with-editor transient ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file nameless multi-line mmm-mode markdown-toc macrostep lorem-ipsum link-hint info+ indent-guide hybrid-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio gnuplot gh-md font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
+   '(yapfify sphinx-doc pytest pyenv-mode py-isort poetry pippel pipenv pyvenv pip-requirements nose live-py-mode importmagic epc ctable concurrent deferred helm-pydoc cython-mode blacken anaconda-mode pythonic treemacs-magit smeargle orgit-forge orgit helm-gitignore helm-git-grep gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link forge yaml magit ghub closql emacsql-sqlite emacsql treepy magit-section git-commit with-editor transient ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit spaceline-all-the-icons restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file nameless multi-line mmm-mode markdown-toc macrostep lorem-ipsum link-hint info+ indent-guide hybrid-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-flx helm-descbinds helm-ag google-translate golden-ratio gnuplot gh-md font-lock+ flycheck-pos-tip flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line))
+ '(pdf-view-midnight-colors '("#b2b2b2" . "#292b2e")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
