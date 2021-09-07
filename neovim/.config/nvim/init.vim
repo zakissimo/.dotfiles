@@ -36,9 +36,11 @@ else
 	Plug 'terryma/vim-multiple-cursors'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
+	Plug 'ericbn/vim-relativize'
 
 	call plug#end()
 	
+	set number relativenumber
 	let g:airline_theme='minimalist'
 	nnoremap S :%s///g<Left><Left><Left>
 	nnoremap s :s///g<Left><Left><Left>

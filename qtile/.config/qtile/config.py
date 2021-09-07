@@ -170,7 +170,7 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Systray(),
-                widget.BatteryIcon(padding=9, theme_path='/usr/lib/python3.9/site-packages/libqtile/resources/battery-icons/'),
+                widget.BatteryIcon(padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
                 # widget.Bluetooth(hci='/dev_B0:C0:90:9D:F1:E5', padding=25),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=15),
