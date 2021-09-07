@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Path to your oh-my-zsh installation.
+export ZSH="/home/zak/.oh-my-zsh"
+
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -71,6 +74,8 @@ plugins=(
     zsh-syntax-highlighting
     zsh-z
 )
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
