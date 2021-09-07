@@ -12,7 +12,7 @@
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 133) 
+(set-face-attribute 'default nil :font "Fira Code Retina" :height 133)
 
 (set-fontset-font t 'arabic "Kawkab Mono")
     (setq face-font-rescale-alist
