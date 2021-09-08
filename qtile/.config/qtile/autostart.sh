@@ -11,3 +11,7 @@ killall xcape 2>/dev/null; xcape -e 'Super_L=Escape'
 wal -R
 #Launch picom
 picom -b
+#Cloud
+megasync &
+#network manager
+nm-applet &
