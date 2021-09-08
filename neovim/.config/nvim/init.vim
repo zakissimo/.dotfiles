@@ -12,11 +12,12 @@
             "╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   
             
 set clipboard+=unnamedplus
+	
+let mapleader =" "
 
-"let mapleader =" "
-"" Switch to Fr - mapping
+"Switch to Fr - mapping
 "nnoremap <Leader>f :set noarab<Cr>
-"" Switch to Arabic - mapping
+"Switch to Arabic - mapping
 "nnoremap <Leader>a :set arab<Cr>
 
 if exists('g:vscode')
