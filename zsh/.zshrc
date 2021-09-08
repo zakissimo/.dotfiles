@@ -104,6 +104,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vi=nvim
 alias vim=nvim
+alias ls=exa
 
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --height=80%"
 
