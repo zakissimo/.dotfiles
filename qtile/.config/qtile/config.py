@@ -123,7 +123,7 @@ for i, (name, kwargs) in zip(key_list, group_names):
 ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {
         "border_width": 3,
-        "margin": 5,
+        "margin": 7,
         "border_focus": colors[6],
         "border_normal": colors[0]
 }
@@ -160,7 +160,12 @@ screens = [
         top=bar.Bar(
             [
                 # widget.CurrentLayout(),
-                widget.GroupBox(inactive=colors[2], active=colors[7]),
+                widget.GroupBox(
+                    inactive=colors[1], 
+                    active=colors[7],
+                    highlight_color = colors[0],
+                    highlight_method = "line",
+                    ),
                 widget.Prompt(prompt = prompt),
                 widget.WindowName(),
                 widget.Chord(
@@ -219,13 +224,6 @@ floating_layout = layout.Floating(
         {'wmclass': 'splash'},
         {'wmclass': 'toolbar'},
         {'wmclass': 'DBeaver'},
-       # Match(wm_class="confirmreset"),  # gitk
-       # Match(wm_class="makebranch"),  # gitk
-       # Match(wm_class="maketag"),  # gitk
-       # Match(wm_class="ssh-askpass"),  # ssh-askpass
-       # Match(wm_class="megasync"),
-       # Match(title="branchdialog"),  # gitk
-       # Match(title="pinentry"),  # GPG key password entry
         ],
 )
 auto_fullscreen = True
