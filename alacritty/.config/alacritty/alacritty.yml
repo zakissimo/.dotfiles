@@ -217,14 +217,14 @@ font:
   #search:
     # Allowed values are CellForeground/CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
-    #matches:
+    # matches:
     #  foreground: '#000000'
     #  background: '#ffffff'
-    #focused_match:
+    # focused_match:
     #  foreground: '#ffffff'
     #  background: '#000000'
 
-    #bar:
+    # bar:
     #  background: '#c5c8c6'
     #  foreground: '#1d1f21'
 

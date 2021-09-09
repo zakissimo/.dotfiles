@@ -13,5 +13,6 @@ wal -R
 picom -b
 #Cloud
 megasync &
-#network manager
+#network manager & bluetooth
 nm-applet &
+blueman-applet &

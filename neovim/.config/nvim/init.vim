@@ -15,11 +15,6 @@ set clipboard+=unnamedplus
 	
 let mapleader =" "
 
-"Switch to Fr - mapping
-"nnoremap <Leader>f :set noarab<Cr>
-"Switch to Arabic - mapping
-"nnoremap <Leader>a :set arab<Cr>
-
 if exists('g:vscode')
 	" VSCode extension
 	xmap gc  <Plug>VSCodeCommentary
@@ -33,20 +28,33 @@ else
 	" ordinary neovim
 	call plug#begin('~/.config/nvim/plugged')
 
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'terryma/vim-multiple-cursors'
 	Plug 'vim-airline/vim-airline'
+	Plug 'neovim/nvim-lspconfig'
+	Plug 'hrsh7th/nvim-compe'
 	Plug 'vim-airline/vim-airline-themes'
-	Plug 'ericbn/vim-relativize'
 
 	call plug#end()
 	
-	set number relativenumber
 	let g:airline_theme='minimalist'
+
+	map <C-j> <C-W>j
+	map <C-k> <C-W>k
+	map <C-h> <C-W>h
+	map <C-l> <C-W>l
+	map <leader>n :w<CR>:!python3 %<CR>
 	nnoremap S :%s///g<Left><Left><Left>
 	nnoremap s :s///g<Left><Left><Left>
+
 	set tabstop=4
 	set softtabstop=4
 	set shiftwidth=4
+	set number relativenumber
+	set hlsearch
+
+	hi LineNr ctermfg=DarkGray
+	hi Visual ctermfg=Black
+	hi Visual ctermbg=DarkGray
+	hi Search ctermbg=LightYellow
+	hi Search ctermfg=Red
 
 endif      

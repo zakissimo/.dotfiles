@@ -224,6 +224,7 @@ floating_layout = layout.Floating(
         {'wmclass': 'splash'},
         {'wmclass': 'toolbar'},
         {'wmclass': 'DBeaver'},
+        {'wmclass': 'megasync'},
         ],
 )
 auto_fullscreen = True
