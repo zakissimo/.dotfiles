@@ -108,7 +108,7 @@ keys = [
 group_names = [("", {'layout': 'max'}),
                ("", {'layout': 'tile'}),
                ("", {'layout': 'columns'}),
-               ("", {'layout': 'columns'}),
+               ("", {'layout': 'bsp'}),
                ("", {'layout': 'treetab'})]
 
 key_list = ["y", "u", "i", "o", "p"]
@@ -132,17 +132,14 @@ layouts = [
     layout.Columns(**layout_theme),
     layout.Max(**layout_theme),
     # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(**layout_theme),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
+    layout.Stack(num_stacks=2),
+    layout.Bsp(**layout_theme),
+    layout.MonadTall(**layout_theme),
+    layout.MonadWide(**layout_theme),
+    layout.RatioTile(),
     layout.Tile(**layout_theme),
     layout.TreeTab(),
     layout.Floating(**layout_theme),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
 ]
 
 widget_defaults = dict(
