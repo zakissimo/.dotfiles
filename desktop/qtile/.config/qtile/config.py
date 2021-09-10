@@ -49,6 +49,15 @@ load_colors(cache)
 
 
 keys = [
+    # Switch focus to specific monitor
+    Key([mod], "n",
+     lazy.to_screen(0),
+     desc='Keyboard focus to monitor 1'
+     ),
+    Key([mod], ",",
+     lazy.to_screen(1),
+     desc='Keyboard focus to monitor 2'
+     ),
     # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -181,7 +190,6 @@ screens = [
                 #     name_transform=lambda name: name.upper(),
                 # ),
                 widget.Systray(),
-                widget.BatteryIcon(padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=15),
                 widget.Clock(foreground=colors[7], format="%H:%M", padding=9),
