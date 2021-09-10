@@ -28,9 +28,8 @@ else
 	" ordinary neovim
 	call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'lilydjwg/colorizer'
     Plug 'vim-airline/vim-airline'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/nvim-compe'
     Plug 'vim-airline/vim-airline-themes'
 
 	call plug#end()

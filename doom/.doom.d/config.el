@@ -29,6 +29,11 @@
 (global-unset-key (kbd "M-SPC"))
 (global-set-key (kbd "M-SPC") 'toggle-input-method)
 
+(define-key global-map (kbd "C-h") 'windmove-left)
+(define-key global-map (kbd "C-l") 'windmove-right)
+(define-key global-map (kbd "C-j") 'windmove-down)
+(define-key global-map (kbd "C-k") 'windmove-up)
+
 ;; + `doom-font'
 ;; + `doom-variable-pitch-font'
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
