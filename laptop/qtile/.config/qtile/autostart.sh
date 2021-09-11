@@ -15,4 +15,4 @@ picom -b
 megasync &
 #network manager & bluetooth
 nm-applet &
-blueman-applet &
+blueberry-tray &
