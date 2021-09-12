@@ -61,7 +61,7 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 1 sset Master 1- unmute")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 1 sset Master 1+ unmute")),
-    Key([mod, "shift"], "f", lazy.window.toggle_floating()),
+    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
     Key([mod], "f", lazy.window.toggle_fullscreen()),
 ]
 
@@ -106,7 +106,6 @@ layouts = [
     layout.Max(**layout_theme),
     layout.Tile(**layout_theme),
     layout.Columns(**layout_theme),
-    layout.Floating(**layout_theme),
 ]
 
 widget_defaults = dict(
@@ -168,7 +167,7 @@ cursor_warp = False
 floating_layout = layout.Floating(
         border_width=3,
         margin=5,
-        border_focus=colors[6],
+        border_focus="#808080",
         border_normal=colors[0],
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
