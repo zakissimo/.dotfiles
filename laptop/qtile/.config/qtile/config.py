@@ -1,29 +1,35 @@
-
-from typing import List  # noqa: F401
 import os
 import socket
 import subprocess
+from typing import List  # noqa: F401
+from libqtile.lazy import lazy
+from libqtile.widget import backlight
+from libqtile.utils import guess_terminal
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
-from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from libqtile.widget import backlight
 
 mod = "mod4"
+mod1 = "alt"
+mod2 = "control"
 terminal = guess_terminal() 
+home = os.path.expanduser('~')
 
 colors = []
 cache='/home/zak/.cache/wal/colors'
+
 def load_colors(cache):
     with open(cache, 'r') as file:
         for i in range(8):
             colors.append(file.readline().strip())
+
     colors.append('#ffffff')
     lazy.reload()
+
 load_colors(cache)
 
 
 keys = [
+
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -59,45 +65,58 @@ keys = [
     Key([mod], "f", lazy.window.toggle_fullscreen()),
 ]
 
-group_names = [("", {'layout': 'max'}),
-               ("", {'layout': 'tile'}),
-               ("", {'layout': 'columns'}),
-               ("", {'layout': 'bsp'}),
-               ("", {'layout': 'treetab'})]
+groups = []
 
-key_list = ["y", "u", "i", "o", "p"]
+group_names = ["y", "u", "i", "o", "p"]
 
-groups = [Group(name, **kwargs) for name, kwargs in group_names]
+group_labels = ["", "", "", "", ""]
 
-for i, (name, kwargs) in zip(key_list, group_names):
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name)))
+group_layouts = ["max", "tile", "columns", "bsp", "bsp"]
 
+for i in range(len(group_names)):
+    groups.append(
+        Group(
+            name=group_names[i],
+            layout=group_layouts[i].lower(),
+            label=group_labels[i],
+        ))
+
+for i in groups:
+    keys.extend([
+
+# CHANGE WORKSPACES
+        Key([mod], i.name, lazy.group[i.name].toscreen()),
+        Key([mod], "Tab", lazy.screen.next_group()),
+        Key([mod, "shift" ], "Tab", lazy.screen.prev_group()),
+
+# MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
+    ])
 
 ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {
-        "border_width": 3,
         "margin": 7,
+        "border_width": 2,
         "border_focus": "#808080",
-        "border_normal": "#101010"
-}
+        "border_normal": colors[0]
+        }
 
 layouts = [
-    layout.Columns(**layout_theme),
+    layout.Bsp(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Stack(num_stacks=2),
     layout.Tile(**layout_theme),
-    layout.TreeTab(),
+    layout.Columns(**layout_theme),
     layout.Floating(**layout_theme),
 ]
 
 widget_defaults = dict(
     font="Lobster",
     fontsize=17,
-    padding=3,
-    foreground=colors[6]
+    padding=5,
+    foreground=colors[4]
 )
-extension_defaults = widget_defaults.copy()
+
+# extension_defaults = widget_defaults.copy()
 
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -106,10 +125,12 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(
+                    font = "FontAwesome",
+                    fontsize = 15,
                     inactive=colors[1], 
                     active=colors[7],
-                    highlight_color = colors[0],
                     highlight_method = "line",
+                    this_current_screen_border = colors[2]
                     ),
                 widget.Prompt(prompt = prompt),
                 widget.WindowName(),
@@ -170,7 +191,6 @@ reconfigure_screens = True
     
 @hook.subscribe.startup_once
 def start_once():
-    home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 # If things like steam games want to auto-minimize themselves when losing
