@@ -40,7 +40,7 @@ Based on Arabic table in X Keyboard Configuration DB.
 
 (quail-define-rules
  ("*" ?ذ)
- ("~" ?ّ)
+ ("µ" ?*)
 
  ("A" ?َ)
  ("Z" ?ً)
@@ -52,12 +52,12 @@ Based on Arabic table in X Keyboard Configuration DB.
  ("I" ?÷)
  ("O" ?×)
  ("P" ?؛)
- ("^" ?<)
- ("$" ?>)
+ ("¨" ?<)
+ ("£" ?>)
 
  ("Q" ?ِ)
  ("S" ?ٍ)
- ("D" ?\])
+ ("D" ?ّ)
  ("F" ?\[)
  ("G" ["لأ"])
  ("H" ?أ)
@@ -71,10 +71,10 @@ Based on Arabic table in X Keyboard Configuration DB.
  ("V" ?{)
  ("B" ["لآ"])
  ("N" ?آ)
- ("?" ?')
- ("." ?,)
- ("/" ?.)
- ("\" ?؟)
+ ("\\" ?!)
+ ("/" ?:)
+ ("." ?.)
+ ("?" ?؟)
 
  ("a" ?ض)
  ("z" ?ص)

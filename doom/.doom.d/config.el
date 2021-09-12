@@ -6,13 +6,14 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "John Doe"
-      user-mail-address "john@doe.com")
+;;(setq user-full-name "John Doe"
+;;      user-mail-address "john@doe.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 133)
+(setq doom-font (font-spec :family "Cascadia Code" :size 17 :weight 'semi-light))
+;;(set-face-attribute 'default nil :font "Cascadia Code" :height 133)
 
 (set-fontset-font t 'arabic "Kawkab Mono")
     (setq face-font-rescale-alist
@@ -49,7 +50,7 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 
-(after! doom-themes
+(after! doom-theme
   (remove-hook 'doom-load-theme-hook #'doom-themes-neotree-config))
 
 ;; If you use `org' and don't want your org files in the default location below,

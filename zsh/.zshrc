@@ -103,6 +103,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias la='exa -la'
 alias e=emacs
 alias v=nvim
 alias vi=nvim
