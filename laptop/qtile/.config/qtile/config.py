@@ -13,6 +13,7 @@ mod1 = "alt"
 mod2 = "control"
 terminal = guess_terminal() 
 home = os.path.expanduser('~')
+prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 colors = []
 cache='/home/zak/.cache/wal/colors'
@@ -34,35 +35,43 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+
+    Key([mod], "f", lazy.window.toggle_fullscreen()),
+    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
+
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+
+    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"), 
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
+    Key([mod], "e", lazy.spawn("emacs"), desc="Launch Emacs"),
+
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"), 
-    Key([mod], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
-    Key([mod], "e", lazy.spawn("emacs"), desc="Launch Emacs"),
 
     # Backlight
     Key([], "XF86MonBrightnessUp", lazy.spawn("light -A 5")),
     Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 5")),
+
     # Sound
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 1 sset Master 1- unmute")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 1 sset Master 1+ unmute")),
-    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
-    Key([mod], "f", lazy.window.toggle_fullscreen()),
 ]
 
 groups = []
@@ -89,11 +98,11 @@ for i in groups:
         Key([mod], "Tab", lazy.screen.next_group()),
         Key([mod, "shift" ], "Tab", lazy.screen.prev_group()),
 
-# MOVE WINDOW TO SELECTED WORKSPACE 1-10 AND FOLLOW MOVED WINDOW TO WORKSPACE
+# MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
         Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
 
-##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
+# DEFAULT THEME SETTINGS FOR LAYOUTS
 layout_theme = {
         "margin": 7,
         "border_width": 2,
@@ -112,12 +121,8 @@ widget_defaults = dict(
     font="Lobster",
     fontsize=17,
     padding=5,
-    foreground=colors[4]
+    foreground=colors[1]
 )
-
-# extension_defaults = widget_defaults.copy()
-
-prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 screens = [
     Screen(

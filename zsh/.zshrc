@@ -106,7 +106,6 @@ fi
 alias la='exa -la'
 alias e=emacs
 alias v=nvim
-alias vi=nvim
 alias vim=nvim
 alias ls=exa
 
