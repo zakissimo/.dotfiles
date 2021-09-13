@@ -8,7 +8,7 @@
 
 #Check for yay install if not present
 
-#sudo pacman -S exa xclip xcope sxiv megasync nvim emacs starship fzf curl &
+#sudo pacman -S exa xclip xcope sxiv megasync nvim emacs starship fzf curl light &
 #yay -S picom-jonaburg-git ttf-cascadia-code ttf-sil-kawkab-mono &
 
 #git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d

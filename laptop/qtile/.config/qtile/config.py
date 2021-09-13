@@ -55,8 +55,8 @@ keys = [
     Key([mod], "e", lazy.spawn("emacs"), desc="Launch Emacs"),
 
     # Backlight
-    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 10")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 10")),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("light -A 5")),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 5")),
     # Sound
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 1 sset Master 1- unmute")),
