@@ -28,10 +28,15 @@ else
 	" ordinary neovim
 	call plug#begin('~/.config/nvim/plugged')
 
-    Plug 'preservim/nerdtree'
-    Plug 'lilydjwg/colorizer'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
+	Plug 'junegunn/fzf.vim'  
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'preservim/nerdtree'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    Plug 'ryanoasis/vim-devicons' 
+	Plug 'lilydjwg/colorizer'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 	call plug#end()
 	
@@ -80,6 +85,18 @@ else
     nnoremap <M-k>    :resize +2<CR>
     nnoremap <M-h>    :vertical resize -2<CR>
     nnoremap <M-l>    :vertical resize +2<CR>
+
+    " File navigation and stuff
+    nmap <leader>gd <Plug>(coc-definition) 
+    nmap <leader>gr <Plug>(coc-references) 
+    nnoremap <C-b> :NERDTreeToggle<CR>
+    
+    " Exit Vim if NERDTree is the only window remaining in the only tab.
+    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+    " if another buffer tries to replace nerdtree, put it in the other window, and bring back nerdtree.
+    autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+        \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
     " Better tabbing
     vnoremap < <gv
