@@ -120,7 +120,7 @@ layouts = [
 widget_defaults = dict(
     font="Lobster",
     fontsize=17,
-    foreground=colors[1]
+    foreground=colors[6]
 )
 
 screens = [
@@ -130,7 +130,7 @@ screens = [
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[1], 
+                    inactive=colors[6], 
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2]
