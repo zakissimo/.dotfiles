@@ -35,7 +35,6 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "n", lazy.next_screen(), desc="Move focus next screen"),
 
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
 
@@ -121,16 +120,17 @@ layouts = [
 widget_defaults = dict(
     font="Lobster",
     fontsize=17,
-    padding=5,
-    foreground=colors[1]
+    foreground=colors[6]
 )
 
-def init_widget_list():
-    widget_list = [
+screens = [
+    Screen(
+        top=bar.Bar(
+            [
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[1], 
+                    inactive=colors[6], 
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2]
@@ -141,28 +141,13 @@ def init_widget_list():
                 widget.BatteryIcon(padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=15),
-                widget.Clock(foreground=colors[7], format="%H:%M", padding=9),
-
-            ]
-    return widget_list
-
-def init_widget_screen1():
-    return init_widget_list()
-def init_widget_screen2():
-    return init_widget_list()
-
-def init_screens():
-    screens = [
-        Screen(
-            top=bar.Bar(
-                init_widget_screen1(), size=25, background="{0}".format(colors[0])
-                init_widget_screen2(), size=25, background="{0}".format(colors[0])
-            ),
+                widget.Clock(foreground=colors[7], format="%H:%M"),
+            ],
+            # bar height
+            25, background="{0}".format(colors[0])
         ),
-    ]
-    return screens
-
-screens = init_screens()
+    ),
+]
 
 # Drag floating layouts.
 mouse = [
