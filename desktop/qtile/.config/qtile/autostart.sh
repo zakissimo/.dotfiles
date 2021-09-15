@@ -9,6 +9,8 @@ killall xcape 2>/dev/null; xcape -e 'Super_L=Escape'
 #Double layout fr/ara
 setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:shift_caps_toggle
 
+#Load correct screen positions
+xrandr --output DVI-D-0 --left-of HDMI-A-0
 #Remember last wal settings
 wal -R
 #Launch picom

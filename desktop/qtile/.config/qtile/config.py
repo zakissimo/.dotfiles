@@ -11,7 +11,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
-terminal = guess_terminal() 
+terminal = "kitty"
 home = os.path.expanduser('~')
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -27,7 +27,6 @@ def load_colors(cache):
     lazy.reload()
 
 load_colors(cache)
-
 
 keys = [
 
@@ -56,7 +55,7 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"), 
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
     Key([mod], "e", lazy.spawn("emacs"), desc="Launch Emacs"),
 
@@ -72,15 +71,30 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 1 sset Master 1- unmute")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 1 sset Master 1+ unmute")),
+
+    ### Switch focus to specific monitor
+    Key([mod], "a",
+     lazy.to_screen(0),
+     desc='Keyboard focus to monitor 1'
+     ),
+    Key([mod], "z",
+     lazy.to_screen(1),
+     desc='Keyboard focus to monitor 2'
+     ),
+    ### Switch focus of monitors
+    Key([mod], "comma",
+     lazy.next_screen(),
+     desc='Move focus to next monitor'
+     ),
 ]
 
 groups = []
 
-group_names = ["y", "u", "i", "o", "p"]
+group_names = ["y", "u", "i", "o", "p", "minus", "egrave", "underscore", "ccedilla", "agrave"]
 
-group_labels = ["", "", "", "", ""]
+group_labels = ["", "", "", "", "", "", "", "", "", ""]
 
-group_layouts = ["max", "tile", "columns", "bsp", "bsp"]
+group_layouts = ["max", "tile", "columns", "bsp", "bsp", "max", "tile", "columns", "bsp", "bsp"]
 
 for i in range(len(group_names)):
     groups.append(
@@ -90,17 +104,21 @@ for i in range(len(group_names)):
             label=group_labels[i],
         ))
 
+def go_to_group(group):
+    if group in "yuiop":
+        return 0
+    elif group in "'minus''egrave''underscore''ccedilla''agrave'":
+        return 1
+
 for i in groups:
-    keys.extend([
+   keys.extend([
 
 # CHANGE WORKSPACES
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
-        Key([mod], "Tab", lazy.screen.next_group()),
-        Key([mod, "shift" ], "Tab", lazy.screen.prev_group()),
+       Key([mod], i.name, lazy.group[i.name].toscreen(go_to_group(i.name)), lazy.to_screen(go_to_group(i.name))),
 
 # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
-    ])
+       Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.to_screen(go_to_group(i.name)), lazy.group[i.name].toscreen(go_to_group(i.name))),
+   ])
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
 layout_theme = {
@@ -123,31 +141,58 @@ widget_defaults = dict(
     foreground=colors[6]
 )
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
+extension_defaults = widget_defaults.copy()
+
+def init_widgets_list():
+    widgets_list = [
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
                     inactive=colors[6], 
                     active=colors[7],
                     highlight_method = "line",
-                    this_current_screen_border = colors[2]
+                    this_current_screen_border = colors[2],
+                    visible_groups=['y', "u", "i", "o", "p"]
+                    ),
+                widget.GroupBox(
+                    font = "FontAwesome",
+                    fontsize = 15,
+                    inactive=colors[6], 
+                    active=colors[7],
+                    highlight_method = "line",
+                    this_current_screen_border = colors[2],
+                    visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"]
                     ),
                 widget.Prompt(prompt = prompt),
                 widget.WindowName(),
                 widget.Systray(),
-                widget.BatteryIcon(padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=15),
-                widget.Clock(foreground=colors[7], format="%H:%M"),
-            ],
-            # bar height
-            25, background="{0}".format(colors[0])
-        ),
-    ),
-]
+                widget.Clock(foreground=colors[7], format="%H:%M")
+            ]
+        
+    return widgets_list
+
+def init_widgets_screen1():
+    widgets_screen1 = init_widgets_list()
+    del widgets_screen1[1]
+    return widgets_screen1
+
+def init_widgets_screen2():
+    widgets_screen2 = init_widgets_list()
+    del widgets_screen2[0]
+    del widgets_screen2[3:7]               # Slicing removes unwanted widgets (systray) on Monitors 2
+    return widgets_screen2                 
+
+def init_screens():
+    return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=25)),
+            Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=25))]
+
+if __name__ in ["config", "__main__"]:
+    screens = init_screens()
+    widgets_list = init_widgets_list()
+    widgets_screen1 = init_widgets_screen1()
+    widgets_screen2 = init_widgets_screen2()
 
 # Drag floating layouts.
 mouse = [
