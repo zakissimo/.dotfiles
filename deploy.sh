@@ -9,7 +9,7 @@
 #Check for yay install if not present
 
 #sudo pacman -S kitty exa xclip xcape stow sxiv megasync nvim emacs starship fzf curl light &
-#yay -S picom-jonaburg-git ttf-cascadia-code ttf-sil-kawkab-mono &
+#yay -S picom-jonaburg-git ttf-cascadia-code ttf-sil-kawkab-mono ttf-impallari-lobster-font &
 
 #git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 #~/.emacs.d/bin/doom install
@@ -24,3 +24,7 @@
 #       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 #sudo pacman -Syu 
+
+#git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+#git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+#git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z

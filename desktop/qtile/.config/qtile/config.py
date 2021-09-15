@@ -114,10 +114,10 @@ for i in groups:
    keys.extend([
 
 # CHANGE WORKSPACES
-       Key([mod], i.name, lazy.group[i.name].toscreen(go_to_group(i.name)), lazy.to_screen(go_to_group(i.name))),
+       Key([mod], i.name, lazy.to_screen(go_to_group(i.name)), lazy.group[i.name].toscreen(go_to_group(i.name), toggle=False)),
 
 # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
-       Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.to_screen(go_to_group(i.name)), lazy.group[i.name].toscreen(go_to_group(i.name))),
+       Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.to_screen(go_to_group(i.name)), lazy.group[i.name].toscreen(go_to_group(i.name), toggle=False)),
    ])
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
