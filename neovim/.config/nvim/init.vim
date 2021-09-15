@@ -42,12 +42,12 @@ else
 	
 	syntax enable                           " Enables syntax highlighing
 
-	set hidden                              " Required to keep multiple buffers open multiple buffers
+	set hidden                              " Required to keep multiple buffers open
 	set encoding=utf-8                      " The encoding displayed
 	set fileencoding=utf-8                  " The encoding written to file
 	set pumheight=10                        " Makes popup menu smaller
 	set cmdheight=1                         " More space for displaying messages
-	set iskeyword+=-                      	" treat dash separated words as a word text object"
+	set iskeyword+=-                      	" treat dash separated words as a word text object
 	set mouse=a                             " Enable your mouse
 	set splitbelow                          " Horizontal splits will automatically be below
 	set splitright                          " Vertical splits will automatically be to the right
