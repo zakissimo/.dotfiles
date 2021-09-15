@@ -43,6 +43,7 @@ else
 	syntax enable                           " Enables syntax highlighing
 
 	set hidden                              " Required to keep multiple buffers open
+    set nofoldenable
 	set encoding=utf-8                      " The encoding displayed
 	set fileencoding=utf-8                  " The encoding written to file
 	set pumheight=10                        " Makes popup menu smaller
