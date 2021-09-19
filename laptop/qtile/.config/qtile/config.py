@@ -11,7 +11,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
-terminal = guess_terminal() 
+terminal = "kitty" 
 home = os.path.expanduser('~')
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
@@ -56,7 +56,7 @@ keys = [
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"), 
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
     Key([mod], "e", lazy.spawn("emacs"), desc="Launch Emacs"),
 
