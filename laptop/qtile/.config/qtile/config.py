@@ -11,7 +11,11 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
+<<<<<<< HEAD
 terminal = "kitty"
+=======
+terminal = "kitty" 
+>>>>>>> c68e079ce99fd4660cd3a49efeb20a69166fe55e
 home = os.path.expanduser('~')
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
