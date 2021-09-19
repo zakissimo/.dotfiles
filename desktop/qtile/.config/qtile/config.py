@@ -104,20 +104,20 @@ for i in range(len(group_names)):
             label=group_labels[i],
         ))
 
-def go_to_group(group):
-    if group in "yuiop":
+def go_to_sreen(s):
+    if s in "yuiop":
         return 0
-    elif group in "'minus''egrave''underscore''ccedilla''agrave'":
+    elif s in "'minus''egrave''underscore''ccedilla''agrave'":
         return 1
 
 for i in groups:
    keys.extend([
 
 # CHANGE WORKSPACES
-       Key([mod], i.name, lazy.to_screen(go_to_group(i.name)), lazy.group[i.name].toscreen(go_to_group(i.name), toggle=False)),
+       Key([mod], i.name, lazy.to_screen(go_to_sreen(i.name)), lazy.group[i.name].toscreen(go_to_sreen(i.name), toggle=False)),
 
 # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
-       Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.to_screen(go_to_group(i.name)), lazy.group[i.name].toscreen(go_to_group(i.name), toggle=False)),
+       Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.to_screen(go_to_sreen(i.name)), lazy.group[i.name].toscreen(go_to_sreen(i.name), toggle=False)),
    ])
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
@@ -137,18 +137,16 @@ layouts = [
 
 widget_defaults = dict(
     font="Lobster",
-    fontsize=17,
-    foreground=colors[6]
+    fontsize=15,
+    foreground=colors[1]
 )
-
-extension_defaults = widget_defaults.copy()
 
 def init_widgets_list():
     widgets_list = [
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[6], 
+                    inactive=colors[1], 
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2],
@@ -157,7 +155,7 @@ def init_widgets_list():
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[6], 
+                    inactive=colors[1], 
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2],
@@ -181,7 +179,7 @@ def init_widgets_screen1():
 def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
     del widgets_screen2[0]
-    del widgets_screen2[3:7]               # Slicing removes unwanted widgets (systray) on Monitors 2
+    del widgets_screen2[3:]               # Slicing removes unwanted widgets (systray) on Monitor 2
     return widgets_screen2                 
 
 def init_screens():

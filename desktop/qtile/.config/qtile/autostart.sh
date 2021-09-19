@@ -7,7 +7,7 @@ setxkbmap -option caps:super
 #Acts as escape when pressed once
 killall xcape 2>/dev/null; xcape -e 'Super_L=Escape'
 #Double layout fr/ara
-setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:shift_caps_toggle
+setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:alt_shift_toggle
 
 #Load correct screen positions
 xrandr --output DVI-D-0 --left-of HDMI-A-0
