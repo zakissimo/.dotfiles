@@ -17,6 +17,5 @@ wal -R
 picom -b
 #Cloud
 megasync &
-#network manager & bluetooth
+#network manager
 nm-applet &
-blueberry-tray &

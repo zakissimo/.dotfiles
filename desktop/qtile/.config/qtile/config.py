@@ -63,10 +63,6 @@ keys = [
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
 
-    # Backlight
-    Key([], "XF86MonBrightnessUp", lazy.spawn("light -A 5")),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("light -U 5")),
-
     # Sound
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 1 sset Master 1- unmute")),
