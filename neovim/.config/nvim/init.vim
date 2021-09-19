@@ -42,6 +42,7 @@ else
 	
 	syntax enable                           " Enables syntax highlighing
 
+    set nohlsearch
 	set hidden                              " Required to keep multiple buffers open
     set nofoldenable
 	set encoding=utf-8                      " The encoding displayed
@@ -53,7 +54,6 @@ else
 	set splitbelow                          " Horizontal splits will automatically be below
 	set splitright                          " Vertical splits will automatically be to the right
 	set number relativenumber
-	set hlsearch
 	set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 	set tabstop=4
 	set softtabstop=4
