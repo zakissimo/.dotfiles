@@ -12,7 +12,11 @@ mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 <<<<<<< HEAD
+<<<<<<< HEAD
 terminal = "kitty"
+=======
+terminal = "kitty" 
+>>>>>>> c68e079ce99fd4660cd3a49efeb20a69166fe55e
 =======
 terminal = "kitty" 
 >>>>>>> c68e079ce99fd4660cd3a49efeb20a69166fe55e
