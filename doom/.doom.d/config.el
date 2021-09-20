@@ -3,7 +3,17 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+;; this controls the color of bold, italic, underline, verbatim, strikethrough
+(setq org-emphasis-alist
+  '(("*" (bold :background "dark grey" :foreground "black" ))
+    ("/" (italic :background "sky blue" :foreground "black" ))
+    ("_" (underline))
+    ("=" (:background "dark salmon" :foreground "black" ))
+    ("~" (:background "DarkGreen" :foreground "white" ))
+    ("+" (:strike-through nil :background "firebrick" :foreground "black" ))))
+(setq org-hide-emphasis-markers t) 
 
+;; hides the emphasis markers
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 ;;(setq user-full-name "John Doe"
