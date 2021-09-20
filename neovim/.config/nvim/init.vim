@@ -28,6 +28,7 @@ else
 	" ordinary neovim
 	call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'vim-python/python-syntax'
 	Plug 'junegunn/fzf.vim'  
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'preservim/nerdtree'
@@ -37,6 +38,7 @@ else
 	Plug 'lilydjwg/colorizer'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 	call plug#end()
 	
@@ -66,6 +68,7 @@ else
 	set autochdir                           " Your working directory will always be the same as your worki
         
 	let g:airline_theme='minimalist'
+    let g:python_highlight_all = 1
 
     " Code runner
 	map <leader>n :w<CR>:!python3 %<CR>
