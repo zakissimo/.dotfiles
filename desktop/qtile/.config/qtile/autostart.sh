@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Faster cursor
 xset r rate 300 50
@@ -19,3 +19,4 @@ picom -b
 megasync &
 #network manager
 nm-applet &
+

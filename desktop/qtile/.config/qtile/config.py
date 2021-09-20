@@ -3,8 +3,10 @@ import socket
 import subprocess
 from typing import List  # noqa: F401
 from libqtile.lazy import lazy
+from libqtile.widget import backlight
+from libqtile.utils import guess_terminal
 from libqtile import bar, layout, widget, hook
-from libqtile.config import Click, Drag, Group, Key, Screen
+from libqtile.config import Click, Drag, Group, Key, Match, Screen
 
 mod = "mod4"
 mod1 = "alt"
@@ -39,7 +41,7 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-
+    
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
@@ -52,7 +54,7 @@ keys = [
     Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"), 
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
     Key([mod], "e", lazy.spawn("emacs"), desc="Launch Emacs"),
@@ -140,7 +142,7 @@ def init_widgets_list():
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[1],
+                    inactive=colors[1], 
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2],
@@ -149,7 +151,7 @@ def init_widgets_list():
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[1],
+                    inactive=colors[1], 
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2],
@@ -162,7 +164,7 @@ def init_widgets_list():
                 widget.Volume(fontsize=15),
                 widget.Clock(foreground=colors[7], format="%H:%M")
             ]
-
+        
     return widgets_list
 
 def init_widgets_screen1():
@@ -174,7 +176,7 @@ def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
     del widgets_screen2[0]
     del widgets_screen2[3:]               # Slicing removes unwanted widgets (systray) on Monitor 2
-    return widgets_screen2
+    return widgets_screen2                 
 
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=25)),
@@ -228,7 +230,7 @@ floating_layout = layout.Floating(
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
-
+    
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
