@@ -2,7 +2,7 @@ import os
 import socket
 import subprocess
 from typing import List  # noqa: F401
-from libqtile.lazy import lazy
+from libqtile.command import lazy
 from libqtile.widget import backlight
 from libqtile.utils import guess_terminal
 from libqtile import bar, layout, widget, hook
@@ -27,6 +27,19 @@ def load_colors(cache):
     lazy.reload()
 
 load_colors(cache)
+
+
+@lazy.function
+def window_to_prev_group(qtile):
+    if qtile.currentWindow is not None:
+        i = qtile.groups.index(qtile.currentGroup)
+        qtile.currentWindow.togroup(qtile.groups[i - 1].name)
+
+@lazy.function
+def window_to_next_group(qtile):
+    if qtile.currentWindow is not None:
+        i = qtile.groups.index(qtile.currentGroup)
+        qtile.currentWindow.togroup(qtile.groups[i + 1].name)
 
 
 keys = [
@@ -184,16 +197,28 @@ floating_layout = layout.Floating(
         {'wmclass': 'toolbar'},
         {'wmclass': 'DBeaver'},
         {'wmclass': 'megasync'},
-        ],
-)
+
+],  fullscreen_border_width = 0, border_width = 0)
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-reconfigure_screens = True
-    
+
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
+@hook.subscribe.startup
+def start_always():
+    # Set the cursor to something sane in X
+    subprocess.Popen(['xsetroot', '-cursor_name', 'left_ptr'])
+
+@hook.subscribe.client_new
+def set_floating(window):
+    if (window.window.get_wm_transient_for()
+            or window.window.get_wm_type() in floating_types):
+        window.floating = True
+
+floating_types = ["notification", "toolbar", "splash", "dialog"]
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
 auto_minimize = True
