@@ -3,8 +3,6 @@ import socket
 import subprocess
 from typing import List  # noqa: F401
 from libqtile.command import lazy
-from libqtile.widget import backlight
-from libqtile.utils import guess_terminal
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 
@@ -77,9 +75,9 @@ groups = []
 
 group_names = ["y", "u", "i", "o", "p"]
 
-group_labels = ["", "", "", "", ""]
+group_labels = ["", "", "", "", ""]
 
-group_layouts = ["max", "bsp", "bsp", "bsp", "bsp"]
+group_layouts = ["max", "tile", "columns", "columns", "bsp"]
 
 for i in range(len(group_names)):
     groups.append(
@@ -96,7 +94,7 @@ for i in groups:
         Key([mod], i.name, lazy.group[i.name].toscreen(toggle=False)),
 
 # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) ,) #lazy.group[i.name].toscreen(toggle=False)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.group[i.name].toscreen(toggle=False)),
     ])
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
@@ -110,6 +108,8 @@ layout_theme = {
 layouts = [
     layout.Max(**layout_theme),
     layout.Bsp(**layout_theme),
+    layout.Tile(shift_windows=True, **layout_theme),
+    layout.Columns(**layout_theme),
 ]
 
 widget_defaults = dict(
