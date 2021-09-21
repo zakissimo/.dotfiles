@@ -3,8 +3,6 @@ import socket
 import subprocess
 from typing import List  # noqa: F401
 from libqtile.lazy import lazy
-from libqtile.widget import backlight
-from libqtile.utils import guess_terminal
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 
@@ -41,7 +39,7 @@ keys = [
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    
+
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
@@ -90,7 +88,7 @@ group_names = ["y", "u", "i", "o", "p", "minus", "egrave", "underscore", "ccedil
 
 group_labels = ["", "", "", "", "", "", "", "", "", ""]
 
-group_layouts = ["max", "tile", "columns", "bsp", "bsp", "max", "tile", "columns", "bsp", "bsp"]
+group_layouts = ["max", "tile", "columns", "columns", "bsp", "max", "tile", "columns", "columns", "bsp"]
 
 for i in range(len(group_names)):
     groups.append(
@@ -125,9 +123,9 @@ layout_theme = {
         }
 
 layouts = [
-    layout.Bsp(**layout_theme),
     layout.Max(**layout_theme),
-    layout.Tile(**layout_theme),
+    layout.Bsp(**layout_theme),
+    layout.Tile(shift_windows=True, **layout_theme),
     layout.Columns(**layout_theme),
 ]
 
@@ -164,7 +162,7 @@ def init_widgets_list():
                 widget.Volume(fontsize=15),
                 widget.Clock(foreground=colors[7], format="%H:%M")
             ]
-        
+
     return widgets_list
 
 def init_widgets_screen1():
@@ -176,11 +174,12 @@ def init_widgets_screen2():
     widgets_screen2 = init_widgets_list()
     del widgets_screen2[0]
     del widgets_screen2[3:]               # Slicing removes unwanted widgets (systray) on Monitor 2
-    return widgets_screen2                 
+    return widgets_screen2
 
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=25)),
             Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=25))]
+
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
@@ -215,22 +214,23 @@ floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
-        {'wmclass': 'confirm'},
-        {'wmclass': 'dialog'},
-        {'wmclass': 'download'},
-        {'wmclass': 'error'},
-        {'wmclass': 'file_progress'},
-        {'wmclass': 'notification'},
-        {'wmclass': 'splash'},
-        {'wmclass': 'toolbar'},
-        {'wmclass': 'DBeaver'},
-        {'wmclass': 'megasync'},
-        ],
-)
+        Match(wm_class='confirm'),
+        Match(wm_class='dialog'),
+        Match(wm_class='download'),
+        Match(wm_class='error'),
+        Match(wm_class='file_progress'),
+        Match(wm_class='notification'),
+        Match(wm_class='splash'),
+        Match(wm_class='toolbar'),
+        Match(wm_class='DBeaver'),
+        Match(wm_class='megasync'),
+
+])
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
-    
+
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
