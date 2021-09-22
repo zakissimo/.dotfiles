@@ -29,6 +29,7 @@ else
 	call plug#begin('~/.config/nvim/plugged')
 
     Plug 'vim-python/python-syntax'
+    Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 	Plug 'junegunn/fzf.vim'  
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'preservim/nerdtree'
