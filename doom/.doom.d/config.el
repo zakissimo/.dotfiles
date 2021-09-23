@@ -13,6 +13,24 @@
     ("+" (:strike-through nil :background "firebrick" :foreground "black" ))))
 (setq org-hide-emphasis-markers t) 
 
+(defun my-highlight ()
+    (highlight-regexp "(.*?)" 'dired-ignored)
+    (highlight-regexp "-" 'hi-blue-b)
+    (highlight-regexp ":" 'hi-blue-b)
+    (highlight-regexp "!=" 'hi-blue-b)
+    (highlight-regexp "->" 'hi-blue-b)
+    (highlight-regexp ":.*$" 'org-code)
+    (highlight-regexp "- .*? [:\\|(]" 'warning))
+(add-hook 'org-mode-hook 'my-highlight)
+
+(setq hi-lock-file-patterns-policy (lambda (pattern) t))
+(add-hook 'org-mode-hook 'hi-lock-mode)
+
+(defun set-bidi-env ()
+  "interactive"
+  (setq bidi-paragraph-direction 'nil))
+(add-hook 'org-mode-hook 'set-bidi-env)
+
 ;; hides the emphasis markers
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
@@ -29,11 +47,6 @@
     (setq face-font-rescale-alist
          '(
            (".*Kawkab Mono.*" . 1.0)))
-
-(defun set-bidi-env ()
-  "interactive"
-  (setq bidi-paragraph-direction 'nil))
-(add-hook 'org-mode-hook 'set-bidi-env)
 
 (setq-default default-input-method "arabic")
 
