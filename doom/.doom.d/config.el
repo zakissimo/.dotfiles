@@ -40,13 +40,12 @@
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 
-(setq doom-font (font-spec :family "Cascadia Code" :size 17 :weight 'semi-light))
-;;(set-face-attribute 'default nil :font "Cascadia Code" :height 133)
+(setq doom-font (font-spec :family "Cascadia Code" :size 15 :weight 'semi-light))
 
-(set-fontset-font t 'arabic "Kawkab Mono")
+(set-fontset-font t 'arabic "Noto Naskh Arabic")
     (setq face-font-rescale-alist
          '(
-           (".*Kawkab Mono.*" . 1.0)))
+           (".*Noto Naskh Arabic.*" . 1.7)))
 
 (setq-default default-input-method "arabic")
 
