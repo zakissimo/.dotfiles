@@ -10,7 +10,6 @@ picom -b
 nm-applet &
 #Cloud
 megasync &
-
 #Faster cursor
 xset r rate 300 50
 #Remapping caps lock to super
