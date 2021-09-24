@@ -136,7 +136,7 @@ screens = [
                 widget.BatteryIcon(padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=15),
-                widget.Clock(foreground=colors[7], format="%H:%M"),
+                widget.Clock(foreground=colors[7], format="%H:%M | %a | %d-%m"),
             ],
             # bar height
             25, background="{0}".format(colors[0])

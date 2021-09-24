@@ -98,7 +98,7 @@ for i in range(len(group_names)):
             label=group_labels[i],
         ))
 
-def go_to_sreen(s):
+def go_to_screen(s):
     if s in "yuiop":
         return 0
     elif s in "'minus''egrave''underscore''ccedilla''agrave'":
@@ -108,10 +108,10 @@ for i in groups:
    keys.extend([
 
 # CHANGE WORKSPACES
-       Key([mod], i.name, lazy.to_screen(go_to_sreen(i.name)), lazy.group[i.name].toscreen(go_to_sreen(i.name), toggle=False)),
+       Key([mod], i.name, lazy.to_screen(go_to_screen(i.name)), lazy.group[i.name].toscreen(go_to_screen(i.name), toggle=False)),
 
 # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
-       Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.to_screen(go_to_sreen(i.name)), lazy.group[i.name].toscreen(go_to_sreen(i.name), toggle=False)),
+       Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.to_screen(go_to_screen(i.name)), lazy.group[i.name].toscreen(go_to_screen(i.name), toggle=False)),
    ])
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
@@ -132,7 +132,7 @@ layouts = [
 widget_defaults = dict(
     font="Lobster",
     fontsize=15,
-    foreground=colors[1]
+    foreground=colors[2]
 )
 
 def init_widgets_list():
@@ -140,7 +140,7 @@ def init_widgets_list():
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[1], 
+                    inactive=colors[1],
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2],
@@ -160,7 +160,7 @@ def init_widgets_list():
                 widget.Systray(),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=15),
-                widget.Clock(foreground=colors[7], format="%H:%M")
+                widget.Clock(foreground=colors[7], format="%H:%M | %a | %d-%m-%Y")
             ]
 
     return widgets_list
@@ -179,7 +179,6 @@ def init_widgets_screen2():
 def init_screens():
     return [Screen(top=bar.Bar(widgets=init_widgets_screen1(), opacity=1.0, size=25)),
             Screen(top=bar.Bar(widgets=init_widgets_screen2(), opacity=1.0, size=25))]
-
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
@@ -233,7 +232,7 @@ reconfigure_screens = True
 
 @hook.subscribe.startup_once
 def start_once():
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+    subprocess.call(f'{home}/.config/qtile/autostart.sh')
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?

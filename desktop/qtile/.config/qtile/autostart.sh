@@ -3,13 +3,16 @@
 #Load correct screen positions
 xrandr --output DVI-D-0 --left-of HDMI-A-0
 #Remember last wal settings
-wal -R
+wal -R 
 #Launch picom
-picom -b
+picom -b 
 #network manager
 nm-applet &
 #Cloud
 megasync &
+
+sleep 1
+
 #Faster cursor
 xset r rate 300 50
 #Remapping caps lock to super
