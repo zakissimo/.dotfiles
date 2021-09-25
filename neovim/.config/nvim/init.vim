@@ -71,6 +71,9 @@ else
 	let g:airline_theme='minimalist'
     let g:python_highlight_all = 1
 
+    " Autoformat Pep8
+    map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR>
+
     " Code runner
 	map <leader>n :w<CR>:!python3 %<CR>
 	map <leader>b :w<CR>:!bash %<CR>
