@@ -28,3 +28,7 @@
 #git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 #git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
+
+#touch blacklist.conf
+#echo 'blacklist dw_dmac\nblacklist dw_dmac_core' > blacklist.conf
+#sudo mv blacklist.conf /etc/modprobe.d/blacklist.conf
