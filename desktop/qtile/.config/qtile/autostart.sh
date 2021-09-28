@@ -21,3 +21,10 @@ setxkbmap -option caps:super
 killall xcape 2>/dev/null; xcape -e 'Super_L=Escape'
 #Double layout fr/ara
 setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:alt_shift_toggle
+
+sleep 3
+
+#flux location & start
+l=$(curl ipinfo.io/loc | awk -F ',' '{print $1}')
+g=$(curl ipinfo.io/loc | awk -F ',' '{print $2}')
+xflux -l $l -g $g &

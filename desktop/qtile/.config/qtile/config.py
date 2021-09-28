@@ -1,6 +1,5 @@
 import os
 import socket
-import geocoder
 import subprocess
 from typing import List  # noqa: F401
 from libqtile.lazy import lazy
@@ -291,10 +290,10 @@ reconfigure_screens = True
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call(f'{home}/.config/qtile/autostart.sh')
-    g = geocoder.ip('me')
-    lat = g.latlng[0]
-    lng = g.latlng[1]
-    subprocess.call(f'xflux -l {lat} -g {lng}')
+#    g = geocoder.ip('me')
+#    lat = g.latlng[0]
+#    lng = g.latlng[1]
+#    lazy.spawn(f'xflux -l {lat} -g {lng}')
 
 
 # If things like steam games want to auto-minimize themselves when losing
