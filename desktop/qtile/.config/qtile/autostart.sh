@@ -25,6 +25,7 @@ setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:alt_s
 sleep 3
 
 #flux location & start
-l=$(curl ipinfo.io/loc | awk -F ',' '{print $1}')
-g=$(curl ipinfo.io/loc | awk -F ',' '{print $2}')
+lat_lng=$(curl ipinfo.io/loc)
+lat=$(echo $lat_lng | awk -F ',' '{print $1}')
+lng=$(echo $lat_lng | awk -F ',' '{print $2}')
 xflux -l $l -g $g &
