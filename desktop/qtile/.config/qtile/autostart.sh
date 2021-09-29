@@ -28,4 +28,4 @@ sleep 3
 lat_lng=$(curl ipinfo.io/loc)
 lat=$(echo $lat_lng | awk -F ',' '{print $1}')
 lng=$(echo $lat_lng | awk -F ',' '{print $2}')
-xflux -l $l -g $g &
+xflux -l $lat -g $lng &
