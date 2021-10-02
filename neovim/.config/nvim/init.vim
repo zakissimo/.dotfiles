@@ -10,7 +10,7 @@
             "██║██║╚██╗██║██║   ██║   
             "██║██║ ╚████║██║   ██║   
             "╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   
-            
+
 set clipboard+=unnamedplus
 	
 let mapleader =" "
@@ -28,6 +28,7 @@ else
 	" ordinary neovim
 	call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'Yggdroot/indentLine'
     Plug 'vim-python/python-syntax'
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 	Plug 'junegunn/fzf.vim'  
@@ -67,8 +68,9 @@ else
 	set updatetime=300                      " Faster completion
 	set timeoutlen=500                      " By default timeoutlen is 1000 ms
 	set autochdir                           " Your working directory will always be the same as your worki
-        
+
 	let g:airline_theme='minimalist'
+    let g:python_highlight_string_formatting = 0
     let g:python_highlight_all = 1
 
     " Autoformat Pep8
@@ -120,8 +122,29 @@ else
 
 
 	hi LineNr ctermfg=White
-	hi Visual ctermfg=Black
-	hi Visual ctermbg=DarkGray
+	hi Visual ctermfg=Black ctermbg=DarkGray
 	hi Search ctermbg=LightYellow
+    hi CocErrorSign ctermfg=White
 
-endif      
+
+    function MyCustomHighlights()
+        hi semshiLocal           guifg=#ff875f
+        hi semshiGlobal          guifg=#ffaf00
+        hi semshiImported        guifg=#ffaf00 cterm=bold gui=bold
+        hi semshiParameter       guifg=#5fafff
+        hi semshiParameterUnused guifg=#87d7ff cterm=underline gui=underline
+        hi semshiFree            guifg=#ffafd7
+        hi semshiBuiltin         guifg=#ff5fff
+        hi semshiAttribute       guifg=#00ffaf
+        hi semshiSelf            guifg=#b2b2b2
+        hi semshiUnresolved      guifg=#ffff00 cterm=underline gui=underline
+        hi semshiSelected        guifg=#ffffff guibg=#d7005f
+        hi semshiErrorSign       guifg=#ffffff guibg=#d70000
+        hi semshiErrorChar       guifg=#ffffff guibg=#d70000
+        sign define semshiError text=E> texthl=semshiErrorSign
+    endfunction
+
+    autocmd FileType python call MyCustomHighlights()
+    autocmd ColorScheme * call MyCustomHighlights()
+
+endif
