@@ -5,6 +5,7 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'Yggdroot/indentLine'
     Plug 'tpope/vim-commentary'
@@ -110,6 +111,10 @@ function MyCustomHighlights()
     hi LineNr ctermfg=DarkGray
     hi Visual ctermfg=Black ctermbg=DarkGray
     hi Search ctermbg=LightYellow
+    hi semshiGlobal          ctermfg=Blue
+    hi semshiImported        ctermfg=Blue cterm=bold gui=bold
+    hi semshiBuiltin         ctermfg=Red
+    hi semshiSelected        ctermfg=231 ctermbg=DarkRed
 endfunction
 
 call MyCustomHighlights()
