@@ -26,6 +26,6 @@ sleep 3
 
 #flux location & start
 lat_lng=$(curl ipinfo.io/loc)
-lat=$(echo $lat_lng | cut -f ',' -d 1)
-lng=$(echo $lat_lng | cut -f ',' -d 2)
+lat=$(echo $lat_lng | cut -d ',' -f 1)
+lng=$(echo $lat_lng | cut -d ',' -f 2)
 xflux -l $lat -g $lng &

@@ -54,7 +54,7 @@ let mapleader =" "
 let g:indentLine_char = '▏'
 let g:airline_theme='minimalist'
 let g:python_highlight_all = 1
-let g:python_highlight_string_formatting = 1
+let g:python_highlight_string_formatting = 0
 
 " Autoformat Pep8
 map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR>
