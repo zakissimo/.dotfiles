@@ -196,7 +196,7 @@ def init_widgets_list():
         widget.Systray(),
         widget.Volume(emoji=True),
         widget.Volume(fontsize=15),
-        widget.Clock(foreground=colors[7], format="%H:%M | %a | %d-%m")
+        widget.Clock(foreground=colors[7], format="%a | %d/%m | %H:%M")
     ]
 
     return widgets_list

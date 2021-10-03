@@ -1,6 +1,7 @@
-set clipboard+=unnamedplus
-
-let mapleader =" "
+" (_)_ __ (_) |___   _(_)_ __ ___
+" | | '_ \| | __\ \ / / | '_ ` _ \
+" | | | | | | |_ \ V /| | | | | | |
+" |_|_| |_|_|\__(_)_/ |_|_| |_| |_|
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -26,6 +27,7 @@ call plug#end()
 
 syntax enable                           " Enables syntax highlighing
 
+set clipboard=unnamedplus
 set nohlsearch
 set hidden                              " Required to keep multiple buffers open
 set nofoldenable
@@ -49,6 +51,8 @@ set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set autochdir                           " Your working directory will always be the same as your worki
 
+let mapleader =" "
+let g:indentLine_char = '▏'
 let g:airline_theme='minimalist'
 let g:python_highlight_string_formatting = 0
 let g:python_highlight_all = 1
@@ -100,12 +104,12 @@ nnoremap <C-Q> :wq!<CR>
 " <TAB>: completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
-hi LineNr ctermfg=White
-hi Visual ctermfg=Black ctermbg=DarkGray
-hi Search ctermbg=LightYellow
-hi CocErrorSign ctermfg=White
-
 function MyCustomHighlights()
+    hi CocErrorFloat ctermfg=DarkGray
+    hi Pmenu ctermfg=DarkGray ctermbg=Black
+    hi LineNr ctermfg=DarkGray
+    hi Visual ctermfg=Black ctermbg=DarkGray
+    hi Search ctermbg=LightYellow
     hi semshiLocal           guifg=#ff875f
     hi semshiGlobal          guifg=#ffaf00
     hi semshiImported        guifg=#ffaf00 cterm=bold gui=bold
@@ -122,5 +126,4 @@ function MyCustomHighlights()
     sign define semshiError text=E> texthl=semshiErrorSign
 endfunction
 
-autocmd FileType python call MyCustomHighlights()
-autocmd ColorScheme * call MyCustomHighlights()
+call MyCustomHighlights()
