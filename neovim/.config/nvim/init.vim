@@ -11,7 +11,6 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'rstacruz/vim-closer'
     Plug 'tweekmonster/startuptime.vim'
     Plug 'vim-python/python-syntax'
-    Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'preservim/nerdtree'
@@ -54,8 +53,8 @@ set autochdir                           " Your working directory will always be 
 let mapleader =" "
 let g:indentLine_char = '▏'
 let g:airline_theme='minimalist'
-let g:python_highlight_string_formatting = 0
 let g:python_highlight_all = 1
+let g:python_highlight_string_formatting = 1
 
 " Autoformat Pep8
 map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR>
@@ -105,25 +104,12 @@ nnoremap <C-Q> :wq!<CR>
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 function MyCustomHighlights()
+    hi Comment ctermfg=DarkGray
     hi CocErrorFloat ctermfg=DarkGray
     hi Pmenu ctermfg=DarkGray ctermbg=Black
     hi LineNr ctermfg=DarkGray
     hi Visual ctermfg=Black ctermbg=DarkGray
     hi Search ctermbg=LightYellow
-    hi semshiLocal           guifg=#ff875f
-    hi semshiGlobal          guifg=#ffaf00
-    hi semshiImported        guifg=#ffaf00 cterm=bold gui=bold
-    hi semshiParameter       guifg=#5fafff
-    hi semshiParameterUnused guifg=#87d7ff cterm=underline gui=underline
-    hi semshiFree            guifg=#ffafd7
-    hi semshiBuiltin         guifg=#ff5fff
-    hi semshiAttribute       guifg=#00ffaf
-    hi semshiSelf            guifg=#b2b2b2
-    hi semshiUnresolved      guifg=#ffff00 cterm=underline gui=underline
-    hi semshiSelected        guifg=#ffffff guibg=#d7005f
-    hi semshiErrorSign       guifg=#ffffff guibg=#d70000
-    hi semshiErrorChar       guifg=#ffffff guibg=#d70000
-    sign define semshiError text=E> texthl=semshiErrorSign
 endfunction
 
 call MyCustomHighlights()
