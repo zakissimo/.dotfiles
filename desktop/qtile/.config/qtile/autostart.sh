@@ -3,9 +3,9 @@
 #Load correct screen positions
 xrandr --output DVI-D-0 --left-of HDMI-A-0
 #Remember last wal settings
-wal -R 
+wal -R
 #Launch picom
-picom -b 
+picom -b
 #network manager
 nm-applet &
 #Cloud
@@ -26,6 +26,6 @@ sleep 3
 
 #flux location & start
 lat_lng=$(curl ipinfo.io/loc)
-lat=$(echo $lat_lng | awk -F ',' '{print $1}')
-lng=$(echo $lat_lng | awk -F ',' '{print $2}')
+lat=$(echo $lat_lng | cut -f ',' -d 1)
+lng=$(echo $lat_lng | cut -f ',' -d 2)
 xflux -l $lat -g $lng &

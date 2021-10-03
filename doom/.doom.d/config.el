@@ -13,8 +13,6 @@
     ("+" (:strike-through nil :background "firebrick" :foreground "black" ))))
 (setq org-hide-emphasis-markers t) 
 
-(add-hook 'org-mode-hook (lambda () (toggle-auto-completion-off)))
-
 (defun my-highlight ()
     (highlight-regexp "(.*?)" 'dired-ignored)
     (highlight-regexp "-" 'hi-blue-b)

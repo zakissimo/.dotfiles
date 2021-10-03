@@ -106,7 +106,7 @@ group_names = [
     "ccedilla",
     "agrave"]
 
-group_labels = ["", "", "", "", "", "", "", "", "", ""]
+group_labels = ["", "", "", "", "", "", "", "", "", ""]
 
 group_layouts = [
     "max",
@@ -167,7 +167,7 @@ layouts = [
 widget_defaults = dict(
     font="Lobster",
     fontsize=15,
-    foreground=colors[2]
+    foreground=colors[1]
 )
 
 
@@ -290,11 +290,6 @@ reconfigure_screens = True
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call(f'{home}/.config/qtile/autostart.sh')
-#    g = geocoder.ip('me')
-#    lat = g.latlng[0]
-#    lng = g.latlng[1]
-#    lazy.spawn(f'xflux -l {lat} -g {lng}')
-
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
