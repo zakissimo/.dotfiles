@@ -5,11 +5,11 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'Raimondi/delimitMate'
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'Yggdroot/indentLine'
     Plug 'tpope/vim-commentary'
-    Plug 'rstacruz/vim-closer'
     Plug 'tweekmonster/startuptime.vim'
     Plug 'vim-python/python-syntax'
     Plug 'junegunn/fzf.vim'
@@ -108,6 +108,7 @@ function MyCustomHighlights()
     hi Comment ctermfg=DarkGray
     hi CocErrorFloat ctermfg=DarkGray
     hi Pmenu ctermfg=DarkGray ctermbg=Black
+    hi PmenuSel ctermfg=Black ctermbg=DarkGray
     hi LineNr ctermfg=DarkGray
     hi Visual ctermfg=Black ctermbg=DarkGray
     hi Search ctermbg=LightYellow

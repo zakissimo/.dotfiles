@@ -165,8 +165,8 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Lobster",
-    fontsize=15,
+    font="Cascadia Code",
+    fontsize=13,
     foreground=colors[1]
 )
 
@@ -194,9 +194,10 @@ def init_widgets_list():
         widget.Prompt(prompt=prompt),
         widget.WindowName(),
         widget.Systray(),
+        widget.Sep(linewidth = 0, padding = 7),
         widget.Volume(emoji=True),
-        widget.Volume(fontsize=15),
-        widget.Clock(foreground=colors[7], format="%a | %d/%m | %H:%M")
+        widget.Volume(fontsize=13),
+        widget.Clock(foreground=colors[7], format="[%a | %d/%m | %H:%M]")
     ]
 
     return widgets_list
@@ -270,6 +271,7 @@ floating_layout = layout.Floating(
         # client.
         *layout.Floating.default_float_rules,
         Match(wm_class='confirm'),
+        Match(wm_class='display'),
         Match(wm_class='dialog'),
         Match(wm_class='download'),
         Match(wm_class='error'),
