@@ -113,9 +113,9 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Lobster",
-    fontsize=17,
-    foreground=colors[6]
+    font="Cascadia Code",
+    fontsize=13,
+    foreground=colors[1]
 )
 
 screens = [
@@ -125,7 +125,7 @@ screens = [
                 widget.GroupBox(
                     font = "FontAwesome",
                     fontsize = 15,
-                    inactive=colors[6], 
+                    inactive=colors[1],
                     active=colors[7],
                     highlight_method = "line",
                     this_current_screen_border = colors[2]
@@ -135,8 +135,8 @@ screens = [
                 widget.Systray(),
                 widget.BatteryIcon(padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
                 widget.Volume(emoji=True),
-                widget.Volume(fontsize=15),
-                widget.Clock(foreground=colors[7], format="%H:%M | %a | %d-%m"),
+                widget.Volume(fontsize=13),
+                widget.Clock(foreground=colors[7], format="[%a | %d/%m | %H:%M]"),
             ],
             # bar height
             25, background="{0}".format(colors[0])
@@ -172,6 +172,7 @@ floating_layout = layout.Floating(
         # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
         Match(wm_class='confirm'),
+        Match(wm_class='display'),
         Match(wm_class='dialog'),
         Match(wm_class='download'),
         Match(wm_class='error'),
