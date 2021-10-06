@@ -53,8 +53,9 @@ set autochdir                           " Your working directory will always be 
 
 let mapleader =" "
 let g:indentLine_char = '▏'
-let g:airline_theme='minimalist'
 let g:python_highlight_all = 1
+let g:airline_theme='minimalist'
+let g:strip_whitespace_on_save = 1
 let g:python_highlight_string_formatting = 0
 
 " Autoformat Pep8
