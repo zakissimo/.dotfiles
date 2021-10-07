@@ -279,7 +279,7 @@ floating_layout = layout.Floating(
         Match(wm_class='splash'),
         Match(wm_class='toolbar'),
         Match(wm_class='DBeaver'),
-        Match(wm_class='megasync'),
+        Match(wm_class='megasync')
 
     ])
 
