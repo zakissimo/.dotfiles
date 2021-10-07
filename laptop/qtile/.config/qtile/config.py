@@ -14,15 +14,18 @@ home = os.path.expanduser('~')
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 colors = []
-cache='/home/zak/.cache/wal/colors'
+cache = '/home/zak/.cache/wal/colors'
+
 
 def load_colors(cache):
     with open(cache, 'r') as file:
-        for i in range(8):
-            colors.append(file.readline().strip())
+        for line in file:
+            colors.append(line.strip())
 
-    colors.append('#ffffff')
+    colors.append('#cccccc')
+    colors.append('#565656')
     lazy.reload()
+
 
 load_colors(cache)
 
@@ -33,15 +36,20 @@ keys = [
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
 
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
+    Key([mod], "space", lazy.layout.next(),
+        desc="Move window focus to other window"),
 
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key([mod, "shift"], "h", lazy.layout.shuffle_left(),
+        desc="Move window to the left"),
+    Key([mod, "shift"], "l", lazy.layout.shuffle_right(),
+        desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
 
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key([mod, "control"], "h", lazy.layout.grow_left(),
+        desc="Grow window to the left"),
+    Key([mod, "control"], "l", lazy.layout.grow_right(),
+        desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
 
@@ -49,7 +57,8 @@ keys = [
     Key([mod, "shift"], "space", lazy.window.toggle_floating()),
 
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle between split and unsplit sides of stack"),
+    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
+        desc="Toggle between split and unsplit sides of stack"),
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
 
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
@@ -67,8 +76,10 @@ keys = [
 
     # Sound
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 1 sset Master 1- unmute")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 1 sset Master 1+ unmute")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn(
+        "amixer -c 1 sset Master 1- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn(
+        "amixer -c 1 sset Master 1+ unmute")),
 ]
 
 groups = []
@@ -90,20 +101,22 @@ for i in range(len(group_names)):
 for i in groups:
     keys.extend([
 
-# CHANGE WORKSPACES
+        # CHANGE WORKSPACES
         Key([mod], i.name, lazy.group[i.name].toscreen(toggle=False)),
 
-# MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.group[i.name].toscreen(toggle=False)),
+        # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO
+        # WORKSPACE
+        Key([mod, "shift"], i.name, lazy.window.togroup(
+            i.name), lazy.group[i.name].toscreen(toggle=False)),
     ])
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
 layout_theme = {
-        "margin": 7,
-        "border_width": 2,
-        "border_focus": "#808080",
-        "border_normal": colors[0]
-        }
+    "margin": 7,
+    "border_width": 2,
+    "border_focus": "#808080",
+    "border_normal": colors[0]
+}
 
 layouts = [
     layout.Max(**layout_theme),
@@ -123,20 +136,25 @@ screens = [
         top=bar.Bar(
             [
                 widget.GroupBox(
-                    font = "FontAwesome",
-                    fontsize = 15,
-                    inactive=colors[1],
-                    active=colors[7],
-                    highlight_method = "line",
-                    this_current_screen_border = colors[2]
-                    ),
-                widget.Prompt(prompt = prompt),
+                    font="FontAwesome",
+                    fontsize=15,
+                    inactive=colors[-1],
+                    active=colors[-2],
+                    highlight_method="line",
+                    this_current_screen_border=colors[2]
+                ),
+                widget.Prompt(prompt=prompt),
                 widget.WindowName(),
                 widget.Systray(),
-                widget.BatteryIcon(padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
+                widget.Sep(linewidth=0, padding=7),
+                widget.BatteryIcon(
+                    padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
+                widget.Sep(linewidth=0, padding=7),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=13),
-                widget.Clock(foreground=colors[7], format="[%a | %d/%m | %H:%M]"),
+                widget.Sep(linewidth=0, padding=7),
+                widget.Clock(foreground=colors[-2],
+                             format="[  %a(%d/%m) | ⌚ %H:%M ]"),
             ],
             # bar height
             25, background="{0}".format(colors[0])
@@ -153,9 +171,14 @@ mouse = [
         start=lazy.window.get_position(),
     ),
     Drag(
-        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
-    ),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+        [mod],
+        "Button3",
+        lazy.window.set_size_floating(),
+        start=lazy.window.get_size()),
+    Click(
+        [mod],
+        "Button2",
+        lazy.window.bring_to_front()),
 ]
 
 dgroups_key_binder = None
@@ -164,12 +187,13 @@ follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(
-        border_width=3,
-        margin=5,
-        border_focus="#808080",
-        border_normal=colors[0],
+    border_width=3,
+    margin=5,
+    border_focus="#808080",
+    border_normal=colors[0],
     float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
+        # Run the utility of `xprop` to see the wm class and name of an X
+        # client.
         *layout.Floating.default_float_rules,
         Match(wm_class='confirm'),
         Match(wm_class='display'),
@@ -183,14 +207,16 @@ floating_layout = layout.Floating(
         Match(wm_class='DBeaver'),
         Match(wm_class='megasync'),
 
-])
+    ])
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
+
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
+
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?

@@ -195,7 +195,7 @@ def init_widgets_list():
         widget.Prompt(prompt=prompt),
         widget.WindowName(),
         widget.Systray(),
-        widget.Sep(linewidth = 0, padding = 7),
+        widget.Sep(linewidth=0, padding=7),
         widget.Clock(foreground=colors[-2], format="[  %a(%d/%m) | ⌚ %H:%M ]"),
     ]
 
@@ -291,6 +291,7 @@ reconfigure_screens = True
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call(f'{home}/.config/qtile/autostart.sh')
+
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
