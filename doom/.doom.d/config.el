@@ -4,6 +4,8 @@
 ;; sync' after modifying this file!
 
 ;; this controls the color of bold, italic, underline, verbatim, strikethrough
+(setq company-global-modes '(not org-mode))
+
 (setq org-emphasis-alist
   '(("*" (bold :background "dark grey" :foreground "black" ))
     ("/" (italic :background "sky blue" :foreground "black" ))
@@ -11,7 +13,7 @@
     ("=" (:background "dark salmon" :foreground "black" ))
     ("~" (:background "DarkGreen" :foreground "white" ))
     ("+" (:strike-through nil :background "firebrick" :foreground "black" ))))
-(setq org-hide-emphasis-markers t) 
+(setq org-hide-emphasis-markers t)
 
 (defun my-highlight ()
     (highlight-regexp "(.*?)" 'dired-ignored)

@@ -3,8 +3,11 @@
 " | | | | | | |_ \ V /| | | | | | |
 " |_|_| |_|_|\__(_)_/ |_|_| |_| |_|
 
+
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'Raimondi/delimitMate'
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
     Plug 'ntpeters/vim-better-whitespace'
@@ -19,9 +22,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'ryanoasis/vim-devicons'
     Plug 'lilydjwg/colorizer'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -52,11 +54,20 @@ set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set autochdir                           " Your working directory will always be the same as your worki
 
 let mapleader =" "
+
 let g:indentLine_char = '▏'
 let g:python_highlight_all = 1
-let g:airline_theme='minimalist'
 let g:strip_whitespace_on_save = 1
 let g:python_highlight_string_formatting = 0
+
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
+let g:airline_theme='minimalist'
+let g:airline_powerline_fonts = 1
+
+au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
 
 " Autoformat Pep8
 map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR>

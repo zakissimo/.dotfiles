@@ -19,10 +19,11 @@ cache = '/home/zak/.cache/wal/colors'
 
 def load_colors(cache):
     with open(cache, 'r') as file:
-        for i in range(8):
-            colors.append(file.readline().strip())
+        for line in file:
+            colors.append(line.strip())
 
-    colors.append('#ffffff')
+    colors.append('#cccccc')
+    colors.append('#565656')
     lazy.reload()
 
 
@@ -176,8 +177,8 @@ def init_widgets_list():
         widget.GroupBox(
             font="FontAwesome",
             fontsize=15,
-            inactive=colors[1],
-            active=colors[7],
+            inactive=colors[-1],
+            active=colors[-2],
             highlight_method="line",
             this_current_screen_border=colors[2],
             visible_groups=['y', "u", "i", "o", "p"]
@@ -185,8 +186,8 @@ def init_widgets_list():
         widget.GroupBox(
             font="FontAwesome",
             fontsize=15,
-            inactive=colors[1],
-            active=colors[7],
+            inactive=colors[-1],
+            active=colors[-2],
             highlight_method="line",
             this_current_screen_border=colors[2],
             visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"]
@@ -195,9 +196,7 @@ def init_widgets_list():
         widget.WindowName(),
         widget.Systray(),
         widget.Sep(linewidth = 0, padding = 7),
-        widget.Volume(emoji=True),
-        widget.Volume(fontsize=13),
-        widget.Clock(foreground=colors[7], format="[%a | %d/%m | %H:%M]")
+        widget.Clock(foreground=colors[-2], format="[  %a(%d/%m) | ⌚ %H:%M ]"),
     ]
 
     return widgets_list
@@ -223,12 +222,12 @@ def init_screens():
             top=bar.Bar(
                 widgets=init_widgets_screen1(),
                 opacity=1.0,
-                size=25)),
+                size=23)),
         Screen(
             top=bar.Bar(
                 widgets=init_widgets_screen2(),
                 opacity=1.0,
-                size=25))]
+                size=23))]
 
 
 if __name__ in ["config", "__main__"]:
