@@ -152,7 +152,6 @@ screens = [
                 widget.Sep(linewidth=0, padding=7),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=13),
-                widget.Sep(linewidth=0, padding=7),
                 widget.Clock(foreground=colors[-2],
                              format="[  %a(%d/%m) | ⌚ %H:%M ]"),
             ],
