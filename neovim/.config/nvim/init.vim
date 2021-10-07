@@ -7,6 +7,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
     Plug 'vim-airline/vim-airline'
+    Plug 'neovim/nvim-lspconfig'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'Raimondi/delimitMate'
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
@@ -26,6 +27,12 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
+
+lua require'lspconfig'.pyright.setup{}
+lua require'lspconfig'.html.setup{}
+lua require'lspconfig'.cssls.setup{}
+lua require'lspconfig'.jsonls.setup{}
+lua require'lspconfig'.bashls.setup{}
 
 syntax enable                           " Enables syntax highlighing
 
