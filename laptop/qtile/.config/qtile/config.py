@@ -145,15 +145,16 @@ screens = [
                 ),
                 widget.Prompt(prompt=prompt),
                 widget.WindowName(),
+                # widget.BatteryIcon(
+                    # padding=3, theme_path='/usr/share/icons/hicolor/scalable/battery/'),
                 widget.Systray(),
-                widget.Sep(linewidth=0, padding=7),
-                widget.BatteryIcon(
-                    padding=3, theme_path='/usr/share/icons/hicolor/scalable/status/'),
-                widget.Sep(linewidth=0, padding=7),
+                widget.Battery(charge_char="", discharge_char="", empty_char="", format="[ {char} {percent:2.0%} | {hour:d}:{min:02d} ]"),
+                widget.TextBox(fmt="["),
                 widget.Volume(emoji=True),
                 widget.Volume(fontsize=13),
+                widget.TextBox(fmt="]"),
                 widget.Clock(foreground=colors[-2],
-                             format="[  %a(%d/%m) | ⌚ %H:%M ]"),
+                             format="[   %a(%d/%m) | ⌚ %H:%M ]"),
             ],
             # bar height
             25, background="{0}".format(colors[0])
