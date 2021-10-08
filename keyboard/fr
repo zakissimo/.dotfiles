@@ -27,14 +27,14 @@ xkb_symbols "basic" {
     key <AC01>	{ [         q,          Q,           at,  Greek_OMEGA ]	};
     key <AC10>	{ [         m,          M,           mu,    masculine ]	};
     key <AC11>	{ [    ugrave,    percent, dead_circumflex, dead_caron]	};
-    key <TLDE>	{ [twosuperior, asciitilde,     notsign,      notsign ]	};
+    key <TLDE>	{ [Caps_Lock, asciitilde,     notsign,      notsign ]	};
 
     key <BKSL>	{ [  asterisk,         mu,   dead_grave,   dead_breve ]	};
     key <AB01>	{ [         w,          W,      lstroke,      Lstroke ]	};
     key <AB07>	{ [     comma,   question,   dead_acute, dead_doubleacute ] };
     key <AB08>	{ [ semicolon,     period, horizconnector,   multiply ]	};
     key <AB09>	{ [     colon,      slash, periodcentered,   division ]	};
-    key <AB10>	{ [    exclam,    section, dead_belowdot, dead_abovedot ] };
+    key <AB10>	{ [    exclam,    backslash, dead_belowdot, dead_abovedot ] };
 
     include "level3(ralt_switch)"
 };
@@ -49,7 +49,7 @@ xkb_symbols "olpc" {
     key <I219>	{ [ less, greater ]	};
     key <AD11>	{ [ dead_circumflex, dead_diaeresis, notsign, dead_abovering ]	};
     key <AB08>	{ [ semicolon, period, underscore, multiply ]	};
-    key <TLDE>	{ [ twosuperior, asciitilde, VoidSymbol, VoidSymbol ]	};
+    key <TLDE>	{ [ Caps_Lock, asciitilde, VoidSymbol, VoidSymbol ]	};
 
     // Some keys only have the Shift+AltGr character printed on them (alongside
     // the unmodified one). Make such keys shift-invariant so that the printed
@@ -74,7 +74,7 @@ xkb_symbols "nodeadkeys" {
     key <AC11>	{ [    ugrave,    percent,  asciicircum,        caron ]	};
     key <BKSL>	{ [  asterisk,         mu,        grave,        breve ]	};
     key <AB07>	{ [     comma,   question,        acute,  doubleacute ]	};
-    key <AB10>	{ [    exclam,    section, dead_belowdot,    abovedot ]	};
+    key <AB10>	{ [    exclam,    backslash, dead_belowdot,    abovedot ]	};
 };
 
 
@@ -115,7 +115,7 @@ xkb_symbols "oss" {
     name[Group1]="French (alt.)";
 
     // First row
-    key <TLDE>	{ [      twosuperior,    threesuperior,          onesuperior,          dead_cedilla ] }; // ² ³ ¹ ¸
+    key <TLDE>	{ [        Caps_Lock,    threesuperior,          onesuperior,          dead_cedilla ] }; // ² ³ ¹ ¸
     key <AE01>	{ [        ampersand,                1,           dead_caron,           dead_ogonek ] }; // & 1 ˇ ̨
     key <AE02>	{ [           eacute,                2,           asciitilde,                Eacute ] }; // é 2 ~ É
     key <AE03>	{ [         quotedbl,                3,           numbersign,            dead_breve ] }; // " 3 # ˘
@@ -207,7 +207,7 @@ xkb_symbols "oss_latin9" {
     key <AB07>  { [            comma,         question,         questiondown,                period ] }; // , ? ¿ .
     key <AB08>  { [        semicolon,           period,             multiply,        periodcentered ] }; // ; . × ·
     key <AB09>  { [            colon,            slash,             division,                 slash ] }; // : / ÷ /
-    key <AB10>  { [           exclam,          section,           exclamdown,                 minus ] }; // ! § ¡ -
+    key <AB10>  { [           exclam,          backslash,           exclamdown,                 minus ] }; // ! § ¡ -
 };
 
 partial alphanumeric_keys
@@ -352,7 +352,7 @@ xkb_symbols "latin9" {
     key <AB07>	{ [           comma,        question,        questiondown                       ] };
     key <AB08>	{ [       semicolon,          period,            multiply		        ] };
     key <AB09>	{ [           colon,           slash,            division                       ] };
-    key <AB10>	{ [          exclam,         section,          exclamdown                       ] };
+    key <AB10>	{ [          exclam,         backslash,          exclamdown                       ] };
 
     // French uses a comma as decimal separator, but keyboards are labeled with a period
     // Will take effect when KP_Decimal is mapped to the locale decimal separator
@@ -430,7 +430,7 @@ xkb_symbols "bepo" {
     // Second row
     key <AD01> { [               b,            B,            bar,      brokenbar ] }; // b B | ¦
     key <AD02> { [          eacute,       Eacute,     dead_acute, dead_doubleacute ] }; // é É ˊ ˝
-    key <AD03> { [               p,            P,      ampersand,        section ] }; // p P & §
+    key <AD03> { [               p,            P,      ampersand,        backslash ] }; // p P & §
     key <AD04> { [               o,            O,             oe,             OE ] }; // o O œ Œ
     key <AD05> { [          egrave,       Egrave,     dead_grave,          grave ] }; // è È ` `
     key <AD06> { [ dead_circumflex,       exclam,     exclamdown                 ] }; // ^ ! ¡
@@ -561,7 +561,7 @@ xkb_symbols "bepo_afnor" {
 
 	key <AD01> { type[group1] = "FOUR_LEVEL_SEMIALPHABETIC", [ b, B, bar, underscore ] }; // b B | _
 	key <AD02> { type[group1] = "FOUR_LEVEL_SEMIALPHABETIC", [ eacute, Eacute, dead_acute, heart ] }; // é É ´ ♥
-	key <AD03> { type[group1] = "FOUR_LEVEL_SEMIALPHABETIC", [ p, P, ampersand, section ] }; // p P & §
+	key <AD03> { type[group1] = "FOUR_LEVEL_SEMIALPHABETIC", [ p, P, ampersand, backslash ] }; // p P & §
 	key <AD04> { type[group1] = "FOUR_LEVEL_ALPHABETIC", [ o, O, oe, OE ] }; // o O œ Œ
 	key <AD05> { type[group1] = "FOUR_LEVEL_SEMIALPHABETIC", [ egrave, Egrave, dead_grave, grave ] }; // è È ` `
 	key <AD06> { type[group1] = "FOUR_LEVEL", [ dead_circumflex, exclam, exclamdown, U2620 ] }; // ^ ! ¡ ☠
@@ -700,7 +700,7 @@ xkb_symbols "dvorak" {
   key <AB06> { [                x,                X                                    ] };
   key <AB07> { [                r,                R,       masculine                   ] };
   key <AB08> { [                l,                L                                    ] };
-  key <AB09> { [                p,                P,         section                   ] };
+  key <AB09> { [                p,                P,         backslash                   ] };
   key <AB10> { [                j,                J                                    ] };
 
   key <SPCE> { [            space,            space,    nobreakspace,     nobreakspace ] };
@@ -797,7 +797,7 @@ xkb_symbols "bre" {
  // key <AB07> { [      digraph_ch,     digraph_Ch,      digraph_CH,  Greek_omicron ] };
     key <AB07> { [           UF8FA,          UF8FB,           UF8FC,  Greek_omicron ] };
     key <AB08> { [          ntilde,         Ntilde                                  ] };
-    key <AB09> { [          period,          colon,         section,      copyright ] };
+    key <AB09> { [          period,          colon,         backslash,      copyright ] };
     key <AB10> { [           comma,      semicolon,         percent                 ] };
 
     key <SPCE> { [           space,   nobreakspace,           space,   nobreakspace ] };
@@ -890,8 +890,8 @@ xkb_symbols "mac" {
     key <AE03> {	[    quotedbl,    3,   VoidSymbol,    VoidSymbol	] 	}; // CHECK all quotemarks
     key <AE04> {	[  apostrophe,    4,   VoidSymbol,    VoidSymbol	] 	};
     key <AE05> {	[   parenleft,    5,    braceleft,   bracketleft	]	};
- // CHECK section
-    key <AE06> {	[     section,    6,    paragraph,         aring	]	};
+ // CHECK backslash
+    key <AE06> {	[     backslash,    6,    paragraph,         aring	]	};
     key <AE07> {	[      egrave,    7, guillemotleft, guillemotright	]	};
     key <AE08> {	[      exclam,    8,   exclamdown,   Ucircumflex	]	};
     key <AE09> {	[    ccedilla,    9,     Ccedilla,        Aacute	]	};
@@ -1081,7 +1081,7 @@ xkb_symbols "azerty" {
 //  ¯¯¯¯¯¯ ¯¯¯¯¯¯ ¯¯¯¯¯¯ ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯ ¯¯¯¯¯¯¯ ¯¯¯¯¯¯ ¯¯¯¯¯ ¯¯¯¯¯¯
 
     // First row
-    key <TLDE>	{ [	twosuperior 						] };
+    key <TLDE>	{ [	Caps_Lock 						] };
     key <AE01>	{ [	ampersand,	1 					] };
     key <AE02> { [	eacute,		2,		asciitilde	 	] };
     key <AE03>	{ [	quotedbl,	3,		numbersign		] };
@@ -1134,7 +1134,7 @@ xkb_symbols "azerty" {
     key <AB07>	{ [	comma,		question				] };
     key <AB08>	{ [ 	semicolon,	period					] };
     key <AB09>	{ [ 	colon,		slash					] };
-    key <AB10>	{ [	exclam,		section					] };
+    key <AB10>	{ [	exclam,		backslash					] };
 };
 
 // US keyboard made French (with dead keys, alternative)
@@ -1234,7 +1234,7 @@ xkb_symbols "afnor" {
 
      // First row
      key <TLDE> { [                  at,      numbersign,               dead_breve,   dead_invertedbreve ] }; // @ # ̑  ̆̆̆  //
-     key <AE01> { [              agrave,               1,                  section,               Agrave ] }; // à 1 § À
+     key <AE01> { [              agrave,               1,                  backslash,               Agrave ] }; // à 1 § À
      key <AE02> { [              eacute,               2,               dead_acute,               Eacute ] }; // é 2  ́ É
      key <AE03> { [              egrave,               3,               dead_grave,               Egrave ] }; // è 3  ̀ È
      key <AE04> { [         ecircumflex,               4,                ampersand,          Ecircumflex ] }; // ê 4 & Ê
