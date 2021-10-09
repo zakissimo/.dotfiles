@@ -80,8 +80,8 @@ source $ZSH/oh-my-zsh.sh
 set -o vi
 
 # User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
