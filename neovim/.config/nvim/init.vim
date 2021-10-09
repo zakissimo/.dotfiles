@@ -6,6 +6,7 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
     Plug 'vim-airline/vim-airline'
     Plug 'neovim/nvim-lspconfig'
     Plug 'vim-airline/vim-airline-themes'
