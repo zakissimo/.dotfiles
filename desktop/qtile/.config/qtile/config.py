@@ -177,6 +177,9 @@ def kekdate():
 def kektime():
     return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kektime.sh")))[2:-3]
 
+def kekvolume():
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekvolume.sh")))[2:-3]
+
 def init_widgets_list():
     widgets_list = [
         widget.GroupBox(
@@ -199,6 +202,9 @@ def init_widgets_list():
         ),
         widget.Prompt(prompt=prompt),
         widget.WindowName(foreground=colors[1]),
+        widget.TextBox("〱", padding=0, font="FontAwesome", fontsize=13),
+        widget.Volume(emoji=True),
+        widget.Volume(),
         widget.TextBox("〱", padding=0, font="FontAwesome", fontsize=13),
         widget.TextBox("📆", padding=5, font="FontAwesome", fontsize=13),
         widget.GenPollText(update_interval=1, padding=0, func=kekdate),
