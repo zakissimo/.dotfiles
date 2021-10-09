@@ -172,6 +172,8 @@ widget_defaults = dict(
     foreground=colors[1]
 )
 
+def kekdate():
+    return str(subprocess.check_output(os.path.expanduser("/home/zak/kek.sh")))[2:-3]
 
 def init_widgets_list():
     widgets_list = [
@@ -198,6 +200,7 @@ def init_widgets_list():
         widget.Systray(),
         widget.Sep(linewidth=0, padding=7),
         widget.Clock(foreground=colors[-2], format="[  %a(%d/%m) | ⌚ %H:%M ]"),
+        widget.GenPollText(update_interval=1, func=kekdate)
     ]
 
     return widgets_list
