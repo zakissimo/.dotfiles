@@ -80,8 +80,9 @@ au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3
 map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR>
 
 " Code runner
+map <leader>b :w<CR>:!./%<CR>
 map <leader>n :w<CR>:!python3 %<CR>
-map <leader>b :w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>
+map <leader>v :w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>
 
 " EZ Substitute
 nnoremap S :%s///g<Left><Left><Left>

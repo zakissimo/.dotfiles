@@ -14,7 +14,7 @@ home = os.path.expanduser('~')
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 colors = []
-cache = '/home/zak/.cache/wal/colors'
+cache = f'{home}/.cache/wal/colors'
 
 
 def load_colors(c):
@@ -134,8 +134,7 @@ for i in range(len(group_names)):
 def go_to_screen(s):
     if s in "yuiop":
         return 0
-    elif s in "'minus''egrave''underscore''ccedilla''agrave'":
-        return 1
+    return 1
 
 
 for i in groups:
@@ -169,11 +168,14 @@ layouts = [
 widget_defaults = dict(
     font="Cascadia Code",
     fontsize=13,
-    foreground=colors[1]
+    foreground=colors[-2]
 )
 
 def kekdate():
-    return str(subprocess.check_output(os.path.expanduser("/home/zak/kek.sh")))[2:-3]
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekdate.sh")))[2:-3]
+
+def kektime():
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kektime.sh")))[2:-3]
 
 def init_widgets_list():
     widgets_list = [
@@ -196,11 +198,15 @@ def init_widgets_list():
             visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"]
         ),
         widget.Prompt(prompt=prompt),
-        widget.WindowName(),
+        widget.WindowName(foreground=colors[1]),
+        widget.TextBox("〱", padding=0, font="FontAwesome", fontsize=13),
+        widget.TextBox("📆", padding=5, font="FontAwesome", fontsize=13),
+        widget.GenPollText(update_interval=1, padding=0, func=kekdate),
+        widget.TextBox("〱", padding=0, font="FontAwesome", fontsize=13),
+        widget.TextBox("🕒", padding=3, font="FontAwesome", fontsize=13),
+        widget.GenPollText(update_interval=1, padding=0, func=kektime),
+        widget.TextBox("〱", padding=3, font="FontAwesome", fontsize=13),
         widget.Systray(),
-        widget.Sep(linewidth=0, padding=7),
-        widget.Clock(foreground=colors[-2], format="[  %a(%d/%m) | ⌚ %H:%M ]"),
-        widget.GenPollText(update_interval=1, func=kekdate)
     ]
 
     return widgets_list
@@ -294,7 +300,7 @@ reconfigure_screens = True
 
 @hook.subscribe.startup_once
 def start_once():
-    subprocess.call(f'{home}/.config/qtile/autostart.sh')
+    subprocess.call(f'{home}/.config/qtile/scripts/autostart.sh')
 
 
 # If things like steam games want to auto-minimize themselves when losing
