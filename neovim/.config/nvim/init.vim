@@ -6,6 +6,8 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug '2072/vim-syntax-for-PHP'
+    Plug 'StanAngeloff/php.vim'
     Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
     Plug 'vim-airline/vim-airline'
     Plug 'neovim/nvim-lspconfig'
@@ -78,12 +80,13 @@ let g:airline_powerline_fonts = 1
 au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
 
 " Autoformat Pep8
-map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR>
+map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR><CR>
 
 " Code runner
 map <leader>b :w<CR>:!./%<CR>
 map <leader>n :w<CR>:!python3 %<CR>
 map <leader>v :w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>
+map <leader>h :w<CR>:!python3 % > /tmp/a.out<CR>:split<CR>:e /tmp/a.out<CR><CR>
 
 " EZ Substitute
 nnoremap S :%s///g<Left><Left><Left>
@@ -126,6 +129,7 @@ nnoremap <C-Q> :wq!<CR>
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 function MyCustomHighlights()
+    highlight VertSplit cterm=NONE
     hi Comment ctermfg=DarkGray
     hi CocErrorFloat ctermfg=DarkGray
     hi Pmenu ctermfg=DarkGray ctermbg=Black
