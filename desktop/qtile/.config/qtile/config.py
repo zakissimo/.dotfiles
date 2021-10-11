@@ -11,6 +11,7 @@ mod1 = "alt"
 mod2 = "control"
 terminal = "kitty"
 home = os.path.expanduser('~')
+
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 colors = []
@@ -180,6 +181,9 @@ def kektime():
 def kekvolume():
     return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekvolume.sh")))[2:-3]
 
+def time4salat():
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")))[2:-3]
+
 def init_widgets_list():
     widgets_list = [
         widget.GroupBox(
@@ -204,6 +208,9 @@ def init_widgets_list():
         widget.WindowName(foreground=colors[1]),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], font="FontAwesome", fontsize=25),
         # widget.Sep(padding=5, foreground=colors[-1], linewidth=5, size_percent=100),
+        widget.TextBox("🕋", padding=0, foreground=colors[6], font="FontAwesome", fontsize=13),
+        widget.GenPollText(update_interval=60, padding=5, func=time4salat),
+        widget.TextBox("〱", padding=-5, foreground=colors[-1], font="FontAwesome", fontsize=25),
         widget.Volume(padding=-1, emoji=True, foreground=colors[6], fontsize=13),
         widget.Volume(padding=5),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], font="FontAwesome", fontsize=25),
