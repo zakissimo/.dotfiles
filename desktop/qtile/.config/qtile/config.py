@@ -180,9 +180,6 @@ def kektime():
 def kekvolume():
     return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekvolume.sh")))[2:-3]
 
-def Time4Salat():
-    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")))[2:-3]
-
 def init_widgets_list():
     widgets_list = [
         widget.GroupBox(
@@ -205,9 +202,6 @@ def init_widgets_list():
         ),
         widget.Prompt(prompt=prompt),
         widget.WindowName(foreground=colors[1]),
-        widget.TextBox("〱", padding=-5, foreground=colors[-1], font="FontAwesome", fontsize=25),
-        widget.TextBox("🕋", padding=0, foreground=colors[6], font="FontAwesome", fontsize=13),
-        widget.GenPollText(update_interval=1, padding=5, func=Time4Salat),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], font="FontAwesome", fontsize=25),
         # widget.Sep(padding=5, foreground=colors[-1], linewidth=5, size_percent=100),
         widget.Volume(padding=-1, emoji=True, foreground=colors[6], fontsize=13),
