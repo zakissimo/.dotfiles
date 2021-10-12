@@ -207,7 +207,6 @@ def init_widgets_list():
         widget.Prompt(prompt=prompt),
         widget.WindowName(foreground=colors[1]),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], font="FontAwesome", fontsize=25),
-        # widget.Sep(padding=5, foreground=colors[-1], linewidth=5, size_percent=100),
         widget.TextBox("🕋", padding=0, foreground=colors[6], font="FontAwesome", fontsize=13),
         widget.GenPollText(update_interval=60, padding=5, func=time4salat),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], font="FontAwesome", fontsize=25),

@@ -126,10 +126,22 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Cascadia Code",
+    font="Lobster",
     fontsize=13,
-    foreground=colors[1]
+    foreground=colors[-2]
 )
+
+def kekdate():
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekdate.sh")))[2:-3]
+
+def kektime():
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kektime.sh")))[2:-3]
+
+def kekvolume():
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekvolume.sh")))[2:-3]
+
+def time4salat():
+    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")))[2:-3]
 
 screens = [
     Screen(
@@ -145,16 +157,22 @@ screens = [
                 ),
                 widget.Prompt(prompt=prompt),
                 widget.WindowName(),
-                # widget.BatteryIcon(
-                    # padding=3, theme_path='/usr/share/icons/hicolor/scalable/battery/'),
+                widget.TextBox("〱", padding=-5, foreground=colors[-1], font="Noto Color Emoji", fontsize=25),
+                widget.TextBox("🕋", padding=0, foreground=colors[6], font="Noto Color Emoji", fontsize=13),
+                widget.GenPollText(update_interval=60, padding=5, func=time4salat),
+                widget.TextBox("〱", padding=-5, foreground=colors[-1], font="Noto Color Emoji", fontsize=25),
+                widget.Volume(padding=-1, emoji=True, foreground=colors[6], fontsize=13),
+                widget.Volume(padding=5),
+                widget.TextBox("〱", padding=-5, foreground=colors[-1], font="Noto Color Emoji", fontsize=25),
+                widget.TextBox("📆", padding=0, foreground=colors[6], font="Noto Color Emoji", fontsize=13),
+                widget.GenPollText(update_interval=1, padding=5, func=kekdate),
+                widget.TextBox("〱", padding=-5, foreground=colors[-1], font="Noto Color Emoji", fontsize=25),
+                widget.TextBox("🕒", padding=0, foreground=colors[6], font="Noto Color Emoji", fontsize=15),
+                widget.GenPollText(update_interval=1, padding=5, func=kektime),
+                widget.TextBox("〱", padding=-5, foreground=colors[-1], font="Noto Color Emoji", fontsize=25),
+                widget.BatteryIcon(padding=-5, theme_path='/usr/share/icons/hicolor/scalable/status/'),
                 widget.Systray(),
-                widget.Battery(charge_char="", discharge_char="", empty_char="", format="[ {char} {percent:2.0%} | {hour:d}:{min:02d} ]"),
-                widget.TextBox(fmt="["),
-                widget.Volume(emoji=True),
-                widget.Volume(fontsize=13),
-                widget.TextBox(fmt="]"),
-                widget.Clock(foreground=colors[-2],
-                             format="[   %a(%d/%m) | ⌚ %H:%M ]"),
+                # widget.Battery(charge_char="", discharge_char="", empty_char="", format="[{char}  {percent:2.0%} | {hour:d}:{min:02d}]"),
             ],
             # bar height
             25, background="{0}".format(colors[0])
@@ -215,7 +233,7 @@ focus_on_window_activation = "smart"
 
 @hook.subscribe.startup_once
 def start_once():
-    subprocess.call([home + '/.config/qtile/autostart.sh'])
+    subprocess.call(f'{home}/.config/qtile/scripts/autostart.sh')
 
 
 # If things like steam games want to auto-minimize themselves when losing
