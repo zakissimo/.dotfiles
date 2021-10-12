@@ -49,8 +49,6 @@
          '(
            (".*Noto Naskh Arabic.*" . 1.7)))
 
-(setq-default default-input-method "arabic")
-
 (global-unset-key (kbd "M-SPC"))
 (global-set-key (kbd "M-SPC") 'toggle-input-method)
 
