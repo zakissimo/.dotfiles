@@ -18,14 +18,13 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
     Plug 'preservim/nerdtree'
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'ryanoasis/vim-devicons'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'tpope/vim-commentary'
     Plug 'tweekmonster/startuptime.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'vim-python/python-syntax'
+    Plug 'ryanoasis/vim-devicons'       " Must be after vim-airline
 
 call plug#end()
 
@@ -65,14 +64,11 @@ let mapleader =" "
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme='minimalist'
+let g:airline#extensions#tabline#enabled = 1
 let g:indentLine_char = '▏'
 let g:python_highlight_all = 1
 let g:python_highlight_string_formatting = 0
 let g:strip_whitespace_on_save = 1
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_airline_statusline = 1
-let g:webdevicons_enable_airline_tabline = 1
-let g:webdevicons_enable_nerdtree = 1
 
 au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
 
