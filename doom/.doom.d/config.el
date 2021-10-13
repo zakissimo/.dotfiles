@@ -44,7 +44,7 @@
 
 (setq doom-font (font-spec :family "Cascadia Code" :size 15 :weight 'semi-light))
 
-(set-fontset-font t 'arabic "Noto Nashk Arabic")
+(set-fontset-font t 'arabic "Noto Naskh Arabic")
     (setq face-font-rescale-alist
          '(
            (".*Noto Naskh Arabic.*" . 1.7)))
