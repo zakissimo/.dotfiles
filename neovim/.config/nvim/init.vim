@@ -76,6 +76,10 @@ au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3
 map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR><CR>
 map <leader>ff :CocCommand prettier.formatFile<CR>
 
+" Fzf
+nnoremap <silent> <C-f> :Rg<CR>
+nnoremap <silent> <Leader>o :Files ~<CR>
+
 " Code runner
 map <leader>b :w<CR>:!./%<CR>
 map <leader>n :w<CR>:!python3 %<CR>

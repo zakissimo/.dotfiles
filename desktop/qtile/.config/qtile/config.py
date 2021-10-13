@@ -178,9 +178,6 @@ def kekdate():
 def kektime():
     return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kektime.sh")))[2:-3]
 
-def kekvolume():
-    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekvolume.sh")))[2:-3]
-
 def time4salat():
     return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")))[2:-3]
 
