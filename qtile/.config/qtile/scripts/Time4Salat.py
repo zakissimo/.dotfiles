@@ -48,16 +48,15 @@ def parse():
 
 def get_next_salat(now, time_string):
 
-    kek = [now.replace(hour=int(t[:-3])).replace(minute=int(t[3:])
+    time_list = [now.replace(hour=int(t[:-3])).replace(minute=int(t[3:])
                                                  ).replace(second=0).replace(microsecond=0) for t in time_string]
 
-    for t in kek:
-        # ft = t.strftime('%H:%M')
+    for t in time_list:
         delta = str(t - now)
         if str(delta)[0] != "-":
             return print(delta[:4])
 
-    return print(str(kek[0])[11:-3])
+    return print(str(time_list[0])[11:-3])
 
 
 if __name__ == "__main__":
