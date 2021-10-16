@@ -202,7 +202,7 @@ def init_widgets_list():
             visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"]
         ),
         widget.Prompt(prompt=prompt),
-        widget.WindowName(foreground=colors[1]),
+        widget.WindowName(foreground=colors[2]),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
         widget.TextBox("🕋", padding=0, foreground=colors[6], font="FontAwesome", fontsize=13),
         widget.GenPollText(update_interval=60, padding=5, func=time4salat),
