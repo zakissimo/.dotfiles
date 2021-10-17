@@ -10,33 +10,28 @@ home = os.path.expanduser('~')
 
 def get_time():
 
+    now = datetime.now()
+    today_string = now.strftime('%D')
     log_path = f"{home}/.config/qtile/scripts/Time4Salat.log"
 
     if not os.path.exists(log_path):
-        make_log(log_path)
+        make_log(log_path, today_string)
 
     with open(log_path, "r", encoding="utf8") as log_file:
 
         log_load = [l.strip() for l in log_file.readlines()]
-
         salat_time = log_load[1][1:-1].replace('"', '').replace("'", "").split(", ")
-
-        now = datetime.now()
-        today_string = now.strftime('%D')
 
         if log_load[0] == today_string:
             get_next_salat(now, salat_time)
         else:
-            make_log(log_path)
+            make_log(log_path, today_string)
             get_next_salat(now, salat_time)
 
 
-def make_log(log_path):
+def make_log(log_path, today_string):
 
     with open(log_path, "w", encoding="utf8") as log_file:
-
-        now = datetime.now()
-        today_string = now.strftime('%D')
 
         encode = today_string + "\n" + str(parse())
 
@@ -48,7 +43,7 @@ def make_log(log_path):
 def parse():
 
     url = "https://mawaqit.net/fr/gm-saint-denis"
-    # agen="https://mawaqit.net/fr/mosquee-dagen"
+    # url="https://mawaqit.net/fr/mosquee-dagen"
 
     r = requests.get(url)
     regex_data = re.findall(r'times":(.*),"womenSpace', r.text)

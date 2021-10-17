@@ -170,7 +170,7 @@ screens = [
                 widget.TextBox("🕒", padding=0, foreground=colors[6], font="FontAwesome", fontsize=15),
                 widget.GenPollText(update_interval=1, padding=5, func=kektime),
                 widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
-                widget.BatteryIcon(padding=-5, theme_path='/usr/share/icons/hicolor/scalable/status/'),
+                widget.BatteryIcon(padding=-5),
                 widget.Systray(),
                 # widget.Battery(charge_char="", discharge_char="", empty_char="", format="[{char}  {percent:2.0%} | {hour:d}:{min:02d}]"),
             ],
@@ -233,7 +233,7 @@ focus_on_window_activation = "smart"
 
 @hook.subscribe.startup_once
 def start_once():
-    subprocess.call(f'{home}/.config/qtile/scripts/autostart.sh')
+    subprocess.call(f'{home}/.config/qtile/autostart.sh')
 
 
 # If things like steam games want to auto-minimize themselves when losing
