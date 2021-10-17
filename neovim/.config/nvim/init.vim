@@ -7,6 +7,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
     Plug 'Raimondi/delimitMate'
+    Plug 'Chiel92/vim-autoformat'
     Plug 'ThePrimeagen/vim-be-good'
     Plug 'Yggdroot/indentLine'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -72,9 +73,11 @@ let g:strip_whitespace_on_save = 1
 
 au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
 
-" Autoformat Pep8
-map <leader>f :!autopep8 --in-place --aggressive --aggressive %<CR>:e<CR>:w<CR><CR>
-map <leader>ff :CocCommand prettier.formatFile<CR>
+" Vim terminal
+tnoremap <Esc> <C-\><C-n>
+
+" Autoformat
+noremap <leader>f :Autoformat<CR>
 
 " Fzf
 nnoremap <silent> <C-f> :Rg<CR>
