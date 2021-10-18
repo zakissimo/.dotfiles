@@ -3,9 +3,10 @@
 " | | | | | | |_ \ V /| | | | | | |
 " |_|_| |_|_|\__(_)_/ |_|_| |_| |_|
 
-
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'sheerun/vim-polyglot'
+    Plug 'dylanaraps/wal.vim'
     Plug 'Raimondi/delimitMate'
     Plug 'Chiel92/vim-autoformat'
     Plug 'ThePrimeagen/vim-be-good'
@@ -15,27 +16,20 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'lilydjwg/colorizer'
     Plug 'mg979/vim-visual-multi'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'neovim/nvim-lspconfig'
     Plug 'ntpeters/vim-better-whitespace'
-    Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
     Plug 'preservim/nerdtree'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
     Plug 'tpope/vim-commentary'
     Plug 'tweekmonster/startuptime.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    Plug 'vim-python/python-syntax'
     Plug 'ryanoasis/vim-devicons'       " Must be after vim-airline
 
 call plug#end()
 
-lua require'lspconfig'.bashls.setup{}
-lua require'lspconfig'.cssls.setup{}
-lua require'lspconfig'.html.setup{}
-lua require'lspconfig'.jsonls.setup{}
-lua require'lspconfig'.pyright.setup{}
-
 syntax enable                           " Enables syntax highlighing
+
+colorscheme wal
 
 set autochdir                           " Your working directory will always be the same as your worki
 set autoindent                          " Good auto indent
@@ -67,8 +61,8 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled = 1
 let g:indentLine_char = '▏'
-let g:python_highlight_all = 1
 let g:python_highlight_string_formatting = 0
+let g:python_highlight_all = 1
 let g:strip_whitespace_on_save = 1
 
 au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
@@ -133,17 +127,14 @@ function MyCustomHighlights()
     hi CocErrorFloat         ctermfg=DarkGray
     hi Comment               ctermfg=DarkGray
     hi LineNr                ctermfg=DarkGray
-    hi Pmenu                 ctermfg=DarkGray ctermbg=Black
-    hi PmenuSel              ctermfg=Black    ctermbg=DarkGray
+    hi CursorLineNr          ctermfg=DarkRed
+    hi Pmenu                 ctermfg=Black    ctermbg=DarkGray
+    hi PmenuSel              ctermfg=DarkGray    ctermbg=Black
     hi Search                                 ctermbg=LightYellow
     hi StatusLine            ctermfg=235
     hi StatusLineNC          ctermfg=235
     hi VertSplit                          cterm=NONE
-    hi Visual                ctermfg=Black    ctermbg=DarkGray
-    hi semshiBuiltin         ctermfg=Red
-    hi semshiGlobal          ctermfg=Blue
-    hi semshiImported        ctermfg=Blue cterm=bold gui=bold
-    hi semshiSelected        ctermfg=231      ctermbg=DarkRed
+    hi Visual                ctermfg=DarkGray    ctermbg=Black
 endfunction
 
 call MyCustomHighlights()
