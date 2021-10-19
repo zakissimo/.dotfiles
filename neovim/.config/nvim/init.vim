@@ -5,6 +5,7 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'junegunn/vim-easy-align'
     Plug 'sheerun/vim-polyglot'
     Plug 'dylanaraps/wal.vim'
     Plug 'Raimondi/delimitMate'
