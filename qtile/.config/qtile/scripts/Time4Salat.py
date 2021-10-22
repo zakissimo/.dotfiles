@@ -14,8 +14,9 @@ def get_time():
     today_string = now.strftime('%D')
     log_path = f"{home}/.config/qtile/scripts/Time4Salat.log"
 
-    if not os.path.exists(log_path):
+    if not os.path.exists(log_path) or not os.path.getsize(log_path):
         make_log(log_path, today_string)
+
 
     with open(log_path, "r", encoding="utf8") as log_file:
 
