@@ -68,6 +68,11 @@ let g:strip_whitespace_on_save = 1
 
 au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
 
+" Output the current syntax group
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " Vim terminal
 tnoremap <Esc> <C-\><C-n>
 
@@ -126,7 +131,8 @@ inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 function MyCustomHighlights()
     hi CocErrorFloat         ctermfg=Black
-    hi CocWarningSign        ctermbg=Black
+    hi CocHintFloat          ctermfg=Black
+    hi CocWarningFloat       ctermfg=Black
     hi Comment               ctermfg=DarkGray
     hi LineNr                ctermfg=DarkGray
     hi CursorLineNr          ctermfg=DarkRed
