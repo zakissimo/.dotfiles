@@ -125,16 +125,17 @@ nnoremap <C-Q> :wq!<CR>
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 function MyCustomHighlights()
-    hi CocErrorFloat         ctermfg=DarkGray
+    hi CocErrorFloat         ctermfg=Black
+    hi CocWarningSign        ctermbg=Black
     hi Comment               ctermfg=DarkGray
     hi LineNr                ctermfg=DarkGray
     hi CursorLineNr          ctermfg=DarkRed
     hi Pmenu                 ctermfg=Black    ctermbg=DarkGray
     hi PmenuSel              ctermfg=DarkGray    ctermbg=Black
-    hi Search                                 ctermbg=LightYellow
+    " hi Search                                 ctermbg=LightYellow
     hi StatusLine            ctermfg=235
     hi StatusLineNC          ctermfg=235
-    hi VertSplit                          cterm=NONE
+    hi VertSplit             ctermbg=NONE
     hi Visual                ctermfg=DarkGray    ctermbg=Black
 endfunction
 

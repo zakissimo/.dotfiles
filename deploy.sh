@@ -3,13 +3,13 @@
 #The goal for now is to create a dependency list
 #When I learn more about bash to make a deployment script
 
-#touch override 
+#touch override
 #echo 'zak ALL=(ALL) NOPASSWD: ALL' > override
 
 #Check for yay install if not present
 
 #sudo pacman -S kitty exa xclip xcape stow sxiv megasync nvim emacs starship fzf curl light &
-#yay -S picom-jonaburg-git ttf-cascadia-code ttf-sil-kawkab-mono ttf-impallari-lobster-font &
+#yay -S picom-jonaburg-git ttf-cascadia-code ttf-sil-kawkab-mono ttf-impallari-lobster-font ttf-joypixels &
 
 #git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 #~/.emacs.d/bin/doom install
@@ -23,7 +23,7 @@
 #sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
 #       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-#sudo pacman -Syu 
+#sudo pacman -Syu
 
 #git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 #git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
