@@ -6,6 +6,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
     Plug 'junegunn/vim-easy-align'
+    Plug 'godlygeek/tabular'
     Plug 'sheerun/vim-polyglot'
     Plug 'dylanaraps/wal.vim'
     Plug 'Raimondi/delimitMate'
@@ -39,6 +40,10 @@ set cmdheight=1                         " More space for displaying messages
 set encoding=utf-8                      " The encoding displayed
 set expandtab                           " Converts tabs to spaces
 set fileencoding=utf-8                  " The encoding written to file
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 set hidden                              " Required to keep multiple buffers open
 set iskeyword+=-                        " treat dash separated words as a word text object
 set mouse=a                             " Enable your mouse
@@ -55,6 +60,7 @@ set splitright                          " Vertical splits will automatically be 
 set tabstop=4
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set updatetime=300                      " Faster completion
+set incsearch
 
 let mapleader =" "
 
@@ -130,19 +136,19 @@ nnoremap <C-Q> :wq!<CR>
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 function MyCustomHighlights()
-    hi CocErrorFloat         ctermfg=Black
-    hi CocHintFloat          ctermfg=Black
-    hi CocWarningFloat       ctermfg=Black
-    hi Comment               ctermfg=DarkGray
-    hi LineNr                ctermfg=DarkGray
-    hi CursorLineNr          ctermfg=DarkRed
-    hi Pmenu                 ctermfg=Black    ctermbg=DarkGray
-    hi PmenuSel              ctermfg=DarkGray    ctermbg=Black
-    " hi Search                                 ctermbg=LightYellow
-    hi StatusLine            ctermfg=235
-    hi StatusLineNC          ctermfg=235
-    hi VertSplit             ctermbg=NONE
-    hi Visual                ctermfg=DarkGray    ctermbg=Black
+    hi CocErrorFloat   ctermfg=Black
+    hi CocHintFloat    ctermfg=Black
+    hi CocWarningFloat ctermfg=Black
+    hi Comment         ctermfg=DarkGray
+    hi CursorLineNr    ctermfg=DarkRed
+    hi LineNr          ctermfg=DarkGray
+    hi Pmenu           ctermfg=Black    ctermbg=DarkGray
+    hi PmenuSel        ctermfg=DarkGray ctermbg=Black
+    hi Search          ctermfg=Black    ctermbg=DarkGray
+    hi StatusLine      ctermfg=235
+    hi StatusLineNC    ctermfg=235
+    hi VertSplit                        ctermbg=NONE
+    hi Visual          ctermfg=DarkGray ctermbg=Black
 endfunction
 
 call MyCustomHighlights()
