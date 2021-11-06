@@ -64,7 +64,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
     Key([mod], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
-    Key([mod], "e", lazy.spawn("emacs"), desc="Launch Emacs"),
+    Key([mod], "e", lazy.spawn("emacsclient -c -a 'emacs'"), desc="Launch Emacs"),
 
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),

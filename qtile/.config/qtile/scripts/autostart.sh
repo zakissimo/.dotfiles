@@ -10,6 +10,8 @@ picom -b
 nm-applet &
 #Cloud
 megasync &
+#Emacs daemon (faster starting time)
+emacs --daemon &
 
 sleep 1
 

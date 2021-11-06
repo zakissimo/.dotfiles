@@ -9,6 +9,8 @@ megasync &
 #network manager & bluetooth
 nm-applet &
 blueberry-tray &
+#emacs daemon
+emacs --daemon &
 
 sleep 1
 
