@@ -9,7 +9,7 @@
 #Check for yay install if not present
 
 #sudo pacman -S kitty exa xclip xcape stow sxiv megasync nvim emacs starship fzf curl light &
-#yay -S picom-jonaburg-git ttf-cascadia-code ttf-sil-kawkab-mono ttf-impallari-lobster-font ttf-joypixels pcmanfm lxappearance &
+#yay -S picom-jonaburg-git ttf-cascadia-code ttf-sil-kawkab-mono ttf-impallari-lobster-font ttf-joypixels pcmanfm lxappearance xflux &
 
 #git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 #~/.emacs.d/bin/doom install

@@ -5,6 +5,7 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'neovim/nvim-lspconfig'
     Plug 'junegunn/vim-easy-align'
     Plug 'godlygeek/tabular'
     Plug 'sheerun/vim-polyglot'
@@ -28,6 +29,9 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'ryanoasis/vim-devicons'       " Must be after vim-airline
 
 call plug#end()
+
+lua require'lspconfig'.pyright.setup{}
+lua require'lspconfig'.bashls.setup{}
 
 syntax enable                           " Enables syntax highlighing
 
@@ -67,6 +71,7 @@ let mapleader =" "
 let g:airline_powerline_fonts = 1
 let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:indentLine_char = '▏'
 let g:python_highlight_string_formatting = 0
 let g:python_highlight_all = 1
