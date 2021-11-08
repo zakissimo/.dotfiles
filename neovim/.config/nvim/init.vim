@@ -71,6 +71,7 @@ let g:indentLine_char = '▏'
 let g:python_highlight_string_formatting = 0
 let g:python_highlight_all = 1
 let g:strip_whitespace_on_save = 1
+let g:airline_skip_empty_sections = 1
 
 au User AirlineAfterInit  :let g:airline_section_z = airline#section#create(['%3p%% %L:%3v'])
 
