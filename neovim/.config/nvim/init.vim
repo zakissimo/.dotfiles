@@ -5,7 +5,6 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
-    Plug 'neovim/nvim-lspconfig'
     Plug 'junegunn/vim-easy-align'
     Plug 'godlygeek/tabular'
     Plug 'sheerun/vim-polyglot'
@@ -29,9 +28,6 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'ryanoasis/vim-devicons'       " Must be after vim-airline
 
 call plug#end()
-
-lua require'lspconfig'.pyright.setup{}
-lua require'lspconfig'.bashls.setup{}
 
 syntax enable                           " Enables syntax highlighing
 
@@ -118,8 +114,24 @@ nnoremap <M-h>    :vertical resize -2<CR>
 nnoremap <M-l>    :vertical resize +2<CR>
 
 " File navigation and stuff
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gr <Plug>(coc-references)
+nmap <silent> gd <Plug>(coc-definition)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 nnoremap <C-b> :NERDTreeToggle<CR>
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
@@ -137,19 +149,21 @@ nnoremap <S-TAB> :bprevious<CR>
 " Alternate way to save
 nnoremap <C-s> :w<CR>
 " Alternate way to quit
-nnoremap <C-Q> :wq!<CR>
+nnoremap <C-Q> :bdelete<CR>
 " <TAB>: completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 function MyCustomHighlights()
-    hi CocErrorFloat   ctermfg=Black
-    hi CocHintFloat    ctermfg=Black
-    hi CocWarningFloat ctermfg=Black
+    hi CocFloating     ctermfg=130 ctermbg=Black
+    hi CocErrorFloat   ctermfg=130 ctermbg=Black
+    hi CocHintFloat    ctermfg=130 ctermbg=Black
+    hi CocWarningFloat ctermfg=130 ctermbg=Black
     hi Comment         ctermfg=DarkGray
     hi CursorLineNr    ctermfg=DarkRed
     hi LineNr          ctermfg=DarkGray
     hi Pmenu           ctermfg=Black    ctermbg=DarkGray
     hi PmenuSel        ctermfg=DarkGray ctermbg=Black
+    hi PmenuSbar       ctermbg=Black
     hi Search          ctermfg=Black    ctermbg=DarkGray
     hi StatusLine      ctermfg=235
     hi StatusLineNC    ctermfg=235
