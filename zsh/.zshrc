@@ -86,12 +86,8 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-#Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='code'
-fi
+#Preferred editor
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
