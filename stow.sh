@@ -10,12 +10,12 @@ plateform=("laptop" "desktop")
 select choice in "${plateform[@]}"; do
     case $choice in
         desktop)
-            cd "$HOME"/.dotfiles && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py!"
-            cd "$HOME"/.dotfiles/desktop && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
+            cd "$HOME"/.dotfiles && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py!"
+            cd "$HOME"/.dotfiles/desktop && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
             ;;
         laptop)
-            cd "$HOME"/.dotfiles && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py & autostart.sh!"
-            cd "$HOME"/.dotfiles/laptop && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
+            cd "$HOME"/.dotfiles && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py & autostart.sh!"
+            cd "$HOME"/.dotfiles/laptop && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
             ;;
         quit)
             echo "Quitting before stowing ..."
