@@ -6,19 +6,19 @@
 #touch override
 #echo 'zak ALL=(ALL) NOPASSWD: ALL' > override
 
-# sudo pacman -S xorg xorg-xinit noto-fonts git mypaint qtile python-pip kitty exa xclip xcape stow sxiv neovim emacs starship fzf curl light pcmanfm
+sudo pacman -S xorg xorg-xinit noto-fonts noto-fonts-cjk imagemagick git mypaint qtile python-pip kitty exa xclip xcape stow sxiv neovim emacs starship fzf curl light pcmanfm xterm
+sudo pip install pywal
 
-# echo "#########################################################"
-# echo "## ............... Installing yay .................... ##"
-# echo "#########################################################"
-# git clone https://aur.archlinux.org/yay.git
-# cd yay && makepkg -si || error "Can't cd into yay!"
-# cd ..
-# sudo rm -rf yay
+echo "#########################################################"
+echo "## ............... Installing yay .................... ##"
+echo "#########################################################"
+git clone https://aur.archlinux.org/yay.git
+cd yay && makepkg -si
+cd .. && sudo rm -rf yay
 
-# yay -S picom-jonaburg-git ttf-font-awesome ttf-cascadia-code ttf-impallari-lobster-font ttf-joypixels lxappearance xflux
+yay -S picom-jonaburg-git brave-bin ttf-font-awesome ttf-cascadia-code ttf-impallari-lobster-font ttf-joypixels lxappearance xflux zsh
 
-# wal -i "$HOME"/.dotfiles/01kgv4.jpg
+sudo chsh "$USER" -s "/bin/zsh" && echo -e "zsh has been set as your default USER shell. Logging out is required for this take effect."
 
 # echo "#########################################################"
 # echo "## Installing Doom Emacs. This may take a few minutes. ##"

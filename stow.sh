@@ -3,19 +3,21 @@
 echo "#############"
 echo "## Stowing ##"
 echo "#############"
-[ ! -d "$HOME"/.config/qtile ] && sudo mkdir -p "$HOME"/.config/qtile && sudo touch "$HOME"/.config/qtile/config.py && sudo touch "$HOME"/.config/qtile/autostart.sh
-[ ! -d "$HOME"/.config/qtile/scripts ] && sudo mkdir -p "$HOME"/.config/qtile/scripts && sudo touch "$HOME"/.config/qtile/scripts/kekdate.sh && sudo touch "$HOME"/.config/qtile/scripts/kektime.sh && sudo touch "$HOME"/.config/qtile/scripts/autostart.sh && sudo touch "$HOME"/.config/qtile/scripts/kekvolume.sh && sudo touch "$HOME"/.config/qtile/scripts/Time4Salat.py
+[ ! -d "$HOME"/.config/qtile ] && mkdir -p "$HOME"/.config/qtile && touch "$HOME"/.config/qtile/config.py && touch "$HOME"/.config/qtile/autostart.sh
+[ ! -d "$HOME"/.config/qtile/scripts ] && mkdir -p "$HOME"/.config/qtile/scripts && touch "$HOME"/.config/qtile/scripts/kekdate.sh && touch "$HOME"/.config/qtile/scripts/kektime.sh && touch "$HOME"/.config/qtile/scripts/autostart.sh && touch "$HOME"/.config/qtile/scripts/kekvolume.sh && touch "$HOME"/.config/qtile/scripts/Time4Salat.py
 
-plateform=("laptop" "desktop")
+plateform=("laptop" "desktop" "quit")
 select choice in "${plateform[@]}"; do
     case $choice in
         desktop)
-            cd "$HOME"/.dotfiles && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py!"
-            cd "$HOME"/.dotfiles/desktop && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
+            cd "$HOME"/.dotfiles && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py!"
+            cd "$HOME"/.dotfiles/desktop && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
+            break
             ;;
         laptop)
-            cd "$HOME"/.dotfiles && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py & autostart.sh!"
-            cd "$HOME"/.dotfiles/laptop && sudo stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
+            cd "$HOME"/.dotfiles && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing config.py & autostart.sh!"
+            cd "$HOME"/.dotfiles/laptop && stow -vSt "$HOME" qtile || echo "Can't cd in dotfiles' folder! Failed stowing qtile scripts!"
+            break
             ;;
         quit)
             echo "Quitting before stowing ..."
@@ -27,3 +29,19 @@ select choice in "${plateform[@]}"; do
     esac
 done
 
+[ ! -d "$HOME"/.config/picom ] && mkdir -p "$HOME"/.config/picom && touch "$HOME"/.config/qtile/picom.conf
+cd "$HOME"/.dotfiles && stow -vSt "$HOME" picom || echo "Can't cd in dotfiles' folder! Failed stowing!"
+
+[ ! -d "$HOME"/.config/kitty ] && mkdir -p "$HOME"/.config/kitty && touch "$HOME"/.config/kitty/kitty.conf
+cd "$HOME"/.dotfiles && stow -vSt "$HOME" kitty || echo "Can't cd in dotfiles' folder! Failed stowing!"
+
+[ ! -d "$HOME"/.config/sxiv ] && mkdir -p "$HOME"/.config/sxiv/exec && touch "$HOME"/.config/sxiv/key-handler
+cd "$HOME"/.dotfiles && stow -vSt "$HOME" sxiv || echo "Can't cd in dotfiles' folder! Failed stowing!"
+
+[ ! -d "$HOME"/.config/neovim ] && mkdir -p "$HOME"/.config/nvim && touch "$HOME"/.config/nvim/init.vim && touch "$HOME"/.config/nvim/coc-settings.json
+cd "$HOME"/.dotfiles && stow -vSt "$HOME" neovim || echo "Can't cd in dotfiles' folder! Failed stowing!"
+
+touch "$HOME"/.config/starship.toml
+cd "$HOME"/.dotfiles && stow -vSt "$HOME" starship || echo "Can't cd in dotfiles' folder! Failed stowing!"
+
+cd "$HOME"/.dotfiles && stow -vSt "$HOME" zsh || echo "Can't cd in dotfiles' folder! Failed stowing!"

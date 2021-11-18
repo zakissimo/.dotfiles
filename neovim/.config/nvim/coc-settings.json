@@ -1,0 +1,16 @@
+{
+    "pyright.enable": true,
+    "pyright.organizeimports.provider": "pyright",
+    "python.linting.enabled":true,
+    "python.linting.lintOnSave": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [ "--disable=C" ],
+
+    "coc.preferences.colorSupport": true,
+
+    "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "markdown": [ "write-good", "markdownlint" ],
+    "sh": "shellcheck"
+    }
+}
