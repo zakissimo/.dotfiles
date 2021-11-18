@@ -106,6 +106,7 @@ alias e=emacs
 alias v=nvim
 alias vim=nvim
 alias ls=exa
+alias flatf='find . -mindepth 2 -type f -print -exec mv {} . \;'
 
 export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --height=80%"
 

@@ -48,7 +48,7 @@ set hidden                              " Required to keep multiple buffers open
 set iskeyword+=-                        " treat dash separated words as a word text object
 set mouse=a                             " Enable your mouse
 set nofoldenable
-set nohlsearch
+set hlsearch
 set number relativenumber
 set pumheight=10                        " Makes popup menu smaller
 set shiftwidth=4
