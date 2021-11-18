@@ -12,14 +12,13 @@
 # echo "## ............... Installing yay .................... ##"
 # echo "#########################################################"
 # git clone https://aur.archlinux.org/yay.git
-# cd yay || error "Can't cd into yay!"
-# makepkg -si
+# cd yay && makepkg -si || error "Can't cd into yay!"
 # cd ..
 # sudo rm -rf yay
 
-# yay -S picom-jonaburg-git ttf-cascadia-code ttf-impallari-lobster-font ttf-joypixels lxappearance xflux
-#pip install pywal
+# yay -S picom-jonaburg-git ttf-font-awesome ttf-cascadia-code ttf-impallari-lobster-font ttf-joypixels lxappearance xflux
 
+# wal -i "$HOME"/.dotfiles/01kgv4.jpg
 
 # echo "#########################################################"
 # echo "## Installing Doom Emacs. This may take a few minutes. ##"
