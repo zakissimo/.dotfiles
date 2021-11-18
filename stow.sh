@@ -3,8 +3,8 @@
 echo "#############"
 echo "## Stowing ##"
 echo "#############"
-[ ! -d "$HOME"/.config/qtile ] && sudo mkdir -p "$HOME"/.config/qtile && touch "$HOME"/.config/qtile/config.py && touch "$HOME"/.config/qtile/autostart.sh
-[ ! -d "$HOME"/.config/qtile/scripts ] && sudo mkdir -p "$HOME"/.config/qtile/scripts && touch "$HOME"/.config/qtile/scripts/kekdate.sh && touch "$HOME"/.config/qtile/scripts/kektime.sh && touch "$HOME"/.config/qtile/scripts/autostart.sh && touch "$HOME"/.config/qtile/scripts/kekvolume.sh && touch "$HOME"/.config/qtile/scripts/Time4Salat.py
+[ ! -d "$HOME"/.config/qtile ] && sudo mkdir -p "$HOME"/.config/qtile && sudo touch "$HOME"/.config/qtile/config.py && sudo touch "$HOME"/.config/qtile/autostart.sh
+[ ! -d "$HOME"/.config/qtile/scripts ] && sudo mkdir -p "$HOME"/.config/qtile/scripts && sudo touch "$HOME"/.config/qtile/scripts/kekdate.sh && sudo touch "$HOME"/.config/qtile/scripts/kektime.sh && sudo touch "$HOME"/.config/qtile/scripts/autostart.sh && sudo touch "$HOME"/.config/qtile/scripts/kekvolume.sh && sudo touch "$HOME"/.config/qtile/scripts/Time4Salat.py
 
 plateform=("laptop" "desktop")
 select choice in "${plateform[@]}"; do
