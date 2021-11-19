@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 
-#The goal for now is to create a dependency list
-#When I learn more about bash to make a deployment script
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
-#touch override
-#echo 'zak ALL=(ALL) NOPASSWD: ALL' > override
+sudo pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop \
+    noto-fonts noto-fonts-cjk ttf-jetbrains-mono ttf-joypixels ttf-font-awesome \
+    sxiv mpv zathura zathura-pdf-mupdf ffmpeg imagemagick  \
+    fzf man-db xwallpaper kitty xterm exa xclip xcape stow neovim \
+    starship fzf curl light pcmanfm python-pip python-pywal youtube-dl unclutter xclip maim \
+    zip unzip unrar p7zip xdotool papirus-icon-theme brightnessctl  \
+    dosfstools ntfs-3g git sxhkd zsh emacs dash \
+    xcompmgr libnotify dunst slock jq \
+    dhcpcd networkmanager
 
-sudo pacman -S xorg xorg-xinit noto-fonts noto-fonts-cjk imagemagick git mypaint qtile python-pip kitty exa xclip xcape stow sxiv neovim emacs starship fzf curl light pcmanfm xterm
-sudo pip install pywal
 
 echo "#########################################################"
 echo "## ............... Installing yay .................... ##"
@@ -18,7 +22,18 @@ cd .. && sudo rm -rf yay
 
 yay -S picom-jonaburg-git brave-bin ttf-font-awesome ttf-cascadia-code ttf-impallari-lobster-font ttf-joypixels lxappearance xflux zsh
 
-sudo chsh "$USER" -s "/bin/zsh" && echo -e "zsh has been set as your default USER shell. Logging out is required for this take effect."
+yay -S picom-jonaburg-git brave-bin ttf-cascadia-code ttf-impallari-lobster-font lxappearance xflux
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+sh -c "$(curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim)"
+
+git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+git clone https://github.com/agkozak/zsh-z "$ZSH_CUSTOM"/plugins/zsh-z
+
+# sudo chsh "$USER" -s "/bin/zsh" && echo -e "zsh has been set as your default USER shell. Logging out is required for this take effect."
 
 # echo "#########################################################"
 # echo "## Installing Doom Emacs. This may take a few minutes. ##"
@@ -33,15 +48,6 @@ sudo chsh "$USER" -s "/bin/zsh" && echo -e "zsh has been set as your default USE
 #sudo cp "./keyboard/arabic.el" "/usr/share/emacs/27.2/lisp/leim/quail/"
 #sudo cp "./keyboard/fr" "/usr/share/X11/xkb/symbols/"
 #sudo cp "./keyboard/ara" "/usr/share/X11/xkb/symbols/"
-
-#sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-#sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-#       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-#git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-#git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-#git clone https://github.com/agkozak/zsh-z $ZSH_CUSTOM/plugins/zsh-z
 
 #touch blacklist.conf
 #echo 'blacklist dw_dmac\nblacklist dw_dmac_core' > blacklist.conf
