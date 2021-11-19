@@ -11,6 +11,7 @@ sudo pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-
     zip unzip unrar p7zip xdotool papirus-icon-theme brightnessctl  \
     git sxhkd zsh emacs dash libnotify dunst dhcpcd
 
+wal -i "$HOME"/.dotfiles/01kgv4.jpg
 
 echo "#########################################################"
 echo "## ............... Installing yay .................... ##"
