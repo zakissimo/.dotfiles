@@ -104,4 +104,3 @@ useradd -m -G wheel -s /bin/zsh "$username"
 passwd "$username"
 
 exit
-reboot
