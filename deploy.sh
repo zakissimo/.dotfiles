@@ -3,7 +3,7 @@
 pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
-sudo pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop qtile \
+sudo pacman -S --noconfirm mesa xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop qtile \
     noto-fonts noto-fonts-cjk ttf-jetbrains-mono ttf-joypixels ttf-font-awesome \
     sxiv mpv zathura zathura-pdf-mupdf ffmpeg imagemagick  \
     fzf xwallpaper kitty xterm exa xclip xcape stow neovim \
