@@ -6,10 +6,11 @@ sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 sudo pacman -S --noconfirm mesa xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop qtile \
     noto-fonts noto-fonts-cjk ttf-jetbrains-mono ttf-joypixels ttf-font-awesome \
     sxiv mpv zathura zathura-pdf-mupdf ffmpeg imagemagick  \
-    fzf xwallpaper kitty xterm exa xclip xcape stow neovim \
-    starship curl light pcmanfm python-pip python-pywal youtube-dl \
+    fzf xwallpaper kitty xterm exa btop xclip xcape stow neovim \
+    starship curl light pcmanfm python python-pip python-pywal youtube-dl \
     zip unzip unrar p7zip xdotool papirus-icon-theme brightnessctl  \
-    git sxhkd zsh emacs dash libnotify dunst dhcpcd
+    git sxhkd zsh emacs dash libnotify dunst dhcpcd onlyoffice-bin visual-studio-code-bin \
+    gimp gcc shellcheck
 
 wal -i "$HOME"/.dotfiles/01kgv4.jpg
 
@@ -20,7 +21,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && sudo rm -rf yay
 
-yay -S picom-jonaburg-git brave-bin ttf-cascadia-code ttf-impallari-lobster-font lxappearance xflux
+yay -S picom-jonaburg-git megasync-bin brave-bin ttf-cascadia-code ttf-impallari-lobster-font lxappearance xflux
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
