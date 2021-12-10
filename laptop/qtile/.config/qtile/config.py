@@ -133,16 +133,17 @@ widget_defaults = dict(
 )
 
 def kekdate():
-    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekdate.sh")))[2:-3]
+    return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekdate.sh")).decode('utf8').strip()
 
 def kektime():
-    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kektime.sh")))[2:-3]
-
-def kekvolume():
-    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekvolume.sh")))[2:-3]
+    return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kektime.sh")).decode('utf8').strip()
 
 def time4salat():
-    return str(subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")))[2:-3]
+    return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")).decode('utf8').strip()
+
+def kekvolume():
+    return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekvolume.sh")).decode('utf8').strip()
+
 
 screens = [
     Screen(
