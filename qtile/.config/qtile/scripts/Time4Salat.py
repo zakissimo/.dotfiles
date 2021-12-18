@@ -20,7 +20,7 @@ def get_time():
 
     with open(log_path, "r", encoding="utf8") as log_file:
 
-        log_load = [l.strip() for l in log_file.readlines()]
+        log_load = [l.strip() for l in log_file]
         salat_time = log_load[1][1:-1].replace('"', '').replace("'", "").split(", ")
 
         if log_load[0] == today_string:
@@ -34,7 +34,7 @@ def make_log(log_path, today_string):
 
     with open(log_path, "w", encoding="utf8") as log_file:
 
-        encode = today_string + "\n" + str(parse())
+        encode = today_string + "\n" + parse()
 
         log_file.seek(0)
         log_file.truncate()
