@@ -17,8 +17,8 @@ colors = []
 cache = '/home/zak/.cache/wal/colors'
 
 
-def load_colors(cache):
-    with open(cache, 'r') as file:
+def load_colors(c):
+    with open(c, 'r', encoding='utf8') as file:
         for line in file:
             colors.append(line.strip())
 
@@ -174,7 +174,6 @@ screens = [
                 widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
                 widget.BatteryIcon(padding=-5),
                 widget.Systray(),
-                # widget.Battery(charge_char="", discharge_char="", empty_char="", format="[{char}  {percent:2.0%} | {hour:d}:{min:02d}]"),
             ],
             # bar height
             25, background="{0}".format(colors[0])
@@ -242,7 +241,7 @@ def start_once():
 # focus, should we respect this or not?
 auto_minimize = True
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
+# Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
 # mailing lists, GitHub issues, and other WM documentation that suggest setting
 # this string if your java app doesn't work correctly. We may as well just lie
