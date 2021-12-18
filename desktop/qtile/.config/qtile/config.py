@@ -183,7 +183,7 @@ def time4salat():
     return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")).decode('utf8').strip()
 
 def init_widgets_list():
-    widgets_list = [
+    return [
         widget.GroupBox(
             font="FontAwesome",
             fontsize=15,
@@ -205,13 +205,13 @@ def init_widgets_list():
         widget.Prompt(prompt=prompt),
         widget.WindowName(foreground=colors[-1]),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
-        widget.TextBox("🕋", padding=0, foreground=colors[6], font="FontAwesome", fontsize=13),
+        widget.TextBox("🕋", padding=0, foreground=colors[6], font="FontAwesome", fontsize=15),
         widget.GenPollText(update_interval=60, padding=5, func=time4salat),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
         widget.Volume(padding=-1, emoji=True, foreground=colors[6], fontsize=13),
         widget.Volume(padding=5),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
-        widget.TextBox("📆", padding=0, foreground=colors[6], font="FontAwesome", fontsize=13),
+        widget.TextBox("📆", padding=0, foreground=colors[6], font="FontAwesome", fontsize=15),
         widget.GenPollText(update_interval=1, padding=5, func=kekdate),
         widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
         widget.TextBox("🕒", padding=0, foreground=colors[6], font="FontAwesome", fontsize=15),
@@ -220,21 +220,19 @@ def init_widgets_list():
         widget.Systray(),
     ]
 
-    return widgets_list
-
 
 def init_widgets_screen1():
-    widgets_screen1 = init_widgets_list()
-    del widgets_screen1[1]
-    return widgets_screen1
+    w = init_widgets_list()
+    del w[1]
+    return w
 
 
 def init_widgets_screen2():
-    widgets_screen2 = init_widgets_list()
-    del widgets_screen2[0]
+    w = init_widgets_list()
+    del w[0]
     # Slicing removes unwanted widgets (systray) on Monitor 2
-    del widgets_screen2[3:]
-    return widgets_screen2
+    del w[3:]
+    return w
 
 
 def init_screens():
