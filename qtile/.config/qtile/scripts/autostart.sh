@@ -2,6 +2,8 @@
 
 #Load correct screen positions
 xrandr --output DVI-D-0 --left-of HDMI-A-0
+#Turn off blank screen time out
+xset s off -dpms
 #Remember last wal settings
 wal -R
 #Launch picom
