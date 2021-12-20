@@ -44,13 +44,15 @@ def make_log(log_path, today_string):
 def parse():
 
     url = "https://mawaqit.net/fr/gm-saint-denis"
+    # url = "https://mawaqit.net/fr/m-angouleme"
     # url="https://mawaqit.net/fr/mosquee-dagen"
 
     r = requests.get(url)
     regex_data = re.findall(r'times":(.*),"womenSpace', r.text)
     time_string = str(regex_data[0])[1:-1].replace('"', '').split(',')
 
-    return time_string
+    print(time_string)
+    return str(time_string)
 
 
 def get_next_salat(now, time_string):
