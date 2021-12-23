@@ -12,6 +12,8 @@ sudo pacman -S --noconfirm mesa xorg-server xorg-xinit xorg-xkill xorg-xsetroot 
     git sxhkd zsh emacs dash libnotify dunst dhcpcd onlyoffice-bin visual-studio-code-bin \
     gimp gcc shellcheck
 
+pip install pynvim
+
 wal -i "$HOME"/.dotfiles/01kgv4.jpg
 
 echo "#########################################################"
