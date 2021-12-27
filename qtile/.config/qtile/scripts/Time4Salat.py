@@ -51,7 +51,6 @@ def parse():
     regex_data = re.findall(r'times":(.*),"womenSpace', r.text)
     time_string = str(regex_data[0])[1:-1].replace('"', '').split(',')
 
-    print(time_string)
     return str(time_string)
 
 
