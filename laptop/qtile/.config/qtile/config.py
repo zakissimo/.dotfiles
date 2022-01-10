@@ -14,7 +14,7 @@ home = os.path.expanduser('~')
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 colors = []
-cache = '/home/zak/.cache/wal/colors'
+cache = f'{home}/.cache/wal/colors'
 
 
 def load_colors(c):

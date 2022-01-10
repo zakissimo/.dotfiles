@@ -1,6 +1,7 @@
 import os
 import socket
 import subprocess
+from Xlib import display as xdisplay
 from typing import List  # noqa: F401
 from libqtile.lazy import lazy
 from libqtile import bar, layout, widget, hook
@@ -30,6 +31,29 @@ def load_colors(c):
 
 load_colors(cache)
 
+def get_num_monitors():
+    num_monitors = 0
+    try:
+        display = xdisplay.Display()
+        screen = display.screen()
+        resources = screen.root.xrandr_get_screen_resources()
+
+        for output in resources.outputs:
+            monitor = display.xrandr_get_output_info(output, resources.config_timestamp)
+            preferred = False
+            if hasattr(monitor, "preferred"):
+                preferred = monitor.preferred
+            elif hasattr(monitor, "num_preferred"):
+                preferred = monitor.num_preferred
+            if preferred:
+                num_monitors += 1
+    except Exception as e:
+        # always setup at least one monitor
+        return 1
+    else:
+        return num_monitors
+
+num_monitors = get_num_monitors()
 
 keys = [
 
@@ -114,7 +138,7 @@ group_labels = ["", "", "", "", "", "", "", "", "", "
 
 group_layouts = [
     "max",
-    "tile",
+    "stack",
     "columns",
     "columns",
     "bsp",
@@ -162,9 +186,10 @@ layout_theme = {
 
 layouts = [
     layout.Max(**layout_theme),
+    layout.Columns(**layout_theme),
+    layout.Stack(num_stacks=1, margin=190, border_focus="#808080", border_width=2),
     layout.Bsp(**layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
-    layout.Columns(**layout_theme),
 ]
 
 widget_defaults = dict(
@@ -236,17 +261,24 @@ def init_widgets_screen2():
 
 
 def init_screens():
+    if num_monitors > 1:
+        return [
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen1(),
+                    opacity=1.0,
+                    size=23)),
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen2(),
+                    opacity=1.0,
+                    size=23))]
     return [
         Screen(
             top=bar.Bar(
                 widgets=init_widgets_screen1(),
                 opacity=1.0,
-                size=23)),
-        Screen(
-            top=bar.Bar(
-                widgets=init_widgets_screen2(),
-                opacity=1.0,
-                size=23))]
+                size=23)),]
 
 
 if __name__ in ["config", "__main__"]:
