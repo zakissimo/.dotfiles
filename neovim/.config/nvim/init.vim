@@ -5,14 +5,12 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
-    Plug 'junegunn/vim-easy-align'
     Plug 'godlygeek/tabular'
-    Plug 'sheerun/vim-polyglot'
     Plug 'dylanaraps/wal.vim'
     Plug 'Raimondi/delimitMate'
     Plug 'Chiel92/vim-autoformat'
     Plug 'ThePrimeagen/vim-be-good'
-    Plug 'Yggdroot/indentLine'
+    Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'lilydjwg/colorizer'
@@ -68,7 +66,6 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='minimalist'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:indentLine_char = '▏'
 let g:python_highlight_string_formatting = 0
 let g:python_highlight_all = 1
 let g:strip_whitespace_on_save = 1
@@ -94,6 +91,7 @@ nnoremap <silent> <Leader>o :Files ~<CR>
 " Code runner
 map <leader>b :w<CR>:!./%<CR>
 map <leader>n :w<CR>:!python3 %<CR>
+map <leader>l :w<CR>:!lua %<CR>
 map <leader>v :w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>
 map <leader>h :w<CR>:!python3 % > /tmp/a.out<CR>:split<CR>:e /tmp/a.out<CR><CR>
 
@@ -114,7 +112,10 @@ nnoremap <M-h>    :vertical resize -2<CR>
 nnoremap <M-l>    :vertical resize +2<CR>
 
 " File navigation and stuff
-nmap <silent> gd <Plug>(coc-definition)
+nmap gd <Plug>(coc-definition)
+nmap gy <Plug>(coc-type-definition)
+nmap gi <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -169,6 +170,7 @@ function MyCustomHighlights()
     hi StatusLineNC    ctermfg=235
     hi VertSplit                        ctermbg=NONE
     hi Visual          ctermfg=DarkGray ctermbg=Black
+    hi IndentBlanklineChar ctermfg=DarkGray
 endfunction
 
 call MyCustomHighlights()
