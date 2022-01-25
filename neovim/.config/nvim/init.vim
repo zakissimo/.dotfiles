@@ -5,6 +5,7 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'godlygeek/tabular'
     Plug 'dylanaraps/wal.vim'
     Plug 'Raimondi/delimitMate'
@@ -24,12 +25,17 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'ryanoasis/vim-devicons'       " Must be after vim-airline
+    Plug 'EdenEast/nightfox.nvim'
+    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+    Plug 'ellisonleao/gruvbox.nvim'
 
 call plug#end()
 
 syntax enable                           " Enables syntax highlighing
 
+" set background=dark
 colorscheme wal
+" colorscheme catppuccin
 
 set autochdir                           " Your working directory will always be the same as your worki
 set autoindent                          " Good auto indent
@@ -155,22 +161,22 @@ nnoremap <C-Q> :bdelete<CR>
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 function MyCustomHighlights()
-    hi CocFloating     ctermfg=130 ctermbg=Black
-    hi CocErrorFloat   ctermfg=130 ctermbg=Black
-    hi CocHintFloat    ctermfg=130 ctermbg=Black
-    hi CocWarningFloat ctermfg=130 ctermbg=Black
-    hi Comment         ctermfg=DarkGray
-    hi CursorLineNr    ctermfg=DarkRed
-    hi LineNr          ctermfg=DarkGray
-    hi Pmenu           ctermfg=Black    ctermbg=DarkGray
-    hi PmenuSel        ctermfg=DarkGray ctermbg=Black
-    hi PmenuSbar       ctermbg=Black
-    hi Search          ctermfg=Black    ctermbg=DarkGray
-    hi StatusLine      ctermfg=235
-    hi StatusLineNC    ctermfg=235
-    hi VertSplit                        ctermbg=NONE
-    hi Visual          ctermfg=DarkGray ctermbg=Black
-    hi IndentBlanklineChar ctermfg=DarkGray
+    hi CocFloating                                   ctermfg =130      ctermbg =Black
+    hi CocErrorFloat                                 ctermfg =130      ctermbg =Black
+    hi CocHintFloat                                  ctermfg =130      ctermbg =Black
+    hi CocWarningFloat                               ctermfg =130      ctermbg =Black
+    hi Comment                                       ctermfg =DarkGray
+    hi CursorLineNr                                  ctermfg =DarkRed
+    hi LineNr                                        ctermfg =DarkGray
+    hi Pmenu                                         ctermfg =Black    ctermbg =DarkGray
+    hi PmenuSel                                      ctermfg =DarkGray ctermbg =Black
+    hi PmenuSbar                                                       ctermbg =Black
+    hi Search                                        ctermfg =Black    ctermbg =DarkGray
+    hi StatusLine                                    ctermfg =235
+    hi StatusLineNC                                  ctermfg =235
+    hi VertSplit                                                       ctermbg =NONE
+    hi Visual                                        ctermfg =DarkGray ctermbg =Black
+    hi IndentBlanklineChar                           ctermfg =DarkGray
 endfunction
 
 call MyCustomHighlights()

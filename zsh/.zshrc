@@ -125,7 +125,7 @@ alias yayfzf='yay -Slq | fzf -m --preview '\''cat <(yay -Si {1}) <(yay -Fl {1} |
 # cat ~/.cache/wal/sequences
 
 # To add support for TTYs this line can be optionally added.
-source ~/.cache/wal/colors-tty.sh
+# source ~/.cache/wal/colors-tty.sh
 
 #Initializing starship prompt
 eval "$(starship init zsh)"

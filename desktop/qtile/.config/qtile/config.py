@@ -17,6 +17,15 @@ prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 colors = []
 cache = f'{home}/.cache/wal/colors'
 
+coolors = [
+    "#1D1E2C",
+    "#59656F",
+    "#AC9FBB",
+    "#DDBDD5",
+    "#F7EBEC",
+
+]
+
 
 def load_colors(c):
     with open(c, 'r', encoding="UTF-8") as file:
@@ -174,16 +183,21 @@ widget_defaults = dict(
 )
 
 def kekdate():
-    return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kekdate.sh")).decode('utf8').strip()
+    return subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/kekdate.sh")).decode('utf8').strip()
 
 def kektime():
-    return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/kektime.sh")).decode('utf8').strip()
+    return subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/kektime.sh")).decode('utf8').strip()
 
 def time4salat():
-    return subprocess.check_output(os.path.expanduser(f"{home}/.config/qtile/scripts/Time4Salat.py")).decode('utf8').strip()
+    return subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/Time4Salat.py")).decode('utf8').strip()
+
+def monitor_num():
+    s = subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/monitors.sh")).decode('utf8').strip()
+    return s
 
 def init_widgets_list():
     return [
+        widget.TextBox(text = "\ue0be", padding=0, foreground=colors[0], background=colors[3], fontsize=35),
         widget.GroupBox(
             font="FontAwesome",
             fontsize=15,
@@ -202,36 +216,43 @@ def init_widgets_list():
             this_current_screen_border=colors[2],
             visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"]
         ),
-        widget.Prompt(prompt=prompt),
-        widget.WindowName(foreground=colors[-1]),
-        widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
-        widget.TextBox("🕋", padding=0, foreground=colors[6], font="FontAwesome", fontsize=15),
-        widget.GenPollText(update_interval=60, padding=5, func=time4salat),
-        widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
-        widget.Volume(padding=-1, emoji=True, foreground=colors[6], fontsize=13),
-        widget.Volume(padding=5),
-        widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
-        widget.TextBox("📆", padding=0, foreground=colors[6], font="FontAwesome", fontsize=15),
-        widget.GenPollText(update_interval=1, padding=5, func=kekdate),
-        widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
-        widget.TextBox("🕒", padding=0, foreground=colors[6], font="FontAwesome", fontsize=15),
-        widget.GenPollText(update_interval=1, padding=5, func=kektime),
-        widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
+        widget.Prompt(prompt=prompt, background=colors[5]),
+        widget.TextBox(text = "\uE0Be", padding=0, foreground=coolors[1], background=colors[0], fontsize=35),
+        widget.WindowName(foreground=colors[0], background=coolors[1]),
+        widget.TextBox(text = "\uE0Be", padding=0, foreground=colors[0], background=coolors[1], fontsize=35),
+        widget.TextBox(text = "\uE0Be", padding=0, foreground=colors[5], background=colors[0], fontsize=35),
+        widget.TextBox("🕋", padding=0, foreground=colors[0], background=colors[5], font="Cascadia Code", fontsize=15),
+        widget.GenPollText(update_interval=60, padding=5, background=colors[5], func=time4salat),
+        widget.TextBox(text = "\uE0Be", padding=0, foreground=colors[3], background=colors[5], fontsize=35),
+        widget.Volume(padding=-1, emoji=True, foreground=colors[6], background=colors[3], fontsize=13),
+        widget.Volume(padding=5, background=colors[3]),
+        widget.TextBox(text = "\uE0Be", padding=0, foreground=colors[1], background=colors[3], fontsize=35),
+        widget.TextBox("📆", padding=0, foreground=colors[6], background=colors[1], font="FontAwesome", fontsize=15),
+        widget.GenPollText(update_interval=1, padding=5, background=colors[1], func=kekdate),
+        widget.TextBox(text = "\uE0Be", padding=0, foreground=colors[5], background=colors[1], fontsize=35),
+        widget.TextBox("🕒", padding=0, foreground=colors[6], background=colors[5], font="FontAwesome", fontsize=15),
+        widget.GenPollText(update_interval=1, background=colors[5], padding=5, func=kektime),
+        widget.TextBox(text = "\uE0Be", padding=0, foreground=colors[3], background=colors[5], fontsize=35),
+        widget.TextBox("🖥️", padding=0, foreground=colors[6], background=colors[3], font="FontAwesome", fontsize=15),
+        widget.GenPollText(update_interval=1, padding=5, background=colors[3], func=monitor_num),
+        # widget.TextBox("〱", padding=-5, foreground=colors[-1], fontsize=25),
+        widget.TextBox(text = "\ue0be", padding=0, foreground=colors[0], background=colors[3], fontsize=35),
         widget.Systray(),
+        widget.TextBox(text = "\ue0be", padding=0, foreground=colors[3], background=colors[0], fontsize=35),
     ]
 
 
 def init_widgets_screen1():
     w = init_widgets_list()
-    del w[1]
+    del w[2]
     return w
 
 
 def init_widgets_screen2():
     w = init_widgets_list()
-    del w[0]
+    del w[1]
     # Slicing removes unwanted widgets (systray) on Monitor 2
-    del w[3:]
+    # del w[3:]
     return w
 
 
@@ -240,11 +261,13 @@ def init_screens():
         Screen(
             top=bar.Bar(
                 widgets=init_widgets_screen1(),
+                background=colors[0],
                 opacity=1.0,
                 size=23)),
         Screen(
             top=bar.Bar(
                 widgets=init_widgets_screen2(),
+                background=colors[0],
                 opacity=1.0,
                 size=23))]
 
