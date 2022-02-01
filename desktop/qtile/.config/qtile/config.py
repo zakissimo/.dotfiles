@@ -156,10 +156,14 @@ widget_defaults = dict(
         )
 
 def kekram():
-    return "(Mem: " + str(psutil.virtual_memory().percent) + "%)"
+    return "- Mem: " + str(psutil.virtual_memory().percent) + "%"
 
 def keklayout():
-    return "(" + subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/keklayout.sh")).decode('utf8').strip() + ")"
+    lay = subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/keklayout.sh")).decode('utf8').strip()
+    if lay == "fr":
+        return "FR"
+    return "ع"
+
 
 def kekdate():
     return "📆 " + subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/kekdate.sh")).decode('utf8').strip()
@@ -168,7 +172,7 @@ def kektime():
     return "🕒 " + subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/kektime.sh")).decode('utf8').strip()
 
 def time4salat():
-    return "🕋 " + subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/Time4Salat.py")).decode('utf8').strip()
+    return "🕌 " + subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/Time4Salat.py")).decode('utf8').strip()
 
 def monitor_num():
     return subprocess.check_output(os.path.expanduser("~/.config/qtile/scripts/monitors.sh")).decode('utf8').strip()
@@ -203,6 +207,7 @@ def init_widgets_list():
             widget.WindowName(foreground=colors["active"], background=colors["sienna"]),
             widget.TextBox(text = "\uE0Be", padding=0, foreground=colors["background"], background=colors["sienna"], fontsize=35),
             widget.Spacer(length=599),
+            widget.Net(format = '{down} ↓↑ {up}'),
             widget.GenPollText(update_interval=60, padding=5, background=colors["background"], mouse_callbacks={'Button1': lazy.spawn('kitty -e btop')}, func=kekram),
             widget.TextBox(text = "\ue0be", padding=0, foreground=colors["purple"], background=colors["background"], fontsize=35),
             widget.GenPollText(update_interval=60, padding=5, background=colors["purple"], func=time4salat),
