@@ -25,7 +25,7 @@ killall xcape 2>/dev/null; xcape -e 'Super_L=Escape'
 #Double layout fr/ara
 setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:alt_shift_toggle
 
-sleep 3
+# sleep 3
 
 #flux location & start
 # lat_lng=$(curl ipinfo.io/loc)
