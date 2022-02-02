@@ -21,7 +21,6 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'Raimondi/delimitMate'
     Plug 'Chiel92/vim-autoformat'
     Plug 'ThePrimeagen/vim-be-good'
-    Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     Plug 'lilydjwg/colorizer'
@@ -35,6 +34,7 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'ryanoasis/vim-devicons'       " Must be after vim-airline
+    Plug 'lukas-reineke/indent-blankline.nvim'
 
 call plug#end()
 
@@ -44,14 +44,14 @@ set background=dark
 colorscheme pywal
 
 set autochdir                           " Your working directory will always be the same as your worki
-set autoindent                          " Good auto indent
+" set autoindent                          " Good auto indent
 set clipboard=unnamedplus
 set cmdheight=1                         " More space for displaying messages
 set encoding=utf-8                      " The encoding displayed
 set expandtab                           " Converts tabs to spaces
 set fileencoding=utf-8                  " The encoding written to file
-set foldmethod=indent
-set foldnestmax=10
+" set foldmethod=indent
+" set foldnestmax=10
 set nofoldenable
 set foldlevel=2
 set hidden                              " Required to keep multiple buffers open
@@ -62,7 +62,7 @@ set hlsearch
 set number relativenumber
 set pumheight=10                        " Makes popup menu smaller
 set shiftwidth=4
-set smartindent                         " Makes indenting smart
+" set smartindent                         " Makes indenting smart
 set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
 set softtabstop=4
 set splitbelow                          " Horizontal splits will automatically be below
@@ -166,23 +166,23 @@ nnoremap <C-Q> :bdelete<CR>
 " <TAB>: completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
-function MyCustomHighlights()
-    hi CocFloating                                   ctermfg =130      ctermbg =Black
-    hi CocErrorFloat                                 ctermfg =130      ctermbg =Black
-    hi CocHintFloat                                  ctermfg =130      ctermbg =Black
-    hi CocWarningFloat                               ctermfg =130      ctermbg =Black
-    hi Comment                                       ctermfg =DarkGray
-    hi CursorLineNr                                  ctermfg =DarkRed
-    hi LineNr                                        ctermfg =DarkGray
-    hi Pmenu                                         ctermfg =Black    ctermbg =DarkGray
-    hi PmenuSel                                      ctermfg =DarkGray ctermbg =Black
-    hi PmenuSbar                                                       ctermbg =Black
-    hi Search                                        ctermfg =Black    ctermbg =DarkGray
-    hi StatusLine                                    ctermfg =235
-    hi StatusLineNC                                  ctermfg =235
-    hi VertSplit                                                       ctermbg =NONE
-    hi Visual                                        ctermfg =DarkGray ctermbg =Black
-    hi IndentBlanklineChar                           ctermfg =DarkGray
-endfunction
+" function MyCustomHighlights()
+"     hi CocFloating                                   ctermfg =130      ctermbg =Black
+"     hi CocErrorFloat                                 ctermfg =130      ctermbg =Black
+"     hi CocHintFloat                                  ctermfg =130      ctermbg =Black
+"     hi CocWarningFloat                               ctermfg =130      ctermbg =Black
+"     hi Comment                                       ctermfg =DarkGray
+"     hi CursorLineNr                                  ctermfg =DarkRed
+"     hi LineNr                                        ctermfg =DarkGray
+"     hi Pmenu                                         ctermfg =Black    ctermbg =DarkGray
+"     hi PmenuSel                                      ctermfg =DarkGray ctermbg =Black
+"     hi PmenuSbar                                                       ctermbg =Black
+"     hi Search                                        ctermfg =Black    ctermbg =DarkGray
+"     hi StatusLine                                    ctermfg =235
+"     hi StatusLineNC                                  ctermfg =235
+"     hi VertSplit                                                       ctermbg =NONE
+"     hi Visual                                        ctermfg =DarkGray ctermbg =Black
+"     hi IndentBlanklineChar                           ctermfg =DarkGray
+" endfunction
 
-call MyCustomHighlights()
+" call MyCustomHighlights()

@@ -34,7 +34,7 @@ keys = [
     Key([mod], 'r', lazy.run_extension(extension.DmenuRun(
         dmenu_command="dmenu_run",
         dmenu_prompt=">",
-        dmenu_font="Cascadia Code",
+        dmenu_font="CaskaydiaCove Nerd Font",
         foreground=inactive,
         background=col[0],
         selected_background=ext_col,
