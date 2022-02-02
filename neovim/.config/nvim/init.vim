@@ -5,9 +5,19 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+    Plug 'joshdick/onedark.vim'
+    Plug 'ellisonleao/gruvbox.nvim'
+    Plug 'EdenEast/nightfox.nvim'
+    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+    Plug 'AlphaTechnolog/pywal.nvim', { 'as': 'pywal' }
+    Plug 'sheerun/vim-polyglot'
+    Plug 'sainnhe/gruvbox-material'
+    Plug 'dracula/vim'
+
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'williamboman/nvim-lsp-installer'
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
     Plug 'godlygeek/tabular'
-    Plug 'dylanaraps/wal.vim'
     Plug 'Raimondi/delimitMate'
     Plug 'Chiel92/vim-autoformat'
     Plug 'ThePrimeagen/vim-be-good'
@@ -25,17 +35,13 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'ryanoasis/vim-devicons'       " Must be after vim-airline
-    Plug 'EdenEast/nightfox.nvim'
-    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-    Plug 'ellisonleao/gruvbox.nvim'
 
 call plug#end()
 
 syntax enable                           " Enables syntax highlighing
 
-" set background=dark
-colorscheme wal
-" colorscheme catppuccin
+set background=dark
+colorscheme pywal
 
 set autochdir                           " Your working directory will always be the same as your worki
 set autoindent                          " Good auto indent
