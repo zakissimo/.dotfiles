@@ -129,8 +129,8 @@ for i in groups:
 layout_theme = {
     "margin": 7,
     "border_width": 2,
-    "border_focus": col[-1],
-    "border_normal": inactive
+    "border_focus": ext_col,
+    "border_normal": col[0]
 }
 
 layouts = [
@@ -265,6 +265,7 @@ floating_layout = layout.Floating(
         Match(wm_class='toolbar'),
         Match(wm_class='DBeaver'),
         Match(wm_class='megasync'),
+        Match(wm_class='PlayOnLinux'),
     ])
 
 dgroups_key_binder = None
