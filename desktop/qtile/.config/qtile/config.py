@@ -1,11 +1,13 @@
-import os, json
+import os
+import json
 import socket
 import subprocess
 from typing import List
 from libqtile.lazy import lazy
-from libqtile import bar,layout, widget, hook, extension
+from libqtile import bar, layout, widget, hook, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from scripts.my_widgets import kekram, keklayout, kekdate, kektime, time4salat
+
 
 mod = "mod4"
 mod1 = "alt"
@@ -51,8 +53,10 @@ keys = [
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
 
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+    Key([mod, "control"], "h", lazy.layout.grow_left(),
+        desc="Grow window to the left"),
+    Key([mod, "control"], "l", lazy.layout.grow_right(),
+        desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
 
@@ -75,8 +79,10 @@ keys = [
 
     # Sound
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer -c 1 sset Master 1- unmute")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer -c 1 sset Master 1+ unmute")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn(
+        "amixer -c 1 sset Master 1- unmute")),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn(
+        "amixer -c 1 sset Master 1+ unmute")),
 
     # Switch focus to specific monitor
     Key([mod], "a",
@@ -107,10 +113,12 @@ groups = [
     Group("agrave", label="", layout="bsp"),
 ]
 
+
 def go_to_screen(s):
     if s in "yuiop":
         return 0
     return 1
+
 
 for i in groups:
     keys.extend([
@@ -148,9 +156,11 @@ widget_defaults = dict(
     background=col[0]
 )
 
+
 def init_widgets_list():
     return [
-        widget.TextBox(text = "\ue0ba", padding=-3, foreground=col[0], background=ext_col, fontsize=35),
+        widget.TextBox(text="\ue0ba", padding=-3,
+                       foreground=col[0], background=ext_col, fontsize=35),
         widget.GroupBox(
             font="FontAwesome",
             fontsize=15,
@@ -171,26 +181,36 @@ def init_widgets_list():
             this_current_screen_border=ext_col,
             other_screen_border=inactive,
             other_current_screen_border=active,
-            visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"]
+            visible_groups=["minus", "egrave",
+                            "underscore", "ccedilla", "agrave"]
         ),
-        widget.TextBox(text = "\uE0Ba", padding=0, foreground=ext_col, background=col[0], fontsize=35),
+        widget.TextBox(text="\uE0Ba", padding=0,
+                       foreground=ext_col, background=col[0], fontsize=35),
         widget.WindowName(foreground=active, background=ext_col),
-        widget.TextBox(text = "\uE0Ba", padding=0, foreground=col[0], background=ext_col, fontsize=35),
-        widget.GenPollText(update_interval=1, padding=5, background=col[0], mouse_callbacks={'Button1': lazy.spawn('kitty -e btop')}, func=kekram),
-        widget.Net(format = '↓ {down} ↑ {up}', background=col[0]),
-        widget.TextBox(text = "\ue0ba", padding=0, foreground=ext_col, background=col[0], fontsize=35),
-        widget.GenPollText(update_interval=60, padding=5, background=ext_col, func=time4salat),
-        widget.TextBox(text = "\uE0Ba", padding=0, foreground=int_col, background=ext_col, fontsize=35),
-        widget.Volume(padding=5, emoji=True, foreground=ext_col, background=int_col, fontsize=13),
-        widget.Volume(padding=0, background=int_col),
-        widget.TextBox(text = "\uE0Ba", padding=0, foreground=ext_col, background=int_col, fontsize=35),
-        widget.GenPollText(update_interval=1, padding=0, background=ext_col, mouse_callbacks={'Button1': lazy.spawn("kitty -e cal")}, func=kekdate),
-        widget.TextBox(text = "\uE0Ba", padding=0, foreground=int_col, background=ext_col, fontsize=35),
-        widget.GenPollText(update_interval=1, background=int_col, padding=0, func=kektime),
-        widget.TextBox(text = "\ue0ba", padding=0, foreground=col[0], background=int_col, fontsize=35),
-        widget.GenPollText(fontsize=15, update_interval=0.2, padding=1, background=col[0], mouse_callbacks={'Button1': lazy.spawn("key")}, func=keklayout),
+        widget.TextBox(text="\uE0Ba", padding=0,
+                       foreground=col[0], background=ext_col, fontsize=35),
+        widget.GenPollText(update_interval=1, padding=5, background=col[0], mouse_callbacks={
+                           'Button1': lazy.spawn('kitty -e btop')}, func=kekram),
+        widget.Net(format='↓ {down} ↑ {up}', background=col[0]),
+        widget.TextBox(text="\ue0ba", padding=0,
+                       foreground=int_col, background=col[0], fontsize=35),
+        widget.GenPollText(update_interval=60, padding=5,
+                           background=int_col, func=time4salat),
+        widget.TextBox(text="\uE0Ba", padding=0,
+                       foreground=ext_col, background=int_col, fontsize=35),
+        widget.GenPollText(update_interval=1, padding=0, background=ext_col, mouse_callbacks={
+                           'Button1': lazy.spawn("kitty -e cal")}, func=kekdate),
+        widget.TextBox(text="\uE0Ba", padding=0,
+                       foreground=int_col, background=ext_col, fontsize=35),
+        widget.GenPollText(update_interval=1,
+                           background=int_col, padding=0, func=kektime),
+        widget.TextBox(text="\ue0ba", padding=0,
+                       foreground=col[0], background=int_col, fontsize=35),
+        widget.GenPollText(fontsize=15, update_interval=0.2, padding=1, background=col[0], mouse_callbacks={
+                           'Button1': lazy.spawn("key")}, func=keklayout),
         widget.Systray(),
-        widget.TextBox(text = "\ue0ba", padding=-3, foreground=ext_col, background=col[0], fontsize=35)
+        widget.TextBox(text="\ue0ba", padding=-3,
+                       foreground=ext_col, background=col[0], fontsize=35)
     ]
 
 
