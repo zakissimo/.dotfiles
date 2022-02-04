@@ -30,7 +30,7 @@ select choice in "${plateform[@]}"; do
 done
 
 [ ! -d "$HOME"/.config/picom ] && mkdir -p "$HOME"/.config/picom
-[ -f "$HOME"/.config/qtile/picom.conf ] && rm "$HOME"/.config/qtile/picom.conf
+[ -f "$HOME"/.config/picom/picom.conf ] && rm "$HOME"/.config/picom/picom.conf
 cd "$HOME"/.dotfiles && stow -vSt "$HOME" picom || echo "Failed stowing!"
 
 [ ! -d "$HOME"/.config/kitty ] && mkdir -p "$HOME"/.config/kitty
@@ -49,3 +49,6 @@ cd "$HOME"/.dotfiles && stow -vSt "$HOME" starship || echo "Failed stowing!"
 
 rm "$HOME"/.zshrc
 cd "$HOME"/.dotfiles && stow -vSt "$HOME" zsh || echo "Failed stowing!"
+
+rm "$HOME"/.xinitrc
+cd "$HOME"/.dotfiles && stow -vSt "$HOME" xinit || echo "Failed stowing!"

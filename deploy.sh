@@ -12,7 +12,8 @@ sudo pacman -S --noconfirm mesa xorg-server xorg-xinit xorg-xkill xorg-xsetroot 
     git sxhkd zsh emacs dash libnotify dunst dhcpcd onlyoffice-bin visual-studio-code-bin \
     gimp gcc shellcheck
 
-pip install pynvim
+sudo pip install pynvim
+sudo pip install autopep8
 
 wal -i "$HOME"/.dotfiles/01kgv4.jpg
 
@@ -23,7 +24,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && sudo rm -rf yay
 
-yay -S picom-jonaburg-git megasync-bin brave-bin ttf-cascadia-code ttf-impallari-lobster-font lxappearance xflux
+yay -S picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font lxappearance xflux notion-app-enhanced
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
