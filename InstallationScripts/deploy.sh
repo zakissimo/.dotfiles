@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-sudo pacman -S --needed sed
-sudo sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
-
-sudo pacman -S --needed - < pkglist.txt
-
-sudo pip install pynvim
-sudo pip install autopep8
-
-wal -i "$HOME"/.dotfiles/01kgv4.jpg
-
 echo "#########################################################"
 echo "## ............... Installing yay .................... ##"
 echo "#########################################################"
@@ -36,12 +26,6 @@ git clone https://github.com/agkozak/zsh-z "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custo
 # git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 # ~/.emacs.d/bin/doom install
 
-#echo '[[ $(fgconsole 2>/dev/null) == 1) ]] && exec startx -- vt1' >> /home/zak/.bash_profile
-
 #sudo cp "./keyboard/arabic.el" "/usr/share/emacs/27.2/lisp/leim/quail/"
 #sudo cp "./keyboard/fr" "/usr/share/X11/xkb/symbols/"
 #sudo cp "./keyboard/ara" "/usr/share/X11/xkb/symbols/"
-
-#touch blacklist.conf
-#echo 'blacklist dw_dmac\nblacklist dw_dmac_core' > blacklist.conf
-#sudo mv blacklist.conf /etc/modprobe.d/blacklist.conf
