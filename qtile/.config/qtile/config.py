@@ -33,7 +33,7 @@ keys = [
             extension.DmenuRun(
                 dmenu_command="dmenu_run",
                 dmenu_prompt=">",
-                dmenu_font="Noto Sans",
+                dmenu_font="FontAwesome",
                 foreground=inactive,
                 background=background,
                 selected_background=ext_col,
@@ -153,7 +153,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Noto Sans",
+    font="CaskaydiaCove Nerd Font",
     fontsize=12,
     foreground=active,
     background=background,
@@ -163,6 +163,7 @@ widget_defaults = dict(
 def init_widgets_list():
     return [
         widget.TextBox(
+            font="FontAwesome",
             text="\ue0ba",
             padding=-3,
             foreground=background,
@@ -170,7 +171,7 @@ def init_widgets_list():
             fontsize=35,
         ),
         widget.GroupBox(
-            font="Noto Sans",
+            font="FontAwesome",
             fontsize=15,
             inactive=inactive,
             active=active,
@@ -181,7 +182,7 @@ def init_widgets_list():
             visible_groups=["y", "u", "i", "o", "p"],
         ),
         widget.GroupBox(
-            font="Noto Sans",
+            font="FontAwesome",
             fontsize=15,
             active=active,
             inactive=inactive,
@@ -193,6 +194,7 @@ def init_widgets_list():
                             "underscore", "ccedilla", "agrave"],
         ),
         widget.TextBox(
+            font="FontAwesome",
             text="\uE0Ba",
             padding=0,
             foreground=ext_col,
@@ -201,6 +203,7 @@ def init_widgets_list():
         ),
         widget.WindowName(foreground=active, background=ext_col),
         widget.TextBox(
+            font="FontAwesome",
             text="\uE0Ba",
             padding=0,
             foreground=background,
@@ -216,6 +219,7 @@ def init_widgets_list():
         ),
         widget.Net(format="↓ {down} ↑ {up}", background=background),
         widget.TextBox(
+            font="FontAwesome",
             text="\ue0ba",
             padding=0,
             foreground=int_col,
@@ -226,6 +230,7 @@ def init_widgets_list():
             update_interval=60, padding=5, background=int_col, func=time4salat
         ),
         widget.TextBox(
+            font="FontAwesome",
             text="\uE0Ba",
             padding=0,
             foreground=ext_col,
@@ -240,6 +245,7 @@ def init_widgets_list():
             func=kekdate,
         ),
         widget.TextBox(
+            font="FontAwesome",
             text="\uE0Ba",
             padding=0,
             foreground=int_col,
@@ -250,6 +256,7 @@ def init_widgets_list():
             update_interval=1, background=int_col, padding=0, func=kektime
         ),
         widget.TextBox(
+            font="FontAwesome",
             text="\ue0ba",
             padding=0,
             foreground=background,
@@ -266,6 +273,7 @@ def init_widgets_list():
         ),
         widget.Systray(),
         widget.TextBox(
+            font="FontAwesome",
             text="\ue0ba",
             padding=-3,
             foreground=ext_col,
