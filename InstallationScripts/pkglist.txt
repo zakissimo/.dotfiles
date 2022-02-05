@@ -17,7 +17,7 @@ shellcheck
 starship
 stow
 sxiv
-ttf-font-awesome
+ttf-fira-mono
 ttf-joypixels
 xcape
 xclip

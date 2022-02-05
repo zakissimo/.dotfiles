@@ -99,7 +99,7 @@ keys = [
     Key([mod], "space", lazy.next_screen(), desc="Move focus to next monitor"),
 ]
 
-if monitor_num != "1":
+if monitor_num() != "1":
     groups = [
         Group("y", label="", layout="max"),
         Group("u", label="", layout="columns"),
@@ -179,7 +179,7 @@ widget_defaults = dict(
 def init_widgets_list():
     return [
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\ue0ba",
             padding=-3,
             foreground=background,
@@ -187,8 +187,8 @@ def init_widgets_list():
             fontsize=35,
         ),
         widget.GroupBox(
-            font="FontAwesome",
-            fontsize=15,
+            font="Fira Mono",
+            fontsize=25,
             inactive=inactive,
             active=active,
             highlight_method="line",
@@ -198,8 +198,8 @@ def init_widgets_list():
             visible_groups=["y", "u", "i", "o", "p"],
         ),
         widget.GroupBox(
-            font="FontAwesome",
-            fontsize=15,
+            font="Fira Mono",
+            fontsize=25,
             active=active,
             inactive=inactive,
             highlight_method="line",
@@ -210,7 +210,7 @@ def init_widgets_list():
                             "underscore", "ccedilla", "agrave"],
         ),
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\uE0Ba",
             padding=0,
             foreground=ext_col,
@@ -219,7 +219,7 @@ def init_widgets_list():
         ),
         widget.WindowName(foreground=active, background=ext_col),
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\uE0Ba",
             padding=0,
             foreground=background,
@@ -235,7 +235,7 @@ def init_widgets_list():
         ),
         widget.Net(format="↓ {down} ↑ {up}", background=background),
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\ue0ba",
             padding=0,
             foreground=int_col,
@@ -246,7 +246,7 @@ def init_widgets_list():
             update_interval=60, padding=5, background=int_col, func=time4salat
         ),
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\uE0Ba",
             padding=0,
             foreground=ext_col,
@@ -261,7 +261,7 @@ def init_widgets_list():
             func=kekdate,
         ),
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\uE0Ba",
             padding=0,
             foreground=int_col,
@@ -272,7 +272,7 @@ def init_widgets_list():
             update_interval=1, background=int_col, padding=0, func=kektime
         ),
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\ue0ba",
             padding=0,
             foreground=background,
@@ -289,7 +289,7 @@ def init_widgets_list():
         ),
         widget.Systray(),
         widget.TextBox(
-            font="FontAwesome",
+            font="Fira Mono",
             text="\ue0ba",
             padding=-3,
             foreground=ext_col,
@@ -315,7 +315,7 @@ def init_widgets_screen2():
 
 def init_screens():
 
-    if monitor_num != "1":
+    if monitor_num() != "1":
         return [
             Screen(
                 top=bar.Bar(
@@ -334,17 +334,16 @@ def init_screens():
                 )
             ),
         ]
-    else:
-        return [
-            Screen(
-                top=bar.Bar(
-                    widgets=init_widgets_screen1(),
-                    background=background,
-                    opacity=1.0,
-                    size=23,
-                )
-            ),
-        ]
+    return [
+        Screen(
+            top=bar.Bar(
+                widgets=init_widgets_screen1(),
+                background=background,
+                opacity=1.0,
+                size=23,
+            )
+        ),
+    ]
 
 
 if __name__ in ["config", "__main__"]:

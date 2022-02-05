@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ##Load correct screen positions
-xrandr --output HDMI-A-0 --right-of HDMI-A-1
+xrandr --output HDMI-A-1 --auto --left-of HDMI-A-0
 # xrandr --output HDMI-A-1 --scale 0.65
 #Turn off blank screen time out
 xset s off -dpms
