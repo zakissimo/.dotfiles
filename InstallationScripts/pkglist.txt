@@ -29,5 +29,6 @@ xorg-xbacklight
 xorg-xinit
 xorg-xprop
 xterm
+wget
 zsh-autosuggestions
 zsh-syntax-highlighting

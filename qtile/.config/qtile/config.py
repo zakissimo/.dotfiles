@@ -33,7 +33,7 @@ keys = [
             extension.DmenuRun(
                 dmenu_command="dmenu_run",
                 dmenu_prompt=">",
-                dmenu_font="CaskaydiaCove Nerd Font",
+                dmenu_font="Noto Sans",
                 foreground=inactive,
                 background=background,
                 selected_background=ext_col,
@@ -153,7 +153,10 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Cascadia Code", fontsize=12, foreground=active, background=background
+    font="Noto Sans",
+    fontsize=12,
+    foreground=active,
+    background=background,
 )
 
 
@@ -167,7 +170,7 @@ def init_widgets_list():
             fontsize=35,
         ),
         widget.GroupBox(
-            font="FontAwesome",
+            font="Noto Sans",
             fontsize=15,
             inactive=inactive,
             active=active,
@@ -178,7 +181,7 @@ def init_widgets_list():
             visible_groups=["y", "u", "i", "o", "p"],
         ),
         widget.GroupBox(
-            font="FontAwesome",
+            font="Noto Sans",
             fontsize=15,
             active=active,
             inactive=inactive,
