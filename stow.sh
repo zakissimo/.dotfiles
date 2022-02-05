@@ -9,7 +9,7 @@ clone_file_sys () {
 	for path in $paths
 	do 
 		real=$(echo "$path" | sed "s/.dotfiles\/$1\///g")
-		[ -f "$real" ] && rm "$real"
+		[ -f "$real" ] && mv "$real" "$real.old"
 		[ ! -d "$real" ] && mkdir -p "$real" && echo "Creating path: $real"
 		cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
 	done
