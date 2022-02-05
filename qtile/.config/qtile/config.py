@@ -5,7 +5,14 @@ from typing import List
 from libqtile.command import lazy
 from libqtile import bar, layout, widget, hook, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
-from scripts.my_widgets import kekram, keklayout, kekdate, kektime, time4salat
+from scripts.my_widgets import (
+    kekram,
+    keklayout,
+    kekdate,
+    kektime,
+    time4salat,
+    monitor_num,
+)
 
 
 mod = "mod4"
@@ -33,7 +40,7 @@ keys = [
             extension.DmenuRun(
                 dmenu_command="dmenu_run",
                 dmenu_prompt=">",
-                dmenu_font="FontAwesome",
+                dmenu_font="CaskaydiaCove Nerd Font",
                 foreground=inactive,
                 background=background,
                 selected_background=ext_col,
@@ -92,18 +99,27 @@ keys = [
     Key([mod], "space", lazy.next_screen(), desc="Move focus to next monitor"),
 ]
 
-groups = [
-    Group("y", label="", layout="max"),
-    Group("u", label="", layout="columns"),
-    Group("i", label="", layout="columns"),
-    Group("o", label="", layout="tile"),
-    Group("p", label="", layout="max"),
-    Group("minus", label="", layout="max"),
-    Group("egrave", label="", layout="columns"),
-    Group("underscore", label="", layout="columns"),
-    Group("ccedilla", label="", layout="tile"),
-    Group("agrave", label="", layout="bsp"),
-]
+if monitor_num != "1":
+    groups = [
+        Group("y", label="", layout="max"),
+        Group("u", label="", layout="columns"),
+        Group("i", label="", layout="columns"),
+        Group("o", label="", layout="tile"),
+        Group("p", label="", layout="max"),
+        Group("minus", label="", layout="max"),
+        Group("egrave", label="", layout="columns"),
+        Group("underscore", label="", layout="columns"),
+        Group("ccedilla", label="", layout="tile"),
+        Group("agrave", label="", layout="bsp"),
+    ]
+else:
+    groups = [
+        Group("y", label="", layout="max"),
+        Group("u", label="", layout="columns"),
+        Group("i", label="", layout="columns"),
+        Group("o", label="", layout="tile"),
+        Group("p", label="", layout="max"),
+    ]
 
 
 def go_to_screen(s):
@@ -299,24 +315,36 @@ def init_widgets_screen2():
 
 def init_screens():
 
-    return [
-        Screen(
-            top=bar.Bar(
-                widgets=init_widgets_screen1(),
-                background=background,
-                opacity=1.0,
-                size=23,
-            )
-        ),
-        Screen(
-            top=bar.Bar(
-                widgets=init_widgets_screen2(),
-                background=background,
-                opacity=1.0,
-                size=23,
-            )
-        ),
-    ]
+    if monitor_num != "1":
+        return [
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen1(),
+                    background=background,
+                    opacity=1.0,
+                    size=23,
+                )
+            ),
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen2(),
+                    background=background,
+                    opacity=1.0,
+                    size=23,
+                )
+            ),
+        ]
+    else:
+        return [
+            Screen(
+                top=bar.Bar(
+                    widgets=init_widgets_screen1(),
+                    background=background,
+                    opacity=1.0,
+                    size=23,
+                )
+            ),
+        ]
 
 
 if __name__ in ["config", "__main__"]:
