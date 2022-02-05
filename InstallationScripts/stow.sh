@@ -27,3 +27,4 @@ clone_file_sys zsh
 clone_file_sys xinit
 clone_file_sys profile
 clone_file_sys fontconfig
+clone_file_sys starship
