@@ -11,7 +11,7 @@ clone_file_sys () {
 	for path in $paths
 	do 
 		real=$(echo "$path" | sed "s/.dotfiles\/$1\///g")
-		[ -f "$real" ] && mv "$real" "$real.old"
+		[ -f "$real" ] && mv "$real" "$real".old
 		[ ! -d "$real" ] && mkdir -p "$real" && echo "Creating path: $real"
 	done
 
