@@ -8,7 +8,7 @@ set.smartcase = true
 set.ignorecase = true
 
 set.autochdir = true
-set.fileencoding = 'utf-8'
+set.fileencoding = "utf-8"
 
 set.wrap = false
 set.scrolloff = 5
@@ -17,5 +17,7 @@ set.splitright = true
 set.foldenable = false
 set.relativenumber = true
 
-set.mouse = 'a'
-set.clipboard = 'unnamedplus'
+set.mouse = "a"
+set.clipboard = "unnamedplus"
+
+set.swapfile = false
