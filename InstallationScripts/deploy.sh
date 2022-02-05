@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-pacman -S --noconfirm sed
-sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+sudo pacman -S --noconfirm --needed sed
+sudo sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
-sudo pacman -S --noconfirm mesa xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop qtile \
+sudo pacman -S --noconfirm --needed mesa xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop qtile zsh \
     noto-fonts noto-fonts-cjk ttf-jetbrains-mono ttf-joypixels ttf-font-awesome \
     sxiv mpv zathura zathura-pdf-mupdf ffmpeg imagemagick  \
     fzf xwallpaper kitty xterm exa btop xclip xcape stow neovim \
