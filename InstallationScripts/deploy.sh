@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
 
-sudo pacman -S --noconfirm --needed sed
+sudo pacman -S --needed sed
 sudo sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
-sudo pacman -S --noconfirm --needed mesa xorg-server xorg-apps xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop qtile zsh stow \
-    noto-fonts noto-fonts-cjk ttf-jetbrains-mono ttf-joypixels ttf-font-awesome \
-    sxiv mpv zathura zathura-pdf-mupdf ffmpeg imagemagick  \
-    fzf xwallpaper kitty xterm exa btop xclip xcape stow neovim \
-    starship curl light pcmanfm python python-pip python-pywal youtube-dl \
-    zip unzip unrar p7zip xdotool papirus-icon-theme brightnessctl  \
-    git sxhkd zsh emacs dash libnotify dunst dhcpcd onlyoffice-bin visual-studio-code-bin \
-    gimp gcc shellcheck
+sudo pacman -S --needed - < pkglist.txt
 
 sudo pip install pynvim
 sudo pip install autopep8

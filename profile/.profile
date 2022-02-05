@@ -1,3 +1,4 @@
+export TERM=kitty
 export EDITOR=nvim
 export VISUAL=code
 export BROWSER=brave
