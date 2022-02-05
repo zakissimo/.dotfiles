@@ -25,4 +25,5 @@ clone_file_sys sxiv
 clone_file_sys neovim
 clone_file_sys zsh
 clone_file_sys xinit
+clone_file_sys profile
 clone_file_sys fontconfig
