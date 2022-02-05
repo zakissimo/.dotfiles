@@ -6,7 +6,7 @@ echo "#############"
 
 clone_file_sys () {
 
-	paths=$(find "$HOME"/.dotfiles/"$1")
+	paths=$(find "$HOME"/.dotfiles/"$1" -type d)
 
 	for path in $paths
 	do 
