@@ -106,35 +106,50 @@ groups = [
 ]
 
 
-def go_to_screen(s):
-    if s in "yuiop":
-        return 0
-    return 1
-
+# def go_to_screen(s):
+#     if s in "yuiop":
+#         return 0
+#     return 1
 
 for i in groups:
     keys.extend(
         [
             # CHANGE WORKSPACES
-            Key(
-                [mod],
-                i.name,
-                lazy.to_screen(go_to_screen(i.name)),
-                lazy.group[i.name].toscreen(
-                    go_to_screen(i.name), toggle=False),
-            ),
+            Key([mod], i.name, lazy.group[i.name].toscreen(toggle=False)),
             # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO
             # WORKSPACE
             Key(
                 [mod, "shift"],
                 i.name,
                 lazy.window.togroup(i.name),
-                lazy.to_screen(go_to_screen(i.name)),
-                lazy.group[i.name].toscreen(
-                    go_to_screen(i.name), toggle=False),
+                lazy.group[i.name].toscreen(toggle=False),
             ),
         ]
     )
+
+# for i in groups:
+#     keys.extend(
+#         [
+#             # CHANGE WORKSPACES
+#             Key(
+#                 [mod],
+#                 i.name,
+#                 lazy.to_screen(go_to_screen(i.name)),
+#                 lazy.group[i.name].toscreen(
+#                     go_to_screen(i.name), toggle=False),
+#             ),
+#             # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO
+#             # WORKSPACE
+#             Key(
+#                 [mod, "shift"],
+#                 i.name,
+#                 lazy.window.togroup(i.name),
+#                 lazy.to_screen(go_to_screen(i.name)),
+#                 lazy.group[i.name].toscreen(
+#                     go_to_screen(i.name), toggle=False),
+#             ),
+#         ]
+#     )
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
 layout_theme = {
@@ -329,6 +344,12 @@ mouse = [
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
 
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: List
+follow_mouse_focus = True
+bring_front_click = False
+cursor_warp = False
+
 floating_layout = layout.Floating(
     border_width=3,
     margin=5,
@@ -353,18 +374,14 @@ floating_layout = layout.Floating(
     ],
 )
 
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
 auto_fullscreen = True
-reconfigure_screens = True
 focus_on_window_activation = "smart"
-auto_minimize = True
-wmname = "LG3D"
 
 
 @hook.subscribe.startup_once
 def start_once():
     subprocess.call(f"{home}/.config/qtile/scripts/autostart.sh")
+
+
+auto_minimize = True
+wmname = "LG3D"
