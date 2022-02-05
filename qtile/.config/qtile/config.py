@@ -308,7 +308,11 @@ def init_screens():
     ]
 
 
-screens = init_screens()
+if __name__ in ["config", "__main__"]:
+    screens = init_screens()
+    widgets_list = init_widgets_list()
+    widgets_screen1 = init_widgets_screen1()
+    widgets_screen2 = init_widgets_screen2()
 
 
 # Drag floating layouts.
