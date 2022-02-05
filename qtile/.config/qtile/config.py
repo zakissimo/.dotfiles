@@ -2,7 +2,7 @@ import os
 import socket
 import subprocess
 from typing import List
-from libqtile.lazy import lazy
+from libqtile.command import lazy
 from libqtile import bar, layout, widget, hook, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from scripts.my_widgets import kekram, keklayout, kekdate, kektime, time4salat
