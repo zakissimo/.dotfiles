@@ -286,20 +286,29 @@ def init_widgets_screen2():
     return w
 
 
-# def init_screens():
+def init_screens():
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            widgets=init_widgets_screen1(), background=background, opacity=1.0, size=23
-        )
-    ),
-    Screen(
-        top=bar.Bar(
-            widgets=init_widgets_screen2(), background=background, opacity=1.0, size=23
-        )
-    ),
-]
+    return [
+        Screen(
+            top=bar.Bar(
+                widgets=init_widgets_screen1(),
+                background=background,
+                opacity=1.0,
+                size=23,
+            )
+        ),
+        Screen(
+            top=bar.Bar(
+                widgets=init_widgets_screen2(),
+                background=background,
+                opacity=1.0,
+                size=23,
+            )
+        ),
+    ]
+
+
+screens = init_screens()
 
 
 # Drag floating layouts.
