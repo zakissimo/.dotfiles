@@ -3,52 +3,23 @@
 echo "#############"
 echo "## Stowing ##"
 echo "#############"
-[ ! -d "$HOME"/.config/qtile/scripts ] && mkdir -p "$HOME"/.config/qtile/scripts
-[ -f "$HOME"/.config/qtile/config.py ] && rm "$HOME"/.config/qtile/config.py
 
-plateform=("laptop" "desktop" "quit")
-select choice in "${plateform[@]}"; do
-    case $choice in
-        desktop)
-            cd "$HOME"/.dotfiles && stow -vSt "$HOME" qtile || echo "Failed stowing config.py!"
-            cd "$HOME"/.dotfiles/desktop && stow -vSt "$HOME" qtile || echo "Failed stowing qtile scripts!"
-            break
-            ;;
-        laptop)
-            cd "$HOME"/.dotfiles && stow -vSt "$HOME" qtile || echo "Failed stowing config.py & autostart.sh!"
-            cd "$HOME"/.dotfiles/laptop && stow -vSt "$HOME" qtile || echo "Failed stowing qtile scripts!"
-            break
-            ;;
-        quit)
-            echo "Quitting before stowing ..."
-            break
-            ;;
-        *)
-            echo "Invalid option!"
-            ;;
-    esac
-done
+clone_file_sys () {
+	paths=$(find "$HOME"/.dotfiles/"$1")
+	for path in $paths
+	do 
+		real=$(echo "$path" | sed "s/.dotfiles\/$1\///g")
+		[ -f "$real" ] && rm "$real"
+		[ ! -d "$real" ] && mkdir -p "$real" && echo "Creating path: $real"
+		cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
+	done
+}
 
-[ ! -d "$HOME"/.config/picom ] && mkdir -p "$HOME"/.config/picom
-[ -f "$HOME"/.config/picom/picom.conf ] && rm "$HOME"/.config/picom/picom.conf
-cd "$HOME"/.dotfiles && stow -vSt "$HOME" picom || echo "Failed stowing!"
-
-[ ! -d "$HOME"/.config/kitty ] && mkdir -p "$HOME"/.config/kitty
-[ -f "$HOME"/.config/kitty/kitty.conf ] && rm "$HOME"/.config/kitty/kitty.conf
-cd "$HOME"/.dotfiles && stow -vSt "$HOME" kitty || echo "Failed stowing!"
-
-[ ! -d "$HOME"/.config/sxiv/exec ] && mkdir -p "$HOME"/.config/sxiv/exec
-[ -f "$HOME"/.config/sxiv/exec/key-handler ] && rm "$HOME"/.config/sxiv/exec/key-handler
-cd "$HOME"/.dotfiles && stow -vSt "$HOME" sxiv || echo "Failed stowing!"
-
-[ ! -d "$HOME"/.config/neovim ] && mkdir -p "$HOME"/.config/nvim
-[ -f "$HOME"/.config/nvim/init.vim ] && rm "$HOME"/.config/nvim/init.vim
-cd "$HOME"/.dotfiles && stow -vSt "$HOME" neovim || echo "Failed stowing!"
-
-cd "$HOME"/.dotfiles && stow -vSt "$HOME" starship || echo "Failed stowing!"
-
-rm "$HOME"/.zshrc
-cd "$HOME"/.dotfiles && stow -vSt "$HOME" zsh || echo "Failed stowing!"
-
-rm "$HOME"/.xinitrc
-cd "$HOME"/.dotfiles && stow -vSt "$HOME" xinit || echo "Failed stowing!"
+clone_file_sys qtile
+clone_file_sys picom
+clone_file_sys kitty
+clone_file_sys sxiv
+clone_file_sys neovim
+clone_file_sys zsh
+clone_file_sys xinit
+clone_file_sys fontconfig
