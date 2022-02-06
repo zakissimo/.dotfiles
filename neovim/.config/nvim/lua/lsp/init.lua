@@ -3,7 +3,8 @@ if not status_ok then
 	return
 end
 
+require("lsp.null-ls")
+-- require("lsp.lang-servers")
 require("lsp.lsp-installer")
 require("lsp.handlers").setup()
-require("lsp.null-ls")
 require("lsp.nvim-cmp")

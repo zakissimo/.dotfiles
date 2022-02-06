@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-##Load correct screen positions
 xrandr --output HDMI-A-1 --auto --left-of HDMI-A-0
-# xrandr --output HDMI-A-1 --scale 0.65
-#Turn off blank screen time out
 xset s off -dpms
 wal -R
 picom -b
+
 nm-applet &
 megasync &
 volumeicon &
@@ -15,11 +13,9 @@ sleep 1
 
 #Faster cursor
 xset r rate 300 50
-#Remapping caps lock to super
 setxkbmap -option caps:super
-#Acts as escape when pressed once
-killall xcape 2>/dev/null; xcape -e 'Super_L=Escape'
-#Double layout fr/ara
+killall xcape 2>/dev/null
+xcape -e 'Super_L=Escape'
 setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:alt_shift_toggle
 
 # sleep 3

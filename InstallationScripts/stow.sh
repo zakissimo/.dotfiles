@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
 
-echo "#############"
-echo "## Stowing ##"
-echo "#############"
+cat <<"EOF"
+      #############
+      ## Stowing ##
+      #############
+EOF
 
-clone_file_sys () {
+cloneAndStow() {
 
-	paths=$(find "$HOME"/.dotfiles/"$1" -type d)
+	files=$(find "$HOME"/.dotfiles/"$1" -type f)
+	directories=$(find "$HOME"/.dotfiles/"$1" -type d)
 
-	for path in $paths
-	do 
+	for path in $files; do
 		real=$(echo "$path" | sed "s/.dotfiles\/$1\///g")
-		[ -f "$real" ] && mv "$real" "$real".old
+		[ -f "$real" ] && rm "$real"
+	done
+	for path in $directories; do
+		real=$(echo "$path" | sed "s/.dotfiles\/$1\///g")
 		[ ! -d "$real" ] && mkdir -p "$real" && echo "Creating path: $real"
 	done
 
 	cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
 }
 
-clone_file_sys qtile
-clone_file_sys picom
-clone_file_sys kitty
-clone_file_sys sxiv
-clone_file_sys neovim
-clone_file_sys zsh
-clone_file_sys xinit
-clone_file_sys profile
-clone_file_sys fontconfig
-clone_file_sys starship
+apps=(qtile picom kitty sxiv neovim zsh xinit profile fontconfig starship)
+
+for app in "${apps[@]}"; do
+	cloneAndStow "$app"
+done

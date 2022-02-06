@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 
-sudo pacman --needed --ask 4 -Sy - < pkglist.txt
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
-echo "#########################################################"
-echo "## ............... Installing yay .................... ##"
-echo "#########################################################"
+pacman --needed --ask 4 -Sy - <pkglist.txt
+
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && sudo rm -rf yay
 
 yay -S picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font visual-studio-code-bin
 
-sudo pip install pynvim requests black autopep8 pylint
+pip install pynvim requests black autopep8 pylint
 
-sudo npm install neovim
+npm install neovim
+
+wal -i "$HOME/.dotfiles/01kgv4.jpg"
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
