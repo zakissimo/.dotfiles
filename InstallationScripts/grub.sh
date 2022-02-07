@@ -20,7 +20,7 @@ select choice in "${options[@]}"; do
 		;;
 	quit)
 		echo "User exited without installing grub"
-		exit 0
+		exit 1
 		;;
 	*)
 		echo "$REPLY is an invalid option"
