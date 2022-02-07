@@ -8,14 +8,16 @@ select choice in "${options[@]}"; do
 	efi)
 		pacman --noconfirm -S efibootmgr
 		grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+		break
 		;;
 	legacy)
 		lsblk
 		echo "Indicate the boot disk (/dev/sdX): "
 		read -r bootDisk
 		grub-install "$bootDisk"
+		break
 		;;
-	exit)
+	quit)
 		echo "User exited without installing grub"
 		exit 0
 		;;
