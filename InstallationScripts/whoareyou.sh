@@ -1,5 +1,7 @@
 #!/bin/sh
 
+pacman -S zsh dash
+
 echo "Securing root: "
 passwd
 
