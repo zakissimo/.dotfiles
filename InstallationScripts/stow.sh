@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-cat <<"EOF"
-      #############
-      ## Stowing ##
-      #############
-EOF
-
 cloneAndStow() {
 
 	files=$(find "$HOME"/.dotfiles/"$1" -type f)

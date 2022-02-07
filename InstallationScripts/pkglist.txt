@@ -1,7 +1,6 @@
 btop
 curl
 exa
-exa
 fzf
 kitty
 lua
@@ -14,6 +13,7 @@ python-pip
 python-pywal
 qtile
 shellcheck
+shfmt
 starship
 stow
 sxiv

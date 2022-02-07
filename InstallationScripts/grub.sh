@@ -1,6 +1,7 @@
 #!/bin/bash
 
 pacman --noconfirm -S grub os-prober networkmanager iwd
+clear
 
 options=(efi legacy)
 select choice in "${options[@]}"; do
