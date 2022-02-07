@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Create root password: "
+echo "Securing root: "
 passwd
 
 echo "How shall we call this machine? "
