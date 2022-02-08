@@ -1,5 +1,6 @@
 btop
 curl
+dunst
 exa
 fzf
 gnome-keyring
@@ -12,6 +13,8 @@ noto-fonts
 noto-fonts-cjk
 npm
 pcmanfm
+pipewire
+pipewire-pulse
 polkit
 python-dbus-next
 python-pip
@@ -25,7 +28,6 @@ stow
 sxiv
 ttf-fira-mono
 ttf-joypixels
-volumeicon
 wget
 xcape
 xclip

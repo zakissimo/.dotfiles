@@ -49,8 +49,7 @@ keys = [
             )
         ),
     ),
-    Key([mod], "space", lazy.layout.next(),
-        desc="Move window focus to other window"),
+    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     Key(
         [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
     ),
@@ -62,8 +61,7 @@ keys = [
     ),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    Key([mod, "control"], "h", lazy.layout.grow_left(),
-        desc="Grow window to the left"),
+    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key(
         [mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"
     ),
@@ -86,12 +84,6 @@ keys = [
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    # Sound
-    Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
-    Key([], "XF86AudioLowerVolume", lazy.spawn(
-        "amixer -c 1 sset Master 1- unmute")),
-    Key([], "XF86AudioRaiseVolume", lazy.spawn(
-        "amixer -c 1 sset Master 1+ unmute")),
     # Switch focus to specific monitor
     Key([mod], "a", lazy.to_screen(0), desc="Keyboard focus to monitor 1"),
     Key([mod], "z", lazy.to_screen(1), desc="Keyboard focus to monitor 2"),
@@ -136,8 +128,7 @@ for i in groups:
                 [mod],
                 i.name,
                 lazy.to_screen(go_to_screen(i.name)),
-                lazy.group[i.name].toscreen(
-                    go_to_screen(i.name), toggle=False),
+                lazy.group[i.name].toscreen(go_to_screen(i.name), toggle=False),
             ),
             # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO
             # WORKSPACE
@@ -146,8 +137,7 @@ for i in groups:
                 i.name,
                 lazy.window.togroup(i.name),
                 lazy.to_screen(go_to_screen(i.name)),
-                lazy.group[i.name].toscreen(
-                    go_to_screen(i.name), toggle=False),
+                lazy.group[i.name].toscreen(go_to_screen(i.name), toggle=False),
             ),
         ]
     )
@@ -206,8 +196,7 @@ def init_widgets_list():
             this_current_screen_border=ext_col,
             other_screen_border=inactive,
             other_current_screen_border=active,
-            visible_groups=["minus", "egrave",
-                            "underscore", "ccedilla", "agrave"],
+            visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"],
         ),
         widget.TextBox(
             font="Fira Mono",

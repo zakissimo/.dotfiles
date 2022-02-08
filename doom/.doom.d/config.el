@@ -42,7 +42,7 @@
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 
-(setq doom-font (font-spec :family "Cascadia Code" :size 15 :weight 'semi-light))
+(setq doom-font (font-spec :family "CaskaydiaCove Nerd Font" :size 15 :weight 'semi-light))
 
 (set-fontset-font t 'arabic "Noto Naskh Arabic")
     (setq face-font-rescale-alist

@@ -7,7 +7,8 @@ picom -b
 
 nm-applet &
 megasync &
-volumeicon &
+pa-applet &
+dunst &
 
 sleep 1
 
