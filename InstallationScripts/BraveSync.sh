@@ -15,7 +15,7 @@ export(){
     echo "Settings successfully saved!"
 }
 
-op=("import" "export")
+op=(import export)
 select choice in "${op[@]}"; do
     case $choice in
         import)
