@@ -29,8 +29,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 # xrandr --output HDMI-A-1 --auto --left-of HDMI-A-0
-# xset s off -dpms
-# key
-# wal -R
-# picom -b
+# xset s off -dpms &
+# key &
+# wal -R &
+# picom -b &
 # qtile start
