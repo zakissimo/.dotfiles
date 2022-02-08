@@ -35,11 +35,11 @@ sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-systemctl enable iwd.service
-systemctl enable systemd-resolved
+# systemctl enable iwd.service
+# systemctl enable systemd-resolved
 systemctl enable NetworkManager.service
 
-cat <<EOF >/etc/iwd/main.conf
-[General]
-EnableNetworkConfiguration=true
-EOF
+# cat <<EOF >/etc/iwd/main.conf
+# [General]
+# EnableNetworkConfiguration=true
+# EOF

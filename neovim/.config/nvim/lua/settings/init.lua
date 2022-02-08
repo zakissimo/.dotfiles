@@ -7,7 +7,6 @@ set.shiftwidth = 4
 set.smartcase = true
 set.ignorecase = true
 
-set.autochdir = true
 set.fileencoding = "utf-8"
 
 set.wrap = false

@@ -2,6 +2,7 @@ btop
 curl
 exa
 fzf
+gnome-keyring
 hsetroot
 kitty
 lua
@@ -12,6 +13,7 @@ noto-fonts-cjk
 npm
 pcmanfm
 polkit
+python-dbus-next
 python-pip
 python-pywal
 qtile
