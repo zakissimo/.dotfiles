@@ -30,7 +30,7 @@ map("n", "<M-h>", ":vertical resize -2<CR>", opts)
 map("n", "<M-l>", ":vertical resize +2<CR>", opts)
 map("n", "<C-f>", ":Rg<CR>", opts)
 map("n", "<C-o>", ":Buffers<CR>", opts)
-map("n", "<Leader>o", ":Files<CR>", opts)
+map("n", "<Leader>o", ":Files ~<CR>", opts)
 
 map("n", "<A-,>", ":BufferPrevious<CR>", opts)
 map("n", "<A-;>", ":BufferNext<CR>", opts)

@@ -9,6 +9,7 @@ set.ignorecase = true
 
 set.fileencoding = "utf-8"
 
+set.autochdir = true
 set.wrap = false
 set.scrolloff = 5
 set.splitbelow = true
