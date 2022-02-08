@@ -17,7 +17,7 @@ sudo pip install pynvim requests black autopep8 pylint
 
 sudo npm install neovim
 
-mkdir "$HOME"/.local/bin
+mkdir -p "$HOME"/.local/bin
 cp "$HOME"/.dotfiles/InstallationScripts/key "$HOME"/.local/bin/key
 
 wal -i "$HOME"/.dotfiles/01kgv4.jpg
