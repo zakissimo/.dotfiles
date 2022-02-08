@@ -13,6 +13,7 @@ polkit
 python-pip
 python-pywal
 qtile
+ripgrep
 shellcheck
 shfmt
 starship
