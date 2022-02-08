@@ -1,25 +1,14 @@
 #!/usr/bin/env bash
 
-xrandr --output HDMI-A-1 --auto --left-of HDMI-A-0
-xset s off -dpms
-wal -R
-picom -b
-
 nm-applet &
 megasync &
 pa-applet &
 dunst &
 
-sleep 1
-
-#Faster cursor
-xset r rate 300 50
-setxkbmap -option caps:super
-killall xcape 2>/dev/null
-xcape -e 'Super_L=Escape'
-setxkbmap -model pc105 -layout fr,ara -variant oss_nodeadkeys, -option grp:alt_shift_toggle
-
-# sleep 3
+blue=$(systemctl list-units --all -t service --full --no-legend "bluetooth.service")
+if [[ $blue ]]; then
+	blueberry-tray &
+fi
 
 #flux location & start
 # lat_lng=$(curl ipinfo.io/loc)
