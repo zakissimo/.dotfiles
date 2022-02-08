@@ -22,3 +22,7 @@ apps=(qtile picom kitty sxiv neovim zsh xinit profile starship)
 for app in "${apps[@]}"; do
 	cloneAndStow "$app"
 done
+
+cp "$HOME"/.dotfiles/dunst/dunstrc "$HOME"/.config/wal/templates/dunstrc
+mkdir "$HOME"/.config/dunst
+ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc

@@ -28,7 +28,7 @@ select choice in "${options[@]}"; do
 	esac
 done
 
-sed -i 's/quiet/pci=noaer/g' /etc/default/grub
+sed -i 's/quiet/quiet pcie_aspm=force acpi_osi=/g' /etc/default/grub
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 sed -i 's/#GRUB_DISABLE_OS_PROBER=false/GRUB_DISABLE_OS_PROBER=false/g' /etc/default/grub
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf

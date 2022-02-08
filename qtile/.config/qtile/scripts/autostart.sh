@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+xrandr --output HDMI-A-1 --auto --left-of HDMI-A-0
+xset s off -dpms
+key &
+wal -R &
+picom -b &
 nm-applet &
 megasync &
 pa-applet &
