@@ -37,4 +37,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 systemctl enable iwd.service
 systemctl enable systemd-resolved
-systemctl enable --now NetworkManager.service
+systemctl enable NetworkManager.service
+
+cat <<EOF >/etc/iwd/main.conf
+[General]
+EnableNetworkConfiguration=true
+EOF
