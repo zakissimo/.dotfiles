@@ -26,7 +26,9 @@ shfmt
 starship
 stow
 sxiv
+ttf-fira-code
 ttf-fira-mono
+ttf-fira-sans
 ttf-joypixels
 wget
 xcape

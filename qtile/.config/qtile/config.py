@@ -109,13 +109,14 @@ keys = [
     Key([mod], "space", lazy.next_screen(), desc="Move focus to next monitor"),
 ]
 
+
 if monitor_num() != "1":
     groups = [
-        Group("y", label="", layout="max"),
+        Group("y", label="", layout="max"),
         Group("u", label="", layout="columns"),
         Group("i", label="", layout="columns"),
-        Group("o", label="", layout="tile"),
-        Group("p", label="", layout="max"),
+        Group("o", label="", layout="tile"),
+        Group("p", label="", layout="floating"),
         Group("minus", label="", layout="max"),
         Group("egrave", label="", layout="columns"),
         Group("underscore", label="", layout="columns"),
@@ -124,11 +125,11 @@ if monitor_num() != "1":
     ]
 else:
     groups = [
-        Group("y", label="", layout="max"),
+        Group("y", label="", layout="max"),
         Group("u", label="", layout="columns"),
         Group("i", label="", layout="columns"),
-        Group("o", label="", layout="tile"),
-        Group("p", label="", layout="max"),
+        Group("o", label="", layout="tile"),
+        Group("p", label="", layout="floating"),
     ]
 
 
@@ -174,6 +175,7 @@ layouts = [
     layout.Stack(num_stacks=3, margin=190, border_width=2),
     layout.Bsp(**layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
+    layout.Floating(**layout_theme),
 ]
 
 widget_defaults = dict(
