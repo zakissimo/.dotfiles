@@ -1,4 +1,4 @@
-import os
+import os, json
 import socket
 import subprocess
 from typing import List
@@ -22,11 +22,29 @@ terminal = "kitty"
 home = os.path.expanduser("~")
 prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
-background = "#161320"
-ext_col = "#5F4D66"
-int_col = "#937986"
+colors = os.path.expanduser("~/.cache/wal/colors.json")
+with open(colors, "r", encoding="UTF8") as colors:
+    colordict = json.load(colors)
+    ColorZ = colordict["colors"]["color0"]
+    ColorA = colordict["colors"]["color1"]
+    ColorB = colordict["colors"]["color2"]
+    ColorC = colordict["colors"]["color3"]
+    ColorD = colordict["colors"]["color4"]
+    ColorE = colordict["colors"]["color5"]
+    ColorF = colordict["colors"]["color6"]
+    ColorG = colordict["colors"]["color7"]
+    ColorH = colordict["colors"]["color8"]
+    ColorI = colordict["colors"]["color9"]
+
+# background = "#161320"
+# ext_col = "#5F4D66"
+# int_col = "#937986"
+background = ColorZ
+ext_col = ColorA
+int_col = ColorH
 active = "#FBF5F3"
 inactive = "#6E6C7E"
+
 
 keys = [
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
