@@ -16,7 +16,6 @@ pipewire-pulse
 python-dbus-next
 python-pip
 python-pywal
-qtile
 ripgrep
 shellcheck
 shfmt

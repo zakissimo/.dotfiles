@@ -175,7 +175,7 @@ layouts = [
     layout.Stack(num_stacks=3, margin=190, border_width=2),
     layout.Bsp(**layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
-    layout.Floating(**layout_theme),
+    layout.Floating(border_width=0),
 ]
 
 widget_defaults = dict(
