@@ -3,7 +3,6 @@ curl
 dunst
 exa
 fzf
-gnome-keyring
 hsetroot
 kitty
 lua
@@ -15,7 +14,6 @@ npm
 pcmanfm
 pipewire
 pipewire-pulse
-polkit
 python-dbus-next
 python-pip
 python-pywal

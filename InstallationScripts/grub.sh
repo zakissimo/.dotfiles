@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman --noconfirm -S grub os-prober networkmanager iwd
+pacman --noconfirm -S grub os-prober networkmanager iwd gnome-keyring polkit
 clear
 
 options=(efi legacy)
@@ -43,9 +43,3 @@ systemctl enable NetworkManager.service
 # [General]
 # EnableNetworkConfiguration=true
 # EOF
-
-blue=$(systemctl list-units --all -t service --full --no-legend "bluetooth.service")
-if [[ $blue ]]; then
-	pacman --noconfirm -S bluez bluez-utils blueberry
-	systemctl enable bluetooth.service
-fi
