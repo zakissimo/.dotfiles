@@ -23,7 +23,7 @@ for app in "${apps[@]}"; do
 	cloneAndStow "$app"
 done
 
-ln "$HOME"/.dotfiles/dunst/dunstrc "$HOME"/.config/wal/templates/dunstrc
+ln -s "$HOME"/.dotfiles/dunst/dunstrc "$HOME"/.config/wal/templates/dunstrc
 mkdir "$HOME"/.config/dunst
 ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
 

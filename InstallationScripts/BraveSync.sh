@@ -6,7 +6,7 @@ command -v megasync >/dev/null 2>&1 || { echo >&2 "I require megasync but it's n
 
 import(){
     [ ! -d "$HOME/MEGA/Linuxrc/BraveSettings" ] && { echo >&2 "No saved settings found in MEGA! Aborting."; exit 1; }
-    cp -r "$HOME/MEGA/Linuxrc/BraveSettings/Default" "$HOME/.config/BraveSoftware/Brave-Browser/" && echo "Settings successfully synchronised!"
+    cp -r "$HOME/MEGA/Linuxrc/BraveSettings/Default" "$HOME/.config/BraveSoftware/Brave-Browser/Default" && echo "Settings successfully synchronised!"
 }
 
 export(){
