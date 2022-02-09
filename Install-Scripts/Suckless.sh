@@ -11,3 +11,4 @@ cd "$HOME"/dmenu-flexipatch || echo "Can't cd in dmenu folder!"
 sudo make clean install
 
 rm -rf "$HOME"/dmenu-flexipatch
+[ -f "$HOME"/.cache/dmenu_run ] && rm "$HOME"/.cache/dmenu_run

@@ -33,4 +33,9 @@ xset s off -dpms
 key &
 wal -R &
 picom -b &
+
+if [ -d "/proc/acpi/button/lid" ]; then
+	cbatticon -u 20 -i notification -c "poweroff" -l 15 -r 3 &
+fi
+
 # qtile start
