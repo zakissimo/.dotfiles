@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman --noconfirm -S grub os-prober networkmanager iwd gnome-keyring polkit
+pacman --noconfirm -S grub os-prober networkmanager iwd gnome-keyring polkit network-manager-applet
 clear
 
 options=(efi legacy)

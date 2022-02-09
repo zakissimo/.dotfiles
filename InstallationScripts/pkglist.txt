@@ -7,7 +7,6 @@ hsetroot
 kitty
 lua
 neovim
-network-manager-applet
 noto-fonts
 noto-fonts-cjk
 npm
