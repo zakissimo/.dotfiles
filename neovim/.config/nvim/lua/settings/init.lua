@@ -21,3 +21,4 @@ set.mouse = "a"
 set.clipboard = "unnamedplus"
 
 set.swapfile = false
+vim.g.python3_host_prog = "/usr/bin/python"
