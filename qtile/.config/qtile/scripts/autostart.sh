@@ -12,7 +12,7 @@ dunst &
 
 blue=$(systemctl list-units --all -t service --full --no-legend "bluetooth.service")
 if [[ $blue ]]; then
-	blueberry-tray &
+	blueman-applet &
 fi
 
 #flux location & start
