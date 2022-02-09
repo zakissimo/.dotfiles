@@ -5,8 +5,11 @@
 
 [global]
     # Make the width 3740 (3840 - 100), have 50 left margin and 95 above
-    geometry = "3740x100-50+95"
+    # geometry = "3740x100-50+95"
+	width = (0,350)
+	hight = 300
 
+	offset = "5x30"
     # Show multiple notifications in the same box
     separator_height = 0
 
