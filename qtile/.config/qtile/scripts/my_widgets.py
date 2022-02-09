@@ -19,8 +19,8 @@ def keklayout():
     )
     if lay == "fr":
         return " FR "
-    if lay == "us":
-        return " US "
+    if lay == "ca":
+        return " CA "
     return " ع "
 
 

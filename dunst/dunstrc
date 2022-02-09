@@ -14,7 +14,7 @@
     padding = 7
 
     # Add horizontal padding for when the text gets long enough
-    horizontal_padding = 5
+    horizontal_padding = 15
 
     # The frame color and width of the notification
     frame_color = "{color1}"
