@@ -380,8 +380,8 @@ mouse = [
 floating_layout = layout.Floating(
     border_width=3,
     margin=5,
-    border_focus=active,
-    border_normal=inactive,
+    border_focus=ext_col,
+    border_normal=background,
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X
         # client.

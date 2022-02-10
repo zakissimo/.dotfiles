@@ -17,10 +17,10 @@ def keklayout():
         .decode("utf8")
         .strip()
     )
-    if lay == "fr":
+    if lay == "oss_nodeadkeys":
         return " FR "
-    if lay == "ca":
-        return " CA "
+    if lay == "us":
+        return " NB "
     return " ع "
 
 

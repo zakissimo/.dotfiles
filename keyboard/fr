@@ -1009,39 +1009,20 @@ xkb_symbols "geo" {
 partial alphanumeric_keys
 xkb_symbols "us" {
 
-    include "us(basic)"
+    include "fr(oss_nodeadkeys)"
     name[Group1]= "French (US)";
 
 
-    key <TLDE> { [     grave, asciitilde,    dead_grave                   ] };
-    key <AE06> { [         6,asciicircum,dead_circumflex                  ] };
-
-    key <AB01> { [	   z,          Z,   acircumflex,      Acircumflex ] }; // â Â
-    key <AB03> { [	   c,          C,      ccedilla,         Ccedilla ] }; // ç Ç
-
-    key <AC01> { [	   a,          A,        agrave,           Agrave ] }; // à À
-    key <AC02> { [	   s,          S,            ae,               AE ] }; // æ Æ
-    key <AC03> { [	   d,          D,   ecircumflex,      Ecircumflex ] }; // ê Ê
-    key <AC04> { [	   f,          F,    ediaeresis,       Ediaeresis ] }; // ë Ë
-    key <AC06> { [	   h,          H,    udiaeresis,       Udiaeresis ] }; // ü Ü
-    key <AC07> { [	   j,          J,   ucircumflex,      Ucircumflex ] }; // û Û
-    key <AC08> { [	   k,          K,   icircumflex,      Icircumflex ] }; // î Î
-    key <AC11> { [apostrophe,   quotedbl,dead_diaeresis,           degree ] };
-
-    key <AD03> { [	   e,          E,        eacute,           Eacute ] }; // é É
-    key <AD04> { [	   r,          R,        egrave,           Egrave ] }; // è È
-    key <AD06> { [	   y,          Y,    ydiaeresis,       Ydiaeresis ] }; // ÿ Ÿ
-    key <AD07> { [	   u,          U,        ugrave,           Ugrave ] }; // ù Ù
-    key <AD08> { [	   i,          I,    idiaeresis,       Idiaeresis ] }; // ï Ï
-    key <AD09> { [	   o,          O,   ocircumflex,      Ocircumflex ] }; // ô Ô
-    key <AD10> { [	   p,          P,            oe,               OE ] }; // œ Œ
-    key <AD11> { [ bracketleft,  braceleft,  guillemotleft,  leftdoublequotemark ] }; // « “
-    key <AD12> { [bracketright, braceright, guillemotright, rightdoublequotemark ] }; // » ”
-
-    key <AE04> { [        4,     dollar,      EuroSign,         currency ] }; // € ¤
-
-    include "level3(ralt_switch)"
-    include "eurosign(5)"
+    key <AE01>	{ [1,   ampersand,   onesuperior,   exclamdown ]	};
+    key <AE02>	{ [2,      eacute,    asciitilde,    oneeighth ]	};
+    key <AE03>	{ [3,    quotedbl,    numbersign,     sterling ]	};
+    key <AE04>	{ [4,  apostrophe,     braceleft,       dollar ]	};
+    key <AE05>	{ [5,   parenleft,   bracketleft, threeeighths ]	};
+    key <AE06>	{ [6,       minus,           bar,  fiveeighths ]	};
+    key <AE07>	{ [7,      egrave,         grave, seveneighths ]	};
+    key <AE08>	{ [8,  underscore,     backslash,    trademark ]	};
+    key <AE09>	{ [9,    ccedilla,   asciicircum,    plusminus ]	};
+    key <AE10>	{ [0,      agrave,            at,       degree ]	};
 };
 
 // EXTRAS:
