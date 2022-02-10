@@ -10,7 +10,7 @@ set.ignorecase = true
 set.fileencoding = "utf-8"
 
 set.autochdir = true
-set.wrap = false
+set.wrap = true
 set.scrolloff = 5
 set.splitbelow = true
 set.splitright = true

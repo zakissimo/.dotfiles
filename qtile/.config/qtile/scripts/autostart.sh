@@ -9,6 +9,7 @@ nm-applet &
 megasync &
 pa-applet &
 dunst &
+"$HOME/MEGA/Apps/g14_alert" &
 
 blue=$(systemctl list-units --all -t service --full --no-legend "bluetooth.service")
 if [[ $blue ]]; then
