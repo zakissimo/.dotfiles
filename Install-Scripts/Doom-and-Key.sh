@@ -13,3 +13,4 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 sudo cp "$HOME/.dotfiles/keyboard/arabic.el" "/usr/share/emacs/27.2/lisp/leim/quail/"
 sudo cp "$HOME/.dotfiles/keyboard/fr" "/usr/share/X11/xkb/symbols/"
 sudo cp "$HOME/.dotfiles/keyboard/ara" "/usr/share/X11/xkb/symbols/"
+sudo rm "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc"
