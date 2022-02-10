@@ -26,5 +26,3 @@ done
 ln -s "$HOME"/.dotfiles/dunst/dunstrc "$HOME"/.config/wal/templates/dunstrc
 mkdir "$HOME"/.config/dunst
 ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
-
-ln "$HOME"/.dotfiles/Install-Scripts/key "$HOME"/.local/bin/key
