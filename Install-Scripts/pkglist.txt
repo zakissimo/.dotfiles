@@ -6,6 +6,7 @@ fzf
 hsetroot
 kitty
 lua
+lxappearance
 neovim
 noto-fonts
 noto-fonts-cjk
