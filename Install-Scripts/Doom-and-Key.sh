@@ -3,10 +3,12 @@
 sudo cp "$HOME/.dotfiles/keyboard/arabic.el" "/usr/share/emacs/27.2/lisp/leim/quail/"
 sudo cp "$HOME/.dotfiles/keyboard/fr" "/usr/share/X11/xkb/symbols/"
 sudo cp "$HOME/.dotfiles/keyboard/ara" "/usr/share/X11/xkb/symbols/"
-sudo rm "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc"
+
+[ -f "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc" ] && sudo rm "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc"
 
 ln "$HOME"/.dotfiles/keyboard/key "$HOME"/.local/bin/key
 
+echo "Shall we install emacs? "
 options=(yes no)
 select choice in "${options[@]}"; do
 	case $choice in

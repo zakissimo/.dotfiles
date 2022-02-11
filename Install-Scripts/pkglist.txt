@@ -10,6 +10,7 @@ neovim
 noto-fonts
 noto-fonts-cjk
 npm
+pavucontrol
 pcmanfm
 pipewire
 pipewire-pulse
