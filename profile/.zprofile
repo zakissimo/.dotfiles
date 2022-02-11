@@ -17,4 +17,4 @@ if [ -d "$HOME/Apps" ] ;
   then export PATH="$HOME/Apps:$PATH"
 fi
 
-# [[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti
+[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti
