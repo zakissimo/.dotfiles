@@ -39,3 +39,4 @@ if [ -d "/proc/acpi/button/lid" ]; then
 fi
 
 qtile start
+# exec startlxde

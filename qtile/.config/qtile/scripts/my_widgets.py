@@ -18,10 +18,10 @@ def keklayout():
         .strip()
     )
     if lay == "oss_nodeadkeys":
-        return " FR "
+        return "FR"
     if lay == "us":
-        return " NB "
-    return " ع "
+        return "NB"
+    return "ع"
 
 
 def kekdate():

@@ -191,7 +191,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\ue0ba",
-            padding=-3,
+            padding=0,
             foreground=background,
             background=ext_col,
             fontsize=35,
@@ -203,8 +203,6 @@ def init_widgets_list():
             active=active,
             highlight_method="line",
             this_current_screen_border=ext_col,
-            other_screen_border=inactive,
-            other_current_screen_border=active,
             visible_groups=["y", "u", "i", "o", "p"],
         ),
         widget.GroupBox(
@@ -214,8 +212,6 @@ def init_widgets_list():
             inactive=inactive,
             highlight_method="line",
             this_current_screen_border=ext_col,
-            other_screen_border=inactive,
-            other_current_screen_border=active,
             visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"],
         ),
         widget.TextBox(
@@ -237,7 +233,7 @@ def init_widgets_list():
         ),
         widget.GenPollText(
             update_interval=1,
-            padding=5,
+            padding=0,
             background=background,
             mouse_callbacks={"Button1": lazy.spawn("kitty -e btop")},
             func=kekram,
@@ -252,7 +248,7 @@ def init_widgets_list():
             fontsize=35,
         ),
         widget.GenPollText(
-            update_interval=60, padding=5, background=int_col, func=time4salat
+            update_interval=60, padding=0, background=int_col, func=time4salat
         ),
         widget.TextBox(
             font="Fira Mono",
@@ -263,7 +259,7 @@ def init_widgets_list():
             fontsize=35,
         ),
         widget.GenPollText(
-            update_interval=1,
+            update_interval=3600,
             padding=0,
             background=ext_col,
             mouse_callbacks={"Button1": lazy.spawn("kitty -e cal")},
@@ -278,7 +274,7 @@ def init_widgets_list():
             fontsize=35,
         ),
         widget.GenPollText(
-            update_interval=1, background=int_col, padding=0, func=kektime
+            update_interval=60, background=int_col, padding=0, func=kektime
         ),
         widget.TextBox(
             font="Fira Mono",
@@ -291,7 +287,7 @@ def init_widgets_list():
         widget.GenPollText(
             fontsize=15,
             update_interval=0.2,
-            padding=1,
+            padding=4,
             background=background,
             mouse_callbacks={"Button1": lazy.spawn("key")},
             func=keklayout,
@@ -398,6 +394,7 @@ floating_layout = layout.Floating(
         Match(wm_class="DBeaver"),
         Match(wm_class="megasync"),
         Match(wm_class="PlayOnLinux"),
+        Match(wm_class="EasyEffects"),
     ],
 )
 

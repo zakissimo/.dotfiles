@@ -11,11 +11,11 @@ git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && sudo rm -rf yay
 
-yay -S --noconfirm picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font visual-studio-code-bin xkblayout-state pa-applet-git
+yay -S --noconfirm picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font visual-studio-code-bin xkblayout-state pa-applet-git stylua
 
-sudo pip install pynvim requests black autopep8 pylint psutil
+sudo pip install pynvim requests black autopep8 pylint psutil prettier
 
-sudo npm install neovim
+sudo npm install -g neovim
 
 mkdir -p "$HOME"/.local/bin
 
