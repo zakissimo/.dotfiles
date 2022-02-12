@@ -1,6 +1,5 @@
 btop
 curl
-df
 dunst
 exa
 fzf
@@ -18,6 +17,7 @@ pipewire
 pipewire-pulse
 python-dbus-next
 python-pip
+python-psutil
 python-pywal
 qtile
 ripgrep
@@ -32,10 +32,12 @@ ttf-fira-sans
 ttf-joypixels
 wget
 xcape
+xcb-util-cursor
 xclip
 xf86-video-amdgpu
 xf86-video-ati
 xf86-video-vmware
 xorg-server
 xorg-xinit
+xorg-xrandr
 xterm
