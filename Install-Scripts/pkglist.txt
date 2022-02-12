@@ -2,6 +2,7 @@ btop
 curl
 dunst
 exa
+fd
 fzf
 hsetroot
 kitty
@@ -39,5 +40,6 @@ xf86-video-ati
 xf86-video-vmware
 xorg-server
 xorg-xinit
+xorg-xmessage
 xorg-xrandr
 xterm
