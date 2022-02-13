@@ -20,6 +20,7 @@ python-dbus-next
 python-pip
 python-psutil
 python-pywal
+p7zip
 qtile
 ripgrep
 shellcheck
@@ -31,6 +32,7 @@ ttf-fira-code
 ttf-fira-mono
 ttf-fira-sans
 ttf-joypixels
+unzip
 wget
 xcape
 xcb-util-cursor

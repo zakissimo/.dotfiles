@@ -2,6 +2,8 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
+require("luasnip/loaders/from_vscode").lazy_load()
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -9,8 +11,8 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-k>"] = cmp.mapping.select_prev_item(),
+		["<C-j>"] = cmp.mapping.select_next_item(),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
@@ -40,11 +42,16 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lua" },
 		{ name = "luasnip" },
+		{ name = "buffer" },
+		{ name = "cmp_tabnine" },
+		{ name = "path" },
+		{ name = "emoji" },
 	},
 	formatting = {
 		format = lspkind.cmp_format({
-			with_text = true,
+			with_text = false,
 			maxwidth = 50,
 
 			before = function(_, vim_item)

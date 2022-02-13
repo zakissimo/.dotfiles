@@ -63,8 +63,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- use({ "neoclide/coc.nvim", branch = "release" })
-	use("folke/lua-dev.nvim")
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
@@ -72,10 +70,14 @@ return require("packer").startup(function(use)
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 
 	use("L3MON4D3/LuaSnip")
+	use("rafamadriz/friendly-snippets")
+
 	use("onsails/lspkind-nvim")
 	use("hrsh7th/cmp-nvim-lsp")
 	use("neovim/nvim-lspconfig")
 	use("williamboman/nvim-lsp-installer")
+
+	use("p00f/nvim-ts-rainbow")
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 

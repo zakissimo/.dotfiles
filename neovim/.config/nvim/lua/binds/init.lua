@@ -16,7 +16,12 @@ map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
 map("n", "<leader>rp", ":w<CR>:!python3 %<CR>", opts)
 map("n", "<leader>rl", ":w<CR>:!lua %<CR>", opts)
 map("n", "<leader>rba", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
-map("n", "<leader>rh", ":w<CR>:!python3 % > /tmp/a.html<CR>:vsplit<CR>:e /tmp/a.html<CR><CR>", opts)
+map(
+	"n",
+	"<leader>rh",
+	":w<CR>:if bufwinnr('out.html') > -1 | bd out.html<CR> | endif | !python3 % > /tmp/out.html<CR>:vsplit<CR>:e /tmp/out.html<CR>endif<CR>",
+	opts
+)
 
 map("n", "S", ":%s///g<Left><Left><Left>", opts)
 map("n", "s", ":s///g<Left><Left><Left>", opts)
