@@ -15,7 +15,8 @@ map("n", "<C-l>", "<C-w>l", opts)
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
 map("n", "<leader>rp", ":w<CR>:!python3 %<CR>", opts)
 map("n", "<leader>rl", ":w<CR>:!lua %<CR>", opts)
-map("n", "<leader>rba", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
+map("n", "<leader>el", ":w<CR>:!busted<CR>", opts)
+map("n", "<leader>eb", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
 map(
 	"n",
 	"<leader>rh",
@@ -23,8 +24,8 @@ map(
 	opts
 )
 
-map("n", "S", ":%s///g<Left><Left><Left>", opts)
-map("n", "s", ":s///g<Left><Left><Left>", opts)
+map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
+map("n", "s", ":s///g<Left><Left><Left>", { noremap = true })
 
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)

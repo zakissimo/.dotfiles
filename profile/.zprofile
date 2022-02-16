@@ -3,7 +3,6 @@
 export TERM=kitty
 export EDITOR=nvim
 export VISUAL=code
-export BROWSER=brave
 
 if [ -d "$HOME/.bin" ] ;
   then export PATH="$HOME/.bin:$PATH"

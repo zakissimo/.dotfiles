@@ -7,7 +7,6 @@ from libqtile import bar, layout, widget, hook, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from scripts.my_widgets import (
     kekram,
-    keklayout,
     kekdate,
     kektime,
     time4salat,
@@ -283,14 +282,6 @@ def init_widgets_list():
             foreground=background,
             background=int_col,
             fontsize=35,
-        ),
-        widget.GenPollText(
-            fontsize=15,
-            update_interval=0.2,
-            padding=4,
-            background=background,
-            mouse_callbacks={"Button1": lazy.spawn("key")},
-            func=keklayout,
         ),
         widget.Systray(),
         widget.TextBox(

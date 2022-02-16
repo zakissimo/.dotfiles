@@ -4,6 +4,7 @@ dunst
 exa
 fd
 fzf
+gxkb
 hsetroot
 kitty
 lua

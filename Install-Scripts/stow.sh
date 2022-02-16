@@ -11,7 +11,7 @@ cloneAndStow() {
 	done
 	for path in $directories; do
 		real=$(echo "$path" | sed "s/.dotfiles\/$1\///g")
-		[ ! -d "$real" ] && mkdir -p "$real" && echo "Creating path: $real"
+		[ ! -d "$real" ] && mkdir -vp "$real"
 	done
 
 	cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
@@ -26,3 +26,5 @@ done
 ln -s "$HOME"/.dotfiles/dunst/dunstrc "$HOME"/.config/wal/templates/dunstrc
 mkdir "$HOME"/.config/dunst
 ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
+mkdir -vp "$HOME/.local/share/gxkb/"
+cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"

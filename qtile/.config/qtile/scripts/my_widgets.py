@@ -9,21 +9,6 @@ def kekram():
     return cpu + mem
 
 
-def keklayout():
-    lay = (
-        subprocess.check_output(
-            os.path.expanduser("~/.config/qtile/scripts/keklayout.sh")
-        )
-        .decode("utf8")
-        .strip()
-    )
-    if lay == "oss_nodeadkeys":
-        return "FR"
-    if lay == "us":
-        return "NB"
-    return "ع"
-
-
 def kekdate():
     return (
         "📆 "
