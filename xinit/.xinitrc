@@ -31,8 +31,4 @@ fi
 xrandr --output HDMI-A-1 --auto --left-of HDMI-A-0
 xset s off -dpms
 
-if [ -d "/proc/acpi/button/lid" ]; then
-	cbatticon -u 20 -i notification -c "poweroff" -l 15 -r 3 &
-fi
-
 qtile start >/dev/null 2>&1
