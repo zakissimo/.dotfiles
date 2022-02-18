@@ -26,6 +26,7 @@ map(
 
 map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
 map("n", "s", ":s///g<Left><Left><Left>", { noremap = true })
+map("v", "s", ":s///g<Left><Left><Left>", { noremap = true })
 
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
