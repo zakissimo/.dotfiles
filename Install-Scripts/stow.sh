@@ -26,5 +26,5 @@ done
 ln -s "$HOME"/.dotfiles/dunst/dunstrc "$HOME"/.config/wal/templates/dunstrc
 mkdir "$HOME"/.config/dunst
 ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
-mkdir -vp "$HOME/.local/share/gxkb/"
-cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"
+# mkdir -vp "$HOME/.local/share/gxkb/"
+# cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"
