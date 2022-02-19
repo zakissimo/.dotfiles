@@ -5,7 +5,7 @@ picom -b &
 
 nm-applet &
 megasync &
-gxkb &
+# gxkb &
 
 "$HOME/MEGA/Apps/g14_alert" &
 
