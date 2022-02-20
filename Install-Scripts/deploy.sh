@@ -5,6 +5,10 @@ if [ "$(id -u)" = 0 ]; then
 	exit 1
 fi
 
+sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
+sed -i "s/^#\[multilib\]$/\[multilib\]/" /etc/pacman.conf
+sed -i "s/^#Include = \/etc\/pacman\.d\/mirrorlist$/Include = \/etc\/pacman\.d\/mirrorlist\/" /etc/pacman.conf
+
 sudo pacman --needed --ask 4 -Sy - <pkglist.txt
 
 git clone https://aur.archlinux.org/yay.git
