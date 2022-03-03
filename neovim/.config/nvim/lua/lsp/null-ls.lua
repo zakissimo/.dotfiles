@@ -10,13 +10,13 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
 	debug = false,
 	sources = {
-		formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
+		formatting.deno_fmt,
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.stylua,
 		formatting.shfmt,
 		diagnostics.shellcheck,
 		diagnostics.pylint.with({
-			extra_args = { "--disable=C" },
+			extra_args = { "--disable=C", "--disable=E" },
 		}),
 	},
 	on_attach = function(client)

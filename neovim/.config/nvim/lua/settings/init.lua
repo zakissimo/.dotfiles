@@ -15,7 +15,9 @@ set.scrolloff = 5
 set.splitbelow = true
 set.splitright = true
 set.foldenable = false
+set.number = true
 set.relativenumber = true
+set.cursorline = true
 
 set.mouse = "a"
 set.clipboard = "unnamedplus"

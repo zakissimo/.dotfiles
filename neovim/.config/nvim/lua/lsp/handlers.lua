@@ -81,7 +81,7 @@ end
 
 M.on_attach = function(client, bufnr)
 	-- notify(client.name)
-	if client.name == "tsserver" or client.name == "html" then
+	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false
 	end
 	if client.name == "sumneko_lua" or client.name == "lua" then

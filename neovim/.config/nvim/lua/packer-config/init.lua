@@ -63,6 +63,8 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	use("junegunn/vader.vim")
+
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
