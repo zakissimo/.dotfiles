@@ -1,0 +1,25 @@
+#!/bin/sh
+
+. ~/.cache/wal/colors.sh
+
+~/.config/bspwm/autostart.sh
+~/.config/polybar/launch.sh
+
+pgrep -x sxhkd >/dev/null || sxhkd &
+bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 &
+xidlehook --not-when-audio --not-when-fullscreen --timer 1800 'systemctl suspend' '' &
+pgrep bspswallow || bspswallow &
+startup
+
+bspc config border_width 2
+bspc config window_gap 20
+bspc config normal_border_color "$color0"
+bspc config focused_border_color "$color1"
+
+bspc config split_ratio 0.52
+bspc config borderless_monocle true
+bspc config gapless_monocle true
+
+bspc rule -a Steam state=tiled
+bspc rule -a Megasync state=tiled
+bspc rule -a Arandr state=floating
