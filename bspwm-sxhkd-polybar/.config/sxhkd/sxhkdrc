@@ -15,14 +15,14 @@ super + e
 
 #Dmenu
 super + r
-	dmenu_run -i -h 23 -nb $color0 -nf '#6E6C7E' -sb $color1 -sf '#FBF5F3' -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=14'
+	dmenu_run -h 23 -nb "$color0" -nf '#6E6C7E' -sb "$color1" -sf '#FBF5F3' -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=14'
 
 #Logout
 #super + shift + x
 #	bspc quit
 
 #kill
-super + a
+super + q
 	bspc node -c
 
 #Reload sxhkd:
@@ -35,14 +35,14 @@ super + shift + r
 
 ### WM ###
 #Focus selected desktop
-super + {6,7,8,9,0,y,u,i,o,p}
-    bspc desktop -f '^{1-9,10}'
+super + {y,u,i,o,p}
+    bspc desktop -f '^{1-5}'
 
 # {minus,egrave,exclam,ccedilla,agrave}
 #
 #Move window to selected desktop
-super + shift + {6,7,8,9,0,y,u,i,o,p}
-    id=$(bspc query -N -n); bspc node -d ^{1-9,10}; bspc node -f ${id}}
+super + shift + {y,u,i,o,p}
+    id=$(bspc query -N -n); bspc node -d ^{1-5}; bspc node -f ${id}}
 
 # Focus windows by direction
 super + {h,j,k,l}
@@ -52,9 +52,13 @@ super + {h,j,k,l}
 super + shift + {h,j,k,l}
 	bspc node --{swap} {west,south,north,east}
 
-#Resizing
+# expand a window by moving one of its side outward
 super + control + {h,j,k,l}
-    bspc window -e {left -10,down +10,up -10,right +10}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + control + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 #Toggle fullscreen of window
 super + f
