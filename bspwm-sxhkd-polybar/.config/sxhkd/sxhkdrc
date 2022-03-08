@@ -1,4 +1,3 @@
-. ~/.cache/wal/colors.sh
 
 ### Software ###
 #Browser
@@ -15,7 +14,7 @@ super + e
 
 #Dmenu
 super + r
-	dmenu_run -h 23 -nf '#6E6C7E' -sf '#FBF5F3' -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=14'
+	dmenu_run -h 25 -nf '#6E6C7E' -nb ${xrdb:color0} -sf '#FBF5F3' -sb ${xrdb:color1} -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=15'
 
 #Logout
 #super + shift + x
@@ -41,7 +40,7 @@ super + {y,u,i,o,p}
     bspc desktop -f '^{1-5}'
 
 # {minus,egrave,exclam,ccedilla,agrave}
-#
+
 #Move window to selected desktop
 super + shift + {y,u,i,o,p}
     id=$(bspc query -N -n); bspc node -d ^{1-5}; bspc node -f ${id}}
@@ -55,16 +54,20 @@ super + shift + {h,j,k,l}
 	bspc node --{swap} {west,south,north,east}
 
 # expand or shrink a window to the right
-super + l bspc node -z right 20 0 || bspc node -z left 20 0
+super + control + l 
+	bspc node -z right 20 0 || bspc node -z left 20 0
 
 # expand or shrink a window to the left
-super + h bspc node -z left -20 0 || bspc node -z right -20 0
+super + control + h 
+	bspc node -z left -20 0 || bspc node -z right -20 0
 
 # expand or shrink a window to the top
-super + k bspc node -z top 0 -20 || bspc node -z bottom 0 -20
+super + control + k 
+	bspc node -z top 0 -20 || bspc node -z bottom 0 -20
 
 # expand or shrink a window to the bottom
-super + j bspc node -z bottom 0 20 || bspc node -z top 0 20
+super + control + j 
+	bspc node -z bottom 0 20 || bspc node -z top 0 20
 
 # expand a window by moving one of its side outward
 # super + control + {h,j,k,l}
