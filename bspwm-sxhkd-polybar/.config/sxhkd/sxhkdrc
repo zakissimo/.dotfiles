@@ -14,7 +14,7 @@ super + e
 
 #Dmenu
 super + r
-	dmenu_run -h 25 -nf '#6E6C7E' -nb ${xrdb:color0} -sf '#FBF5F3' -sb ${xrdb:color1} -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=15'
+	dmenu_run -h 25 -nf '#6E6C7E' -sf '#FBF5F3' -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=15'
 
 #Logout
 #super + shift + x
