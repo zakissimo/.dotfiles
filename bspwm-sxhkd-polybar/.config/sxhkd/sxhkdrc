@@ -15,7 +15,7 @@ super + e
 
 #Dmenu
 super + r
-	dmenu_run -h 23 -nb "$color0" -nf '#6E6C7E' -sb "$color1" -sf '#FBF5F3' -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=14'
+	dmenu_run -h 23 -nf '#6E6C7E' -sf '#FBF5F3' -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=14'
 
 #Logout
 #super + shift + x
