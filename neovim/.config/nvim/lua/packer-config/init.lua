@@ -91,6 +91,10 @@ return require("packer").startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 
+	use("mfussenegger/nvim-dap")
+	use("theHamsta/nvim-dap-virtual-text")
+	use("mfussenegger/nvim-dap-python")
+
 	use("romgrk/barbar.nvim")
 	use("nvim-lualine/lualine.nvim")
 

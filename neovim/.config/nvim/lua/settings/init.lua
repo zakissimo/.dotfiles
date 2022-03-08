@@ -9,6 +9,8 @@ set.ignorecase = true
 
 set.fileencoding = "utf-8"
 
+set.updatetime = 1000
+
 set.autochdir = true
 set.wrap = true
 set.scrolloff = 5

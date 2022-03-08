@@ -1,5 +1,6 @@
 require("packer-config")
 require("lsp")
+require("dbg")
 require("binds")
 require("settings")
 require("tree-config")
