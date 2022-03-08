@@ -28,10 +28,12 @@ super + q
 #Reload sxhkd:
 super + shift + s
 	pkill -USR1 -x sxhkd
+	notify-send "sxhkd: sxhkd has been restarted."
 
 #Reload bspwm
 super + shift + r
 	~/.config/bspwm/bspwmrc
+	notify-send "bspwm: bspwm has been restarted."
 
 ### WM ###
 #Focus selected desktop
@@ -52,13 +54,25 @@ super + {h,j,k,l}
 super + shift + {h,j,k,l}
 	bspc node --{swap} {west,south,north,east}
 
+# expand or shrink a window to the right
+super + l bspc node -z right 20 0 || bspc node -z left 20 0
+
+# expand or shrink a window to the left
+super + h bspc node -z left -20 0 || bspc node -z right -20 0
+
+# expand or shrink a window to the top
+super + k bspc node -z top 0 -20 || bspc node -z bottom 0 -20
+
+# expand or shrink a window to the bottom
+super + j bspc node -z bottom 0 20 || bspc node -z top 0 20
+
 # expand a window by moving one of its side outward
-super + control + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# super + control + {h,j,k,l}
+# 	bspc node -z {left -20 0,bottom 0 -20,top 0 -20,right -20 0}
 
 # contract a window by moving one of its side inward
-super + control + shift + {h,j,k,l}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+# super + control + shift + {h,j,k,l}
+# 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 #Toggle fullscreen of window
 super + f
@@ -84,10 +98,10 @@ super + space
 # super + {_,shift + }a
 # 	bspc node @/ --flip {vertical,horizontal}
 
-#Rotate desktop
-# alt + space
-# 	bspc node @/ --rotate {90,-90}
-
+# Rotate the windows 90 degrees in any direction
+#super + shift + {comma,period}
+# bspc node @/ -R {90,270}
+#
 ### Utility ###
 #Screenshot
 Print
