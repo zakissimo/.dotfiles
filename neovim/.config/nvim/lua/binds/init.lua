@@ -4,7 +4,8 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 
 map("n", "<C-s>", ":w<CR>", opts)
-map("n", "<A-w>", ":bd<CR>", opts)
+map("n", "<A-q>", ":bd<CR>", opts)
+map("n", "<A-w>", "<C-w>c<CR>", opts)
 map("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 
 map("n", "<C-j>", "<C-w>j", opts)
