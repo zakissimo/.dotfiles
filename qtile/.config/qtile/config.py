@@ -2,7 +2,7 @@ import os, json
 import subprocess
 from typing import List
 from libqtile.command import lazy
-from libqtile import bar, layout, widget, hook, extension
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from scripts.my_widgets import (
     kekram,
@@ -58,22 +58,7 @@ keys = [
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key(
-        [mod],
-        "r",
-        lazy.run_extension(
-            extension.DmenuRun(
-                dmenu_command="dmenu_run",
-                dmenu_prompt=">",
-                dmenu_font="CaskaydiaCove Nerd Font",
-                foreground=inactive,
-                background=background,
-                selected_background=ext_col,
-                selected_foreground=active,
-                dmenu_height=30,
-            )
-        ),
-    ),
+    Key([mod], "r", lazy.spawn("rofi -show drun")),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     Key(
         [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"

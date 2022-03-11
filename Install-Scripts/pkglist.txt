@@ -11,6 +11,7 @@ fzf
 gxkb
 hsetroot
 kitty
+linux-headers
 lua
 lxappearance
 mpv

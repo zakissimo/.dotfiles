@@ -17,7 +17,7 @@ cloneAndStow() {
 	cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
 }
 
-apps=(qtile picom kitty sxiv neovim zsh xinit profile starship wal-templates)
+apps=(qtile picom rofi kitty sxiv neovim zsh xinit profile starship wal-templates)
 
 for app in "${apps[@]}"; do
 	cloneAndStow "$app"
