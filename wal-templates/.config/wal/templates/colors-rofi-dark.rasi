@@ -1,5 +1,5 @@
 * {{
-  bg: {color0};
+  bg: {color0}05;
   bg-alt: {color1};
 
   fg: {color7};
@@ -23,7 +23,8 @@ element {{
 }}
 
 element selected {{
-  text-color: @fg;
+  background-color: @fg;
+  text-color: @fg-alt;
 }}
 
 element-text {{
