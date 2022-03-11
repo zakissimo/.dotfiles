@@ -17,13 +17,12 @@ cloneAndStow() {
 	cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
 }
 
-apps=(qtile picom kitty sxiv neovim zsh xinit profile starship)
+apps=(qtile picom kitty sxiv neovim zsh xinit profile starship wal-templates)
 
 for app in "${apps[@]}"; do
 	cloneAndStow "$app"
 done
 
-ln -s "$HOME"/.dotfiles/dunst/dunstrc "$HOME"/.config/wal/templates/dunstrc
 mkdir "$HOME"/.config/dunst
 ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
 # mkdir -vp "$HOME/.local/share/gxkb/"

@@ -1,5 +1,4 @@
 import os, json
-import socket
 import subprocess
 from typing import List
 from libqtile.command import lazy
@@ -15,11 +14,9 @@ from scripts.my_widgets import (
 
 
 mod = "mod4"
-mod1 = "alt"
-mod2 = "control"
+alt = "mod1"
 terminal = "kitty"
 home = os.path.expanduser("~")
-prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 colors = os.path.expanduser("~/.cache/wal/colors.json")
 with open(colors, "r", encoding="UTF8") as colors:
@@ -35,9 +32,6 @@ with open(colors, "r", encoding="UTF8") as colors:
     ColorH = colordict["colors"]["color8"]
     ColorI = colordict["colors"]["color9"]
 
-# background = "#161320"
-# ext_col = "#5F4D66"
-# int_col = "#937986"
 background = ColorZ
 ext_col = ColorA
 int_col = ColorH
@@ -45,7 +39,21 @@ active = "#FBF5F3"
 inactive = "#6E6C7E"
 
 
+@lazy.function
+def increase_gaps(qtile):
+    qtile.current_layout.margin += 10
+    qtile.current_group.layout_all()
+
+
+@lazy.function
+def decrease_gaps(qtile):
+    qtile.current_layout.margin -= 10
+    qtile.current_group.layout_all()
+
+
 keys = [
+    Key([mod, alt], "j", increase_gaps(), desc=""),
+    Key([mod, alt], "k", decrease_gaps(), desc=""),
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
@@ -62,7 +70,7 @@ keys = [
                 background=background,
                 selected_background=ext_col,
                 selected_foreground=active,
-                dmenu_height=23,
+                dmenu_height=30,
             )
         ),
     ),
@@ -164,7 +172,7 @@ for i in groups:
 # DEFAULT THEME SETTINGS FOR LAYOUTS
 layout_theme = {
     "margin": 7,
-    "border_width": 2,
+    "border_width": 1,
     "border_focus": ext_col,
     "border_normal": background,
 }
@@ -191,7 +199,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\ue0ba",
-            padding=0,
+            padding=-1,
             foreground=background,
             background=ext_col,
             fontsize=35,
@@ -217,7 +225,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\uE0Ba",
-            padding=0,
+            padding=-1,
             foreground=ext_col,
             background=background,
             fontsize=35,
@@ -226,7 +234,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\uE0Ba",
-            padding=0,
+            padding=-1,
             foreground=background,
             background=ext_col,
             fontsize=35,
@@ -242,7 +250,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\ue0ba",
-            padding=0,
+            padding=-1,
             foreground=int_col,
             background=background,
             fontsize=35,
@@ -253,7 +261,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\uE0Ba",
-            padding=0,
+            padding=-1,
             foreground=ext_col,
             background=int_col,
             fontsize=35,
@@ -268,7 +276,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\uE0Ba",
-            padding=0,
+            padding=-1,
             foreground=int_col,
             background=ext_col,
             fontsize=35,
@@ -279,7 +287,7 @@ def init_widgets_list():
         widget.TextBox(
             font="Fira Mono",
             text="\ue0ba",
-            padding=0,
+            padding=-1,
             foreground=background,
             background=int_col,
             fontsize=35,
@@ -311,35 +319,41 @@ def init_widgets_screen2():
 
 
 def init_screens():
-
+    screen_one = bar.Bar(
+        widgets=init_widgets_screen1(),
+        background=background,
+        opacity=1.0,
+        size=23,
+        # margin=5,
+        border_width=[7, 5, 7, 5],
+        border_color=[
+            background,
+            ext_col,
+            background,
+            ext_col,
+        ],
+    )
+    screen_two = bar.Bar(
+        widgets=init_widgets_screen2(),
+        background=background,
+        opacity=1.0,
+        size=23,
+        # margin=5,
+        border_width=[7, 5, 7, 5],
+        border_color=[
+            background,
+            background,
+            background,
+            ext_col,
+        ],
+    )
     if monitor_num() != "1":
         return [
-            Screen(
-                top=bar.Bar(
-                    widgets=init_widgets_screen1(),
-                    background=background,
-                    opacity=1.0,
-                    size=23,
-                )
-            ),
-            Screen(
-                top=bar.Bar(
-                    widgets=init_widgets_screen2(),
-                    background=background,
-                    opacity=1.0,
-                    size=23,
-                )
-            ),
+            Screen(screen_one),
+            Screen(screen_two),
         ]
     return [
-        Screen(
-            top=bar.Bar(
-                widgets=init_widgets_screen1(),
-                background=background,
-                opacity=1.0,
-                size=23,
-            )
-        ),
+        Screen(screen_one),
     ]
 
 
@@ -387,6 +401,7 @@ floating_layout = layout.Floating(
         Match(wm_class="megasync"),
         Match(wm_class="PlayOnLinux"),
         Match(wm_class="EasyEffects"),
+        Match(wm_class="Vmplayer"),
     ],
 )
 

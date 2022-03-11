@@ -4,8 +4,8 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 
 map("n", "<C-s>", ":w<CR>", opts)
-map("n", "<A-q>", ":bd<CR>", opts)
-map("n", "<A-w>", "<C-w>c<CR>", opts)
+map("n", "<A-w>", ":bd<CR>", opts)
+map("n", "<A-q>", "<C-w>c<CR>", opts)
 map("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 
 map("n", "<C-j>", "<C-w>j", opts)
@@ -50,9 +50,9 @@ map("n", "<A-;>", ":BufferNext<CR>", opts)
 map("n", "<A-Left>", ":BufferMovePrevious<CR>", opts)
 map("n", "<A-Right>", " :BufferMoveNext<CR>", opts)
 
-map("n", "<C-p>", ":BufferPick<CR>", opts)
+-- map("n", "<C-p>", ":BufferPick<CR>", opts)
 map("n", "<C-f>", ":Rg<CR>", opts)
-map("n", "<C-o>", ":Buffers<CR>", opts)
+map("n", "<C-p>", ":Buffers<CR>", opts)
 map("n", "<Leader>o", ":Files ~<CR>", opts)
 map("n", "<Leader>ff", ":Telescope find_files<CR>", opts)
 map("n", "<Leader>fg", ":Telescope live_grep<CR>", opts)
