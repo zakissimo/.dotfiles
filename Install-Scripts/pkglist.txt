@@ -30,6 +30,7 @@ python-psutil
 python-pywal
 qtile
 ripgrep
+rofi
 shellcheck
 shfmt
 starship
