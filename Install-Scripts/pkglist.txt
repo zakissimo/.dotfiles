@@ -1,3 +1,4 @@
+bat
 btop
 curl
 deno
@@ -14,15 +15,19 @@ kitty
 linux-headers
 lua
 lxappearance
+lynx
+mediainfo
 mpv
 ncdu
 neovim
 noto-fonts
 noto-fonts-cjk
 npm
+odt2txt
 p7zip
 pavucontrol
 pcmanfm
+python-pdftotext
 pipewire
 pipewire-pulse
 python-dbus-next
@@ -42,6 +47,7 @@ ttf-fira-mono
 ttf-fira-sans
 ttf-joypixels
 tumbler
+ueberzug
 unzip
 vint
 wget

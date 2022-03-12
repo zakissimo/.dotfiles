@@ -165,7 +165,7 @@ layout_theme = {
 layouts = [
     layout.Max(**layout_theme),
     layout.Columns(**layout_theme),
-    layout.Stack(num_stacks=3, margin=190, border_width=2),
+    layout.Stack(num_stacks=3, margin=190, border_width=1),
     layout.Bsp(**layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
     layout.Floating(border_width=0),

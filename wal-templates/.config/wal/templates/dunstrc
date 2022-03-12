@@ -7,9 +7,8 @@
     # Make the width 3740 (3840 - 100), have 50 left margin and 95 above
     # geometry = "3740x100-50+95"
 	width = (0,350)
-	hight = 300
+	offset = 20x50
 
-	offset = "5x30"
     # Show multiple notifications in the same box
     separator_height = 0
 
@@ -38,11 +37,29 @@
     # Allow some HTML tags like <i> and <u> in notifications
     markup = full
 
-# These are the keybindings used to control dunst notifications
-[shortcuts]
-    close = ctrl+space
-    close_all = ctrl+shift+space
-    history = ctrl+grave
+    min_icon_size = 32
+    max_icon_size = 32
+    icon_position = left
+    icon_path = /usr/share/icons/Dracula/16/devices/:/usr/share/icons/Dracula/16/actions/:/usr/share/icons/Dracula/16/panel:/usr/share/icons/Dracula/22/panel:usr/share/icons/Dracula/24/panel
+
+	### Progress bar ###
+
+	# Turn on the progess bar. It appears when a progress hint is passed with
+	# for example dunstify -h int:value:12
+	progress_bar = true
+
+	# Set the progress bar height. This includes the frame, so make sure
+	# it's at least twice as big as the frame width.
+	progress_bar_height = 10
+
+	# Set the frame width of the progress bar
+	progress_bar_frame_width = 1
+
+	# Set the minimum width for the progress bar
+	progress_bar_min_width = 150
+
+	# Set the maximum width for the progress bar
+	progress_bar_max_width = 300
 
 # Set the background and foreground (text) color for all notifications
 [urgency_low]

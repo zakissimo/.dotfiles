@@ -15,7 +15,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && rm -rf yay
 
-yay -S --noconfirm picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state pa-applet-git stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly
+yay -S --noconfirm picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state pa-applet-git stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly atoolvimv-git
 
 sudo pip install wheel pynvim requests black autopep8 pylint pytest dbg debugpy
 

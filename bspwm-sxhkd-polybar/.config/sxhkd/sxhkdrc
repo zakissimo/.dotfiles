@@ -14,23 +14,23 @@ super + e
 
 #Dmenu
 super + r
-	dmenu_run -h 25 -nf '#6E6C7E' -sf '#FBF5F3' -fn 'CaskaydiaCove Nerd Font:bold:pixelsize=15'
-
-#Logout
-#super + shift + x
-#	bspc quit
+	rofi -show drun
 
 #kill
 super + q
 	bspc node -c
 
+# Logout
+super + control + q
+	bspc quit
+
 #Reload sxhkd:
-super + shift + s
+super + control + s
 	pkill -USR1 -x sxhkd
 	notify-send "sxhkd: sxhkd has been restarted."
 
 #Reload bspwm
-super + shift + r
+super + control + r
 	~/.config/bspwm/bspwmrc
 	notify-send "bspwm: bspwm has been restarted."
 
