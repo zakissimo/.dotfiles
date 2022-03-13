@@ -4,13 +4,9 @@ set period 1
 set scrolloff 10
 set shellopts '-eu'
 set ignorecase true
-set cleaner '~/.config/lf/cleaner'
-set previewer '~/.config/lf/scope'
+set cleaner lf-ueberzug-cleaner
+set previewer lf-ueberzug-previewer
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
-
-cmd bRename ${{
-  /bin/sh -c "vimv $(echo -e "$fx" | xargs -i echo "\\'{}\\'" | xargs echo)"
-}}
 
 cmd extract ${{
   if [ -f "$f" ] ; then
@@ -68,10 +64,18 @@ cmd delete ${{
 	clear
 }}
 
+# "w") while read -r file; do wal -i "$file"; done ;;
+cmd setBg ${{
+	filename=${f##*/}
+	extension=${filename##*.}
+	[[ $extension == "jpg" ]] || [[ $extension == "png" ]] && wal -i "$f"
+}}
+
 map x cut
 map D delete
 map E extract
-map R bRename
+map R $vimv
+map <c-w> setBg
 map <c-r> reload
 map <enter> open
 map . set hidden!

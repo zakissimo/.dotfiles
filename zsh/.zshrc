@@ -20,7 +20,7 @@ set -o vi
 
 
 alias ls=exa
-alias lf=lfub
+alias lf=lf-ueberzug
 alias la='exa -la'
 alias e=emacs
 alias v=nvim

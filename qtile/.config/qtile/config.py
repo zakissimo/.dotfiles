@@ -41,13 +41,13 @@ inactive = "#6E6C7E"
 
 @lazy.function
 def increase_gaps(qtile):
-    qtile.current_layout.margin += 10
+    qtile.current_layout.margin += 5
     qtile.current_group.layout_all()
 
 
 @lazy.function
 def decrease_gaps(qtile):
-    qtile.current_layout.margin -= 10
+    qtile.current_layout.margin -= 5
     qtile.current_group.layout_all()
 
 
@@ -106,21 +106,21 @@ keys = [
 if monitor_num() != "1":
     groups = [
         Group(name="y", label="", layout="max"),
-        Group(name="u", label="", layout="columns"),
-        Group(name="i", label="", layout="columns"),
+        Group(name="u", label="", layout="bsp"),
+        Group(name="i", label="", layout="bsp"),
         Group(name="o", label="", layout="tile"),
         Group(name="p", label="", layout="floating"),
         Group(name="minus", label="", layout="max"),
-        Group(name="egrave", label="", layout="columns"),
-        Group(name="underscore", label="", layout="columns"),
+        Group(name="egrave", label="", layout="bsp"),
+        Group(name="underscore", label="", layout="bsp"),
         Group(name="ccedilla", label="", layout="tile"),
         Group(name="agrave", label="", layout="bsp"),
     ]
 else:
     groups = [
         Group(name="y", label="", layout="max"),
-        Group(name="u", label="", layout="columns"),
-        Group(name="i", label="", layout="columns"),
+        Group(name="u", label="", layout="bsp"),
+        Group(name="i", label="", layout="bsp"),
         Group(name="o", label="", layout="tile"),
         Group(name="p", label="", layout="floating"),
     ]
@@ -164,11 +164,9 @@ layout_theme = {
 
 layouts = [
     layout.Max(**layout_theme),
-    layout.Columns(**layout_theme),
-    layout.Stack(num_stacks=3, margin=190, border_width=1),
     layout.Bsp(**layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
-    layout.Floating(border_width=0),
+    layout.Floating(**layout_theme),
 ]
 
 widget_defaults = dict(
