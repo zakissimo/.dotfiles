@@ -105,24 +105,24 @@ keys = [
 
 if monitor_num() != "1":
     groups = [
-        Group("y", label="", layout="max"),
-        Group("u", label="", layout="columns"),
-        Group("i", label="", layout="columns"),
-        Group("o", label="", layout="tile"),
-        Group("p", label="", layout="floating"),
-        Group("minus", label="", layout="max"),
-        Group("egrave", label="", layout="columns"),
-        Group("underscore", label="", layout="columns"),
-        Group("ccedilla", label="", layout="tile"),
-        Group("agrave", label="", layout="bsp"),
+        Group(name="y", label="", layout="max"),
+        Group(name="u", label="", layout="columns"),
+        Group(name="i", label="", layout="columns"),
+        Group(name="o", label="", layout="tile"),
+        Group(name="p", label="", layout="floating"),
+        Group(name="minus", label="", layout="max"),
+        Group(name="egrave", label="", layout="columns"),
+        Group(name="underscore", label="", layout="columns"),
+        Group(name="ccedilla", label="", layout="tile"),
+        Group(name="agrave", label="", layout="bsp"),
     ]
 else:
     groups = [
-        Group("y", label="", layout="max"),
-        Group("u", label="", layout="columns"),
-        Group("i", label="", layout="columns"),
-        Group("o", label="", layout="tile"),
-        Group("p", label="", layout="floating"),
+        Group(name="y", label="", layout="max"),
+        Group(name="u", label="", layout="columns"),
+        Group(name="i", label="", layout="columns"),
+        Group(name="o", label="", layout="tile"),
+        Group(name="p", label="", layout="floating"),
     ]
 
 

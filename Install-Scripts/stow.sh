@@ -27,3 +27,9 @@ mkdir "$HOME"/.config/dunst
 ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
 # mkdir -vp "$HOME/.local/share/gxkb/"
 # cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"
+
+BINS="$HOME/.dotfiles/bins/*"
+
+for bin in $BINS; do
+	ln "$bin" "$HOME/.local/bin/${bin##*/}"
+done

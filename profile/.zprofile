@@ -179,4 +179,8 @@ ex=:\
 *.nix=:\
 "
 
-[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti
+[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti &
+
+# Swaps caps and escape if X stops running
+echo keycode 1 = Caps_Lock | sudo loadkeys
+echo keycode 58 = Escape | sudo loadkeys

@@ -7,8 +7,6 @@ sudo cp "$HOME/.dotfiles/keyboard/ara" "/usr/share/X11/xkb/symbols/"
 
 [ -f "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc" ] && sudo rm "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc"
 
-ln "$HOME"/.dotfiles/keyboard/key "$HOME"/.local/bin/key
-
 echo "Shall we install emacs? "
 options=(yes no)
 select choice in "${options[@]}"; do

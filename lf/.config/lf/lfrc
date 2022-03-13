@@ -1,0 +1,83 @@
+set icons
+set ifs "\n"
+set period 1
+set scrolloff 10
+set shellopts '-eu'
+set ignorecase true
+set cleaner '~/.config/lf/cleaner'
+set previewer '~/.config/lf/scope'
+set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
+
+cmd bRename ${{
+  /bin/sh -c "vimv $(echo -e "$fx" | xargs -i echo "\\'{}\\'" | xargs echo)"
+}}
+
+cmd extract ${{
+  if [ -f "$f" ] ; then
+    case "$f" in
+      *.tar.bz2)   tar xjf "$f"   ;;
+      *.tar.gz)    tar xzf "$f"   ;;
+      *.bz2)       bunzip2 "$f"   ;;
+      *.rar)       unrar x "$f"   ;;
+      *.gz)        gunzip "$f"    ;;
+      *.tar)       tar xf "$f"    ;;
+      *.tbz2)      tar xjf "$f"   ;;
+      *.tgz)       tar xzf "$f"   ;;
+      *.zip)       unzip "$f"     ;;
+      *.Z)         uncompress "$f";;
+      *.7z)        7z x "$f"      ;;
+      *.deb)       ar x "$f"      ;;
+      *.tar.xz)    tar xf "$f"    ;;
+      *.tar.zst)   unzstd "$f"    ;;
+      *)           echo "'$f'\'s extension not recognized!" ;;
+    esac
+  else
+    echo "'$f' is not a valid file!"
+  fi
+}}
+
+cmd open ${{
+    case $(file --mime-type "$(readlink -f $f)" -b) in
+	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
+	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
+	text/*|application/json|inode/x-empty) $EDITOR $fx;;
+	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+	image/svg+xml) eog $f ;;
+	image/*) eog $f ;;
+	audio/*) mpv --audio-display=no $f ;;
+	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+	application/pgp-encrypted) $EDITOR $f ;;
+	application/x-dosexec) wine $f ;;
+	*) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    esac
+}}
+
+cmd mkDoc ${{
+	input=$*
+	[[ ${input:(-1)} == "/" ]] && mkdir -p "$(echo $* | tr ' ' '\ ')" || touch "$(echo $* | tr ' ' '\ ')"
+}}
+
+cmd delete ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "Delete? [y/N]\n\t"
+	read ans
+	[ $ans = "y" ] && rm -rf -- $fx
+	clear
+}}
+
+map x cut
+map D delete
+map E extract
+map R bRename
+map <c-r> reload
+map <enter> open
+map . set hidden!
+map a push :mkDoc<space>
+map T $setsid -f $TERMINAL >/dev/null 2>&1
+map <c-f> $lf -remote "send $id select '$(fzf)'"
+map Y $printf "%s" "$fx" | xclip -selection clipboard
+
+/* vim: ft=bash

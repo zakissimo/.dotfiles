@@ -63,3 +63,4 @@ xorg-xmessage
 xorg-xrandr
 xterm
 yt-dlp
+zathura-pdf-mupdf
