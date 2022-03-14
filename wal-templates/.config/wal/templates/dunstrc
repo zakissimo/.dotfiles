@@ -63,15 +63,15 @@
 
 # Set the background and foreground (text) color for all notifications
 [urgency_low]
-    background = "{background}"
+    background = "{background}50"
     foreground = "{foreground}"
 
 [urgency_normal]
-    background = "{background}"
+    background = "{background}50"
     foreground = "{foreground}"
 
 [urgency_critical]
-    background = "{background}"
+    background = "{background}50"
     foreground = "{foreground}"
 
 # vim:ft=cfg
