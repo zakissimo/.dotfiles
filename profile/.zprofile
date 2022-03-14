@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 export EDITOR="nvim"
-export BROWSER="brave"
 export TERMINAL="kitty"
 
 if [ -d "$HOME/.bin" ] ;
