@@ -17,7 +17,7 @@ case "$(basename "$file" | tr '[:upper:]' '[:lower:]')" in
 *.zip) unzip -l "$file" ;;
 *.rar) unrar l "$file" ;;
 *.7z) 7z l "$file" ;;
-*.avi | *.mp4 | *.mkv)
+*.avi | *.mp4 | *.mkv | *.webm)
 	thumbnail="$LF_UEBERZUG_TEMPDIR/thumbnail.png"
 	ffmpeg -y -i "$file" -vframes 1 "$thumbnail"
 	preview "$thumbnail" "$@"

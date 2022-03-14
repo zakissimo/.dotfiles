@@ -92,6 +92,12 @@ keys = [
     Key([mod], "d", lazy.spawn("emacs"), desc="Launch Emacs"),
     Key([mod], "e", lazy.spawn("pcmanfm"), desc="Launch Pcmanfm"),
     Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key(
+        [mod, "control"],
+        "x",
+        lazy.spawn("betterlockscreen -l dimblur"),
+        desc="Lock Screen",
+    ),
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     # Switch focus to specific monitor

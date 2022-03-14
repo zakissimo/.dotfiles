@@ -64,11 +64,8 @@ cmd delete ${{
 	clear
 }}
 
-# "w") while read -r file; do wal -i "$file"; done ;;
 cmd setBg ${{
-	filename=${f##*/}
-	extension=${filename##*.}
-	[[ $extension == "jpg" ]] || [[ $extension == "png" ]] && wal -i "$f"
+	[[ ${f##*.} == "jpg" ]] || [[ ${f##*.} == "png" ]] && wal -i "$f" && betterlockscreen -u "$f" --fx dimblur
 }}
 
 map x cut
@@ -84,4 +81,4 @@ map T $setsid -f $TERMINAL >/dev/null 2>&1
 map <c-f> $lf -remote "send $id select '$(fzf)'"
 map Y $printf "%s" "$fx" | xclip -selection clipboard
 
-/* vim: ft=bash
+# vim: ft=bash
