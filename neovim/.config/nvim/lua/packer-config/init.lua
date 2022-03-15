@@ -100,8 +100,6 @@ return require("packer").startup(function(use)
 	use("romgrk/barbar.nvim")
 	use("nvim-lualine/lualine.nvim")
 
-	use("tpope/vim-repeat")
-
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
