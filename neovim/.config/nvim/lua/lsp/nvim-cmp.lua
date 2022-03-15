@@ -18,7 +18,7 @@ cmp.setup({
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
+			behavior = cmp.ConfirmBehavior.Insert,
 			select = true,
 		}),
 		["<Tab>"] = function(fallback)
@@ -51,7 +51,7 @@ cmp.setup({
 	},
 	formatting = {
 		format = lspkind.cmp_format({
-			with_text = false,
+			with_text = true,
 			maxwidth = 50,
 
 			before = function(_, vim_item)

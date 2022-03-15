@@ -1,4 +1,5 @@
 bat
+bc
 btop
 curl
 deno

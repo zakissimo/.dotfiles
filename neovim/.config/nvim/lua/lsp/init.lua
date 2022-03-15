@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 require("lsp.null-ls")
--- require("lsp.lang-servers")
 require("lsp.lsp-installer")
 require("lsp.handlers").setup()
 require("lsp.nvim-cmp")
+require("fidget").setup({})

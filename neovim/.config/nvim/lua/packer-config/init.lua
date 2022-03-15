@@ -50,6 +50,7 @@ return require("packer").startup(function(use)
 
 	use("junegunn/fzf.vim")
 	use({ "junegunn/fzf", run = ":call fzf#install()" })
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
@@ -69,13 +70,14 @@ return require("packer").startup(function(use)
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
 	use("hrsh7th/cmp-cmdline") -- cmdline completions
+	use("hrsh7th/cmp-nvim-lsp")
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
 
 	use("L3MON4D3/LuaSnip")
 	use("rafamadriz/friendly-snippets")
 
+	use("j-hui/fidget.nvim")
 	use("onsails/lspkind-nvim")
-	use("hrsh7th/cmp-nvim-lsp")
 	use("neovim/nvim-lspconfig")
 	use("williamboman/nvim-lsp-installer")
 

@@ -17,19 +17,23 @@ cloneAndStow() {
 	cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
 }
 
-apps=(qtile picom rofi kitty sxiv neovim zsh xinit profile starship wal-templates)
+apps=(qtile picom rofi kitty sxiv neovim lf zsh xinit profile starship wal-templates)
 
 for app in "${apps[@]}"; do
 	cloneAndStow "$app"
 done
 
-mkdir "$HOME"/.config/dunst
-ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
+[ ! -d "$HOME/.config/dunst" ] && mkdir -v "$HOME"/.config/dunst
+[ ! -f "$HOME/.config/dunst/dunstrc" ] && ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
+
+[ ! -d "$HOME/.config/kitty/themes" ] && mkdir -v "$HOME"/.config/kitty/themes
+[ ! -f "$HOME/.config/kitty/themes/pywal.conf" ] && ln -s "$HOME"/.cache/wal/colors-kitty.conf "$HOME"/.config/kitty/themes/pywal.conf
+
 # mkdir -vp "$HOME/.local/share/gxkb/"
 # cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"
 
 BINS="$HOME/.dotfiles/bins/*"
 
 for bin in $BINS; do
-	ln "$bin" "$HOME/.local/bin/${bin##*/}"
+	[ ! -f "$HOME/.local/bin/${bin##*/}" ] && ln "$bin" "$HOME/.local/bin/${bin##*/}"
 done

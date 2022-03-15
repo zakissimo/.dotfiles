@@ -51,15 +51,61 @@ def decrease_gaps(qtile):
     qtile.current_group.layout_all()
 
 
+def resize(qtile, direction):
+    layout = qtile.current_layout
+    child = layout.current
+    parent = child.parent
+
+    while parent:
+        if child in parent.children:
+            layout_all = False
+
+            if (direction == "left" and parent.split_horizontal) or (
+                direction == "up" and not parent.split_horizontal
+            ):
+                parent.split_ratio = max(5, parent.split_ratio - layout.grow_amount)
+                layout_all = True
+            elif (direction == "right" and parent.split_horizontal) or (
+                direction == "down" and not parent.split_horizontal
+            ):
+                parent.split_ratio = min(95, parent.split_ratio + layout.grow_amount)
+                layout_all = True
+
+            if layout_all:
+                layout.group.layout_all()
+                break
+
+        child = parent
+        parent = child.parent
+
+
+@lazy.function
+def resize_left(qtile):
+    resize(qtile, "left")
+
+
+@lazy.function
+def resize_right(qtile):
+    resize(qtile, "right")
+
+
+@lazy.function
+def resize_up(qtile):
+    resize(qtile, "up")
+
+
+@lazy.function
+def resize_down(qtile):
+    resize(qtile, "down")
+
+
 keys = [
-    Key([mod, alt], "j", increase_gaps(), desc=""),
-    Key([mod, alt], "k", decrease_gaps(), desc=""),
+    Key([mod, alt], "j", increase_gaps, desc=""),
+    Key([mod, alt], "k", decrease_gaps, desc=""),
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "r", lazy.spawn("rofi -show drun")),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     Key(
         [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
     ),
@@ -71,12 +117,17 @@ keys = [
     ),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+    Key([mod, "control"], "h", resize_left, desc="Grow window to the left"),
     Key(
-        [mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"
+        [mod, "control"],
+        "l",
+        resize_right,
+        desc="Grow window to the right",
     ),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+    Key([mod, "control"], "j", resize_down, desc="Grow window down"),
+    Key([mod, "control"], "k", resize_up, desc="Grow window up"),
+    Key([mod], "r", lazy.spawn("rofi -show drun")),
+    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     Key([mod], "f", lazy.window.toggle_fullscreen()),
     Key([mod, "shift"], "space", lazy.window.toggle_floating()),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
@@ -114,12 +165,12 @@ if monitor_num() != "1":
         Group(name="y", label="", layout="max"),
         Group(name="u", label="", layout="bsp"),
         Group(name="i", label="", layout="bsp"),
-        Group(name="o", label="", layout="tile"),
+        Group(name="o", label="", layout="bsp"),
         Group(name="p", label="", layout="floating"),
         Group(name="minus", label="", layout="max"),
         Group(name="egrave", label="", layout="bsp"),
         Group(name="underscore", label="", layout="bsp"),
-        Group(name="ccedilla", label="", layout="tile"),
+        Group(name="ccedilla", label="", layout="bsp"),
         Group(name="agrave", label="", layout="bsp"),
     ]
 else:
@@ -127,7 +178,7 @@ else:
         Group(name="y", label="", layout="max"),
         Group(name="u", label="", layout="bsp"),
         Group(name="i", label="", layout="bsp"),
-        Group(name="o", label="", layout="tile"),
+        Group(name="o", label="", layout="bsp"),
         Group(name="p", label="", layout="floating"),
     ]
 
@@ -162,7 +213,7 @@ for i in groups:
 
 # DEFAULT THEME SETTINGS FOR LAYOUTS
 layout_theme = {
-    "margin": 7,
+    "margin": 5,
     "border_width": 1,
     "border_focus": ext_col,
     "border_normal": background,
@@ -171,7 +222,6 @@ layout_theme = {
 layouts = [
     layout.Max(**layout_theme),
     layout.Bsp(**layout_theme),
-    layout.Tile(shift_windows=True, **layout_theme),
     layout.Floating(**layout_theme),
 ]
 
