@@ -1,6 +1,6 @@
 export ZSH="$HOME/.config/oh-my-zsh"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
-export FZF_DEFAULT_OPTS="--layout=reverse --inline-info --height=80%"
+export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}'"
 
 plugins=(

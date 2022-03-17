@@ -76,7 +76,6 @@ return require("packer").startup(function(use)
 	use("L3MON4D3/LuaSnip")
 	use("rafamadriz/friendly-snippets")
 
-	use("j-hui/fidget.nvim")
 	use("onsails/lspkind-nvim")
 	use("neovim/nvim-lspconfig")
 	use("williamboman/nvim-lsp-installer")
@@ -106,6 +105,7 @@ return require("packer").startup(function(use)
 			require("spellsitter").setup()
 		end,
 	})
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
