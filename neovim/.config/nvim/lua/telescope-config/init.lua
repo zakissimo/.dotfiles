@@ -77,7 +77,12 @@ telescope.setup({
 			},
 		},
 	},
-	pickers = {},
+	pickers = {
+		find_files = {
+			hidden = true,
+			follow = true,
+		},
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true, -- false will only do exact matching
