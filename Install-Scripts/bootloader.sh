@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman --noconfirm -S grub os-prober networkmanager iwd gnome-keyring polkit network-manager-applet amd-ucode
+pacman --noconfirm -S networkmanager gnome-keyring polkit network-manager-applet amd-ucode
 
 mkinitcpio -P
 clear
@@ -9,11 +9,13 @@ options=(efi legacy quit)
 select choice in "${options[@]}"; do
 	case $choice in
 	efi)
+		pacman -S grub os-prober
 		bootctl --path=/boot install
 		cat <<-EOF >/boot/loader/loader.conf
 			default arch.conf
 			timeout 3
-			editor 0
+			editor no
+			console-mode max
 		EOF
 		cat <<-EOF >/boot/loader/entries/arch.conf
 			title  Arch Linux
@@ -35,7 +37,7 @@ select choice in "${options[@]}"; do
 		break
 		;;
 	quit)
-		echo "User exited without installing grub"
+		echo "User exited without installing a bootloader!"
 		exit 1
 		;;
 	*)
@@ -44,11 +46,4 @@ select choice in "${options[@]}"; do
 	esac
 done
 
-# systemctl enable iwd.service
-# systemctl enable systemd-resolved
 systemctl enable NetworkManager.service
-
-# cat <<EOF >/etc/iwd/main.conf
-# [General]
-# EnableNetworkConfiguration=true
-# EOF
