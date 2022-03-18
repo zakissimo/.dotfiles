@@ -50,7 +50,9 @@ return require("packer").startup(function(use)
 
 	use("junegunn/fzf.vim")
 	use({ "junegunn/fzf", run = ":call fzf#install()" })
-	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	-- use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	--
+	use({ "nvim-telescope/telescope-fzy-native.nvim" })
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
@@ -83,6 +85,12 @@ return require("packer").startup(function(use)
 	use("p00f/nvim-ts-rainbow")
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+	use({
+		"lewis6991/spellsitter.nvim",
+		config = function()
+			require("spellsitter").setup()
+		end,
+	})
 
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
@@ -99,15 +107,6 @@ return require("packer").startup(function(use)
 	use("romgrk/barbar.nvim")
 	use("nvim-lualine/lualine.nvim")
 
-	use({
-		"lewis6991/spellsitter.nvim",
-		config = function()
-			require("spellsitter").setup()
-		end,
-	})
-
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end

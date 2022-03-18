@@ -157,6 +157,7 @@ keys = [
     # Switch focus of monitors
     Key([mod], "space", lazy.next_screen(), desc="Move focus to next monitor"),
     Key([], "Print", lazy.spawn("flameshot gui -c"), desc="Print screen"),
+    Key([mod], "Print", lazy.spawn("peek"), desc="Record screen"),
 ]
 
 

@@ -3,6 +3,6 @@ require("lualine").setup({
 		theme = "catppuccin",
 		-- theme = "pywal",
 		section_separators = { left = "", right = "" },
-		component_separators = "|",
+		component_separators = "",
 	},
 })

@@ -1,16 +1,14 @@
 local set = vim.opt
 
 vim.notify = require("notify")
+vim.g.python3_host_prog = "/usr/bin/python"
 
 set.tabstop = 4
 set.shiftwidth = 4
 set.smartcase = true
 set.ignorecase = true
-
 set.fileencoding = "utf-8"
-
 set.updatetime = 1000
-
 set.autochdir = true
 set.wrap = true
 set.scrolloff = 5
@@ -20,9 +18,7 @@ set.foldenable = false
 set.number = true
 set.relativenumber = true
 set.cursorline = true
-
 set.mouse = "a"
 set.clipboard = "unnamedplus"
-
 set.swapfile = false
-vim.g.python3_host_prog = "/usr/bin/python"
+set.laststatus = 3
