@@ -2,7 +2,6 @@ local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
-
 map("n", "<C-s>", ":w<CR>", opts)
 map("n", "<A-w>", ":bd!<CR>", opts)
 map("n", "<A-q>", "<C-w>c<CR>", opts)

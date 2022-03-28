@@ -66,6 +66,9 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	use("tamago324/vim-browsersync")
+	use("tyru/open-browser.vim")
+
 	use("junegunn/vader.vim")
 
 	use("hrsh7th/nvim-cmp")

@@ -17,10 +17,10 @@ cloneAndStow() {
 	cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
 }
 
-apps=(qtile picom rofi kitty sxiv neovim lf zsh xinit profile starship wal-templates)
+apps=$(find "$HOME/.dotfiles/" -maxdepth 1 -type d | fzf)
 
-for app in "${apps[@]}"; do
-	cloneAndStow "$app"
+for app in $apps; do
+	cloneAndStow "${app##*/}"
 done
 
 [ ! -d "$HOME/.config/dunst" ] && mkdir -v "$HOME"/.config/dunst
@@ -32,8 +32,6 @@ done
 # mkdir -vp "$HOME/.local/share/gxkb/"
 # cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"
 
-BINS="$HOME/.dotfiles/bins/*"
-
-for bin in $BINS; do
+for bin in "$HOME"/.dotfiles/bins/*; do
 	[ ! -f "$HOME/.local/bin/${bin##*/}" ] && ln "$bin" "$HOME/.local/bin/${bin##*/}"
 done
