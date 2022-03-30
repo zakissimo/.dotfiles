@@ -17,7 +17,7 @@ cloneAndStow() {
 	cd "$HOME"/.dotfiles && stow -vSt "$HOME" "$1" || echo "Failed stowing $1!"
 }
 
-apps=$(find "$HOME/.dotfiles/" -maxdepth 1 -type d | fzf)
+apps=$(find "$HOME/.dotfiles/" -maxdepth 1 -type d | fzf -m)
 
 for app in $apps; do
 	cloneAndStow "${app##*/}"
@@ -28,6 +28,7 @@ done
 
 [ ! -d "$HOME/.config/kitty/themes" ] && mkdir -v "$HOME"/.config/kitty/themes
 [ ! -f "$HOME/.config/kitty/themes/pywal.conf" ] && ln -s "$HOME"/.cache/wal/colors-kitty.conf "$HOME"/.config/kitty/themes/pywal.conf
+# Set the theme by typing "ktty +kitten themes" in terminal, hit Enter and select the pywal theme
 
 # mkdir -vp "$HOME/.local/share/gxkb/"
 # cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"

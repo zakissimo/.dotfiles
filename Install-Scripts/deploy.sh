@@ -9,11 +9,14 @@ sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 sed -i "s/^#\[multilib\]$/\[multilib\]/" /etc/pacman.conf
 sed -i "s/^#Include = \/etc\/pacman\.d\/mirrorlist$/Include = \/etc\/pacman\.d\/mirrorlist\/" /etc/pacman.conf
 
+sudo pacman -Fy
 sudo pacman --needed --ask 4 -Sy - <pkglist.txt
 
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && rm -rf yay
+
+curl -fsSL https://rpm.nodesource.com/setup_17.x | sudo bash -
 
 yay -S --noconfirm picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state pa-applet-git stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool vimv-git i3lock-color
 

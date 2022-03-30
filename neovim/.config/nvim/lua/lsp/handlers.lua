@@ -86,19 +86,10 @@ local function lsp_keymaps(bufnr)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
--- local notify_status_ok, notify = pcall(require, "notify")
--- if not notify_status_ok then
---   return
--- end
-
 M.on_attach = function(client, bufnr)
-	-- notify(client.name)
-	if client.name == "tsserver" then
-		client.resolved_capabilities.document_formatting = false
-	end
-	if client.name == "sumneko_lua" or client.name == "lua" then
-		client.resolved_capabilities.document_formatting = false
-	end
+	-- if client.name == "sumneko_lua" or client.name == "lua" then
+	-- 	client.resolved_capabilities.document_formatting = false
+	-- end
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 end
@@ -142,6 +133,6 @@ function M.remove_augroup(name)
 	end
 end
 
-vim.cmd([[ command! LspToggleAutoFormat execute 'lua require("lsp.handlers").toggle_format_on_save()' ]])
+-- vim.cmd([[ command! LspToggleAutoFormat execute 'lua require("lsp.handlers").toggle_format_on_save()' ]])
 
 return M

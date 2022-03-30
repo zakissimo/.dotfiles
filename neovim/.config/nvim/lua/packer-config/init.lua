@@ -50,8 +50,6 @@ return require("packer").startup(function(use)
 
 	use("junegunn/fzf.vim")
 	use({ "junegunn/fzf", run = ":call fzf#install()" })
-	-- use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	--
 	use({ "nvim-telescope/telescope-fzy-native.nvim" })
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -70,6 +68,8 @@ return require("packer").startup(function(use)
 	use("tyru/open-browser.vim")
 
 	use("junegunn/vader.vim")
+
+	use({ "neoclide/coc.nvim", branch = "release" })
 
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer") -- buffer completions

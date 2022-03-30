@@ -19,9 +19,9 @@ map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
 map("n", "<leader>rp", ":w<CR>:!python3 %<CR>", opts)
 map("n", "<leader>rl", ":w<CR>:!lua %<CR>", opts)
 map("n", "<leader>rj", ":w<CR>:!node %<CR>", opts)
-map("n", "<leader>ej", ":w<CR>:if !isdirectory('node_modules') | !npm install<CR> | endif | !npm test<CR>", opts)
-map("n", "<leader>el", ":w<CR>:!busted<CR>", opts)
-map("n", "<leader>eb", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
+map("n", "<leader>exj", ":w<CR>:if !isdirectory('node_modules') | !npm install<CR> | endif | !npm test<CR>", opts)
+map("n", "<leader>exl", ":w<CR>:!busted<CR>", opts)
+map("n", "<leader>exb", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
 map(
 	"n",
 	"<leader>wh",
@@ -58,3 +58,6 @@ map("n", "<Leader>fl", ":Rg<CR>", opts)
 map("n", "<Leader>o", ":Files ~<CR>", opts)
 map("n", "<Leader>ff", ":Telescope find_files<CR>", opts)
 map("n", "<Leader>fg", ":Telescope live_grep<CR>", opts)
+
+map("n", "<Leader>bj", ":BrowserSyncStart<CR>", opts)
+map("n", "<Leader>bf", ":BrowserSyncOpen<CR>", opts)

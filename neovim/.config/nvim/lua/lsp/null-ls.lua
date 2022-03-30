@@ -11,7 +11,7 @@ null_ls.setup({
 	debug = false,
 	sources = {
 		formatting.deno_fmt,
-		formatting.prettierd,
+		formatting.stylelint,
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.stylua,
 		formatting.shfmt,

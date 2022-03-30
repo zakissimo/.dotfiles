@@ -25,7 +25,6 @@ ncdu
 neovim
 noto-fonts
 noto-fonts-cjk
-npm
 odt2txt
 peek
 p7zip
