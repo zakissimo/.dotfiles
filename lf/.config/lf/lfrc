@@ -69,6 +69,7 @@ cmd setBg ${{
 }}
 
 map x cut
+map X $chmod +x "$fx"
 map D delete
 map E extract
 map R $vimv

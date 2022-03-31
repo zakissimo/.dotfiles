@@ -10,11 +10,11 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
 	debug = false,
 	sources = {
-		formatting.deno_fmt,
+		formatting.shfmt,
+		formatting.stylua,
 		formatting.stylelint,
 		formatting.black.with({ extra_args = { "--fast" } }),
-		formatting.stylua,
-		formatting.shfmt,
+		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
 		diagnostics.shellcheck,
 		diagnostics.pylint.with({
 			extra_args = { "--disable=C", "--disable=E" },

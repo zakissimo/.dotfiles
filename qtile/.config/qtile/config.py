@@ -163,29 +163,24 @@ keys = [
 
 if monitor_num() != "1":
     groups = [
-        Group(name="y", label="", layout="max"),
-        Group(name="u", label="", layout="bsp"),
-        Group(name="i", label="", layout="bsp"),
-        Group(name="o", label="", layout="bsp"),
-        Group(name="p", label="", layout="floating"),
-        Group(name="minus", label="", layout="max"),
-        Group(name="egrave", label="", layout="bsp"),
-        Group(name="underscore", label="", layout="bsp"),
-        Group(name="ccedilla", label="", layout="bsp"),
-        Group(name="agrave", label="", layout="bsp"),
+        Group(name="egrave", label="", layout="max"),
+        Group(name="underscore", label="", layout="bsp"),
+        Group(name="ccedilla", label="", layout="bsp"),
+        Group(name="agrave", label="", layout="floating"),
+        Group(name="F5", label="", layout="max"),
+        Group(name="F6", label="", layout="bsp"),
     ]
 else:
     groups = [
-        Group(name="y", label="", layout="max"),
-        Group(name="u", label="", layout="bsp"),
-        Group(name="i", label="", layout="bsp"),
-        Group(name="o", label="", layout="bsp"),
-        Group(name="p", label="", layout="floating"),
+        Group(name="egrave", label="", layout="max"),
+        Group(name="underscore", label="", layout="bsp"),
+        Group(name="ccedilla", label="", layout="bsp"),
+        Group(name="agrave", label="", layout="floating"),
     ]
 
 
 def go_to_screen(s):
-    if s in "yuiop":
+    if s in ["egrave", "underscore", "ccedilla", "agrave"]:
         return 0
     return 1
 
@@ -251,7 +246,7 @@ def init_widgets_list():
             active=active,
             highlight_method="line",
             this_current_screen_border=ext_col,
-            visible_groups=["y", "u", "i", "o", "p"],
+            visible_groups=["egrave", "underscore", "ccedilla", "agrave"],
         ),
         widget.GroupBox(
             font="Fira Mono",
@@ -260,7 +255,7 @@ def init_widgets_list():
             inactive=inactive,
             highlight_method="line",
             this_current_screen_border=ext_col,
-            visible_groups=["minus", "egrave", "underscore", "ccedilla", "agrave"],
+            visible_groups=["F5", "F6"],
         ),
         widget.TextBox(
             font="Fira Mono",
