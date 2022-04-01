@@ -12,7 +12,7 @@ map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-h>", "<C-w>h", opts)
 map("n", "<C-l>", "<C-w>l", opts)
 
-map("n", "<leader>x", ":silent !chmod +x %", opts)
+map("n", "<leader>x", "!chmod +x %", opts)
 
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
 map("n", "<leader>rp", ":w<CR>:!python3 %<CR>", opts)
