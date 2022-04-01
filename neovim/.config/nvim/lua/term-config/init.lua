@@ -3,6 +3,7 @@ if not status_ok then
 	return
 end
 
+vim.g.mapleader = " "
 local opt = { noremap = true }
 local map = vim.api.nvim_set_keymap
 -- local opts = { noremap = true, silent = true }
