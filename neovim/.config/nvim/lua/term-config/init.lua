@@ -6,7 +6,7 @@ end
 vim.g.mapleader = " "
 local opt = { noremap = true }
 local map = vim.api.nvim_set_keymap
--- local opts = { noremap = true, silent = true }
+local opts = { noremap = true, silent = true }
 
 toggleterm.setup({
 	size = 20,
@@ -50,4 +50,5 @@ function _LAZYGIT_TOGGLE()
 end
 
 -- map("t", "<esc>", "<C-\\><C-N>", opts)
-map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opt)
+map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
+-- map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
