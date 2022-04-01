@@ -21,4 +21,3 @@ set.cursorline = true
 set.mouse = "a"
 set.clipboard = "unnamedplus"
 set.swapfile = false
-set.laststatus = 3
