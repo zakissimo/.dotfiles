@@ -14,26 +14,6 @@ map("n", "<C-l>", "<C-w>l", opts)
 
 map("n", "<leader>x", "!chmod +x %", opts)
 
-map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
-map("n", "<leader>rp", ":w<CR>:!python3 %<CR>", opts)
-map("n", "<leader>rl", ":w<CR>:!lua %<CR>", opts)
-map("n", "<leader>rj", ":w<CR>:!node %<CR>", opts)
-map("n", "<leader>exj", ":w<CR>:if !isdirectory('node_modules') | !npm install<CR> | endif | !npm test<CR>", opts)
-map("n", "<leader>exl", ":w<CR>:!busted<CR>", opts)
-map("n", "<leader>exb", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
-map(
-	"n",
-	"<leader>wh",
-	":w<CR>:if bufwinnr('out.html') > -1 | bd out.html<CR> | endif | !python3 % > /tmp/out.html<CR>:vsplit<CR>:e /tmp/out.html<CR>",
-	opts
-)
-map(
-	"n",
-	"<leader>wj",
-	":w<CR>:if bufwinnr('out.json') > -1 | bd out.json<CR> | endif | !python3 % > /tmp/out.json<CR>:vsplit<CR>:e /tmp/out.json<CR>",
-	opts
-)
-
 map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
 map("n", "s", ":s///g<Left><Left><Left>", { noremap = true })
 map("v", "s", ":s///g<Left><Left><Left>", { noremap = true })
