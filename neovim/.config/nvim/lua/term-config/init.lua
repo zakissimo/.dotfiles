@@ -46,7 +46,7 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 local Terminal = require("toggleterm.terminal").Terminal
 
 -- map("t", "<esc>", "<C-\\><C-N>", opts)
-map("n", "<leader>gg", ":w<CR>:TermExec cmd='cd %:p:h;lazygit' hidden=false<CR>", opts)
+map("n", "<leader>gg", ":set nohidden<CR>:TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
 -- map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
 -- map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
 
