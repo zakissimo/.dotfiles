@@ -43,7 +43,7 @@ end
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = false })
 
 function _LAZYGIT_TOGGLE()
 	lazygit:toggle()
@@ -52,6 +52,18 @@ end
 -- map("t", "<esc>", "<C-\\><C-N>", opts)
 map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
 -- map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
+
+local browsersync = Terminal:new({
+	cmd = "browser-sync start --server --files '*' --no-inject-changes",
+	hidden = true,
+	start_in_insert = false,
+})
+
+function _BROWSERSYNC_TOGGLE()
+	browsersync:toggle()
+end
+
+map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
 map("n", "<leader>rp", ":w<CR>:TermExec cmd='python3 %:p' direction=horizontal<CR>", opts)
