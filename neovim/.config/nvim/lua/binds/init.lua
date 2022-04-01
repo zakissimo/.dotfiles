@@ -12,9 +12,6 @@ map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-h>", "<C-w>h", opts)
 map("n", "<C-l>", "<C-w>l", opts)
 
-map("n", "<C-c>", ":terminal<CR>", opts)
-map("t", "<C-c>", "<C-\\><C-N>", opts)
-
 map("n", "<leader>x", ":silent !chmod +x %", opts)
 
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
@@ -60,8 +57,6 @@ map("n", "<Leader>fl", ":Rg<CR>", opts)
 map("n", "<Leader>o", ":Files ~<CR>", opts)
 map("n", "<Leader>ff", ":Telescope find_files<CR>", opts)
 map("n", "<Leader>fg", ":Telescope live_grep<CR>", opts)
-
-map("n", "<Leader>gg", ":LazyGit<CR>", opts)
 
 map("n", "<Leader>bj", ":BrowserSyncStart<CR>", opts)
 map("n", "<Leader>bk", ":BrowserSyncStop<CR>", opts)
