@@ -10,6 +10,7 @@ local opts = { noremap = true, silent = true }
 
 toggleterm.setup({
 	size = 20,
+	hidden = false,
 	open_mapping = [[<C-c>]],
 	hide_numbers = true,
 	shade_filetypes = {},
@@ -43,7 +44,7 @@ end
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = false })
+local lazygit = Terminal:new({ cmd = "lazygit %:p", hidden = false, terminal_mappings = true })
 
 function _LAZYGIT_TOGGLE()
 	lazygit:toggle()
@@ -55,8 +56,8 @@ map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 local browsersync = Terminal:new({
 	cmd = "browser-sync start --server --files '*' --no-inject-changes",
-	hidden = true,
-	start_in_insert = false,
+	hidden = false,
+	-- start_in_insert = false,
 })
 
 function _BROWSERSYNC_TOGGLE()
