@@ -64,9 +64,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	use("tamago324/vim-browsersync")
-	use("tyru/open-browser.vim")
-
 	use("junegunn/vader.vim")
 
 	use({ "neoclide/coc.nvim", branch = "release" })
@@ -108,7 +105,6 @@ return require("packer").startup(function(use)
 	use("mfussenegger/nvim-dap-python")
 
 	use("akinsho/toggleterm.nvim")
-	use("kdheepak/lazygit.nvim")
 
 	use("romgrk/barbar.nvim")
 	use("nvim-lualine/lualine.nvim")
