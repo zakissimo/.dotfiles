@@ -12,7 +12,7 @@ null_ls.setup({
 	sources = {
 		formatting.shfmt,
 		formatting.stylua,
-		formatting.stylelint,
+		formatting.prettierd.with({ filetypes = { "css" } }),
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
 		diagnostics.shellcheck,

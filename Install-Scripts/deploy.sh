@@ -25,6 +25,7 @@ sudo pacman -Sdd --asdeps libvterm
 dasht-docsets-install bash python javascript lua
 
 sudo pip install wheel pynvim requests black autopep8 pylint pytest dbg debugpy
+sudo npm install -g @fsouza/prettierd
 
 mkdir -p "$HOME"/.local/bin
 
