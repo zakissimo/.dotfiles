@@ -63,7 +63,7 @@ map("n", "<Leader>bb", ":set hidden<CR>:lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 
 -- TODO: For code runner get filetype with vim.bo.filetype
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
-map("n", "<leader>rp", ":w<CR>:TermExec cmd='python3 %:p' direction=horizontal<CR>", opts)
+map("n", "<leader>rp", ":w<CR>:TermExec cmd='python3 %:p' direction=horizontal size=11<CR>", opts)
 map("n", "<leader>rl", ":w<CR>:!lua %<CR>", opts)
 map("n", "<leader>rj", ":w<CR>:!node %<CR>", opts)
 map("n", "<leader>exj", ":w<CR>:if !isdirectory('node_modules') | !npm install<CR> | endif | !npm test<CR>", opts)
