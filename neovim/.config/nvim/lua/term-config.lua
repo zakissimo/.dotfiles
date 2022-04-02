@@ -52,7 +52,6 @@ map("n", "<leader>gg", ":set nohidden<CR>:TermExec cmd='cd %:p:h;lazygit'<CR>", 
 
 local browsersync = Terminal:new({
 	cmd = "browser-sync start --server --files '*' --no-inject-changes",
-	hidden = false,
 	start_in_insert = false,
 })
 
@@ -60,7 +59,7 @@ function _BROWSERSYNC_TOGGLE()
 	browsersync:toggle()
 end
 
-map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
+map("n", "<Leader>bb", ":set hidden<CR>:lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
 map("n", "<leader>rp", ":w<CR>:TermExec cmd='python3 %:p' direction=horizontal<CR>", opts)
