@@ -35,19 +35,19 @@ toggleterm.setup({
 
 function _G.set_terminal_keymaps()
 	vim.api.nvim_buf_set_keymap(0, "t", "<C-q>", [[<C-\><C-n>]], opt)
-	-- vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opt)
-	-- vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opt)
-	-- vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
-	-- vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opt)
+	if vim.fn.win_gettype() ~= "popup" then
+		vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opt)
+		vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opt)
+		vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
+		vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opt)
+	end
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local Terminal = require("toggleterm.terminal").Terminal
 
--- map("t", "<esc>", "<C-\\><C-N>", opts)
 map("n", "<leader>gg", ":set nohidden<CR>:TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
--- map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
 -- map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
 
 local browsersync = Terminal:new({
@@ -61,6 +61,7 @@ end
 
 map("n", "<Leader>bb", ":set hidden<CR>:lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 
+-- TODO: For code runner get filetype with vim.bo.filetype
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
 map("n", "<leader>rp", ":w<CR>:TermExec cmd='python3 %:p' direction=horizontal<CR>", opts)
 map("n", "<leader>rl", ":w<CR>:!lua %<CR>", opts)
