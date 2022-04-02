@@ -18,7 +18,9 @@ cd .. && rm -rf yay
 
 curl -fsSL https://rpm.nodesource.com/setup_17.x | sudo bash -
 
-yay -S --noconfirm picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool vimv-git i3lock-color dasht
+yay -S --noconfirm picom-jonaburg-git megasync-bin brave-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool vimv-git i3lock-color dasht neovim-git
+
+sudo pacman -Sdd --asdeps libvterm
 
 dasht-docsets-install bash python javascript lua
 
