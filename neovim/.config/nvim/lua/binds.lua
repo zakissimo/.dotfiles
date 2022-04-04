@@ -34,7 +34,7 @@ map("n", "<A-Right>", " :BufferMoveNext<CR>", opts)
 -- map("n", "<C-p>", ":BufferPick<CR>", opts)
 map("n", "<Leader>fb", ":Buffers<CR>", opts)
 map("n", "<Leader>fl", ":Rg<CR>", opts)
-map("n", "<Leader>o", ":Files ~<CR>", opts)
+map("n", "<Leader>o", ":FZF ~<CR>", opts)
 map("n", "<Leader>ff", ":Telescope find_files<CR>", opts)
 map("n", "<Leader>fg", ":Telescope live_grep<CR>", opts)
 

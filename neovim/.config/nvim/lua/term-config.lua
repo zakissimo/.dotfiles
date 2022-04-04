@@ -47,19 +47,37 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local Terminal = require("toggleterm.terminal").Terminal
 
-map("n", "<leader>gg", ":set nohidden<CR>:TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
+-- map("n", "<leader>gg", ":TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
 -- map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
-
-local browsersync = Terminal:new({
-	cmd = "browser-sync start --server --files '*' --no-inject-changes",
-	start_in_insert = false,
+local lazygit = Terminal:new({
+	cmd = "cd %:p:h;lazygit",
+	insert_mappings = true,
+	terminal_mappings = true,
 })
 
-function _BROWSERSYNC_TOGGLE()
-	browsersync:toggle()
+function _LAZYGIT_TOGGLE()
+	lazygit:toggle()
 end
 
-map("n", "<Leader>bb", ":set hidden<CR>:lua _BROWSERSYNC_TOGGLE()<CR>", opts)
+local jobId
+function _BROWSERSYNC_TOGGLE()
+	if jobId then
+		vim.fn.jobstop(jobId)
+		jobId = nil
+	else
+		jobId = vim.fn.jobstart("browser-sync start --server --files * --no-inject-changes")
+	end
+end
+
+map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
+map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
+
+-- map(
+-- 	"n",
+-- 	"<Leader>bb",
+-- 	"call jobstart(['browser-sync', 'start', '--server', '--files', '*', '--no-inject-changes'])",
+-- 	opts
+-- )
 
 -- TODO: For code runner get filetype with vim.bo.filetype
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
