@@ -40,24 +40,29 @@ function _G.set_terminal_keymaps()
 		vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opt)
 		vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
 		vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opt)
+		vim.api.nvim_buf_set_keymap(0, "t", "<M-j>", [[<C-\><C-n>":resize -2<CR>"]], opt)
+		vim.api.nvim_buf_set_keymap(0, "t", "<M-k>", [[<C-\><C-n>":resize +2<CR>"]], opt)
+		vim.api.nvim_buf_set_keymap(0, "t", "<M-h>", [[<C-\><C-n>":vertical resize -2<CR>"]], opt)
+		vim.api.nvim_buf_set_keymap(0, "t", "<M-l>", [[<C-\><C-n>":vertical resize +2<CR>"]], opt)
 	end
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
-local Terminal = require("toggleterm.terminal").Terminal
+-- local Terminal = require("toggleterm.terminal").Terminal
 
--- map("n", "<leader>gg", ":TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
--- map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
-local lazygit = Terminal:new({
-	cmd = "cd %:p:h;lazygit",
-	insert_mappings = true,
-	terminal_mappings = true,
-})
+map("n", "<leader>gg", ":TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
 
-function _LAZYGIT_TOGGLE()
-	lazygit:toggle()
-end
+-- local lazygit = Terminal:new({
+-- 	cmd = "lazygit -p %:p:h",
+-- 	insert_mappings = true,
+-- 	terminal_mappings = true,
+-- })
+--
+-- function _LAZYGIT_TOGGLE()
+-- 	lazygit:toggle()
+-- end
+-- map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 local jobId
 function _BROWSERSYNC_TOGGLE()
@@ -70,14 +75,8 @@ function _BROWSERSYNC_TOGGLE()
 end
 
 map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
-map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
 
--- map(
--- 	"n",
--- 	"<Leader>bb",
--- 	"call jobstart(['browser-sync', 'start', '--server', '--files', '*', '--no-inject-changes'])",
--- 	opts
--- )
+map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
 
 -- TODO: For code runner get filetype with vim.bo.filetype
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
