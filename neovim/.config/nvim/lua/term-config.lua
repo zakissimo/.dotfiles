@@ -91,7 +91,7 @@ map("n", "<leader>exb", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
 map(
 	"n",
 	"<leader>wh",
-	":w<CR>:if bufwinnr('out.html') > -1 | bd out.html<CR> | endif | !python3 % > /tmp/out.html<CR>:vsplit<CR>:e /tmp/out.html<CR>",
+	":w<CR>:if bufwinnr('out.html') > -1 | bd! /tmp/out.html<CR> | endif | !python3 % > /tmp/out.html<CR>:vsplit<CR>:e /tmp/out.html<CR>:w /tmp/out.html<CR>",
 	opts
 )
 map(
