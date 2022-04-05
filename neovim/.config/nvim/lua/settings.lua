@@ -21,4 +21,4 @@ set.swapfile = false
 set.tabstop = 4
 set.updatetime = 1000
 set.wrap = true
-vim.opt.laststatus = 3
+-- vim.opt.laststatus = 3
