@@ -26,10 +26,8 @@ map("n", "<M-k>", ":resize +2<CR>", opts)
 map("n", "<M-h>", ":vertical resize -2<CR>", opts)
 map("n", "<M-l>", ":vertical resize +2<CR>", opts)
 
-map("n", "<A-,>", ":BufferPrevious<CR>", opts)
-map("n", "<A-;>", ":BufferNext<CR>", opts)
-map("n", "<A-Left>", ":BufferMovePrevious<CR>", opts)
-map("n", "<A-Right>", " :BufferMoveNext<CR>", opts)
+map("n", "<A-,>", ":bprevious<CR>", opts)
+map("n", "<A-;>", ":bnext<CR>", opts)
 
 -- map("n", "<C-p>", ":BufferPick<CR>", opts)
 map("n", "<Leader>fb", ":Buffers<CR>", opts)
