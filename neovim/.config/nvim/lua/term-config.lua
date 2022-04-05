@@ -49,7 +49,7 @@ end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
-local Terminal = require("toggleterm.terminal").Terminal
+-- local Terminal = require("toggleterm.terminal").Terminal
 
 map("n", "<leader>gg", ":TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
 
@@ -76,7 +76,7 @@ end
 
 map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 
--- map("n", "<Leader>rr", ":ToggleTerm dir=% size=10 direction=horizontal<CR>", opts)
+-- map("n", "<Leader>rr", "", opts)
 
 -- TODO: For code runner get filetype with vim.bo.filetype
 map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
