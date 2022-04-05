@@ -107,7 +107,6 @@ return require("packer").startup(function(use)
 
 	use("akinsho/toggleterm.nvim")
 
-	-- use("romgrk/barbar.nvim")
 	use("nvim-lualine/lualine.nvim")
 
 	if PACKER_BOOTSTRAP then
