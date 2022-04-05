@@ -16,8 +16,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-set -o vi
-
+bindkey -e
 
 alias ls=exa
 alias lf=lf-ueberzug
@@ -32,5 +31,3 @@ alias yayfzf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {
 (cat ~/.cache/wal/sequences &)
 
 eval "$(starship init zsh)"
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
