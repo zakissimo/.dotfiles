@@ -12,17 +12,17 @@ sed -i "s/^#Include = \/etc\/pacman\.d\/mirrorlist$/Include = \/etc\/pacman\.d\/
 sudo pacman -Fy
 sudo pacman --needed --ask 4 -Sy - <pkglist.txt
 
+pip install pdftotext dbus-next psutil pywal wheel pynvim requests black autopep8 pylint pytest dbg debugpy
+
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && rm -rf yay
 
 curl -fsSL https://rpm.nodesource.com/setup_17.x | sudo bash -
 
-yay -S --noconfirm picom-jonaburg-git megasync-bin brave-git nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool vimv-git i3lock-color
+yay -S --noconfirm picom-jonaburg-git megasync-bin brave-git nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool vimv-git i3lock-color nmap-netcat
 
 sudo pacman -Sdd --asdeps libvterm
-
-sudo pip install wheel pynvim requests black autopep8 pylint pytest dbg debugpy
 
 sudo npm install -g @fsouza/prettierd
 
