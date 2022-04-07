@@ -12,7 +12,8 @@ sed -i "s/^#Include = \/etc\/pacman\.d\/mirrorlist$/Include = \/etc\/pacman\.d\/
 sudo pacman -Fy
 sudo pacman --needed --ask 4 -Sy - <pkglist.txt
 
-pip install pdftotext dbus-next psutil pywal wheel pynvim requests black autopep8 pylint pytest dbg debugpy
+pip install --upgrade pip
+pip install pdftotext dbus-next psutil pywal wheel pynvim requests black autopep8 pylint pytest dbg debugpy ueberzug
 
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
