@@ -11,12 +11,13 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     zsh-z
+	vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-bindkey -e
+# bindkey -e
 
 alias ls=exa
 alias lf=lf-ueberzug
