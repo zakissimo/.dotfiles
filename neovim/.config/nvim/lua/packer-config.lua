@@ -47,7 +47,6 @@ return require("packer").startup(function(use)
 	use({ "ellisonleao/gruvbox.nvim" })
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "AlphaTechnolog/pywal.nvim", as = "pywal" })
-	use({ "xiyaowong/nvim-transparent" })
 	use("rcarriga/nvim-notify")
 
 	use("junegunn/fzf.vim")
