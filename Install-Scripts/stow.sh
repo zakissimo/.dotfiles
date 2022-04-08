@@ -26,9 +26,9 @@ done
 [ ! -d "$HOME/.config/dunst" ] && mkdir -v "$HOME"/.config/dunst
 [ ! -f "$HOME/.config/dunst/dunstrc" ] && ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
 
-[ ! -d "$HOME/.config/kitty/themes" ] && mkdir -v "$HOME"/.config/kitty/themes
-[ ! -f "$HOME/.config/kitty/themes/pywal.conf" ] && ln -s "$HOME"/.cache/wal/colors-kitty.conf "$HOME"/.config/kitty/themes/pywal.conf
-# Set the theme by typing "ktty +kitten themes" in terminal, hit Enter and select the pywal theme
+# [ ! -d "$HOME/.config/kitty/themes" ] && mkdir -v "$HOME"/.config/kitty/themes
+# [ ! -f "$HOME/.config/kitty/themes/pywal.conf" ] && ln -s "$HOME"/.cache/wal/colors-kitty.conf "$HOME"/.config/kitty/themes/pywal.conf
+# Set the theme by typing "ktty +kitten themes" in terminal, hit Enter and select the pywal/catppuccin theme
 
 # mkdir -vp "$HOME/.local/share/gxkb/"
 # cp -r "$HOME/MEGA/Images/flags" "$HOME/.local/share/gxkb/"
