@@ -16,6 +16,10 @@ require("nvim-dap-virtual-text").setup({
 	-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 })
 
+-- TODO
+-- to stop dap and clear the screen use the commands below !
+-- dap.close() | DapVirtualTextForceRefresh
+
 vim.g.mapleader = " "
 require("dap-python").setup("/usr/bin/python")
 
