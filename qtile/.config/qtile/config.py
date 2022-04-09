@@ -220,7 +220,7 @@ for i in groups:
 # DEFAULT THEME SETTINGS FOR LAYOUTS
 layout_theme = {
     "margin": 5,
-    "border_width": 1,
+    "border_width": 0,
     "border_focus": ext_col,
     "border_normal": background,
 }
@@ -425,7 +425,7 @@ mouse = [
 
 
 floating_layout = layout.Floating(
-    border_width=3,
+    border_width=0,
     margin=5,
     border_focus=ext_col,
     border_normal=background,
