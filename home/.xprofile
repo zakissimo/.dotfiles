@@ -1,1 +1,2 @@
+export QT_STYLE_OVERRIDE=kvantum
 xrandr --output HDMI-A-1 --auto --left-of HDMI-A-0
