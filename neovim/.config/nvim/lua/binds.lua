@@ -31,7 +31,6 @@ map("n", "<A-;>", ":bnext<CR>", opts)
 map("n", "<A-p>", ":tabprevious<CR>", opts)
 map("n", "<A-n>", ":tabnext<CR>", opts)
 
--- map("n", "<C-p>", ":BufferPick<CR>", opts)
 map("n", "<Leader>fb", ":Buffers<CR>", opts)
 map("n", "<Leader>fl", ":Rg<CR>", opts)
 map("n", "<Leader>o", ":Files ~<CR>", opts)

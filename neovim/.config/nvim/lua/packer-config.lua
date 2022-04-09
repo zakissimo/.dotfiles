@@ -48,7 +48,11 @@ return require("packer").startup(function(use)
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "AlphaTechnolog/pywal.nvim", as = "pywal" })
 	use("rcarriga/nvim-notify")
-
+	use({
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		requires = { "kyazdani42/nvim-web-devicons" },
+	})
 	use("junegunn/fzf.vim")
 	use({ "junegunn/fzf", run = ":call fzf#install()" })
 	use({

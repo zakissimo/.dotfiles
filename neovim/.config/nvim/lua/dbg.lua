@@ -20,6 +20,8 @@ require("nvim-dap-virtual-text").setup({
 -- to stop dap and clear the screen use the commands below !
 -- dap.close() | DapVirtualTextForceRefresh
 
+require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
+
 vim.g.mapleader = " "
 require("dap-python").setup("/usr/bin/python")
 
