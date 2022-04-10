@@ -25,7 +25,7 @@ yay -S --noconfirm picom-jonaburg-git megasync-bin brave-git nerd-fonts-cascadia
 
 sudo pacman -Sdd --asdeps libvterm
 
-npm install -g @fsouza/prettierd typescript-language-server ts-server
+sudo npm install -g @fsouza/prettierd
 
 mkdir -p "$HOME"/.local/bin
 
