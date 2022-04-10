@@ -22,4 +22,4 @@ set.tabstop = 4
 set.updatetime = 1000
 set.wrap = true
 
-vim.opt.laststatus = 3
+set.laststatus = 3

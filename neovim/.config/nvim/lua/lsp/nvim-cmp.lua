@@ -40,7 +40,7 @@ cmp.setup({
 			end
 		end,
 	},
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
@@ -48,7 +48,7 @@ cmp.setup({
 		{ name = "cmp_tabnine" },
 		{ name = "path" },
 		{ name = "emoji" },
-	},
+	}),
 	formatting = {
 		format = lspkind.cmp_format({
 			with_text = true,

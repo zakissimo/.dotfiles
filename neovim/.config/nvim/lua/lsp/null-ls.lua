@@ -12,13 +12,12 @@ null_ls.setup({
 	sources = {
 		formatting.shfmt,
 		formatting.stylua,
-		-- formatting.black,
 		formatting.autopep8,
 		formatting.prettierd.with({ filetypes = { "css" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
 		diagnostics.shellcheck,
 		diagnostics.pylint.with({
-			extra_args = { "--disable=C", "--disable=E", "--disable=R" },
+			extra_args = { "--disable=C", "--disable=R" },
 		}),
 	},
 	on_attach = function(client)

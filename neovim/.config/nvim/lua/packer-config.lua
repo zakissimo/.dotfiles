@@ -40,14 +40,19 @@ packer.init({
 
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
+
 	use("kyazdani42/nvim-tree.lua")
+
+	use("lukas-reineke/indent-blankline.nvim")
+
 	use("norcalli/nvim-colorizer.lua")
 	use("kyazdani42/nvim-web-devicons")
-	use("lukas-reineke/indent-blankline.nvim")
 	use({ "ellisonleao/gruvbox.nvim" })
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "AlphaTechnolog/pywal.nvim", as = "pywal" })
+
 	use("rcarriga/nvim-notify")
+
 	use({
 		"ibhagwan/fzf-lua",
 		-- optional for icon support
@@ -71,23 +76,30 @@ return require("packer").startup(function(use)
 
 	use("junegunn/vader.vim")
 
-	use({ "neoclide/coc.nvim", branch = "release" })
-
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer") -- buffer completions
 	use("hrsh7th/cmp-path") -- path completions
 	use("hrsh7th/cmp-cmdline") -- cmdline completions
 	use("hrsh7th/cmp-nvim-lsp")
 	use("saadparwaiz1/cmp_luasnip") -- snippet completions
-
 	use("L3MON4D3/LuaSnip")
 	use("rafamadriz/friendly-snippets")
-
 	use("onsails/lspkind-nvim")
+
 	use("neovim/nvim-lspconfig")
 	use("williamboman/nvim-lsp-installer")
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		config = function()
+			require("null-ls").setup()
+		end,
+		requires = { "nvim-lua/plenary.nvim" },
+	})
+
+	-- use({ "neoclide/coc.nvim", branch = "release" })
 
 	use("p00f/nvim-ts-rainbow")
+
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use({
@@ -95,14 +107,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("spellsitter").setup()
 		end,
-	})
-
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		config = function()
-			require("null-ls").setup()
-		end,
-		requires = { "nvim-lua/plenary.nvim" },
 	})
 
 	use("mfussenegger/nvim-dap")
