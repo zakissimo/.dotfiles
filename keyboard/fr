@@ -8,10 +8,10 @@ xkb_symbols "basic" {
     key <AE01>	{ [ ampersand,          1,  onesuperior,   exclamdown ]	};
     key <AE02>	{ [    eacute,          2,   asciitilde,    oneeighth ]	};
     key <AE03>	{ [  quotedbl,          3,   numbersign,     sterling ]	};
-    key <AE04>	{ [apostrophe,          4,    braceleft,       dollar ]	};
+    key <AE04>	{ [apostrophe,          4,    grave,       dollar ]	};
     key <AE05>	{ [ parenleft,          5,  bracketleft, threeeighths ]	};
     key <AE06>	{ [     minus,          6,          bar,  fiveeighths ]	};
-    key <AE07>	{ [    egrave,          7,        grave, seveneighths ]	};
+    key <AE07>	{ [    egrave,          7,        braceleft, seveneighths ]	};
     key <AE08>	{ [underscore,          8,    backslash,    trademark ]	};
     key <AE09>	{ [  ccedilla,          9,  asciicircum,    plusminus ]	};
     key <AE10>	{ [    agrave,          0,           at,       degree ]	};
