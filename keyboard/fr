@@ -69,10 +69,10 @@ xkb_symbols "nodeadkeys" {
     name[Group1]="French (no dead keys)";
 
     key <AE12>	{ [     equal,       plus,   braceright,       ogonek ]	};
-    key <AD11>	{ [asciicircum,  diaeresis ]	};
-    key <AD12>	{ [    dollar,   sterling,     currency,       macron ]	};
-    key <AC11>	{ [    ugrave,    percent,  asciicircum,        caron ]	};
-    key <BKSL>	{ [  asterisk,         mu,        grave,        breve ]	};
+    key <AD11>	{ [asciicircum,  bracketleft ]	};
+    key <AD12>	{ [    dollar,   bracketright,     currency,       macron ]	};
+    key <AC11>	{ [    percent,    braceleft,  ugrave,        caron ]	};
+    key <BKSL>	{ [  asterisk,         braceright,        mu,        breve ]	};
     key <AB07>	{ [     comma,   question,        acute,  doubleacute ]	};
     key <AB10>	{ [    exclam,    backslash, dead_belowdot,    abovedot ]	};
 };
