@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 sudo cp "$HOME/.dotfiles/keyboard/arabic.el" "/usr/share/emacs/27.2/lisp/leim/quail/"
-sudo cp "$HOME/.dotfiles/keyboard/fr" "/usr/share/X11/xkb/symbols/"
-sudo cp "$HOME/.dotfiles/keyboard/nb" "/usr/share/X11/xkb/symbols/"
+sudo cp "$HOME/.dotfiles/keyboard/fr" "/usr/share/X11/xkb/symbols/fr"
+sudo cp "$HOME/.dotfiles/keyboard/fr" "/usr/share/X11/xkb/symbols/nb"
 sudo cp "$HOME/.dotfiles/keyboard/ara" "/usr/share/X11/xkb/symbols/"
 
 [ -f "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc" ] && sudo rm "/usr/share/emacs/27.2/lisp/leim/quail/arabic.elc"

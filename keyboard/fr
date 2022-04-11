@@ -1009,14 +1009,14 @@ xkb_symbols "geo" {
 partial alphanumeric_keys
 xkb_symbols "us" {
 
-    include "fr(oss_nodeadkeys)"
+    include "fr(nodeadkeys)"
     name[Group1]= "French (US)";
 
 
     key <AE01>	{ [1,   ampersand,   onesuperior,   exclamdown ]	};
     key <AE02>	{ [2,      eacute,    asciitilde,    oneeighth ]	};
     key <AE03>	{ [3,    quotedbl,    numbersign,     sterling ]	};
-    key <AE04>	{ [4,  apostrophe,     braceleft,       dollar ]	};
+    key <AE04>	{ [4,  apostrophe,     grave,       dollar ]	};
     key <AE05>	{ [5,   parenleft,   bracketleft, threeeighths ]	};
     key <AE06>	{ [6,       minus,           bar,  fiveeighths ]	};
     key <AE07>	{ [7,      egrave,         grave, seveneighths ]	};
