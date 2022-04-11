@@ -15,7 +15,7 @@ xkb_symbols "basic" {
     key <AE08>	{ [underscore,          8,    backslash,    trademark ]	};
     key <AE09>	{ [  ccedilla,          9,  asciicircum,    plusminus ]	};
     key <AE10>	{ [    agrave,          0,           at,       degree ]	};
-    key <AE11>	{ [parenright,     degree, bracketright, questiondown ]	};
+    key <AE11>	{ [parenright,     minus, degree, questiondown ]	};
     key <AE12>	{ [     equal,       plus,   braceright,  dead_ogonek ]	};
 
     key <AD01>	{ [         a,          A,           ae,           AE ]	};
