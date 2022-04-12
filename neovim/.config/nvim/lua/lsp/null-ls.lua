@@ -17,7 +17,7 @@ null_ls.setup({
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
 		diagnostics.shellcheck,
 		diagnostics.pylint.with({
-			extra_args = { "--disable=C", "--disable=R" },
+			extra_args = { "--disable=C0111" },
 		}),
 	},
 	on_attach = function(client)

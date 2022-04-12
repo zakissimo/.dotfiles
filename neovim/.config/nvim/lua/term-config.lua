@@ -6,6 +6,7 @@ end
 vim.g.mapleader = " "
 local opt = { noremap = true }
 local map = vim.api.nvim_set_keymap
+local bufmap = vim.api.nvim_buf_set_keymap
 local opts = { noremap = true, silent = true }
 
 toggleterm.setup({
@@ -34,16 +35,16 @@ toggleterm.setup({
 })
 
 function _G.set_terminal_keymaps()
-	vim.api.nvim_buf_set_keymap(0, "t", "<C-q>", [[<C-\><C-n>]], opt)
+	bufmap(0, "t", "<C-q>", [[<C-\><C-n>]], opt)
 	if vim.fn.win_gettype() ~= "popup" then
-		vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opt)
-		vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
-		vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opt)
-		-- vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opt)
-		vim.api.nvim_buf_set_keymap(0, "t", "<M-j>", [[<C-\><C-n>":resize -2<CR>"]], opt)
-		vim.api.nvim_buf_set_keymap(0, "t", "<M-k>", [[<C-\><C-n>":resize +2<CR>"]], opt)
-		vim.api.nvim_buf_set_keymap(0, "t", "<M-h>", [[<C-\><C-n>":vertical resize -2<CR>"]], opt)
-		vim.api.nvim_buf_set_keymap(0, "t", "<M-l>", [[<C-\><C-n>":vertical resize +2<CR>"]], opt)
+		bufmap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opt)
+		bufmap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
+		bufmap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opt)
+		-- bufmap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opt)
+		bufmap(0, "t", "<M-j>", [[<C-\><C-n>":resize -2<CR>"]], opt)
+		bufmap(0, "t", "<M-k>", [[<C-\><C-n>":resize +2<CR>"]], opt)
+		bufmap(0, "t", "<M-h>", [[<C-\><C-n>":vertical resize -2<CR>"]], opt)
+		bufmap(0, "t", "<M-l>", [[<C-\><C-n>":vertical resize +2<CR>"]], opt)
 	end
 end
 
@@ -51,7 +52,6 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 -- local Terminal = require("toggleterm.terminal").Terminal
 
-map("n", "<leader>tt", ":13sp term://zsh<CR>:setlocal nonumber norelativenumber<CR>", opts)
 map("n", "<leader>gg", ":TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
 
 -- local lazygit = Terminal:new({
@@ -88,8 +88,24 @@ function _GET_DOCS()
 	end)
 end
 
+local bottomTermBufId
+function _BOTTOM_TERM_TOGGLE()
+	if bottomTermBufId then
+		vim.cmd(bottomTermBufId .. "bd!")
+		bottomTermBufId = nil
+	else
+		vim.cmd("13sp term://zsh")
+		vim.cmd("startinsert")
+		bottomTermBufId = vim.api.nvim_get_current_buf()
+		vim.opt_local.number = false
+		vim.opt_local.relativenumber = false
+	end
+end
+
 map("n", "<Leader>ss", ":lua _GET_DOCS()<CR>", opts)
 map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
+map("n", "<leader>tt", ":lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
+map("t", "<leader>tt", "<C-\\><C-n>:lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
 
 -- map("n", "<Leader>rr", "", opts)
 
