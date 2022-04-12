@@ -51,6 +51,7 @@ return require("packer").startup(function(use)
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "AlphaTechnolog/pywal.nvim", as = "pywal" })
 
+	use({ "junegunn/vim-easy-align" })
 	use("rcarriga/nvim-notify")
 
 	use({

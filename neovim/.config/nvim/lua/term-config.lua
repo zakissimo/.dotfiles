@@ -77,6 +77,18 @@ function _BROWSERSYNC_TOGGLE()
 	end
 end
 
+function _GET_DOCS()
+	local filetype = vim.bo.filetype
+	local prompt = "Query " .. filetype .. " docs: "
+	vim.ui.input({ prompt = prompt }, function(input)
+		if input then
+			local query = "zeal " .. filetype .. ":" .. input
+			vim.fn.jobstart(query)
+		end
+	end)
+end
+
+map("n", "<Leader>ss", ":lua _GET_DOCS()<CR>", opts)
 map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 
 -- map("n", "<Leader>rr", "", opts)

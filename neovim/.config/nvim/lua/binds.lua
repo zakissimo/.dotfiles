@@ -22,6 +22,9 @@ map("v", "s", ":s///g<Left><Left><Left>", { noremap = true })
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
 
+-- Start interactive EasyAlign in visual mode (e.g. vipga)
+map("v", "ga", "<Plug>(EasyAlign)", opts)
+
 map("n", "<A-j>", ":resize -2<CR>", opts)
 map("n", "<A-k>", ":resize +2<CR>", opts)
 map("n", "<A-h>", ":vertical resize -2<CR>", opts)
@@ -29,8 +32,6 @@ map("n", "<A-l>", ":vertical resize +2<CR>", opts)
 
 map("n", "<A-,>", ":bprevious<CR>", opts)
 map("n", "<A-;>", ":bnext<CR>", opts)
-map("n", "<A-p>", ":tabprevious<CR>", opts)
-map("n", "<A-n>", ":tabnext<CR>", opts)
 
 map("n", "<Leader>fb", ":FzfLua buffers<CR>", opts)
 map("n", "<Leader>ft", ":FzfLua tabs<CR>", opts)
