@@ -5,36 +5,36 @@ xkb_symbols "basic" {
 
     name[Group1]="French";
 
-    key <AE01>	{ [ ampersand,          1,  onesuperior,   exclamdown ]	};
-    key <AE02>	{ [    eacute,          2,   asciitilde,    oneeighth ]	};
-    key <AE03>	{ [  quotedbl,          3,   numbersign,     sterling ]	};
-    key <AE04>	{ [apostrophe,          4,    grave,       dollar ]	};
-    key <AE05>	{ [ parenleft,          5,  bracketleft, threeeighths ]	};
-    key <AE06>	{ [     minus,          6,          bar,  fiveeighths ]	};
-    key <AE07>	{ [    egrave,          7,        braceleft, seveneighths ]	};
-    key <AE08>	{ [underscore,          8,    backslash,    trademark ]	};
-    key <AE09>	{ [  ccedilla,          9,  asciicircum,    plusminus ]	};
-    key <AE10>	{ [    agrave,          0,           at,       degree ]	};
-    key <AE11>	{ [parenright,     minus, degree, questiondown ]	};
-    key <AE12>	{ [     equal,       plus,   braceright,  dead_ogonek ]	};
-
-    key <AD01>	{ [         a,          A,           ae,           AE ]	};
-    key <AD02>	{ [         z,          Z, guillemotleft,        less ]	};
-    key <AD03>	{ [         e,          E,     EuroSign,         cent ]	};
-    key <AD11>	{ [dead_circumflex, dead_diaeresis, dead_diaeresis, dead_abovering ] };
-    key <AD12>	{ [    dollar,   sterling,     currency,  dead_macron ]	};
-
-    key <AC01>	{ [         q,          Q,           at,  Greek_OMEGA ]	};
-    key <AC10>	{ [         m,          M,           mu,    masculine ]	};
-    key <AC11>	{ [    ugrave,    percent, dead_circumflex, dead_caron]	};
-    key <TLDE>	{ [Caps_Lock, asciitilde,     notsign,      notsign ]	};
-
-    key <BKSL>	{ [  asterisk,         mu,   dead_grave,   dead_breve ]	};
-    key <AB01>	{ [         w,          W,      lstroke,      Lstroke ]	};
-    key <AB07>	{ [     comma,   question,   dead_acute, dead_doubleacute ] };
-    key <AB08>	{ [ semicolon,     period, horizconnector,   multiply ]	};
-    key <AB09>	{ [     colon,      slash, periodcentered,   division ]	};
-    key <AB10>	{ [    exclam,    backslash, dead_belowdot, dead_abovedot ] };
+    key <AE01>	{ [       ampersand, 1,                  onesuperior, exclamdown       ] };
+    key <AE02>	{ [          eacute, 2,                   asciitilde, oneeighth        ] };
+    key <AE03>	{ [        quotedbl, 3,                   numbersign, sterling         ] };
+    key <AE04>	{ [      apostrophe, 4,                        grave, dollar           ] };
+    key <AE05>	{ [       parenleft, 5,                  bracketleft, threeeighths     ] };
+    key <AE06>	{ [           minus, 6,                          bar, fiveeighths      ] };
+    key <AE07>	{ [          egrave, 7,                    braceleft, seveneighths     ] };
+    key <AE08>	{ [      underscore, 8,                    backslash, trademark        ] };
+    key <AE09>	{ [        ccedilla, 9,                  asciicircum, plusminus        ] };
+    key <AE10>	{ [          agrave, 0,                           at, degree           ] };
+    key <AE11>	{ [      parenright, minus,                   degree, questiondown     ] };
+    key <AE12>	{ [           equal, plus,                braceright, dead_ogonek      ] };
+                                                                                         
+    key <AD01>	{ [               a, A,                           ae, AE               ] };
+    key <AD02>	{ [               z, Z,                guillemotleft, less             ] };
+    key <AD03>	{ [               e, E,                     EuroSign, cent             ] };
+    key <AD11>	{ [ dead_circumflex, dead_diaeresis,  dead_diaeresis, dead_abovering   ] };
+    key <AD12>	{ [          dollar, sterling,              currency, dead_macron      ] };
+                                                                                         
+    key <AC01>	{ [               q, Q,                           at, Greek_OMEGA      ] };
+    key <AC10>	{ [               m, M,                           mu, masculine        ] };
+    key <AC11>	{ [          ugrave, percent,        dead_circumflex, dead_caron       ] };
+    key <TLDE>	{ [       Caps_Lock, asciitilde,             notsign, notsign          ] };
+                                                                                         
+    key <BKSL>	{ [        asterisk, mu,                  dead_grave, dead_breve       ] };
+    key <AB01>	{ [               w, W,                      lstroke, Lstroke          ] };
+    key <AB07>	{ [           comma, question,            dead_acute, dead_doubleacute ] };
+    key <AB08>	{ [       semicolon, period,          horizconnector, multiply         ] };
+    key <AB09>	{ [           colon, slash,           periodcentered, division         ] };
+    key <AB10>	{ [          exclam, backslash,        dead_belowdot, dead_abovedot    ] };
 
     include "level3(ralt_switch)"
 };
@@ -46,17 +46,17 @@ xkb_symbols "olpc" {
 
     name[Group1]="French";
 
-    key <I219>	{ [ less, greater ]	};
-    key <AD11>	{ [ dead_circumflex, dead_diaeresis, notsign, dead_abovering ]	};
-    key <AB08>	{ [ semicolon, period, underscore, multiply ]	};
-    key <TLDE>	{ [ Caps_Lock, asciitilde, VoidSymbol, VoidSymbol ]	};
+    key <I219>	{ [            less, greater              ]	};
+    key <AD11>	{ [ dead_circumflex, dead_diaeresis,    notsign, dead_abovering ]	};
+    key <AB08>	{ [       semicolon, period,         underscore, multiply       ]	};
+    key <TLDE>	{ [       Caps_Lock, asciitilde,     VoidSymbol, VoidSymbol     ]	};
 
     // Some keys only have the Shift+AltGr character printed on them (alongside
     // the unmodified one). Make such keys shift-invariant so that the printed
     // value is achieved by pressing AltGr or Shift+AltGr.
-    key <AB02>	{ [ x,  X,  guillemotright, guillemotright ]	};
-    key <AC02>	{ [ s,  S,  ssharp, U1E9E ]	};
-    key <AD02>	{ [ z,  Z,  guillemotleft, guillemotleft ]	};
+    key <AB02>	{ [ x, X, guillemotright, guillemotright ]	};
+    key <AC02>	{ [ s, S,         ssharp, U1E9E          ]	};
+    key <AD02>	{ [ z, Z,  guillemotleft, guillemotleft  ]	};
 };
 
 partial alphanumeric_keys
@@ -68,13 +68,13 @@ xkb_symbols "nodeadkeys" {
 
     name[Group1]="French (no dead keys)";
 
-    key <AE12>	{ [     equal,       plus,   braceright,       ogonek ]	};
-    key <AD11>	{ [asciicircum,  bracketleft ]	};
-    key <AD12>	{ [    dollar,   bracketright,     currency,       macron ]	};
-    key <AC11>	{ [    percent,    braceleft,  ugrave,        caron ]	};
-    key <BKSL>	{ [  asterisk,         braceright,        mu,        breve ]	};
-    key <AB07>	{ [     comma,   question,        acute,  doubleacute ]	};
-    key <AB10>	{ [    exclam,    backslash, dead_belowdot,    abovedot ]	};
+    key <AD11>	{ [asciicircum, bracketleft ]	};
+    key <AE12>	{ [    equal, plus,            braceright, ogonek      ] };
+    key <AD12>	{ [   dollar, bracketright,      currency, macron      ] };
+    key <AC11>	{ [  percent, braceleft,           ugrave, caron       ] };
+    key <BKSL>	{ [ asterisk, braceright,              mu, breve       ] };
+    key <AB07>	{ [    comma, question,             acute, doubleacute ] };
+    key <AB10>	{ [   exclam, backslash,    dead_belowdot, abovedot    ] };
 };
 
 
@@ -219,13 +219,13 @@ xkb_symbols "oss_nodeadkeys" {
 
     name[Group1]="French (alt., no dead keys)";
 
-    key <TLDE>	{ [      Caps_Lock,    threesuperior,          onesuperior,               cedilla ] }; // ² ³ ¹ ¸
-    key <AE01>	{ [        ampersand,                1,                caron,                ogonek ] }; // & 1 ˇ ̨
-    key <AE03>	{ [         quotedbl,                3,           numbersign,                 breve ] }; // " 3 # ˘
+    key <TLDE>	{ [   Caps_Lock, threesuperior, onesuperior, cedilla ] }; // ² ³ ¹ ¸
+    key <AE01>	{ [   ampersand, 1,                   caron, ogonek  ] }; // & 1 ˇ
+    key <AE03>	{ [    quotedbl, 3,              numbersign, breve   ] }; // " 3 # ˘
 
-    key <AD11>	{ [      asciicircum,        diaeresis,           asciitilde,                 Aring ] }; // ^ ̈ ̃ Å
-    key <AC11>	{ [           ugrave,          percent,                acute,                Ugrave ] }; // ù % ' Ù
-    key <BKSL>	{ [         asterisk,               mu,                grave,                macron ] }; // * µ ` ̄
+    key <AD11>	{ [ asciicircum, diaeresis,      asciitilde, Aring   ] }; // ^ Å
+    key <AC11>	{ [      ugrave, percent,             acute, Ugrave  ] }; // ù % ' Ù
+    key <BKSL>	{ [    asterisk, mu,                  grave, macron  ] }; // * µ `
 };
 
 
@@ -352,7 +352,7 @@ xkb_symbols "latin9" {
     key <AB07>	{ [           comma,        question,        questiondown                       ] };
     key <AB08>	{ [       semicolon,          period,            multiply		        ] };
     key <AB09>	{ [           colon,           slash,            division                       ] };
-    key <AB10>	{ [          exclam,         backslash,          exclamdown                       ] };
+    key <AB10>	{ [          exclam,         backslash,          exclamdown                     ] };
 
     // French uses a comma as decimal separator, but keyboards are labeled with a period
     // Will take effect when KP_Decimal is mapped to the locale decimal separator
@@ -370,10 +370,10 @@ xkb_symbols "latin9_nodeadkeys" {
 
     name[Group1]="French (legacy, alt., no dead keys)";
 
-    key <AE01>	{ [       ampersand,               1,          apostrophe,       periodcentered ] };
-    key <AE07>	{ [          egrave,               7,               grave,               Egrave ] };
-    key <AE12>	{ [           equal,            plus,          braceright         	        ] };
-    key <AD11>	{ [	asciicircum,  	   diaeresis,          asciitilde,           apostrophe ] };
+    key <AE01>	{ [                ampersand, 1,          apostrophe, periodcentered  ] };
+    key <AE07>	{ [                   egrave, 7,               grave, Egrave          ] };
+    key <AE12>	{ [                    equal, plus,        braceright ]              };
+    key <AD11>	{ [	asciicircum,   diaeresis, asciitilde,  apostrophe ]              };
 };
 
 // Bépo : Improved ergonomic french keymap using Dvorak method.
