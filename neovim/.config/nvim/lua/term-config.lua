@@ -99,12 +99,11 @@ end
 local bottomTermPath
 local bottomTermBufId
 function _BOTTOM_TERM_TOGGLE()
-	local curPath = vim.fn.getcwd()
 	if bottomTermBufId then
 		if vim.fn.bufwinnr(bottomTermBufId) > -1 then
 			vim.cmd("close" .. bottomTermBufId)
 		else
-			if bottomTermPath ~= curPath then
+			if bottomTermPath ~= vim.fn.getcwd() then
 				vim.cmd(bottomTermBufId .. "bd!")
 				bottomTermPath, bottomTermBufId = bottom_term_init()
 			else
