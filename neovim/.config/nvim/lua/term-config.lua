@@ -99,7 +99,7 @@ end
 local bottomTermPath
 local bottomTermBufId
 function _BOTTOM_TERM_TOGGLE()
-	if bottomTermBufId then
+	if bottomTermBufId and vim.fn.bufexists(bottomTermBufId) ~= 0 then
 		if vim.fn.bufwinnr(bottomTermBufId) > -1 then
 			vim.cmd("close" .. bottomTermBufId)
 		else
