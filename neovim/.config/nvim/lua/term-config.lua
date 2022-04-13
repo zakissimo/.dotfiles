@@ -50,21 +50,6 @@ end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
--- local Terminal = require("toggleterm.terminal").Terminal
-
-map("n", "<leader>gg", ":TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
-
--- local lazygit = Terminal:new({
--- 	cmd = "lazygit -p %:p:h",
--- 	insert_mappings = true,
--- 	terminal_mappings = true,
--- })
---
--- function _LAZYGIT_TOGGLE()
--- 	lazygit:toggle()
--- end
--- map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
-
 local browserSyncJobId
 function _BROWSERSYNC_TOGGLE()
 	if browserSyncJobId then

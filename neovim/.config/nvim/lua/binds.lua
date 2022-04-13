@@ -33,6 +33,8 @@ map("n", "<A-l>", ":vertical resize +2<CR>", opts)
 map("n", "<A-,>", ":bprevious<CR>", opts)
 map("n", "<A-;>", ":bnext<CR>", opts)
 
+map("n", "<Leader>gg", ":LazyGit<CR>", opts)
+
 map("n", "<Leader>fb", ":FzfLua buffers<CR>", opts)
 map("n", "<Leader>ft", ":FzfLua tabs<CR>", opts)
 map("n", "<Leader>fl", ":FzfLua live_grep<CR>", opts)

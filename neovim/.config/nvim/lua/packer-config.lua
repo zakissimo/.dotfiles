@@ -115,6 +115,7 @@ return require("packer").startup(function(use)
 	use("theHamsta/nvim-dap-virtual-text")
 	use("mfussenegger/nvim-dap-python")
 
+	use("kdheepak/lazygit.nvim")
 	use("akinsho/toggleterm.nvim")
 
 	use("nvim-lualine/lualine.nvim")
