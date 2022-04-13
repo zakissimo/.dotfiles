@@ -14,9 +14,9 @@ from scripts.my_widgets import (
 )
 
 
-mod = "mod4"
-alt = "mod1"
-terminal = "kitty"
+MOD = "mod4"
+ALT = "mod1"
+TERMINAL = "kitty"
 home = os.path.expanduser("~")
 
 colors = os.path.expanduser("~/.cache/wal/colors.json")
@@ -36,8 +36,8 @@ with open(colors, "r", encoding="UTF8") as colors:
 background = ColorZ
 ext_col = ColorA
 int_col = ColorH
-active = "#FBF5F3"
-inactive = "#6E6C7E"
+ACTIVE = "#FBF5F3"
+INACTIVE = "#6E6C7E"
 
 
 @lazy.function
@@ -53,8 +53,8 @@ def decrease_gaps(qtile):
 
 
 def resize(qtile, direction):
-    layout = qtile.current_layout
-    child = layout.current
+    curr_layout = qtile.current_layout
+    child = curr_layout.current
     parent = child.parent
 
     while parent:
@@ -65,17 +65,17 @@ def resize(qtile, direction):
                 direction == "up" and not parent.split_horizontal
             ):
                 parent.split_ratio = max(
-                    5, parent.split_ratio - layout.grow_amount)
+                    5, parent.split_ratio - curr_layout.grow_amount)
                 layout_all = True
             elif (direction == "right" and parent.split_horizontal) or (
                 direction == "down" and not parent.split_horizontal
             ):
                 parent.split_ratio = min(
-                    95, parent.split_ratio + layout.grow_amount)
+                    95, parent.split_ratio + curr_layout.grow_amount)
                 layout_all = True
 
             if layout_all:
-                layout.group.layout_all()
+                curr_layout.group.layout_all()
                 break
 
         child = parent
@@ -103,68 +103,68 @@ def resize_down(qtile):
 
 
 keys = [
-    Key([mod, alt], "j", increase_gaps, desc=""),
-    Key([mod, alt], "k", decrease_gaps, desc=""),
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    Key([MOD, ALT], "j", increase_gaps, desc=""),
+    Key([MOD, ALT], "k", decrease_gaps, desc=""),
+    Key([MOD], "h", lazy.layout.left(), desc="Move focus to left"),
+    Key([MOD], "l", lazy.layout.right(), desc="Move focus to right"),
+    Key([MOD], "j", lazy.layout.down(), desc="Move focus down"),
+    Key([MOD], "k", lazy.layout.up(), desc="Move focus up"),
     Key(
-        [mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
+        [MOD, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"
     ),
     Key(
-        [mod, "shift"],
+        [MOD, "shift"],
         "l",
         lazy.layout.shuffle_right(),
         desc="Move window to the right",
     ),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    Key([mod, "control"], "h", resize_left, desc="Grow window to the left"),
+    Key([MOD, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key([MOD, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key([MOD, "control"], "h", resize_left, desc="Grow window to the left"),
     Key(
-        [mod, "control"],
+        [MOD, "control"],
         "l",
         resize_right,
         desc="Grow window to the right",
     ),
-    Key([mod, "control"], "j", resize_down, desc="Grow window down"),
-    Key([mod, "control"], "k", resize_up, desc="Grow window up"),
-    Key([mod], "r", lazy.spawn("rofi -show drun")),
-    Key([mod], "space", lazy.layout.next(),
+    Key([MOD, "control"], "j", resize_down, desc="Grow window down"),
+    Key([MOD, "control"], "k", resize_up, desc="Grow window up"),
+    Key([MOD], "r", lazy.spawn("rofi -show drun")),
+    Key([MOD], "space", lazy.layout.next(),
         desc="Move window focus to other window"),
-    Key([mod], "f", lazy.window.toggle_fullscreen()),
-    Key([mod, "shift"], "space", lazy.window.toggle_floating()),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([MOD], "f", lazy.window.toggle_fullscreen()),
+    Key([MOD, "shift"], "space", lazy.window.toggle_floating()),
+    Key([MOD], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
     Key(
-        [mod, "shift"],
+        [MOD, "shift"],
         "Return",
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
-    Key([mod], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
-    Key([mod], "d", lazy.spawn("emacs"), desc="Launch Emacs"),
-    Key([mod], "e", lazy.spawn("pcmanfm"), desc="Launch Pcmanfm"),
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
+    Key([MOD], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([MOD], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
+    Key([MOD], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
+    Key([MOD], "d", lazy.spawn("emacs"), desc="Launch Emacs"),
+    Key([MOD], "e", lazy.spawn("pcmanfm"), desc="Launch Pcmanfm"),
+    Key([MOD], "q", lazy.window.kill(), desc="Kill focused window"),
     Key(
-        [mod, "control"],
+        [MOD, "control"],
         "x",
         lazy.spawn("betterlockscreen -l dimblur"),
         desc="Lock Screen",
     ),
-    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([MOD, "control"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key([MOD, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     # Switch focus to specific monitor
-    Key([mod], "a", lazy.to_screen(0), desc="Keyboard focus to monitor 1"),
-    Key([mod], "z", lazy.to_screen(1), desc="Keyboard focus to monitor 2"),
+    Key([MOD], "a", lazy.to_screen(0), desc="Keyboard focus to monitor 1"),
+    Key([MOD], "z", lazy.to_screen(1), desc="Keyboard focus to monitor 2"),
     # Switch focus of monitors
-    Key([mod], "space", lazy.next_screen(), desc="Move focus to next monitor"),
+    Key([MOD], "space", lazy.next_screen(), desc="Move focus to next monitor"),
     Key([], "Print", lazy.spawn("flameshot gui -c"), desc="Print screen"),
-    Key([mod], "Print", lazy.spawn("peek"), desc="Record screen"),
-    Key([mod], "c", lazy.spawn(
+    Key([MOD], "Print", lazy.spawn("peek"), desc="Record screen"),
+    Key([MOD], "c", lazy.spawn(
         "tmpclip -c"), desc="Super copy"),
-    Key([mod], "v", lazy.spawn(
+    Key([MOD], "v", lazy.spawn(
         "tmpclip -p"), desc="Super paste"),
 ]
 
@@ -187,8 +187,8 @@ else:
     ]
 
 
-def go_to_screen(s):
-    if s in ["egrave", "underscore", "ccedilla", "agrave"]:
+def go_to_screen(screen):
+    if screen in ["egrave", "underscore", "ccedilla", "agrave"]:
         return 0
     return 1
 
@@ -198,7 +198,7 @@ for i in groups:
         [
             # CHANGE WORKSPACES
             Key(
-                [mod],
+                [MOD],
                 i.name,
                 lazy.to_screen(go_to_screen(i.name)),
                 lazy.group[i.name].toscreen(
@@ -207,7 +207,7 @@ for i in groups:
             # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO
             # WORKSPACE
             Key(
-                [mod, "shift"],
+                [MOD, "shift"],
                 i.name,
                 lazy.window.togroup(i.name),
                 lazy.to_screen(go_to_screen(i.name)),
@@ -234,7 +234,7 @@ layouts = [
 widget_defaults = dict(
     font="CaskaydiaCove Nerd Font",
     fontsize=12,
-    foreground=active,
+    foreground=ACTIVE,
     background=background,
 )
 
@@ -252,8 +252,8 @@ def init_widgets_list():
         widget.GroupBox(
             font="Fira Mono",
             fontsize=25,
-            inactive=inactive,
-            active=active,
+            inactive=INACTIVE,
+            active=ACTIVE,
             highlight_method="line",
             this_current_screen_border=ext_col,
             visible_groups=["egrave", "underscore", "ccedilla", "agrave"],
@@ -261,8 +261,8 @@ def init_widgets_list():
         widget.GroupBox(
             font="Fira Mono",
             fontsize=25,
-            active=active,
-            inactive=inactive,
+            active=ACTIVE,
+            inactive=INACTIVE,
             highlight_method="line",
             this_current_screen_border=ext_col,
             visible_groups=["F5", "F6"],
@@ -275,7 +275,7 @@ def init_widgets_list():
             background=background,
             fontsize=35,
         ),
-        widget.WindowName(foreground=active, background=ext_col),
+        widget.WindowName(foreground=ACTIVE, background=ext_col),
         widget.TextBox(
             font="Fira Mono",
             text="\uE0Ba",
@@ -350,17 +350,17 @@ def init_widgets_list():
 
 
 def init_widgets_screen1():
-    w = init_widgets_list()
-    del w[2]
-    return w
+    widgets = init_widgets_list()
+    del widgets[2]
+    return widgets
 
 
 def init_widgets_screen2():
-    w = init_widgets_list()
+    widgets = init_widgets_list()
     # Removing unwanted widgets (systray) on Monitor 2
-    del w[1]
-    del w[5:]
-    return w
+    del widgets[1]
+    del widgets[5:]
+    return widgets
 
 
 def init_screens():
@@ -412,15 +412,15 @@ if __name__ in ["config", "__main__"]:
 # Drag floating layouts.
 mouse = [
     Drag(
-        [mod],
+        [MOD],
         "Button1",
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
     Drag(
-        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+        [MOD], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
     ),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+    Click([MOD], "Button2", lazy.window.bring_to_front()),
 ]
 
 
@@ -456,12 +456,12 @@ def start_once():
     subprocess.call(f"{home}/.config/qtile/scripts/autostart.sh")
 
 
-auto_fullscreen = True
-focus_on_window_activation = "smart"
-dgroups_key_binder = None
+AUTO_FULLSCREEN = True
+FOCUS_ON_WINDOW_ACTIVATION = "smart"
+DGROUPS_KEY_BINDER = None
 dgroups_app_rules = []  # type: List
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
-auto_minimize = True
-wmname = "LG3D"
+FOLLOW_MOUSE_FOCUS = True
+BRING_FRONT_CLICK = False
+CURSOR_WARP = False
+AUTO_MINIMIZE = True
+WMNAME = "LG3D"
