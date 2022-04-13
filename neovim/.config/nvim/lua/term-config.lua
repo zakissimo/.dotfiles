@@ -65,14 +65,14 @@ map("n", "<leader>gg", ":TermExec cmd='cd %:p:h;lazygit'<CR>", opts)
 -- end
 -- map("n", "<Leader>gg", ":lua _LAZYGIT_TOGGLE()<CR>", opts)
 
-local jobId
+local browserSyncJobId
 function _BROWSERSYNC_TOGGLE()
-	if jobId then
-		vim.fn.jobstop(jobId)
-		jobId = nil
+	if browserSyncJobId then
+		vim.fn.jobstop(browserSyncJobId)
+		browserSyncJobId = nil
 		vim.notify("BrowserSync server obliterated.")
 	else
-		jobId = vim.fn.jobstart("browser-sync start --server --files * --no-inject-changes")
+		browserSyncJobId = vim.fn.jobstart("browser-sync start --server --files * --no-inject-changes")
 		vim.notify("BrowserSync server created.")
 	end
 end
@@ -96,7 +96,7 @@ local function bottom_term_init()
 	return vim.fn.getcwd(), vim.api.nvim_get_current_buf()
 end
 
-local path
+local bottomTermPath
 local bottomTermBufId
 function _BOTTOM_TERM_TOGGLE()
 	local curPath = vim.fn.getcwd()
@@ -104,9 +104,9 @@ function _BOTTOM_TERM_TOGGLE()
 		if vim.fn.bufwinnr(bottomTermBufId) > -1 then
 			vim.cmd("close" .. bottomTermBufId)
 		else
-			if path ~= curPath then
+			if bottomTermPath ~= curPath then
 				vim.cmd(bottomTermBufId .. "bd!")
-				path, bottomTermBufId = bottom_term_init()
+				bottomTermPath, bottomTermBufId = bottom_term_init()
 			else
 				vim.cmd("13sp")
 				vim.cmd("buffer" .. bottomTermBufId)
@@ -114,7 +114,7 @@ function _BOTTOM_TERM_TOGGLE()
 			end
 		end
 	else
-		path, bottomTermBufId = bottom_term_init()
+		bottomTermPath, bottomTermBufId = bottom_term_init()
 	end
 end
 
