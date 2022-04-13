@@ -88,17 +88,33 @@ function _GET_DOCS()
 	end)
 end
 
+local function bottom_term_init()
+	vim.cmd("13sp term://zsh")
+	vim.cmd("startinsert")
+	vim.opt_local.number = false
+	vim.opt_local.relativenumber = false
+	return vim.fn.getcwd(), vim.api.nvim_get_current_buf()
+end
+
+local path
 local bottomTermBufId
 function _BOTTOM_TERM_TOGGLE()
+	local curPath = vim.fn.getcwd()
 	if bottomTermBufId then
-		vim.cmd(bottomTermBufId .. "bd!")
-		bottomTermBufId = nil
+		if vim.fn.bufwinnr(bottomTermBufId) > -1 then
+			vim.cmd("close" .. bottomTermBufId)
+		else
+			if path ~= curPath then
+				vim.cmd(bottomTermBufId .. "bd!")
+				path, bottomTermBufId = bottom_term_init()
+			else
+				vim.cmd("13sp")
+				vim.cmd("buffer" .. bottomTermBufId)
+				vim.cmd("startinsert")
+			end
+		end
 	else
-		vim.cmd("13sp term://zsh")
-		vim.cmd("startinsert")
-		bottomTermBufId = vim.api.nvim_get_current_buf()
-		vim.opt_local.number = false
-		vim.opt_local.relativenumber = false
+		path, bottomTermBufId = bottom_term_init()
 	end
 end
 
