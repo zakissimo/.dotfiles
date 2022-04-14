@@ -5,6 +5,9 @@ from typing import List
 from libqtile.command import lazy
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.layout.max import Max
+from libqtile.layout.bsp import Bsp
+from libqtile.layout.floating import Floating
 from scripts.my_widgets import (
     kekram,
     kekdate,
@@ -226,9 +229,9 @@ layout_theme = {
 }
 
 layouts = [
-    layout.Max(**layout_theme),
-    layout.Bsp(**layout_theme),
-    layout.Floating(**layout_theme),
+    Max(**layout_theme),
+    Bsp(**layout_theme),
+    Floating(**layout_theme),
 ]
 
 widget_defaults = dict(
@@ -424,7 +427,7 @@ mouse = [
 ]
 
 
-floating_layout = layout.Floating(
+floating_layout = Floating(
     border_width=0,
     margin=5,
     border_focus=ext_col,
@@ -432,7 +435,7 @@ floating_layout = layout.Floating(
     float_rules=[
         # Run the utility of `xprop` to see the wm class and name of an X
         # client.
-        *layout.Floating.default_float_rules,
+        *Floating.default_float_rules,
         Match(wm_class="confirm"),
         Match(wm_class="display"),
         Match(wm_class="dialog"),
