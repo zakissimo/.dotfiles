@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 wal -R &
-picom -b &
+picom &
 
 nm-applet &
-pa-applet &
+# pa-applet &
 megasync &
 # gxkb &
 
