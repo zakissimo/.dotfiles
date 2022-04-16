@@ -1,6 +1,8 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
+vim.g.mapleader = " "
+
 require("nvim-dap-virtual-text").setup({
 	enabled = true, -- enable this plugin (the default)
 	enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
@@ -16,13 +18,8 @@ require("nvim-dap-virtual-text").setup({
 	-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 })
 
--- TODO
--- to stop dap and clear the screen use the commands below !
--- dap.close() | DapVirtualTextForceRefresh
-
 require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 
-vim.g.mapleader = " "
 require("dap-python").setup("/usr/bin/python")
 
 map("n", "<leader>db", '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
@@ -30,6 +27,7 @@ map("n", "<leader>dn", '<cmd>lua require"dap".continue()<CR>', opts)
 map("n", "<leader>dv", '<cmd>lua require"dap".step_over()<CR>', opts)
 map("n", "<leader>di", '<cmd>lua require"dap".step_into()<CR>', opts)
 map("n", "<leader>do", '<cmd>lua require"dap".step_out()<CR>', opts)
+map("n", "<leader>dq", '<cmd>lua require"dap".close()<CR><cmd>DapVirtualTextForceRefresh<CR>', opts)
 
 map("n", "<leader>dsc", '<cmd>lua require"dap.ui.variables".scopes()<CR>', opts)
 map("n", "<leader>dhh", '<cmd>lua require"dap.ui.variables".hover()<CR>', opts)

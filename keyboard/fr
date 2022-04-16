@@ -219,13 +219,13 @@ xkb_symbols "oss_nodeadkeys" {
 
     name[Group1]="French (alt., no dead keys)";
 
-    key <TLDE>	{ [   Caps_Lock, threesuperior, onesuperior, cedilla ] }; // ² ³ ¹ ¸
-    key <AE01>	{ [   ampersand, 1,                   caron, ogonek  ] }; // & 1 ˇ
-    key <AE03>	{ [    quotedbl, 3,              numbersign, breve   ] }; // " 3 # ˘
-
-    key <AD11>	{ [ asciicircum, diaeresis,      asciitilde, Aring   ] }; // ^ Å
-    key <AC11>	{ [      ugrave, percent,             acute, Ugrave  ] }; // ù % ' Ù
-    key <BKSL>	{ [    asterisk, mu,                  grave, macron  ] }; // * µ `
+    key <AD11>	{ [asciicircum, bracketleft ]	};
+    key <AE12>	{ [    equal, plus,            braceright, ogonek      ] };
+    key <AD12>	{ [   dollar, bracketright,      currency, macron      ] };
+    key <AC11>	{ [  percent, braceleft,           ugrave, caron       ] };
+    key <BKSL>	{ [ asterisk, braceright,              mu, breve       ] };
+    key <AB07>	{ [    comma, question,             acute, doubleacute ] };
+    key <AB10>	{ [   exclam, backslash,    dead_belowdot, abovedot    ] };
 };
 
 
@@ -1009,7 +1009,7 @@ xkb_symbols "geo" {
 partial alphanumeric_keys
 xkb_symbols "us" {
 
-    include "fr(nodeadkeys)"
+    include "fr(oss_nodeadkeys)"
     name[Group1]= "French (US)";
 
 
