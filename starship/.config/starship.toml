@@ -90,7 +90,8 @@ disabled = true
 symbol = " "
 
 [python]
-disabled = true
+format = '[${symbol}(\($virtualenv\) )]($style)'
+disabled = false
 symbol = " "
 
 [ruby]
