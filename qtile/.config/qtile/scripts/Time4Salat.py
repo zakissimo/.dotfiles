@@ -2,8 +2,8 @@
 
 import os
 import re
-import requests
 from datetime import datetime
+import requests
 
 home = os.path.expanduser("~")
 
@@ -20,7 +20,8 @@ def get_time():
     with open(log_path, "r", encoding="utf8") as log_file:
 
         log_load = [l.strip() for l in log_file]
-        salat_time = log_load[1][1:-1].replace('"', "").replace("'", "").split(", ")
+        salat_time = log_load[1][1:-
+                                 1].replace('"', "").replace("'", "").split(", ")
 
         if log_load[0] == today_string:
             get_next_salat(now, salat_time)

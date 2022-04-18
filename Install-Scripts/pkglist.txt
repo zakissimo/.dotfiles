@@ -2,6 +2,7 @@ bat
 bc
 btop
 curl
+chromium
 deno
 dunst
 eog

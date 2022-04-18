@@ -20,8 +20,6 @@ require("nvim-dap-virtual-text").setup({
 
 require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 
-require("dap-python").setup("/usr/bin/python")
-
 map("n", "<leader>db", '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
 map("n", "<leader>dn", '<cmd>lua require"dap".continue()<CR>', opts)
 map("n", "<leader>dv", '<cmd>lua require"dap".step_over()<CR>', opts)
@@ -50,3 +48,65 @@ map(
 )
 map("n", "<leader>dro", '<cmd>lua require"dap".repl.open()<CR>', opts)
 map("n", "<leader>drl", '<cmd>lua require"dap".repl.run_last()<CR>', opts)
+
+require("dap-python").setup("/usr/bin/python")
+
+local dap = require("dap")
+dap.configurations.cpp = {
+	{
+		name = "Launch",
+		type = "lldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		args = {},
+
+		-- 💀
+		-- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+		--
+		--    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+		--
+		-- Otherwise you might get the following error:
+		--
+		--    Error on launch: Failed to attach to the target process
+		--
+		-- But you should be aware of the implications:
+		-- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+
+		runInTerminal = false,
+
+		-- 💀
+		-- If you use `runInTerminal = true` and resize the terminal window,
+		-- lldb-vscode will receive a `SIGWINCH` signal which can cause problems
+		-- To avoid that uncomment the following option
+		-- See https://github.com/mfussenegger/nvim-dap/issues/236#issuecomment-1066306073
+		postRunCommands = { "process handle -p true -s false -n false SIGWINCH" },
+	},
+}
+
+-- If you want to use this for rust and c, add something like this:
+
+dap.configurations.c = dap.configurations.cpp
+
+dap.adapters.node2 = {
+	type = "executable",
+	command = "node",
+	args = {
+		vim.fn.stdpath("data") .. "/dapinstall/jsnode/" .. "/vscode-node-debug2/out/src/nodeDebug.js",
+	},
+}
+
+dap.configurations.javascript = {
+	{
+		type = "node2",
+		request = "launch",
+		program = "${file}",
+		cwd = vim.fn.getcwd(),
+		sourceMaps = true,
+		protocol = "inspector",
+		console = "integratedTerminal",
+	},
+}
