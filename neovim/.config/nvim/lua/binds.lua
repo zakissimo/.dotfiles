@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 
 map("n", "<C-s>", ":w<CR>", opts)
-map("n", "<C-n>", ":tabnew<CR>", opts)
+map("n", "<A-n>", ":tabnew<CR>", opts)
 map("n", "<A-w>", ":tabclose<CR>", opts)
 map("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
 
@@ -13,7 +13,7 @@ map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-h>", "<C-w>h", opts)
 map("n", "<C-l>", "<C-w>l", opts)
 
-map("n", "<leader>x", "!chmod +x %", opts)
+map("n", "<leader>x", ":!chmod +x %<CR>", opts)
 
 map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
 map("n", "s", ":s///g<Left><Left><Left>", { noremap = true })
@@ -48,4 +48,3 @@ map("n", "<A-o>", ":lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
 map("n", "<A-y>", ":lua require('harpoon.ui').nav_file(1)<CR>", opts)
 map("n", "<A-u>", ":lua require('harpoon.ui').nav_file(2)<CR>", opts)
 map("n", "<A-i>", ":lua require('harpoon.ui').nav_file(3)<CR>", opts)
--- map("n", "<A-o>", ":lua require('harpoon.ui').nav_file(4)<CR>", opts)

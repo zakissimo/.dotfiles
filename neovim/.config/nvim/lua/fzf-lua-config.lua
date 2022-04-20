@@ -1,7 +1,7 @@
 require("fzf-lua").setup({
 
 	files = {
-		cmd = "fd --type f --hidden --exclude .git",
+		cmd = "rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2> /dev/null",
 	},
 	previewers = {
 		builtin = {
