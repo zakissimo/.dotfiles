@@ -1,5 +1,10 @@
 require("fzf-lua").setup({
 
+	winopts = {
+		hl = {
+			border = "FloatBorder",
+		},
+	},
 	files = {
 		cmd = "rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2> /dev/null",
 	},

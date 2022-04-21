@@ -40,6 +40,6 @@ case "$(basename "$file" | tr '[:upper:]' '[:lower:]')" in
 	gm convert "${file[0]}" "$thumbnail"
 	preview "$thumbnail" "$@"
 	;;
-*) bat -f "$file" ;;
+*) bat --theme 'base16' -f "$file" ;;
 esac
 return 127 # nonzero retcode required for lf previews to reload

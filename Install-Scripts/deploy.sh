@@ -13,7 +13,7 @@ sudo pacman -Fy
 sudo pacman --needed --ask 4 -Sy - <pkglist.txt
 
 pip install --upgrade pip
-pip install pdftotext dbus-next psutil pywal wheel pynvim requests black autopep8 pylint pytest dbg debugpy ueberzug
+pip install pdftotext dbus-next psutil pywal wheel pynvim requests black autopep8 pylint pytest dbg debugpy ueberzug neovim-remote
 
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
