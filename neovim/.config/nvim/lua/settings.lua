@@ -13,14 +13,26 @@ set.mouse = "a"
 set.number = true
 set.relativenumber = true
 set.scrolloff = 5
-set.shiftwidth = 4
 set.smartcase = true
 set.splitbelow = true
 set.splitright = true
 set.swapfile = false
-set.tabstop = 4
 set.updatetime = 1000
+set.expandtab = true
 set.wrap = true
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	callback = function()
+		local ft = vim.bo.filetype
+		if ft == "javascript" or ft == "typescript" or ft == "javascriptreact" or ft == "typescriptreact" then
+			set.tabstop = 2
+			set.shiftwidth = 2
+		else
+			set.shiftwidth = 4
+			set.tabstop = 4
+		end
+	end,
+})
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 	callback = function()
