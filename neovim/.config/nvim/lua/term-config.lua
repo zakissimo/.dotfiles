@@ -102,22 +102,29 @@ function _BOTTOM_TERM_TOGGLE()
 	end
 end
 
+function _CODE_RUNNER()
+	vim.cmd("w!")
+	local type = vim.bo.filetype
+	if type == "python" then
+		vim.cmd("!python3 %")
+	elseif type == "lua" then
+		vim.cmd("!lua %")
+	elseif type == "javascript" then
+		vim.cmd("!node %")
+	elseif type == "sh" then
+		vim.cmd("!./%")
+	end
+end
+
 map("n", "<Leader>ss", ":lua _GET_DOCS()<CR>", opts)
+map("n", "<Leader>rr", ":lua _CODE_RUNNER()<CR>", opts)
 map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 map("n", "<leader>tt", ":lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
 map("t", "<leader>tt", "<C-\\><C-n>:lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
 
--- map("n", "<Leader>rr", "", opts)
-
--- TODO: For code runner get filetype with vim.bo.filetype
-map("n", "<leader>rb", ":w<CR>:!./%<CR>", opts)
--- map("n", "<leader>rp", ":w<CR>:TermExec cmd='python3 %:p' direction=horizontal size=11<CR>", opts)
-map("n", "<leader>rp", ":w<CR>:!python3 %<CR>", opts)
-map("n", "<leader>rl", ":w<CR>:!lua %<CR>", opts)
-map("n", "<leader>rj", ":w<CR>:!node %<CR>", opts)
-map("n", "<leader>exj", ":w<CR>:if !isdirectory('node_modules') | !npm install<CR> | endif | !npm test<CR>", opts)
 map("n", "<leader>exl", ":w<CR>:!busted<CR>", opts)
 map("n", "<leader>exb", ":w<CR>:!BATS_RUN_SKIPPED=true bats %<CR>", opts)
+map("n", "<leader>exj", ":w<CR>:if !isdirectory('node_modules') | !npm install<CR> | endif | !npm test<CR>", opts)
 map(
 	"n",
 	"<leader>wh",
