@@ -26,6 +26,7 @@ select choice in "${options[@]}"; do
 		break
 		;;
 	legacy)
+		pacman --noconfirm -S grub
 		lsblk
 		echo "Indicate the boot disk (/dev/sdX): "
 		read -r bootDisk
