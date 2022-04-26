@@ -14,6 +14,7 @@ flameshot
 fragments
 fzf
 gxkb
+gvfs
 hsetroot
 imagemagick
 kitty
@@ -29,6 +30,7 @@ nodejs
 noto-fonts
 noto-fonts-cjk
 npm
+ntfs-3g
 odt2txt
 p7zip
 pavucontrol

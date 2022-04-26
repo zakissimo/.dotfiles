@@ -22,7 +22,7 @@ require("fzf-lua").setup({
 			--   "contain", "forced_cover", "cover"
 			-- For more details see:
 			-- https://github.com/seebye/ueberzug
-			ueberzug_scaler = "false",
+			ueberzug_scaler = "fit_contain",
 		},
 	},
 })
