@@ -4,7 +4,7 @@ wal -R &
 picom &
 
 nm-applet &
-# pa-applet &
+pa-applet &
 megasync &
 # gxkb &
 
