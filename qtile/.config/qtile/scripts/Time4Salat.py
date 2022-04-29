@@ -43,9 +43,9 @@ def make_log(log_path, today_string):
 
 def parse():
 
-    url = "https://mawaqit.net/fr/gm-saint-denis"
+    # url = "https://mawaqit.net/fr/gm-saint-denis"
     # url = "https://mawaqit.net/fr/m-angouleme"
-    # url = "https://mawaqit.net/fr/mosquee-dagen"
+    url = "https://mawaqit.net/fr/mosquee-dagen"
 
     r = requests.get(url)
     regex_data = re.findall(r'times":(.*),"womenSpace', r.text)

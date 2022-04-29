@@ -15,6 +15,9 @@ if [ -d "$HOME/Apps" ] ;
   then export PATH="$HOME/Apps:$PATH"
 fi
 
+export PNPM_HOME="/home/zak/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
 export LF_ICONS="\
 tw=:\
 st=:\
