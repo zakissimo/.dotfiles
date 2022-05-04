@@ -14,7 +14,9 @@ flameshot
 fragments
 fzf
 gxkb
+gvfs
 hsetroot
+imagemagick
 kitty
 linux-headers
 lua
@@ -24,8 +26,11 @@ mediainfo
 mpv
 ncdu
 neovim
+nodejs
 noto-fonts
 noto-fonts-cjk
+npm
+ntfs-3g
 odt2txt
 p7zip
 pavucontrol
