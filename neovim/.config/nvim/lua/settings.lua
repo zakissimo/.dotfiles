@@ -24,7 +24,13 @@ set.wrap = true
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	callback = function()
 		local ft = vim.bo.filetype
-		if ft == "javascript" or ft == "typescript" or ft == "javascriptreact" or ft == "typescriptreact" then
+		if
+			ft == "javascript"
+			or ft == "typescript"
+			or ft == "javascriptreact"
+			or ft == "typescriptreact"
+			or ft == "c"
+		then
 			set.tabstop = 2
 			set.shiftwidth = 2
 		else
