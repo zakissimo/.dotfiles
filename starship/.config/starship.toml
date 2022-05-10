@@ -33,6 +33,11 @@ disabled = true
 disabled = true
 symbol = "  "
 
+[c]
+format = '[${symbol}]($style)'
+disabled = false
+symbol = " "
+
 [conda]
 disabled = true
 symbol = " "

@@ -3,7 +3,7 @@ import json
 import subprocess
 from typing import List
 from libqtile.command import lazy
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.layout.max import Max
 from libqtile.layout.bsp import Bsp
@@ -15,7 +15,6 @@ from scripts.my_widgets import (
     time4salat,
     monitor_num,
 )
-
 
 MOD = "mod4"
 ALT = "mod1"

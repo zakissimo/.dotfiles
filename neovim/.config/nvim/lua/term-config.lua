@@ -113,6 +113,8 @@ function _CODE_RUNNER()
 		vim.cmd("!node %")
 	elseif type == "sh" then
 		vim.cmd("!./%")
+	elseif type == "c" then
+		vim.cmd("!cc -Wall -Wextra -ggdb -o %:t:r % && ./%:t:r")
 	end
 end
 

@@ -52,6 +52,13 @@ map("n", "<leader>drl", '<cmd>lua require"dap".repl.run_last()<CR>', opts)
 require("dap-python").setup("/usr/bin/python")
 
 local dap = require("dap")
+
+dap.adapters.lldb = {
+	type = "executable",
+	command = "/usr/bin/lldb-vscode", -- adjust as needed
+	name = "lldb",
+}
+
 dap.configurations.cpp = {
 	{
 		name = "Launch",
@@ -84,12 +91,20 @@ dap.configurations.cpp = {
 		-- To avoid that uncomment the following option
 		-- See https://github.com/mfussenegger/nvim-dap/issues/236#issuecomment-1066306073
 		postRunCommands = { "process handle -p true -s false -n false SIGWINCH" },
+		env = function()
+			local variables = {}
+			for k, v in pairs(vim.fn.environ()) do
+				table.insert(variables, string.format("%s=%s", k, v))
+			end
+			return variables
+		end,
 	},
 }
 
 -- If you want to use this for rust and c, add something like this:
 
 dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
 
 dap.adapters.node2 = {
 	type = "executable",

@@ -9,7 +9,6 @@ options=(efi legacy quit)
 select choice in "${options[@]}"; do
 	case $choice in
 	efi)
-		pacman -S grub os-prober
 		bootctl --path=/boot install
 		cat <<-EOF >/boot/loader/loader.conf
 			default arch.conf

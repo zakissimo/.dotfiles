@@ -112,7 +112,7 @@ return require("packer").startup(function(use)
 	})
 
 	use("mfussenegger/nvim-dap")
-	use("Pocco81/DAPInstall.nvim")
+	use("Pocco81/dap-buddy.nvim")
 	use("mfussenegger/nvim-dap-python")
 	use("theHamsta/nvim-dap-virtual-text")
 	use("jbyuki/one-small-step-for-vimkind")

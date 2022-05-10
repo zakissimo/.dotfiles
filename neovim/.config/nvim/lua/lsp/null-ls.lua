@@ -15,6 +15,7 @@ null_ls.setup({
 		formatting.autopep8,
 		formatting.prettierd.with({ filetypes = { "css" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
+		-- formatting.clang_format.with({ extra_args = { "-style=WebKit" } }),
 		diagnostics.shellcheck,
 		diagnostics.pylint.with({
 			extra_args = {
