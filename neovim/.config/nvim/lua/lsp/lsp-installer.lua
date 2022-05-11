@@ -12,10 +12,9 @@ end
 
 local settings = {
 	ensure_installed = server_table,
-	automatic_installation = false,
 }
 
-lsp_installer.setup(settings)
+lsp_installer.setup({})
 
 for _, server in pairs(server_table) do
 	local opts = {
