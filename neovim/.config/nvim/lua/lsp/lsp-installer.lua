@@ -12,6 +12,7 @@ end
 
 local settings = {
 	ensure_installed = server_table,
+	automatic_installation = false,
 }
 
 lsp_installer.setup(settings)

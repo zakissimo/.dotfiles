@@ -30,9 +30,12 @@ null_ls.setup({
 			},
 		}),
 	},
-	on_attach = function(client)
-		if client.resolved_capabilities.document_formatting then
-			vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-		end
-	end,
+	-- on_attach = function(client)
+
+	on_attach = require("lsp.handlers").on_attach,
+	capabilities = require("lsp.handlers").capabilities,
+	-- if client.resolved_capabilities.document_formatting then
+	-- 	vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+	-- end
+	-- end,
 })
