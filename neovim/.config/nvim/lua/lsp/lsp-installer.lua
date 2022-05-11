@@ -1,17 +1,26 @@
-local nvim_lsp_installer = require("nvim-lsp-installer")
-local servers = nvim_lsp_installer.get_installed_servers()
+local lsp_installer = require("nvim-lsp-installer")
+local servers = lsp_installer.get_installed_servers()
 
 local lspconfig = require("lspconfig")
 
-local opts = {
-	on_attach = require("lsp.handlers").on_attach,
-	capabilities = require("lsp.handlers").capabilities,
-}
-
-nvim_lsp_installer.setup({})
+local server_table = {}
 
 for idx in pairs(servers) do
 	local server = servers[idx].name
+	table.insert(server_table, server)
+end
+
+local settings = {
+	ensure_installed = server_table,
+}
+
+lsp_installer.setup(settings)
+
+for _, server in pairs(server_table) do
+	local opts = {
+		on_attach = require("lsp.handlers").on_attach,
+		capabilities = require("lsp.handlers").capabilities,
+	}
 
 	if server == "sumneko_lua" then
 		local sumneko_opts = require("lsp.settings.sumneko_lua")
