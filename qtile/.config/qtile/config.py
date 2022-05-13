@@ -67,13 +67,15 @@ def resize(qtile, direction):
                 direction == "up" and not parent.split_horizontal
             ):
                 parent.split_ratio = max(
-                    5, parent.split_ratio - curr_layout.grow_amount)
+                    5, parent.split_ratio - curr_layout.grow_amount
+                )
                 layout_all = True
             elif (direction == "right" and parent.split_horizontal) or (
                 direction == "down" and not parent.split_horizontal
             ):
                 parent.split_ratio = min(
-                    95, parent.split_ratio + curr_layout.grow_amount)
+                    95, parent.split_ratio + curr_layout.grow_amount
+                )
                 layout_all = True
 
             if layout_all:
@@ -132,8 +134,7 @@ keys = [
     Key([MOD, "control"], "j", resize_down, desc="Grow window down"),
     Key([MOD, "control"], "k", resize_up, desc="Grow window up"),
     Key([MOD], "r", lazy.spawn("rofi -show drun")),
-    Key([MOD], "space", lazy.layout.next(),
-        desc="Move window focus to other window"),
+    Key([MOD], "space", lazy.layout.next(), desc="Move window focus to other window"),
     Key([MOD], "f", lazy.window.toggle_fullscreen()),
     Key([MOD, "shift"], "space", lazy.window.toggle_floating()),
     Key([MOD], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
@@ -164,10 +165,8 @@ keys = [
     Key([MOD], "space", lazy.next_screen(), desc="Move focus to next monitor"),
     Key([], "Print", lazy.spawn("flameshot gui -c"), desc="Print screen"),
     Key([MOD], "Print", lazy.spawn("peek"), desc="Record screen"),
-    Key([MOD], "c", lazy.spawn(
-        "tmpclip -c"), desc="Super copy"),
-    Key([MOD], "v", lazy.spawn(
-        "tmpclip -p"), desc="Super paste"),
+    Key([MOD], "c", lazy.spawn("tmpclip -c"), desc="Super copy"),
+    Key([MOD], "v", lazy.spawn("tmpclip -p"), desc="Super paste"),
 ]
 
 
@@ -203,8 +202,7 @@ for i in groups:
                 [MOD],
                 i.name,
                 lazy.to_screen(go_to_screen(i.name)),
-                lazy.group[i.name].toscreen(
-                    go_to_screen(i.name), toggle=False),
+                lazy.group[i.name].toscreen(go_to_screen(i.name), toggle=False),
             ),
             # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO
             # WORKSPACE
@@ -213,8 +211,7 @@ for i in groups:
                 i.name,
                 lazy.window.togroup(i.name),
                 lazy.to_screen(go_to_screen(i.name)),
-                lazy.group[i.name].toscreen(
-                    go_to_screen(i.name), toggle=False),
+                lazy.group[i.name].toscreen(go_to_screen(i.name), toggle=False),
             ),
         ]
     )
