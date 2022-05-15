@@ -13,7 +13,7 @@ null_ls.setup({
 		formatting.shfmt,
 		formatting.stylua,
 		formatting.black,
-		formatting.prettierd.with({ filetypes = { "css" } }),
+		formatting.prettierd.with({ filetypes = { "css", "html" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
 		-- formatting.clang_format.with({ extra_args = { "-style=WebKit" } }),
 		diagnostics.shellcheck,
