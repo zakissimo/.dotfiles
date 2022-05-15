@@ -38,6 +38,7 @@ cd .. && rm -rf betterlockscreen
 betterlockscreen -u "$HOME"/.dotfiles/01kgv4.jpg --fx dimblur
 betterlockscreen -l dimblur
 
+sudo systemctl enable betterlockscreen@"$USER"
 sudo systemctl enable ly.service
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
