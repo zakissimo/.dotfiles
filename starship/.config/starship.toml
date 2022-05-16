@@ -35,7 +35,7 @@ symbol = "  "
 
 [c]
 format = '[${symbol}]($style)'
-disabled = false
+disabled = true
 symbol = " "
 
 [conda]
@@ -95,7 +95,7 @@ disabled = true
 symbol = " "
 
 [python]
-format = '[${symbol}(\($virtualenv\) )]($style)'
+format = '[(\($virtualenv\) )]($style)'
 disabled = false
 symbol = " "
 

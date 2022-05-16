@@ -115,6 +115,8 @@ function _CODE_RUNNER()
 		vim.cmd("!./%")
 	elseif type == "c" then
 		vim.cmd("!cc -Wall -Wextra -ggdb -o %:t:r % && ./%:t:r")
+	elseif type == "rust" then
+		vim.cmd("!rustc % && ./%:t:r")
 	end
 end
 
