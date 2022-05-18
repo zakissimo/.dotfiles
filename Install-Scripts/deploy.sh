@@ -21,7 +21,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && rm -rf yay
 
-yay -S --noconfirm picom-jonaburg-git megasync-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool i3lock-color nmap-netcat kvantum-qt5-git zeal timeshift timeshit-autosnap
+yay -S --noconfirm picom-jonaburg-git megasync-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool i3lock-color nmap-netcat kvantum-qt5-git zeal timeshift-bin timeshit-autosnap
 
 sudo pacman -Sdd --asdeps libvterm
 
