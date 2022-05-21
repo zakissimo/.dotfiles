@@ -35,8 +35,8 @@ toggleterm.setup({
 })
 
 function _G.set_terminal_keymaps()
-	bufmap(0, "t", "<C-q>", [[<C-\><C-n>]], opt)
 	if vim.fn.win_gettype() ~= "popup" then
+		bufmap(0, "t", "<Esc>", [[<C-\><C-n>]], opt)
 		bufmap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opt)
 		bufmap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
 		bufmap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opt)
@@ -84,7 +84,7 @@ end
 local bottomTermPath
 local bottomTermBufId
 function _BOTTOM_TERM_TOGGLE()
-	if bottomTermBufId and vim.fn.bufexists(bottomTermBufId) ~= 0 then
+	if vim.fn.bufexists(bottomTermBufId) ~= 0 then
 		if vim.fn.bufwinnr(bottomTermBufId) > -1 then
 			vim.cmd("close" .. bottomTermBufId)
 		else
