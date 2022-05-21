@@ -117,6 +117,7 @@ return require("packer").startup(function(use)
 	use("theHamsta/nvim-dap-virtual-text")
 	use("jbyuki/one-small-step-for-vimkind")
 
+	use("lewis6991/gitsigns.nvim")
 	use("kdheepak/lazygit.nvim")
 	use("akinsho/toggleterm.nvim")
 
