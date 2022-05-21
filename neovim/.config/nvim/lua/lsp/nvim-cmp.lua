@@ -4,6 +4,11 @@ local lspkind = require("lspkind")
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
+luasnip.config.set_config({
+	history = true,
+	updateevents = "TextChanged,TextChangedI",
+})
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
