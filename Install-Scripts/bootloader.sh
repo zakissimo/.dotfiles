@@ -13,13 +13,10 @@ select choice in "${options[@]}"; do
 		cat <<-EOF >/boot/loader/loader.conf
 			default arch.conf
 			timeout 3
-			editor no
-			console-mode max
 		EOF
 		cat <<-EOF >/boot/loader/entries/arch.conf
 			title  Arch Linux
 			linux  /vmlinuz-linux
-			initrd /amd-ucode.img
 			initrd /initramfs-linux.img
 		EOF
 		break
