@@ -10,7 +10,7 @@ select choice in "${options[@]}"; do
 	case $choice in
 	efi)
 		sudo sed -i "s/^MODULES=()$/MODULES=(btrfs)/" /etc/mkinitcpio.conf
-        mkinitcpio -p linux
+		mkinitcpio -p linux
 		bootctl --path=/boot install
 		cat <<-EOF >/boot/loader/loader.conf
 			default arch.conf
