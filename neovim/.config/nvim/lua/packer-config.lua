@@ -59,8 +59,6 @@ return require("packer").startup(function(use)
 		-- optional for icon support
 		requires = { "kyazdani42/nvim-web-devicons" },
 	})
-	use("junegunn/fzf.vim")
-	use({ "junegunn/fzf", run = ":call fzf#install()" })
 	use({
 		"nvim-telescope/telescope.nvim",
 		requires = { { "nvim-lua/plenary.nvim" } },
