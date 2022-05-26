@@ -19,7 +19,7 @@ source $ZSH/oh-my-zsh.sh
 
 # bindkey -e
 
-alias lazygit=lg
+alias lg=lazygit
 alias ls=exa
 alias lf=lf-ueberzug
 alias la='exa -la'
