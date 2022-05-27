@@ -48,3 +48,8 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 })
 
 set.laststatus = 3
+
+vim.cmd([[hi DiagnosticError guibg=NONE]])
+vim.cmd([[hi DiagnosticInfo guibg=NONE]])
+vim.cmd([[hi DiagnosticHint guibg=NONE]])
+vim.cmd([[hi DiagnosticWarn guibg=NONE]])
