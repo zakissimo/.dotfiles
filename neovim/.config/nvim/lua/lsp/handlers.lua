@@ -42,7 +42,7 @@ end
 
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
+	if client.server_capabilities.documentHighlightProvider then
 		vim.api.nvim_exec(
 			[[
 			  augroup lsp_document_highlight
@@ -81,7 +81,7 @@ M.on_attach = function(client, bufnr)
 		or client.name == "html"
 		-- or client.name == "clangd"
 	then
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
 	end
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
@@ -101,7 +101,7 @@ function M.enable_format_on_save()
 	vim.cmd([[
     augroup format_on_save
       autocmd!
-      autocmd BufWritePre * lua vim.lsp.buf.formatting()
+      autocmd BufWritePre * lua vim.lsp.buf.format()
     augroup end
   ]])
 end
