@@ -11,6 +11,11 @@ catppuccin.remap({
 	Comment = { fg = colors.overlay1 },
 	LineNr = { fg = colors.overlay1 },
 	CursorLineNr = { fg = colors.sky },
+	NvimTreeRootFolder = { fg = colors.sky },
+	-- DiagnosticInfo = { bg = colors.none },
+	-- DiagnosticError = { bg = colors.none },
+	-- DiagnosticHint = { bg = colors.none },
+	-- DiagnosticWarn = { bg = colors.none },
 })
 
 vim.cmd([[colorscheme catppuccin]])
