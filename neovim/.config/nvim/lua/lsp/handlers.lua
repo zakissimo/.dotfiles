@@ -30,14 +30,6 @@ M.setup = function()
 	}
 
 	vim.diagnostic.config(config)
-
-	-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-	-- 	border = "rounded",
-	-- })
-	--
-	-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-	-- 	border = "rounded",
-	-- })
 end
 
 local function lsp_highlight_document(client)
@@ -50,7 +42,7 @@ local function lsp_highlight_document(client)
 				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
 				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 			  augroup END
-    ]],
+            ]],
 			false
 		)
 	end
@@ -68,7 +60,6 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>el", "<cmd>FzfLua lsp_document_diagnostics<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ek", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ej", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	-- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>k", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
