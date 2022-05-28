@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 			or ft == "typescript"
 			or ft == "javascriptreact"
 			or ft == "typescriptreact"
+			or ft == "css"
 			or ft == "c"
 		then
 			set.tabstop = 2
