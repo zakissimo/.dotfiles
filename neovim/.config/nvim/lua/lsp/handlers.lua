@@ -62,6 +62,13 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ej", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>k", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gh", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(
+		bufnr,
+		"n",
+		"<leader>S",
+		"<cmd>lua require('lsp.handlers').toggle_format_on_save()<CR>",
+		opts
+	)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
@@ -95,10 +102,12 @@ function M.enable_format_on_save()
       autocmd BufWritePre * lua vim.lsp.buf.format()
     augroup end
   ]])
+	vim.notify("Format on save enabled!")
 end
 
 function M.disable_format_on_save()
 	M.remove_augroup("format_on_save")
+	vim.notify("Format on save disabled!")
 end
 
 function M.toggle_format_on_save()
