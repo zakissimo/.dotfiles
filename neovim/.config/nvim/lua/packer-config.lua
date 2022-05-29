@@ -90,9 +90,6 @@ return require("packer").startup(function(use)
 	use("williamboman/nvim-lsp-installer")
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
-		config = function()
-			require("null-ls").setup()
-		end,
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 
