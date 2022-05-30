@@ -12,7 +12,7 @@ null_ls.setup({
 		formatting.shfmt,
 		formatting.stylua,
 		formatting.black,
-		formatting.prettierd.with({ filetypes = { "css", "html" } }),
+		formatting.prettier_d_slim.with({ filetypes = { "css", "html" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
 		--"--options-indent-width"
 		-- formatting.clang_format.with({ extra_args = { "-style=WebKit" } }),

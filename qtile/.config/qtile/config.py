@@ -1,4 +1,22 @@
 import os
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import json
 import subprocess
 from typing import List
@@ -146,7 +164,7 @@ keys = [
     ),
     Key([MOD], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([MOD], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
-    Key([MOD], "b", lazy.spawn("brave-nightly"), desc="Launch Brave browser"),
+    Key([MOD], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
     Key([MOD], "d", lazy.spawn("emacs"), desc="Launch Emacs"),
     Key([MOD], "e", lazy.spawn("pcmanfm"), desc="Launch Pcmanfm"),
     Key([MOD], "q", lazy.window.kill(), desc="Kill focused window"),

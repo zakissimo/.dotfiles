@@ -15,6 +15,10 @@ if [ -d "$HOME/Apps" ] ;
   then export PATH="$HOME/Apps:$PATH"
 fi
 
+if [ -d "$HOME/.cargo/bin" ] ;
+  then export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
 export PNPM_HOME="/home/zak/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 

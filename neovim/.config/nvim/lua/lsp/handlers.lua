@@ -1,5 +1,22 @@
 local M = {}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 M.setup = function()
 	local signs = {
 		{ name = "DiagnosticSignError", text = "" },
@@ -99,7 +116,7 @@ function M.enable_format_on_save()
 	vim.cmd([[
     augroup format_on_save
       autocmd!
-      autocmd BufWritePre * lua vim.lsp.buf.format()
+      autocmd BufWritePre * lua vim.lsp.buf.formatting()
     augroup end
   ]])
 	vim.notify("Format on save enabled!")

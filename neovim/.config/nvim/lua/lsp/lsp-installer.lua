@@ -10,14 +10,10 @@ for idx in pairs(servers) do
 end
 
 -- Debugging lines
-table.insert(server_table, "tailwindcss")
+-- table.insert(server_table, "tailwindcss")
 -- vim.pretty_print(server_table)
 
-local settings = {
-	ensure_installed = server_table,
-}
-
-lsp_installer.setup({ settings })
+lsp_installer.setup()
 
 for _, server in pairs(server_table) do
 	local opts = {
