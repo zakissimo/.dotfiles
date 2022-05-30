@@ -1,22 +1,5 @@
 local M = {}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 M.setup = function()
 	local signs = {
 		{ name = "DiagnosticSignError", text = "" },
@@ -97,47 +80,43 @@ M.on_attach = function(client, bufnr)
 		-- or client.name == "clangd"
 	then
 		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then
 	return
 end
 
-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
 function M.enable_format_on_save()
-	vim.cmd([[
-    augroup format_on_save
-      autocmd!
-      autocmd BufWritePre * lua vim.lsp.buf.formatting()
-    augroup end
-  ]])
 	vim.notify("Format on save enabled!")
+	return vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+		callback = function()
+            vim.lsp.buf.format({ async = true })
+		end,
+	})
 end
 
-function M.disable_format_on_save()
-	M.remove_augroup("format_on_save")
+function M.disable_format_on_save(id)
+	vim.api.nvim_del_autocmd(id)
 	vim.notify("Format on save disabled!")
 end
 
+local format_id
 function M.toggle_format_on_save()
-	if vim.fn.exists("#format_on_save#BufWritePre") == 0 then
-		M.enable_format_on_save()
+	if format_id == nil then
+		format_id = M.enable_format_on_save()
 	else
-		M.disable_format_on_save()
-	end
-end
-
-function M.remove_augroup(name)
-	if vim.fn.exists("#" .. name) == 1 then
-		vim.cmd("au! " .. name)
+		M.disable_format_on_save(format_id)
+		format_id = nil
 	end
 end
 
