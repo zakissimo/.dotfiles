@@ -29,10 +29,6 @@ alias vim=nvim
 alias mpv='devour mpv'
 alias pacfzf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudo pacman -S'
 alias yayfzf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {1} | awk "{print \$2}")'\'' | xargs -ro yay -S'
-# alias parufzf='paru -Slq | fzf --multi --preview '\''cat <(paru -Si {1}) <(paru -l {1} | awk "{print \$2}")'\'' | xargs -ro paru -S'
-
 #alias aptfzf='apt-cache pkgnames | fzf --multi --cycle --reverse --preview "apt-cache show {1}" --preview-window=:57%:wrap:hidden --bind=space:toggle-preview | xargs -ro sudo apt install'
-
-# (cat ~/.cache/wal/sequences &)
 
 eval "$(starship init zsh)"
