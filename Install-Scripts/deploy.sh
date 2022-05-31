@@ -7,8 +7,8 @@ fi
 
 sudo sed -i "s/^#Color$/Color/" /etc/pacman.conf
 sudo sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
-sudo sed -i "s/^#\[multilib\]$/\[multilib\]/" /etc/pacman.conf
-sudo sed -i "s/^#Include = \/etc\/pacman\.d\/mirrorlist$/Include = \/etc\/pacman\.d\/mirrorlist\/" /etc/pacman.conf
+echo "[multilib]" | sudo tee -a /etc/pacman.conf
+echo "Include = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
 
 sudo pacman -Fy
 sudo pacman -Sy archlinux-keyring
@@ -25,14 +25,12 @@ yay -S --noconfirm picom-jonaburg-git megasync-bin nerd-fonts-cascadia-code ttf-
 
 sudo pacman -Sdd --asdeps libvterm
 
-sudo npm install -g @fsouza/prettierd
-
 mkdir -p "$HOME"/.local/bin
 
 wal -i "$HOME"/.dotfiles/01kgv4.jpg
 
 git clone https://github.com/betterlockscreen/betterlockscreen.git
-cd betterlockscreen && sudo bash install.sh system latest true
+cd betterlockscreen && bash install.sh user latest true
 cd .. && rm -rf betterlockscreen
 
 betterlockscreen -u "$HOME"/.dotfiles/01kgv4.jpg --fx dimblur

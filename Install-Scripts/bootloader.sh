@@ -20,6 +20,7 @@ select choice in "${options[@]}"; do
 			title  Arch Linux
 			linux  /vmlinuz-linux
 			initrd /initramfs-linux.img
+            options root=UUID=\\\REPLACE ME RUN "sudo blkid /dev/root_partition"\\\ rootflags=subvol=@ rw quiet
 		EOF
 		break
 		;;
