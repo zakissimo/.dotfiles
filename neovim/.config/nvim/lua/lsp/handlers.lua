@@ -33,18 +33,17 @@ M.setup = function()
 end
 
 local function lsp_highlight_document(client)
-	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
-		vim.api.nvim_exec(
-			[[
-			  augroup lsp_document_highlight
-				autocmd! * <buffer>
-				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-			  augroup END
-            ]],
-			false
-		)
+		vim.api.nvim_create_autocmd({ "CursorHold" }, {
+			callback = function()
+				vim.lsp.buf.document_highlight()
+			end,
+		})
+		vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+			callback = function()
+				vim.lsp.buf.clear_references()
+			end,
+		})
 	end
 end
 
@@ -100,7 +99,7 @@ function M.enable_format_on_save()
 	vim.notify("Format on save enabled!")
 	return vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		callback = function()
-            vim.lsp.buf.format({ async = true })
+			vim.lsp.buf.format({ async = true })
 		end,
 	})
 end
