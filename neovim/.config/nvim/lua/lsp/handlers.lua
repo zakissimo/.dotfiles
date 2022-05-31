@@ -95,11 +95,14 @@ end
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
+local next = next
 function M.enable_format_on_save()
 	vim.notify("Format on save enabled!")
 	return vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		callback = function()
-			vim.lsp.buf.format({ async = true })
+			if not (next(vim.lsp.get_active_clients({ bufnr = 0 })) == nil) then
+				vim.lsp.buf.format({ async = true })
+			end
 		end,
 	})
 end
