@@ -12,6 +12,7 @@ null_ls.setup({
 		formatting.shfmt,
 		formatting.stylua,
 		formatting.black,
+		formatting.rustywind,
 		formatting.prettier_d_slim.with({ filetypes = { "css", "html" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
 		--"--options-indent-width"

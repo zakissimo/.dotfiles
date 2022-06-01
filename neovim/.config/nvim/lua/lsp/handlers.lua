@@ -32,21 +32,6 @@ M.setup = function()
 	vim.diagnostic.config(config)
 end
 
-local function lsp_highlight_document(client)
-	if client.server_capabilities.documentHighlightProvider then
-		vim.api.nvim_create_autocmd({ "CursorHold" }, {
-			callback = function()
-				vim.lsp.buf.document_highlight()
-			end,
-		})
-		vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-			callback = function()
-				vim.lsp.buf.clear_references()
-			end,
-		})
-	end
-end
-
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -71,6 +56,23 @@ local function lsp_keymaps(bufnr)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
+local function lsp_highlight(client, bufnr)
+	if client.server_capabilities.documentHighlightProvider then
+		vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
+		vim.api.nvim_create_autocmd("CursorHold", {
+			callback = vim.lsp.buf.document_highlight,
+			buffer = bufnr,
+			group = "lsp_document_highlight",
+		})
+		vim.api.nvim_create_autocmd("CursorMoved", {
+			callback = vim.lsp.buf.clear_references,
+			buffer = bufnr,
+			group = "lsp_document_highlight",
+		})
+	end
+end
+
 M.on_attach = function(client, bufnr)
 	if
 		client.name == "sumneko_lua"
@@ -82,7 +84,7 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentRangeFormattingProvider = false
 	end
 	lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
+	lsp_highlight(client, bufnr)
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -107,17 +109,13 @@ function M.enable_format_on_save()
 	})
 end
 
-function M.disable_format_on_save(id)
-	vim.api.nvim_del_autocmd(id)
-	vim.notify("Format on save disabled!")
-end
-
 local format_id
 function M.toggle_format_on_save()
 	if format_id == nil then
 		format_id = M.enable_format_on_save()
 	else
-		M.disable_format_on_save(format_id)
+		vim.api.nvim_del_autocmd(format_id)
+		vim.notify("Format on save disabled!")
 		format_id = nil
 	end
 end
