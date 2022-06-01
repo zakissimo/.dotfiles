@@ -32,7 +32,7 @@
 
     # Format for how notifications will be displayed
     # Usage: `notify-send 'Title' 'Summary'`
-    format = "<b>%s</b>:\n %b"
+    format = "<b>%s</b>\n %b"
 
     # Allow some HTML tags like <i> and <u> in notifications
     markup = full
