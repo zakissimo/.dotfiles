@@ -167,17 +167,30 @@ keys = [
     Key([MOD], "Print", lazy.spawn("peek"), desc="Record screen"),
     Key([MOD], "c", lazy.spawn("tmpclip -c"), desc="Super copy"),
     Key([MOD], "v", lazy.spawn("tmpclip -p"), desc="Super paste"),
+
     Key(
         [],
         "XF86MonBrightnessUp",
-        lazy.spawn("light -A 5"),
+        lazy.spawn("mon_light -u"),
         desc="Increase screen brightness",
     ),
     Key(
         [],
         "XF86MonBrightnessDown",
-        lazy.spawn("light -U 5"),
+        lazy.spawn("mon_light -d"),
         desc="Increase screen brightness",
+    ),
+    Key(
+        [],
+        "XF86KbdBrightnessUp",
+        lazy.spawn("kbd_light -u"),
+        desc="Increase keyboard brightness",
+    ),
+    Key(
+        [],
+        "XF86KbdBrightnessDown",
+        lazy.spawn("kbd_light -d"),
+        desc="Increase keyboard brightness",
     ),
 ]
 

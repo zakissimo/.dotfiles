@@ -47,7 +47,7 @@ def parse():
     url = "https://mawaqit.net/fr/mosquee-dagen"
 
     r = requests.get(url)
-    regex_data = re.findall(r'times":(.*),"calendar', r.text)
+    regex_data = re.findall(r"times\":\[(.*?)\]", r.text)
     time_string = str(regex_data[0])[1:-1].replace('"', "").split(",")
 
     return str(time_string)
