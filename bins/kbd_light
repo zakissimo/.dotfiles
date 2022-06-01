@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+UP_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-kbd.svg"
+DOWN_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-kbd-disabled.svg"
+
+brighten() {
+	light -s sysfs/leds/asus::kbd_backlight -A 34
+	curr_level=$(light -s sysfs/leds/asus::kbd_backlight -G)
+	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$UP_ICON"
+}
+
+dim() {
+	light -s sysfs/leds/asus::kbd_backlight -U 34
+	curr_level=$(light -s sysfs/leds/asus::kbd_backlight -G)
+	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$DOWN_ICON"
+}
+
+case $1 in
+"-u")
+	brighten
+	;;
+"-d")
+	dim
+	;;
+*)
+	usage
+	;;
+esac
