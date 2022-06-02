@@ -93,8 +93,7 @@ return require("packer").startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 
-	-- use({ "neoclide/coc.nvim", branch = "release" })
-
+	use({ "themaxmarchuk/tailwindcss-colors.nvim", })
 	use("p00f/nvim-ts-rainbow")
 
 	use("nvim-treesitter/nvim-treesitter-refactor")

@@ -59,7 +59,7 @@ end
 local function lsp_highlight(client, bufnr)
 	if client.server_capabilities.documentHighlightProvider then
 		vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
+		-- vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
 		vim.api.nvim_create_autocmd("CursorHold", {
 			callback = vim.lsp.buf.document_highlight,
 			buffer = bufnr,
@@ -82,6 +82,9 @@ M.on_attach = function(client, bufnr)
 	then
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
+	end
+	if client.name == "tailwindcss" then
+		require("tailwindcss-colors").buf_attach(bufnr)
 	end
 	lsp_keymaps(bufnr)
 	lsp_highlight(client, bufnr)
