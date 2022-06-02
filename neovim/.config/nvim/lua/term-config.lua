@@ -86,7 +86,8 @@ local bottomTermBufId
 function _BOTTOM_TERM_TOGGLE()
 	if vim.fn.bufexists(bottomTermBufId) ~= 0 then
 		if vim.fn.bufwinnr(bottomTermBufId) > -1 then
-			vim.cmd("close" .. bottomTermBufId)
+			-- vim.cmd("close" .. bottomTermBufId)
+			vim.api.nvim_win_close(vim.fn.win_getid(vim.fn.bufwinnr(bottomTermBufId)), "force")
 		else
 			if bottomTermPath ~= vim.fn.getcwd() then
 				vim.cmd(bottomTermBufId .. "bd!")
