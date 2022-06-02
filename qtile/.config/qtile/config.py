@@ -158,16 +158,16 @@ keys = [
     ),
     Key([MOD, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([MOD, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key([MOD, "control"], "s", lazy.spawn("powermenu"), desc="Launch Power menu"),
     # Switch focus to specific monitor
     Key([MOD], "a", lazy.to_screen(0), desc="Keyboard focus to monitor 1"),
     Key([MOD], "z", lazy.to_screen(1), desc="Keyboard focus to monitor 2"),
     # Switch focus of monitors
     Key([MOD], "space", lazy.next_screen(), desc="Move focus to next monitor"),
-    Key([], "Print", lazy.spawn("flameshot gui -c"), desc="Print screen"),
     Key([MOD], "Print", lazy.spawn("peek"), desc="Record screen"),
+    Key([], "Print", lazy.spawn("flameshot gui -c"), desc="Print screen"),
     Key([MOD], "c", lazy.spawn("tmpclip -c"), desc="Super copy"),
     Key([MOD], "v", lazy.spawn("tmpclip -p"), desc="Super paste"),
-
     Key(
         [],
         "XF86MonBrightnessUp",
