@@ -2,7 +2,23 @@ require("nvim-tree").setup({
 	diagnostics = {
 		enable = true,
 	},
+	disable_netrw = false,
+	hijack_netrw = true,
+	view = {
+		number = false,
+		relativenumber = false,
+	},
+	filters = {
+		custom = { ".git" },
+	},
+	update_cwd = true,
+	update_focused_file = {
+		enable = true,
+		update_cwd = true,
+	},
 })
+
+vim.g.nvim_tree_respect_buf_cwd = 1
 
 vim.api.nvim_create_autocmd("BufEnter", {
 	nested = true,

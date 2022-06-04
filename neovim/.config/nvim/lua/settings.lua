@@ -20,6 +20,7 @@ set.swapfile = false
 set.updatetime = 1000
 set.expandtab = true
 set.wrap = true
+
 vim.cmd("set fillchars+=eob:│")
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {

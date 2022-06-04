@@ -99,6 +99,30 @@ end
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
 
+local lsp = {
+	float = {
+		focusable = true,
+		style = "minimal",
+		border = "rounded",
+	},
+	diagnostic = {
+		-- virtual_text = true,
+		virtual_text = { spacing = 4, prefix = "●" },
+		underline = true,
+		update_in_insert = false,
+		severity_sort = true,
+		float = {
+			focusable = true,
+			style = "minimal",
+			border = "rounded",
+		},
+	},
+}
+
+vim.diagnostic.config(lsp.diagnostic)
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, lsp.float)
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, lsp.float)
+
 local next = next
 function M.enable_format_on_save()
 	vim.notify("Format on save enabled!")
