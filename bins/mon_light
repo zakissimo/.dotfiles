@@ -4,14 +4,14 @@ UP_ICON="/usr/share/icons/Dracula/24/panel/xfpm-brightness-lcd.svg"
 DOWN_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-lcd-disabled.svg"
 
 brighten() {
-	light -A 5
-	curr_level=$(light)
+	brillo -q -A 5
+	curr_level=$(brillo)
 	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$UP_ICON"
 }
 
 dim() {
-	light -U 5
-	curr_level=$(light)
+	brillo -q -U 5
+	curr_level=$(brillo)
 	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$DOWN_ICON"
 }
 
