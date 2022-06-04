@@ -93,7 +93,7 @@ return require("packer").startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 
-	use({ "themaxmarchuk/tailwindcss-colors.nvim", })
+	use({ "themaxmarchuk/tailwindcss-colors.nvim" })
 	use("p00f/nvim-ts-rainbow")
 
 	use("nvim-treesitter/nvim-treesitter-refactor")
@@ -106,6 +106,7 @@ return require("packer").startup(function(use)
 	})
 
 	use("mfussenegger/nvim-dap")
+	use({ "rcarriga/nvim-dap-ui" })
 	use("Pocco81/dap-buddy.nvim")
 	use("mfussenegger/nvim-dap-python")
 	use("theHamsta/nvim-dap-virtual-text")

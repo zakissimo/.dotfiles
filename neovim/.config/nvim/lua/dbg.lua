@@ -3,6 +3,7 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
+require("dapui").setup()
 require("nvim-dap-virtual-text").setup({
 	enabled = true, -- enable this plugin (the default)
 	enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
@@ -20,7 +21,10 @@ require("nvim-dap-virtual-text").setup({
 
 require("dap").defaults.fallback.terminal_win_cmd = "tabnew"
 
+map("n", "<leader>dd", '<cmd>lua require"dapui".toggle()<CR>', opts)
 map("n", "<leader>db", '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
+map("n", "<leader>dB", "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
+
 map("n", "<leader>dn", '<cmd>lua require"dap".continue()<CR>', opts)
 map("n", "<leader>dv", '<cmd>lua require"dap".step_over()<CR>', opts)
 map("n", "<leader>di", '<cmd>lua require"dap".step_into()<CR>', opts)

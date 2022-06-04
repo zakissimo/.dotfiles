@@ -11,7 +11,7 @@ null_ls.setup({
 	sources = {
 		formatting.shfmt,
 		formatting.stylua,
-		formatting.black,
+		formatting.autopep8,
 		formatting.rustywind,
 		formatting.prettier_d_slim.with({ filetypes = { "css", "html" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),

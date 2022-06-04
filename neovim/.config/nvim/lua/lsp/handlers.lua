@@ -82,8 +82,7 @@ M.on_attach = function(client, bufnr)
 	then
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
-	end
-	if client.name == "tailwindcss" then
+	elseif client.name == "tailwindcss" then
 		require("tailwindcss-colors").buf_attach(bufnr)
 	end
 	lsp_keymaps(bufnr)

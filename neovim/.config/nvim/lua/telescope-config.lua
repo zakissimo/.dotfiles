@@ -43,6 +43,9 @@ require("telescope").setup({
 			hidden = true,
 			follow = true,
 		},
+		live_grep = {
+			additional_args = { "--hidden" },
+		},
 	},
 	extensions = {
 		fzf = {

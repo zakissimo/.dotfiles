@@ -2,8 +2,11 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
-require("luasnip/loaders/from_vscode").lazy_load()
-require("luasnip").filetype_extend("javascript", { "html", "javascriptreact", "typescriptreact" })
+-- require("luasnip/loaders/from_vscode").lazy_load()
+-- require("luasnip").filetype_extend("javascript", { "html", "javascriptreact", "typescriptreact" })
+--
+-- Load custom javascript
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets/typescript" } })
 
 luasnip.config.set_config({
 	history = true,
