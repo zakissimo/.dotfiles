@@ -2,17 +2,27 @@
 
 UP_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-kbd.svg"
 DOWN_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-kbd-disabled.svg"
+curr_level=$(asusctl -k)
+curr_level=${curr_level: -2:2}
+declare -A light_map=(["48"]="off" ["49"]="low" ["50"]="med" ["51"]="high")
+declare -A notif_map=(["48"]=0 ["49"]=33 ["50"]=66 ["51"]=100)
 
 brighten() {
-	light -s sysfs/leds/asus::kbd_backlight -A 34
-	curr_level=$(light -s sysfs/leds/asus::kbd_backlight -G)
-	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$UP_ICON"
+	echo "$curr_level"
+	if [ "$curr_level" -lt 51 ]; then
+		curr_level=$((curr_level + 1))
+		asusctl -k "${light_map[$curr_level]}"
+	fi
+	dunstify "Brightness" -h int:value:"${notif_map[$curr_level]}" -t 2000 -i "$UP_ICON"
 }
 
 dim() {
-	light -s sysfs/leds/asus::kbd_backlight -U 34
-	curr_level=$(light -s sysfs/leds/asus::kbd_backlight -G)
-	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$DOWN_ICON"
+	echo "$curr_level"
+	if [ "$curr_level" -gt 48 ]; then
+		curr_level=$((curr_level - 1))
+		asusctl -k "${light_map[$curr_level]}"
+	fi
+	dunstify "Brightness" -h int:value:"${notif_map[$curr_level]}" -t 2000 -i "$DOWN_ICON"
 }
 
 case $1 in
