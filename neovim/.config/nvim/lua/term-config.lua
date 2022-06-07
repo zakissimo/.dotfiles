@@ -138,6 +138,12 @@ map(
 )
 map(
 	"n",
+	"<leader>wh",
+	":w<CR>:if bufwinnr('out.html') > -1 | bd! /tmp/out.html<CR> | endif | !node % > /tmp/out.html<CR>:vsplit<CR>:e /tmp/out.html<CR>:w /tmp/out.html<CR>",
+	opts
+)
+map(
+	"n",
 	"<leader>wj",
 	":w<CR>:if bufwinnr('out.json') > -1 | bd out.json<CR> | endif | !python3 % > /tmp/out.json<CR>:vsplit<CR>:e /tmp/out.json<CR>",
 	opts

@@ -745,7 +745,7 @@
   },
   "useCallback": {
     "key": "useCallback",
-    "prefix": "useCallbackSnippet",
+    "prefix": "useCallback",
     "body": [
       "useCallback(",
       "  () => {",
@@ -759,13 +759,13 @@
   },
   "useContext": {
     "key": "useContext",
-    "prefix": "useContextSnippet",
+    "prefix": "useContext",
     "body": ["const ${1:first} = useContext(${2:second})"],
     "scope": "typescript,typescriptreact,javascript,javascriptreact"
   },
   "useEffect": {
     "key": "useEffect",
-    "prefix": "useEffectSnippet",
+    "prefix": "useEffect",
     "body": [
       "useEffect(() => {",
       "  ${1:first}",
@@ -780,7 +780,7 @@
   },
   "useImperativeHandle": {
     "key": "useImperativeHandle",
-    "prefix": "useImperativeHandleSnippet",
+    "prefix": "useImperativeHandle",
     "body": [
       "useImperativeHandle(",
       "  ${1:first},",
@@ -794,7 +794,7 @@
   },
   "useLayoutEffect": {
     "key": "useLayoutEffect",
-    "prefix": "useLayoutEffectSnippet",
+    "prefix": "useLayoutEffect",
     "body": [
       "useLayoutEffect(() => {",
       "  ${1:first}",
@@ -808,13 +808,13 @@
   },
   "useMemo": {
     "key": "useMemo",
-    "prefix": "useMemoSnippet",
+    "prefix": "useMemo",
     "body": ["useMemo(() => ${1:first}, [${2:second}])"],
     "scope": "typescript,typescriptreact,javascript,javascriptreact"
   },
   "useReducer": {
     "key": "useReducer",
-    "prefix": "useReducerSnippet",
+    "prefix": "useReducer",
     "body": [
       "const [state, dispatch] = useReducer(${1:first}, ${2:second}, ${3:third})"
     ],
@@ -822,13 +822,13 @@
   },
   "useRef": {
     "key": "useRef",
-    "prefix": "useRefSnippet",
+    "prefix": "useRef",
     "body": ["const ${1:first} = useRef(${2:second})"],
     "scope": "typescript,typescriptreact,javascript,javascriptreact"
   },
   "useState": {
     "key": "useState",
-    "prefix": "useStateSnippet",
+    "prefix": "useState",
     "body": [
       "const [${1:first}, set${1/(.*)/${1:/capitalize}/}] = useState(${2:second})"
     ],
@@ -1898,8 +1898,8 @@
     ],
     "scope": "typescript,typescriptreact,javascript,javascriptreact"
   },
-  "typeofSnippet": {
-    "key": "typeofSnippet",
+  "typeof": {
+    "key": "typeof",
     "prefix": "tpf",
     "body": ["typeof ${1:first}"],
     "scope": "typescript,typescriptreact,javascript,javascriptreact"
