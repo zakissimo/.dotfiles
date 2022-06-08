@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+curr=$(powerprofilesctl get)
+chosen=$(printf "  Performance\n  Balance\n  Power-saver" | rofi -dmenu -p "Current profile is $curr:")
+
+case "$chosen" in
+"  Performance") powerprofilesctl set performance ;;
+"  Balance") powerprofilesctl set balance ;;
+"  Power-saver") powerprofilesctl set power-saver ;;
+*) exit 1 ;;
+esac
