@@ -23,9 +23,12 @@ for _, server in pairs(server_table) do
 	if server == "sumneko_lua" then
 		local sumneko_opts = require("lsp.settings.sumneko_lua")
 		opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-	elseif server == "emmet_ls" then
-		local emmet_opts = require("lsp.settings.emmet_ls")
-		opts = vim.tbl_deep_extend("force", emmet_opts, opts)
+		-- elseif server == "emmet_ls" then
+		-- 	local emmet_opts = require("lsp.settings.emmet_ls")
+		-- 	opts = vim.tbl_deep_extend("force", emmet_opts, opts)
+	elseif server == "tsserver" then
+		local ts_opts = { init_options = require("nvim-lsp-ts-utils").init_options }
+		opts = vim.tbl_deep_extend("force", ts_opts, opts)
 	end
 	lspconfig[server].setup(opts)
 end

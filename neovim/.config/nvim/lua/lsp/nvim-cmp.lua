@@ -4,6 +4,7 @@ local lspkind = require("lspkind")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/lsp/snippets/typescript" } })
+-- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/lsp/snippets/styled-components" } })
 require("luasnip").filetype_extend("javascript", { "html", "javascriptreact", "typescriptreact" })
 
 luasnip.config.set_config({

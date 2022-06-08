@@ -76,7 +76,7 @@ end
 M.on_attach = function(client, bufnr)
 	if
 		client.name == "sumneko_lua"
-		or client.name == "tsserver"
+		-- or client.name == "tsserver"
 		or client.name == "html"
 		-- or client.name == "clangd"
 	then
@@ -84,6 +84,8 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentRangeFormattingProvider = false
 	elseif client.name == "tailwindcss" then
 		require("tailwindcss-colors").buf_attach(bufnr)
+	elseif client.name == "tsserver" then
+		require("lsp.settings.ts_utils").on_attach(client, bufnr)
 	end
 	lsp_keymaps(bufnr)
 	lsp_highlight(client, bufnr)
