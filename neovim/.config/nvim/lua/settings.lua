@@ -1,6 +1,6 @@
 local set = vim.opt
 
-vim.notify = require("notify")
+-- vim.notify = require("notify")
 vim.g.python3_host_prog = "/usr/bin/python"
 
 -- set.foldenable = false
@@ -26,14 +26,7 @@ vim.cmd("set fillchars+=eob:│")
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	callback = function()
 		local ft = vim.bo.filetype
-		if
-			ft == "javascript"
-			or ft == "typescript"
-			or ft == "javascriptreact"
-			or ft == "typescriptreact"
-			or ft == "css"
-			or ft == "c"
-		then
+		if ft == "css" then
 			set.tabstop = 2
 			set.shiftwidth = 2
 		else

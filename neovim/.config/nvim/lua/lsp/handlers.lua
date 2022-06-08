@@ -74,12 +74,7 @@ local function lsp_highlight(client, bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-	if
-		client.name == "sumneko_lua"
-		-- or client.name == "tsserver"
-		or client.name == "html"
-		-- or client.name == "clangd"
-	then
+	if client.name == "sumneko_lua" or client.name == "html" then
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
 	elseif client.name == "tailwindcss" then

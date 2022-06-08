@@ -15,11 +15,11 @@ null_ls.setup({
 		formatting.autopep8,
 		formatting.rustywind,
 		formatting.prettier_d_slim.with({ filetypes = { "css", "html" } }),
-		formatting.deno_fmt.with({ extra_args = { "--options-single-quote" } }),
-		--"--options-indent-width"
-		-- formatting.clang_format.with({ extra_args = { "-style=WebKit" } }),
+		formatting.clang_format.with({ extra_args = { "-style=WebKit" } }),
+		formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
 		diagnostics.eslint.with({ prefer_local = "node_modules/.bin" }),
 		diagnostics.shellcheck,
+		diagnostics.cppcheck,
 		diagnostics.pylint.with({
 			extra_args = {
 				"--disable=C0111",
