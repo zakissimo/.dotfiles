@@ -2,27 +2,25 @@
 
 UP_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-kbd.svg"
 DOWN_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-kbd-disabled.svg"
-curr_level=$(asusctl -k)
-curr_level=${curr_level: -2:2}
 declare -A light_map=(["48"]="off" ["49"]="low" ["50"]="med" ["51"]="high")
 declare -A notif_map=(["48"]=0 ["49"]=33 ["50"]=66 ["51"]=100)
+curr_level=$(asusctl -k)
+curr_level=${curr_level: -2:2}
 
 brighten() {
-	echo "$curr_level"
 	if [ "$curr_level" -lt 51 ]; then
-		curr_level=$((curr_level + 1))
-		asusctl -k "${light_map[$curr_level]}"
+		level=$((curr_level + 1))
+		asusctl -k "${light_map[$level]}"
 	fi
-	dunstify "Brightness" -h int:value:"${notif_map[$curr_level]}" -t 2000 -i "$UP_ICON"
+	dunstify "Brightness" -h int:value:"${notif_map[$level]}" -t 2000 -i "$UP_ICON"
 }
 
 dim() {
-	echo "$curr_level"
 	if [ "$curr_level" -gt 48 ]; then
-		curr_level=$((curr_level - 1))
-		asusctl -k "${light_map[$curr_level]}"
+		level=$((curr_level - 1))
+		asusctl -k "${light_map[$level]}"
 	fi
-	dunstify "Brightness" -h int:value:"${notif_map[$curr_level]}" -t 2000 -i "$DOWN_ICON"
+	dunstify "Brightness" -h int:value:"${notif_map[$level]}" -t 2000 -i "$DOWN_ICON"
 }
 
 case $1 in

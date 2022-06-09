@@ -183,16 +183,16 @@ keys = [
         desc="Increase screen brightness",
     ),
     Key(
-        [],
-        "XF86KbdBrightnessUp",
+        [ALT],
+        "F3",
         lazy.spawn("kbd_light -u"),
         desc="Increase keyboard brightness",
     ),
     Key(
-        [],
-        "XF86KbdBrightnessDown",
+        [ALT],
+        "F2",
         lazy.spawn("kbd_light -d"),
-        desc="Increase keyboard brightness",
+        desc="Decrease keyboard brightness",
     ),
 ]
 

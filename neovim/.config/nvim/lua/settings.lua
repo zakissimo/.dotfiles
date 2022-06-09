@@ -4,7 +4,7 @@ local set = vim.opt
 vim.g.python3_host_prog = "/usr/bin/python"
 
 -- set.foldenable = false
-set.autochdir = true
+set.autochdir = false
 set.clipboard = "unnamedplus"
 set.cursorline = true
 set.fileencoding = "utf-8"
@@ -26,7 +26,7 @@ vim.cmd("set fillchars+=eob:│")
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	callback = function()
 		local ft = vim.bo.filetype
-		if ft == "css" then
+		if ft == "css" or ft == "html" then
 			set.tabstop = 2
 			set.shiftwidth = 2
 		else
@@ -50,3 +50,11 @@ vim.cmd([[
     hi DiagnosticHint guibg=NONE
     hi DiagnosticWarn guibg=NONE
 ]])
+
+require("harpoon").setup({
+	global_settings = {
+		-- set marks specific to each git branch inside git repository
+        save_on_toggle = true,
+		mark_branch = true,
+	},
+})
