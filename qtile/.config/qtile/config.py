@@ -133,7 +133,6 @@ keys = [
     ),
     Key([MOD, "control"], "j", resize_down, desc="Grow window down"),
     Key([MOD, "control"], "k", resize_up, desc="Grow window up"),
-    Key([MOD], "r", lazy.spawn("rofi -show drun")),
     Key([MOD], "space", lazy.layout.next(),
         desc="Move window focus to other window"),
     Key([MOD], "f", lazy.window.toggle_fullscreen()),
@@ -146,54 +145,14 @@ keys = [
         desc="Toggle between split and unsplit sides of stack",
     ),
     Key([MOD], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([MOD], "Return", lazy.spawn("kitty"), desc="Launch terminal"),
-    Key([MOD], "b", lazy.spawn("brave"), desc="Launch Brave browser"),
-    Key([MOD], "d", lazy.spawn("emacs"), desc="Launch Emacs"),
-    Key([MOD], "e", lazy.spawn("pcmanfm"), desc="Launch Pcmanfm"),
     Key([MOD], "q", lazy.window.kill(), desc="Kill focused window"),
-    Key(
-        [MOD, "control"],
-        "x",
-        lazy.spawn("betterlockscreen -l dimblur"),
-        desc="Lock Screen",
-    ),
     Key([MOD, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([MOD, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([MOD, "control"], "s", lazy.spawn(
-        "powermenu"), desc="Launch Power menu"),
     # Switch focus to specific monitor
     Key([MOD], "a", lazy.to_screen(0), desc="Keyboard focus to monitor 1"),
     Key([MOD], "z", lazy.to_screen(1), desc="Keyboard focus to monitor 2"),
     # Switch focus of monitors
     Key([MOD], "space", lazy.next_screen(), desc="Move focus to next monitor"),
-    Key([MOD], "Print", lazy.spawn("peek"), desc="Record screen"),
-    Key([], "Print", lazy.spawn("flameshot gui -c"), desc="Print screen"),
-    Key([MOD], "c", lazy.spawn("tmpclip -c"), desc="Super copy"),
-    Key([MOD], "v", lazy.spawn("tmpclip -p"), desc="Super paste"),
-    Key(
-        [],
-        "XF86MonBrightnessUp",
-        lazy.spawn("mon_light -u"),
-        desc="Increase screen brightness",
-    ),
-    Key(
-        [],
-        "XF86MonBrightnessDown",
-        lazy.spawn("mon_light -d"),
-        desc="Increase screen brightness",
-    ),
-    Key(
-        [ALT],
-        "F3",
-        lazy.spawn("kbd_light -u"),
-        desc="Increase keyboard brightness",
-    ),
-    Key(
-        [ALT],
-        "F2",
-        lazy.spawn("kbd_light -d"),
-        desc="Decrease keyboard brightness",
-    ),
 ]
 
 

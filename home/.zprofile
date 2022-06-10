@@ -4,23 +4,23 @@ export EDITOR="nvim"
 export TERMINAL="kitty"
 
 if [ -d "$HOME/.bin" ] ;
-  then export PATH="$HOME/.bin:$PATH"
+  then export PATH="$PATH:$HOME/.bin"
 fi
 
 if [ -d "$HOME/.local/bin" ] ;
-  then export PATH="$HOME/.local/bin:$PATH"
+  then export PATH="$PATH:$HOME/.local/bin"
 fi
 
 if [ -d "$HOME/Apps" ] ;
-  then export PATH="$HOME/Apps:$PATH"
+  then export PATH="$PATH:$HOME/Apps"
 fi
 
 if [ -d "$HOME/.cargo/bin" ] ;
-  then export PATH="$HOME/.cargo/bin:$PATH"
+  then export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
 export PNPM_HOME="/home/zak/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+export PATH="$PATH:$PNPM_HOME"
 
 export LF_ICONS="\
 tw=:\

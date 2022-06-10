@@ -7,6 +7,7 @@ nm-applet &
 pa-applet &
 megasync &
 blueman-applet &
+sxhkd &
 # gxkb &
 
 # Run once
