@@ -29,8 +29,7 @@ XF86Launch4
 
 #Reload sxhkd:
 super + ctrl + alt + r
-	notify-send "sxhkd: Process has been restarted."
-	pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd && notify-send "sxhkd: Process has been restarted."
 
 ### Utility ###
 #Screenshot
@@ -46,7 +45,7 @@ super + c
     tmpclip -c
 
 #Super Paste
-super + p
+super + v
     tmpclip -p
 
 #Screen Brightness up
