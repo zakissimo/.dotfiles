@@ -346,7 +346,8 @@ def init_widgets_screen2():
     widgets = init_widgets_list()
     # Removing unwanted widgets (systray) on Monitor 2
     del widgets[1]
-    del widgets[5:]
+    del widgets[-2:]
+    # del widgets[5:]
     return widgets
 
 

@@ -4,7 +4,7 @@ local set = vim.opt
 vim.g.python3_host_prog = "/usr/bin/python"
 
 -- set.foldenable = false
-set.autochdir = false
+set.autochdir = true
 set.clipboard = "unnamedplus"
 set.cursorline = true
 set.fileencoding = "utf-8"
@@ -54,7 +54,7 @@ vim.cmd([[
 require("harpoon").setup({
 	global_settings = {
 		-- set marks specific to each git branch inside git repository
-        save_on_toggle = true,
+		save_on_toggle = true,
 		mark_branch = true,
 	},
 })
