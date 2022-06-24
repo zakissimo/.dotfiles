@@ -17,7 +17,7 @@ null_ls.setup({
 		formatting.prettierd.with({ filetypes = { "css", "html" } }),
 		formatting.clang_format.with({ extra_args = { "-style=WebKit" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
-		diagnostics.eslint.with({ prefer_local = "node_modules/.bin" }),
+		-- diagnostics.eslint.with({ prefer_local = "node_modules/.bin" }),
 		diagnostics.shellcheck,
 		diagnostics.cppcheck,
 		diagnostics.pylint.with({
