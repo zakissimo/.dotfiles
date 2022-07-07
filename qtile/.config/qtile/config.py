@@ -156,7 +156,7 @@ keys = [
 ]
 
 
-if monitor_num() != "1":
+if int(monitor_num()) != 1:
     groups = [
         Group(name="egrave", label="", layout="max"),
         Group(name="underscore", label="", layout="bsp"),
@@ -380,7 +380,7 @@ def init_screens():
             ext_col,
         ],
     )
-    if monitor_num() != "1":
+    if int(monitor_num()) != 1:
         return [
             Screen(screen_one),
             Screen(screen_two),
