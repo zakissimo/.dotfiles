@@ -1991,6 +1991,6 @@ map opt+cmd+,    debug_config
 
 
 # BEGIN_KITTY_THEME
-# Tokyo Night Storm
+# Catppuccin
 include current-theme.conf
 # END_KITTY_THEME

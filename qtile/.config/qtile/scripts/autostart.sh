@@ -15,6 +15,8 @@ sxhkd &
 
 cbatticon -u 20 -i notification -c "poweroff" -l 15 -r 3 &
 
-key
 input-remapper-control --command autoload
+
+sleep 3
+
 key

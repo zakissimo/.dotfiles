@@ -5,7 +5,7 @@ vim.g.python3_host_prog = "/usr/bin/python"
 
 -- set.foldenable = false
 set.autochdir = true
-set.clipboard = "unnamedplus"
+-- set.clipboard = "unnamedplus"
 set.cursorline = true
 set.fileencoding = "utf-8"
 set.ignorecase = true
@@ -43,13 +43,6 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 })
 
 set.laststatus = 3
-
-vim.cmd([[
-    hi DiagnosticError guibg=NONE
-    hi DiagnosticInfo guibg=NONE
-    hi DiagnosticHint guibg=NONE
-    hi DiagnosticWarn guibg=NONE
-]])
 
 require("harpoon").setup({
 	global_settings = {

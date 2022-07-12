@@ -155,6 +155,8 @@ keys = [
     Key([MOD], "space", lazy.next_screen(), desc="Move focus to next monitor"),
 ]
 
+GROUPE_ONE = ["egrave", "underscore", "ccedilla", "agrave"]
+GROUPE_TWO = ["parenleft", "minus"]
 
 if int(monitor_num()) != 1:
     groups = [
@@ -162,8 +164,8 @@ if int(monitor_num()) != 1:
         Group(name="underscore", label="", layout="bsp"),
         Group(name="ccedilla", label="", layout="bsp"),
         Group(name="agrave", label="", layout="floating"),
-        Group(name="F5", label="", layout="max"),
-        Group(name="F6", label="", layout="bsp"),
+        Group(name="parenleft", label="", layout="max"),
+        Group(name="minus", label="", layout="bsp"),
     ]
 else:
     groups = [
@@ -175,7 +177,7 @@ else:
 
 
 def go_to_screen(screen):
-    if screen in ["egrave", "underscore", "ccedilla", "agrave"]:
+    if screen in GROUPE_ONE:
         return 0
     return 1
 
@@ -191,8 +193,7 @@ for i in groups:
                 lazy.group[i.name].toscreen(
                     go_to_screen(i.name), toggle=False),
             ),
-            # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO
-            # WORKSPACE
+            # MOVE WINDOW TO SELECTED WORKSPACE AND FOLLOW MOVED WINDOW TO WORKSPACE
             Key(
                 [MOD, "shift"],
                 i.name,
@@ -243,7 +244,7 @@ def init_widgets_list():
             active=ACTIVE,
             highlight_method="line",
             this_current_screen_border=ext_col,
-            visible_groups=["egrave", "underscore", "ccedilla", "agrave"],
+            visible_groups=GROUPE_ONE,
         ),
         widget.GroupBox(
             font="Fira Mono",
@@ -252,7 +253,7 @@ def init_widgets_list():
             inactive=INACTIVE,
             highlight_method="line",
             this_current_screen_border=ext_col,
-            visible_groups=["F5", "F6"],
+            visible_groups=GROUPE_TWO,
         ),
         widget.TextBox(
             font="Fira Mono",

@@ -41,6 +41,7 @@ packer.init({
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
+	use("lambdalisue/guise.vim")
 	use("kyazdani42/nvim-tree.lua")
 
 	use("lukas-reineke/indent-blankline.nvim")
@@ -50,6 +51,7 @@ return require("packer").startup(function(use)
 	use({ "ellisonleao/gruvbox.nvim" })
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "AlphaTechnolog/pywal.nvim", as = "pywal" })
+	use("folke/tokyonight.nvim")
 
 	use({ "junegunn/vim-easy-align" })
 	use("rcarriga/nvim-notify")
