@@ -2,23 +2,46 @@ vim.g.tokonight_style = "storm"
 vim.g.tokyonight_transparent = true
 vim.g.tokyonight_transparent_sidebar = true
 
--- vim.cmd([[
---     hi DiagnosticError guibg=NONE
---     hi DiagnosticInfo guibg=NONE
---     hi DiagnosticHint guibg=NONE
---     hi DiagnosticWarn guibg=NONE
--- ]])
+local _ = {
+	rosewater = "#F4DBD6",
+	flamingo = "#F0C6C6",
+	pink = "#F5BDE6",
+	mauve = "#C6A0F6",
+	red = "#ED8796",
+	maroon = "#EE99A0",
+	peach = "#F5A97F",
+	yellow = "#EED49F",
+	green = "#A6DA95",
+	teal = "#8BD5CA",
+	sky = "#91D7E3",
+	sapphire = "#7DC4E4",
+	blue = "#8AADF4",
+	lavender = "#B7BDF8",
 
--- local colors = require("catppuccin.api.colors").get_colors()
---
--- vim.g.tokyonight_colors = {
--- 	Comment = colors.overlay1,
--- 	LineNr = colors.overlay1,
--- 	CursorLineNr = colors.sky,
--- 	DiagnosticInfo = colors.none,
--- 	DiagnosticError = colors.none,
--- 	DiagnosticHint = colors.none,
--- 	DiagnosticWarn = colors.none,
--- }
+	text = "#CAD3F5",
+	subtext1 = "#B8C0E0",
+	subtext0 = "#A5ADCB",
+	overlay2 = "#939AB7",
+	overlay1 = "#8087A2",
+	overlay0 = "#6E738D",
+	surface2 = "#5B6078",
+	surface1 = "#494D64",
+	surface0 = "#363A4F",
+
+	base = "#24273A",
+	mantle = "#1E2030",
+	crust = "#181926",
+}
 
 vim.cmd([[colorscheme tokyonight]])
+
+vim.cmd([[
+    " hi Comment guifg=#8087A2
+    " hi LineNr guifg=#A5ADCB
+    hi CursorLineNr guifg=#A5ADCB
+    hi FloatBorder guibg=NONE
+    " hi DiagnosticVirtualTextError guibg=NONE
+    " hi DiagnosticVirtualTextWarn guibg=NONE
+    " hi DiagnosticVirtualTextInfo guibg=NONE
+    " hi DiagnosticVirtualTextHint guibg=NONE
+]])
