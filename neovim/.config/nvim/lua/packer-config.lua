@@ -44,6 +44,8 @@ return require("packer").startup(function(use)
 	use("lambdalisue/guise.vim")
 	use("kyazdani42/nvim-tree.lua")
 
+	use({ "SmiteshP/nvim-navic" })
+
 	use("lukas-reineke/indent-blankline.nvim")
 
 	use("norcalli/nvim-colorizer.lua")

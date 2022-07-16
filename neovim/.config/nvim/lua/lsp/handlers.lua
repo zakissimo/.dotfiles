@@ -77,6 +77,8 @@ M.on_attach = function(client, bufnr)
 	if client.name == "sumneko_lua" then
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
+	elseif client.server_capabilities.documentSymbolProvider then
+		require("nvim-navic").attach(client, bufnr)
 	elseif client.name == "tailwindcss" then
 		require("tailwindcss-colors").buf_attach(bufnr)
 	elseif client.name == "tsserver" then
