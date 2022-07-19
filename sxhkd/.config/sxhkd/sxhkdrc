@@ -80,17 +80,18 @@ XF86AudioPrev
 XF86AudioStop
     playerctl stop
 
-#Raises volume
-# XF86AudioRaiseVolume
-#     amixer set Master 10%+
+# Raises volume
+XF86AudioRaiseVolume
+   change-vol UP
+    
 
-#Lowers volume
-# XF86AudioLowerVolume
-#     amixer set Master 10%-
+# Lowers volume
+XF86AudioLowerVolume
+   change-vol DOWN
 
-#Mute
-# XF86AudioMute
-#     amixer -D pulse set Master 1+ toggle
+# Mute
+XF86AudioMute
+    change-vol MUTE
 
 #
 # #kill

@@ -4,7 +4,6 @@ wal -R &
 picom &
 
 nm-applet &
-pa-applet &
 megasync &
 blueman-applet &
 sxhkd &
