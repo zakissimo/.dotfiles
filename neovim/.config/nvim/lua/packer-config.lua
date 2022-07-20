@@ -50,6 +50,7 @@ return require("packer").startup(function(use)
 
 	use("norcalli/nvim-colorizer.lua")
 	use("kyazdani42/nvim-web-devicons")
+	use("mortepau/codicons.nvim")
 	use({ "ellisonleao/gruvbox.nvim" })
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "AlphaTechnolog/pywal.nvim", as = "pywal" })

@@ -29,7 +29,7 @@ M.winbar_filetype_exclude = {
 M.get_filename = function()
 	local filename = vim.fn.expand("%:t")
 	local extension = vim.fn.expand("%:e")
-	local f = require("user.functions")
+	local f = require("functions")
 
 	if not f.isempty(filename) then
 		local file_icon, file_icon_color =
@@ -63,8 +63,8 @@ local get_gps = function()
 		return ""
 	end
 
-	if not require("user.functions").isempty(gps_location) then
-		return require("user.icons").ui.ChevronRight .. " " .. gps_location
+	if not require("functions").isempty(gps_location) then
+		return require("icons").ui.ChevronRight .. " " .. gps_location
 	else
 		return ""
 	end
@@ -82,7 +82,7 @@ M.get_winbar = function()
 	if excludes() then
 		return
 	end
-	local f = require("user.functions")
+	local f = require("functions")
 	local value = M.get_filename()
 
 	local gps_added = false
@@ -95,7 +95,7 @@ M.get_winbar = function()
 	end
 
 	if not f.isempty(value) and f.get_buf_option("mod") then
-		local mod = "%#LspCodeLens#" .. require("user.icons").ui.Circle .. "%*"
+		local mod = "%#LspCodeLens#" .. require("icons").ui.Circle .. "%*"
 		if gps_added then
 			value = value .. " " .. mod
 		else

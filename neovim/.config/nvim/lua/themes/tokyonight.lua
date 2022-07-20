@@ -40,8 +40,8 @@ vim.cmd([[
     " hi LineNr guifg=#A5ADCB
     hi CursorLineNr guifg=#A5ADCB
     hi FloatBorder guibg=NONE
-    " hi DiagnosticVirtualTextError guibg=NONE
-    " hi DiagnosticVirtualTextWarn guibg=NONE
-    " hi DiagnosticVirtualTextInfo guibg=NONE
-    " hi DiagnosticVirtualTextHint guibg=NONE
+    hi DiagnosticVirtualTextError guibg=NONE
+    hi DiagnosticVirtualTextWarn guibg=NONE
+    hi DiagnosticVirtualTextInfo guibg=NONE
+    hi DiagnosticVirtualTextHint guibg=NONE
 ]])
