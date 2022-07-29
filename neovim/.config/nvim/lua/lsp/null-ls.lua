@@ -26,6 +26,7 @@ null_ls.setup({
 				"--disable=C0103",
 				"--disable=R0903",
 				"--disable=R0904",
+				"--disable=W0231",
 				"--disable=W0611",
 				"--disable=W0612",
 				"--disable=W0613",

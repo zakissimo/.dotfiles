@@ -124,6 +124,8 @@ function _CODE_RUNNER()
 		else
 			vim.cmd("!yarn test")
 		end
+	elseif type == "java" then
+		vim.cmd("!javac % && java %:t:r")
 	end
 end
 

@@ -2,12 +2,14 @@
 
 SOUND="/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
 UP_ICON="/usr/share/icons/Dracula/24/panel/audio-volume-high.svg"
-DOWN_ICON="/usr/share/icons/Dracula/24/panel/audio-volume-low.svg"
-MUTED_ICON="/usr/share/icons/Dracula/24/panel/audio-volume-low.svg"
+DOWN_ICON="/usr/share/icons/Dracula/24/panel/audio-volume-medium.svg"
+MUTED_ICON="/usr/share/icons/Dracula/24/panel/audio-off.svg"
 
 function send_notification() {
 	volume=$(pamixer --get-volume)
-	dunstify -h int:value:"$volume" -i "$1_ICON" "Volume: ${volume}%" -t 2000 -r 123
+	icon="$1_ICON"
+	[[ $1 = "UP" ]] && icon=$UP_ICON || icon=$DOWN_ICON
+	dunstify -h int:value:"$volume" -i "${icon}" "Volume: ${volume}%" -t 2000 -r 123
 }
 
 case $1 in
@@ -25,8 +27,8 @@ DOWN)
 	;;
 MUTE)
 	pamixer -t
-	if eval pamixer --get-mute; then
-		dunstify -i "$MUTED_ICON" -t 2000 "Muted"
+	if $(pamixer --get-mute); then
+		dunstify -i "$MUTED_ICON" -t 2000 "Muted" -r 123
 	else
 		send_notification UP
 	fi

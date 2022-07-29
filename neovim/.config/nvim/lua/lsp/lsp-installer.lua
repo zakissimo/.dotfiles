@@ -11,6 +11,9 @@ end
 
 -- Debugging lines
 table.insert(server_table, "tailwindcss")
+table.insert(server_table, "gopls")
+table.insert(server_table, "pyright")
+table.insert(server_table, "rust_analyzer")
 -- vim.pretty_print(server_table)
 
 lsp_installer.setup()
