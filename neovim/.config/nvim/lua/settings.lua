@@ -18,7 +18,7 @@ set.splitbelow = true
 set.splitright = true
 set.swapfile = false
 set.updatetime = 1000
-set.expandtab = true
+-- set.expandtab = true
 set.wrap = true
 
 vim.cmd("set fillchars+=eob:│")
@@ -30,9 +30,9 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		if ft == "css" or ft == "html" then
 			set.tabstop = 2
 			set.shiftwidth = 2
-			-- else
-			-- 	set.tabstop = 4
-			-- 	set.shiftwidth = 4
+                elseif ft ~= "c" then
+                        set.tabstop = 4
+                        set.shiftwidth = 4
 		end
 	end,
 })
