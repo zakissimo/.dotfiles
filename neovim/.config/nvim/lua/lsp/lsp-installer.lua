@@ -1,19 +1,25 @@
 local lspconfig = require("lspconfig")
-local lsp_installer = require("nvim-lsp-installer")
+local lsp_installer = require("mason-lspconfig")
 local servers = lsp_installer.get_installed_servers()
 
 local server_table = {}
+local init_table = {
+	"tailwindcss",
+	"gopls",
+	"pyright",
+	"rust_analyzer",
+	"sumneko_lua",
+}
 
+for idx in pairs(init_table) do
+	table.insert(server_table, init_table[idx])
+end
 for idx in pairs(servers) do
 	local server = servers[idx].name
 	table.insert(server_table, server)
 end
 
 -- Debugging lines
-table.insert(server_table, "tailwindcss")
-table.insert(server_table, "gopls")
-table.insert(server_table, "pyright")
-table.insert(server_table, "rust_analyzer")
 -- vim.pretty_print(server_table)
 
 lsp_installer.setup()

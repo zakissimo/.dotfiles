@@ -95,7 +95,9 @@ return require("packer").startup(function(use)
 	use("onsails/lspkind-nvim")
 
 	use("neovim/nvim-lspconfig")
-	use("williamboman/nvim-lsp-installer")
+	-- use("williamboman/nvim-lsp-installer")
+	use({ "williamboman/mason.nvim" })
+	use({ "williamboman/mason-lspconfig.nvim" })
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
