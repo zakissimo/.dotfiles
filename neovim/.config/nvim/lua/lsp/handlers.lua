@@ -53,7 +53,7 @@ local function lsp_keymaps(bufnr)
 		"<cmd>lua require('lsp.handlers').toggle_format_on_save()<CR>",
 		opts
 	)
-	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
 local function lsp_highlight(client, bufnr)

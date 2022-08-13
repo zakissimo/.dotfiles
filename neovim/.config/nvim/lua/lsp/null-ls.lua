@@ -19,7 +19,7 @@ null_ls.setup({
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
 		-- diagnostics.eslint.with({ prefer_local = "node_modules/.bin" }),
 		diagnostics.shellcheck,
-		diagnostics.cppcheck,
+		-- diagnostics.cppcheck,
 		diagnostics.pylint.with({
 			extra_args = {
 				"--disable=C0111",
