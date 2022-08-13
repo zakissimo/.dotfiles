@@ -30,9 +30,9 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		if ft == "css" or ft == "html" then
 			set.tabstop = 2
 			set.shiftwidth = 2
-		else
-			set.shiftwidth = 4
-			set.tabstop = 4
+			-- else
+			-- 	set.tabstop = 4
+			-- 	set.shiftwidth = 4
 		end
 	end,
 })
