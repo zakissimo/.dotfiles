@@ -30,9 +30,9 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		if ft == "css" or ft == "html" then
 			set.tabstop = 2
 			set.shiftwidth = 2
-                elseif ft ~= "c" then
-                        set.tabstop = 4
-                        set.shiftwidth = 4
+		elseif ft ~= "c" then
+			set.tabstop = 4
+			set.shiftwidth = 4
 		end
 	end,
 })
@@ -88,13 +88,13 @@ require("nvim-navic").setup({
 	depth_limit = 0,
 	depth_limit_indicator = "..",
 })
-
-vim.api.nvim_create_autocmd(
-	{ "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
-	{
-		group = vim.api.nvim_create_augroup("RefreshWinBar", { clear = true }),
-		callback = function()
-			require("winbar").get_winbar()
-		end,
-	}
-)
+--
+-- vim.api.nvim_create_autocmd(
+-- 	{ "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
+-- 	{
+-- 		group = vim.api.nvim_create_augroup("RefreshWinBar", { clear = true }),
+-- 		callback = function()
+-- 			require("winbar").get_winbar()
+-- 		end,
+-- 	}
+-- )
