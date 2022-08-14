@@ -1,4 +1,4 @@
-BasedOnStyle: WebKit
+BasedOnStyle: Microsoft
 UseTab: Always
 IndentWidth: 4
 TabWidth: 4
