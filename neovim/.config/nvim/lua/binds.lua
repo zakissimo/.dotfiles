@@ -40,7 +40,7 @@ map("n", "<Leader>fb", ":FzfLua buffers<CR>", opts)
 map("n", "<Leader>ft", ":FzfLua tabs<CR>", opts)
 map("n", "<Leader>fl", ":FzfLua live_grep<CR>", opts)
 map("n", "<Leader>o", ":lua require'fzf-lua'.files({ cwd='~' })<CR>", opts)
-map("n", "<Leader>ff", ":FzfLua files<CR>", opts)
+map("n", "<Leader>ff", ":FzfLua git_files<CR>", opts)
 
 map("n", "<A-$>", ":lua require('harpoon.mark').add_file()<CR>", opts)
 map("n", "<A-^>", ":lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)

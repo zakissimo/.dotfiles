@@ -155,24 +155,24 @@ keys = [
     Key([MOD], "space", lazy.next_screen(), desc="Move focus to next monitor"),
 ]
 
-GROUPE_ONE = ["egrave", "underscore", "ccedilla", "agrave"]
-GROUPE_TWO = ["parenleft", "minus"]
+GROUPE_ONE = ["7", "8", "9", "0"]
+GROUPE_TWO = ["6", "5"]
 
 if int(monitor_num()) != 1:
     groups = [
-        Group(name="egrave", label="", layout="max"),
-        Group(name="underscore", label="", layout="bsp"),
-        Group(name="ccedilla", label="", layout="bsp"),
-        Group(name="agrave", label="", layout="floating"),
-        Group(name="parenleft", label="", layout="max"),
-        Group(name="minus", label="", layout="bsp"),
+        Group(name="7", label="", layout="max"),
+        Group(name="8", label="", layout="bsp"),
+        Group(name="9", label="", layout="bsp"),
+        Group(name="0", label="", layout="floating"),
+        Group(name="6", label="", layout="max"),
+        Group(name="5", label="", layout="bsp"),
     ]
 else:
     groups = [
-        Group(name="egrave", label="", layout="max"),
-        Group(name="underscore", label="", layout="bsp"),
-        Group(name="ccedilla", label="", layout="bsp"),
-        Group(name="agrave", label="", layout="floating"),
+        Group(name="7", label="", layout="max"),
+        Group(name="8", label="", layout="bsp"),
+        Group(name="9", label="", layout="bsp"),
+        Group(name="0", label="", layout="floating"),
     ]
 
 
