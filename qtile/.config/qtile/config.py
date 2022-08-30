@@ -221,7 +221,7 @@ layouts = [
 
 widget_defaults = dict(
     font="CaskaydiaCove Nerd Font",
-    fontsize=12,
+    fontsize=17,
     foreground=ACTIVE,
     background=background,
 )
@@ -239,7 +239,7 @@ def init_widgets_list():
         ),
         widget.GroupBox(
             font="Fira Mono",
-            fontsize=25,
+            fontsize=21,
             inactive=INACTIVE,
             active=ACTIVE,
             highlight_method="line",
@@ -248,7 +248,7 @@ def init_widgets_list():
         ),
         widget.GroupBox(
             font="Fira Mono",
-            fontsize=25,
+            fontsize=21,
             active=ACTIVE,
             inactive=INACTIVE,
             highlight_method="line",

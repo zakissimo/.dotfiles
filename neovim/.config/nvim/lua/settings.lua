@@ -89,12 +89,12 @@ require("nvim-navic").setup({
 	depth_limit_indicator = "..",
 })
 --
--- vim.api.nvim_create_autocmd(
--- 	{ "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
--- 	{
--- 		group = vim.api.nvim_create_augroup("RefreshWinBar", { clear = true }),
--- 		callback = function()
--- 			require("winbar").get_winbar()
--- 		end,
--- 	}
--- )
+vim.api.nvim_create_autocmd(
+	{ "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
+	{
+		group = vim.api.nvim_create_augroup("RefreshWinBar", { clear = true }),
+		callback = function()
+			require("winbar").get_winbar()
+		end,
+	}
+)
