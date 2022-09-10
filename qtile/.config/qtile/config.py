@@ -158,7 +158,7 @@ keys = [
 GROUPE_ONE = ["7", "8", "9", "0"]
 GROUPE_TWO = ["6", "5"]
 
-if int(monitor_num()) != 1:
+if int(monitor_num()) >= 2:
     groups = [
         Group(name="7", label="", layout="max"),
         Group(name="8", label="", layout="bsp"),
@@ -221,7 +221,7 @@ layouts = [
 
 widget_defaults = dict(
     font="CaskaydiaCove Nerd Font",
-    fontsize=17,
+    fontsize=15,
     foreground=ACTIVE,
     background=background,
 )

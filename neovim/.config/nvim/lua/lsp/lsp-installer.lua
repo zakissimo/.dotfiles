@@ -9,7 +9,7 @@ local init_table = {
 	"pyright",
 	"rust_analyzer",
 	"sumneko_lua",
-	"clangd",
+	"clangd"
 }
 
 for idx in pairs(init_table) do

@@ -30,9 +30,9 @@ map("n", "<A-h>", ":vertical resize -2<CR>", opts)
 map("n", "<A-l>", ":vertical resize +2<CR>", opts)
 
 map("n", "<A-,>", ":bprevious<CR>", opts)
-map("n", "<A-;>", ":bnext<CR>", opts)
-map("n", "<M-:>", ":tabprevious<CR>", opts)
-map("n", "<M-!>", ":tabnext<CR>", opts)
+map("n", "<A-.>", ":bnext<CR>", opts)
+map("n", "<A-;>", ":tabprevious<CR>", opts)
+map("n", "<A-'>", ":tabnext<CR>", opts)
 
 map("n", "<Leader>gg", ":LazyGit<CR>", opts)
 
@@ -42,8 +42,8 @@ map("n", "<Leader>fl", ":FzfLua live_grep<CR>", opts)
 map("n", "<Leader>o", ":lua require'fzf-lua'.files({ cwd='~' })<CR>", opts)
 map("n", "<Leader>ff", ":FzfLua git_files<CR>", opts)
 
-map("n", "<A-$>", ":lua require('harpoon.mark').add_file()<CR>", opts)
-map("n", "<A-^>", ":lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
+map("n", "<A-[>", ":lua require('harpoon.mark').add_file()<CR>", opts)
+map("n", "<A-]>", ":lua require('harpoon.ui').toggle_quick_menu()<CR>", opts)
 map("n", "<A-y>", ":lua require('harpoon.ui').nav_file(1)<CR>", opts)
 map("n", "<A-u>", ":lua require('harpoon.ui').nav_file(2)<CR>", opts)
 map("n", "<A-i>", ":lua require('harpoon.ui').nav_file(3)<CR>", opts)
