@@ -6,6 +6,6 @@ end
 require("lsp.handlers").setup()
 require("lsp.nvim-cmp")
 require("lsp.snippets.c")
-require("lsp.null-ls")
 require("lsp.lsp-installer")
+require("lsp.null-ls")
 -- require("lsp.handlers").toggle_format_on_save()

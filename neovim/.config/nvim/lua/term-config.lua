@@ -12,7 +12,7 @@ local opts = { noremap = true, silent = true }
 toggleterm.setup({
 	size = 20,
 	hidden = false,
-	open_mapping = [[<C-c>]],
+	open_mapping = [[<C-n>]],
 	hide_numbers = true,
 	shade_filetypes = {},
 	shade_terminals = true,

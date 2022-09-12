@@ -9,7 +9,6 @@ local init_table = {
 	"pyright",
 	"rust_analyzer",
 	"sumneko_lua",
-	"clangd"
 }
 
 for idx in pairs(init_table) do
@@ -33,9 +32,6 @@ for _, server in pairs(server_table) do
 	if server == "sumneko_lua" then
 		local sumneko_opts = require("lsp.settings.sumneko_lua")
 		opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-		-- elseif server == "clangd" then
-		-- 	local clangd_opts = require("lsp.settings.clang")
-		-- 	opts = vim.tbl_deep_extend("force", clangd_opts, opts)
 	elseif server == "tsserver" then
 		local ts_opts = { init_options = require("nvim-lsp-ts-utils").init_options }
 		opts = vim.tbl_deep_extend("force", ts_opts, opts)

@@ -17,9 +17,10 @@ set.smartcase = true
 set.splitbelow = true
 set.splitright = true
 set.swapfile = false
-set.updatetime = 1000
--- set.expandtab = true
+set.updatetime = 500
 set.wrap = true
+set.list = true
+set.listchars = "tab:>-"
 
 vim.cmd("set fillchars+=eob:│")
 
@@ -30,6 +31,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		if ft == "css" or ft == "html" then
 			set.tabstop = 2
 			set.shiftwidth = 2
+			set.expandtab = true
 		else
 			set.tabstop = 4
 			set.shiftwidth = 4
@@ -98,3 +100,7 @@ vim.api.nvim_create_autocmd(
 		end,
 	}
 )
+
+require("notify").setup({
+  background_colour = "#000000",
+})
