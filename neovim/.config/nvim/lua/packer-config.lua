@@ -42,6 +42,7 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	use("42Paris/42header")
+	use("cacharle/c_formatter_42.vim")
 	use({ "vinicius507/norme.nvim" })
 
 	use("lambdalisue/guise.vim")

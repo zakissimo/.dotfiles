@@ -15,13 +15,9 @@ null_ls.setup({
 		formatting.autopep8,
 		-- formatting.rustywind,
 		formatting.prettierd.with({ filetypes = { "css", "html" } }),
-		formatting.clang_format.with({
-			extra_args = { "-style=file:/home/zak/.config/nvim/lua/lsp/settings/42.clang-format" },
-		}),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
 		diagnostics.eslint.with({ prefer_local = "node_modules/.bin" }),
 		diagnostics.shellcheck,
-		diagnostics.clang_check,
 		diagnostics.pylint.with({
 			extra_args = {
 				"--disable=C0111",
