@@ -42,6 +42,7 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	use("42Paris/42header")
+	use({ "vinicius507/norme.nvim" })
 
 	use("lambdalisue/guise.vim")
 	use("kyazdani42/nvim-tree.lua")

@@ -88,7 +88,7 @@ require("nvim-navic").setup({
 	depth_limit = 0,
 	depth_limit_indicator = "..",
 })
---
+
 vim.api.nvim_create_autocmd(
 	{ "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
 	{

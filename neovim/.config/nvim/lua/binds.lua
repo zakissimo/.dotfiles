@@ -13,6 +13,8 @@ map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-h>", "<C-w>h", opts)
 map("n", "<C-l>", "<C-w>l", opts)
 
+map("x", "<leader>p", "\"_dP", opts)
+
 map("n", "<leader>x", ":!chmod +x %<CR>", opts)
 
 map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
