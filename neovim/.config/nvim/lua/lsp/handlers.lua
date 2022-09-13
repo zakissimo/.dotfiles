@@ -12,7 +12,7 @@ M.setup = function()
 	end
 
 	local config = {
-			virtual_text = false,
+		virtual_text = false,
 		signs = {
 			active = signs,
 		},
@@ -105,7 +105,6 @@ local lsp = {
 		border = "rounded",
 	},
 	diagnostic = {
-		-- virtual_text = true,
 		virtual_text = { spacing = 4, prefix = "●" },
 		underline = true,
 		update_in_insert = false,

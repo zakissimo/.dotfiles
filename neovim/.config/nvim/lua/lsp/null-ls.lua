@@ -13,7 +13,6 @@ null_ls.setup({
 		formatting.shfmt,
 		formatting.stylua,
 		formatting.autopep8,
-		-- formatting.rustywind,
 		formatting.prettierd.with({ filetypes = { "css", "html" } }),
 		formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
 		diagnostics.eslint.with({ prefer_local = "node_modules/.bin" }),
