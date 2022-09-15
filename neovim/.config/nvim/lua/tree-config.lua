@@ -7,18 +7,19 @@ require("nvim-tree").setup({
 	view = {
 		number = false,
 		relativenumber = false,
+		centralize_selection = true,
 	},
 	filters = {
 		custom = { ".git" },
 	},
+	sync_root_with_cwd = true,
+	respect_buf_cwd = true,
 	update_cwd = true,
 	update_focused_file = {
 		enable = true,
-		update_cwd = false,
+		update_cwd = true,
 	},
 })
-
-vim.g.nvim_tree_respect_buf_cwd = 1
 
 vim.api.nvim_create_autocmd("BufEnter", {
 	nested = true,

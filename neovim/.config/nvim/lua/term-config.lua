@@ -12,7 +12,7 @@ local opts = { noremap = true, silent = true }
 toggleterm.setup({
 	size = 20,
 	hidden = false,
-	open_mapping = [[<C-n>]],
+	open_mapping = [[<leader>tn]],
 	hide_numbers = true,
 	shade_filetypes = {},
 	shade_terminals = true,
@@ -73,7 +73,7 @@ function _GET_DOCS()
 	end)
 end
 
-local path, buf, win, term
+local path, buf, term, cd
 local function bottom_term_init()
 	path = vim.fn.expand("%:p:h")
 	buf = vim.api.nvim_create_buf({}, {})
@@ -82,8 +82,8 @@ local function bottom_term_init()
 	term = vim.fn.termopen("zsh")
 	vim.opt_local.number = false
 	vim.opt_local.relativenumber = false
-	vim.api.nvim_chan_send(term, "cd " .. path .. "\r")
-	vim.api.nvim_chan_send(term, "clear\r")
+	cd = "cd " .. path .. "\r;clear\r"
+	vim.api.nvim_chan_send(term, cd)
 	vim.cmd("startinsert")
 	return path, buf
 end
@@ -121,7 +121,7 @@ function _CODE_RUNNER()
 	elseif type == "sh" then
 		vim.cmd("!./%")
 	elseif type == "c" then
-		vim.cmd("!cc -Wall -Wextra -ggdb -o %:t:r % && ./%:t:r")
+		vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
 	elseif type == "rust" then
 		vim.cmd("!rustc % && ./%:t:r")
 	elseif type == "typescript" then

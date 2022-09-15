@@ -229,17 +229,11 @@ widget_defaults = dict(
 
 def init_widgets_list():
     return [
-        widget.TextBox(
-            font="Fira Mono",
-            text="\ue0ba",
-            padding=-1,
-            foreground=background,
-            background=ext_col,
-            fontsize=35,
-        ),
         widget.GroupBox(
-            font="Fira Mono",
+            font="FontAwesome",
             fontsize=21,
+            padding=3,
+            borderwidth=3,
             inactive=INACTIVE,
             active=ACTIVE,
             highlight_method="line",
@@ -247,8 +241,10 @@ def init_widgets_list():
             visible_groups=GROUPE_ONE,
         ),
         widget.GroupBox(
-            font="Fira Mono",
+            font="FontAwesome",
             fontsize=21,
+            padding=3,
+            borderwidth=3,
             active=ACTIVE,
             inactive=INACTIVE,
             highlight_method="line",
@@ -256,84 +252,36 @@ def init_widgets_list():
             visible_groups=GROUPE_TWO,
         ),
         widget.TextBox(
-            font="Fira Mono",
+            font="CaskaydiaCove Nerd Font",
             text="\uE0Ba",
-            padding=-1,
+            padding=3,
             foreground=ext_col,
             background=background,
             fontsize=35,
         ),
         widget.WindowName(foreground=ACTIVE, background=ext_col),
-        widget.TextBox(
-            font="Fira Mono",
-            text="\uE0Ba",
-            padding=-1,
-            foreground=background,
-            background=ext_col,
-            fontsize=35,
-        ),
         widget.GenPollText(
             update_interval=1,
-            padding=0,
+            padding=5,
             background=background,
             mouse_callbacks={"Button1": lazy.spawn("kitty -e btop")},
             func=kekram,
         ),
         widget.Net(format="↓ {down} ↑ {up}", background=background),
-        widget.TextBox(
-            font="Fira Mono",
-            text="\ue0ba",
-            padding=-1,
-            foreground=int_col,
-            background=background,
-            fontsize=35,
-        ),
         widget.GenPollText(
-            update_interval=60, padding=0, background=int_col, func=time4salat
-        ),
-        widget.TextBox(
-            font="Fira Mono",
-            text="\uE0Ba",
-            padding=-1,
-            foreground=ext_col,
-            background=int_col,
-            fontsize=35,
+            update_interval=60, padding=13, background=int_col, func=time4salat
         ),
         widget.GenPollText(
             update_interval=3600,
-            padding=0,
+            padding=13,
             background=ext_col,
             mouse_callbacks={"Button1": lazy.spawn("kitty -e cal")},
             func=kekdate,
         ),
-        widget.TextBox(
-            font="Fira Mono",
-            text="\uE0Ba",
-            padding=-1,
-            foreground=int_col,
-            background=ext_col,
-            fontsize=35,
-        ),
         widget.GenPollText(
-            update_interval=60, background=int_col, padding=0, func=kektime
-        ),
-        widget.TextBox(
-            font="Fira Mono",
-            text="\ue0ba",
-            padding=-1,
-            foreground=background,
-            background=int_col,
-            fontsize=35,
+            update_interval=60, background=int_col, padding=13, func=kektime
         ),
         widget.Systray(),
-        widget.TextBox(
-            font="Fira Mono",
-            text="\ue0ba",
-            padding=-3,
-            foreground=ext_col,
-            background=background,
-            fontsize=35,
-        ),
     ]
 
 
