@@ -9,9 +9,6 @@ require("nvim-tree").setup({
 		relativenumber = false,
 		centralize_selection = true,
 	},
-	filters = {
-		custom = { ".git" },
-	},
 	sync_root_with_cwd = true,
 	respect_buf_cwd = true,
 	update_cwd = true,

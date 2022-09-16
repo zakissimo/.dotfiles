@@ -82,8 +82,9 @@ local function bottom_term_init()
 	term = vim.fn.termopen("zsh")
 	vim.opt_local.number = false
 	vim.opt_local.relativenumber = false
-	cd = "cd " .. path .. "\r;clear\r"
+	cd = "cd " .. path .. "\r"
 	vim.api.nvim_chan_send(term, cd)
+	vim.api.nvim_chan_send(term, "clear\r")
 	vim.cmd("startinsert")
 	return path, buf
 end
