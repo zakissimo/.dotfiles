@@ -15,7 +15,11 @@ super + e
 super + r
 	rofi -show drun
 
-#Lock screen
+#Change display
+super + ctrl + alt + d
+	screen-select
+
+#ock screen
 super + ctrl + alt + l
     betterlockscreen -l dimblur
 
