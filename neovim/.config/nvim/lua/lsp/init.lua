@@ -5,7 +5,6 @@ end
 
 require("lsp.handlers").setup()
 require("lsp.nvim-cmp")
-require("lsp.snippets.c")
 require("lsp.lsp-installer")
 require("lsp.null-ls")
 -- require("norme").setup()

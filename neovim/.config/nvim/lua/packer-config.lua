@@ -45,7 +45,6 @@ return require("packer").startup(function(use)
 	use("cacharle/c_formatter_42.vim")
 	use({ "vinicius507/norme.nvim" })
 
-	use("lambdalisue/guise.vim")
 	use("kyazdani42/nvim-tree.lua")
 
 	use({ "SmiteshP/nvim-gps" })
@@ -56,12 +55,10 @@ return require("packer").startup(function(use)
 	use("norcalli/nvim-colorizer.lua")
 	use("kyazdani42/nvim-web-devicons")
 	use("mortepau/codicons.nvim")
-	use({ "ellisonleao/gruvbox.nvim" })
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use({ "AlphaTechnolog/pywal.nvim", as = "pywal" })
 	use("folke/tokyonight.nvim")
 
-	use({ "junegunn/vim-easy-align" })
 	use("rcarriga/nvim-notify")
 
 	use({
@@ -74,7 +71,9 @@ return require("packer").startup(function(use)
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+
 	use({ "ThePrimeagen/harpoon" })
+	use({ "ThePrimeagen/vim-be-good" })
 
 	use("windwp/nvim-autopairs")
 	use({
@@ -85,8 +84,10 @@ return require("packer").startup(function(use)
 	})
 
 	use("junegunn/vader.vim")
+	use("jbyuki/one-small-step-for-vimkind")
 
 	use("jose-elias-alvarez/nvim-lsp-ts-utils")
+	use({ "themaxmarchuk/tailwindcss-colors.nvim" })
 
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer") -- buffer completions
@@ -107,9 +108,7 @@ return require("packer").startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 
-	use({ "themaxmarchuk/tailwindcss-colors.nvim" })
 	use("p00f/nvim-ts-rainbow")
-
 	use("nvim-treesitter/nvim-treesitter-refactor")
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use({
@@ -124,7 +123,6 @@ return require("packer").startup(function(use)
 	use("Pocco81/dap-buddy.nvim")
 	use("mfussenegger/nvim-dap-python")
 	use("theHamsta/nvim-dap-virtual-text")
-	use("jbyuki/one-small-step-for-vimkind")
 
 	use("lewis6991/gitsigns.nvim")
 	use("kdheepak/lazygit.nvim")
