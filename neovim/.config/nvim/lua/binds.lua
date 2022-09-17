@@ -41,6 +41,7 @@ map("n", "<A-'>", ":tabnext<CR>", opts)
 map("n", "<Leader>gg", ":LazyGit<CR>", opts)
 
 map("n", "<Leader>fb", ":FzfLua buffers<CR>", opts)
+map("n", "<Leader>fr", ":FzfLua registers<CR>", opts)
 map("n", "<Leader>ft", ":FzfLua tabs<CR>", opts)
 map("n", "<Leader>fl", ":FzfLua live_grep<CR>", opts)
 map("n", "<Leader>o", ":lua require'fzf-lua'.files({ cwd='~' })<CR>", opts)
