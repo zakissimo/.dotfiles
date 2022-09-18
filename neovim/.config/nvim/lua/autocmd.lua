@@ -21,13 +21,3 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 		vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
 	end,
 })
-
-vim.api.nvim_create_autocmd(
-	{ "CursorMoved", "CursorHold", "BufWinEnter", "BufFilePost", "InsertEnter", "BufWritePost", "TabClosed" },
-	{
-		group = vim.api.nvim_create_augroup("RefreshWinBar", { clear = true }),
-		callback = function()
-			require("winbar").get_winbar()
-		end,
-	}
-)
