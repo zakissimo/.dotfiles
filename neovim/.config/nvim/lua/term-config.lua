@@ -1,38 +1,8 @@
-local status_ok, toggleterm = pcall(require, "toggleterm")
-if not status_ok then
-	return
-end
-
 vim.g.mapleader = " "
 local opt = { noremap = true }
 local map = vim.api.nvim_set_keymap
 local bufmap = vim.api.nvim_buf_set_keymap
 local opts = { noremap = true, silent = true }
-
-toggleterm.setup({
-	size = 20,
-	hidden = false,
-	open_mapping = [[<leader>tn]],
-	hide_numbers = true,
-	shade_filetypes = {},
-	shade_terminals = true,
-	shading_factor = 2,
-	start_in_insert = true,
-	insert_mappings = true,
-	terminal_mappings = true,
-	persist_size = true,
-	direction = "float",
-	close_on_exit = true,
-	shell = vim.o.shell,
-	float_opts = {
-		border = "curved",
-		winblend = 0,
-		highlights = {
-			border = "Normal",
-			background = "Normal",
-		},
-	},
-})
 
 function _G.set_terminal_keymaps()
 	if vim.fn.win_gettype() ~= "popup" then
@@ -114,13 +84,13 @@ function _CODE_RUNNER()
 	vim.cmd("w!")
 	local type = vim.bo.filetype
 	if type == "python" then
-		vim.cmd("!python3 %")
+		vim.cmd("!python3 %:p")
 	elseif type == "lua" then
-		vim.cmd("!lua %")
+		vim.cmd("!lua %:p")
 	elseif type == "javascript" then
 		vim.cmd("!node %")
 	elseif type == "sh" then
-		vim.cmd("!./%")
+		vim.cmd("!%:p")
 	elseif type == "c" then
 		vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
 	elseif type == "rust" then

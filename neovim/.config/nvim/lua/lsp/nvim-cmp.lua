@@ -4,9 +4,9 @@ local lspkind = require("lspkind")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/lsp/snippets/typescript" } })
-require("luasnip").filetype_extend("javascript", { "html"})
-require("luasnip").filetype_extend("javascriptreact", { "html"})
-require("luasnip").filetype_extend("typescriptreact", { "html"})
+require("luasnip").filetype_extend("javascript", { "html" })
+require("luasnip").filetype_extend("javascriptreact", { "html" })
+require("luasnip").filetype_extend("typescriptreact", { "html" })
 
 luasnip.config.set_config({
 	history = true,
@@ -50,7 +50,7 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, {"i", "s"})
+		end, { "i", "s" }),
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
