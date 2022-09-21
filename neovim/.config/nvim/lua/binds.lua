@@ -3,6 +3,7 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
+map("n", "<esc><esc>", ":noh<CR>", opts)
 map("n", "<C-s>", ":w<CR>", opts)
 map("n", "<A-n>", ":tabnew<CR>", opts)
 map("n", "<A-w>", ":tabclose<CR>", opts)
@@ -16,7 +17,7 @@ map("n", "<C-l>", "<C-w>l", opts)
 map("x", "<leader>p", "\"_dP", opts)
 
 map("n", "<leader>x", ":!chmod +x %<CR>", opts)
-map("n", "<leader>pr", ":w!<CR>:PackerSync<CR>", opts)
+map("n", "<leader>pr", ":PackerSync<CR>", opts)
 map("n", "<leader>lr", ":w!<CR>:luafile %<CR>", opts)
 
 map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
@@ -24,9 +25,6 @@ map("v", "S", ":s///g<Left><Left><Left>", { noremap = true })
 
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
-
--- Start interactive EasyAlign in visual mode (e.g. vipga)
-map("v", "ga", "<Plug>(EasyAlign)", opts)
 
 map("n", "<A-j>", ":resize -2<CR>", opts)
 map("n", "<A-k>", ":resize +2<CR>", opts)
