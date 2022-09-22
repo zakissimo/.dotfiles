@@ -1,24 +1,6 @@
 vim.g.mapleader = " "
-local opt = { noremap = true }
 local map = vim.api.nvim_set_keymap
-local bufmap = vim.api.nvim_buf_set_keymap
 local opts = { noremap = true, silent = true }
-
-function _G.set_terminal_keymaps()
-	if vim.fn.win_gettype() ~= "popup" then
-		bufmap(0, "t", "<Esc>", [[<C-\><C-n>]], opt)
-		bufmap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opt)
-		bufmap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
-		bufmap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opt)
-		-- bufmap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opt)
-		bufmap(0, "t", "<M-j>", [[<C-\><C-n>":resize -2<CR>"]], opt)
-		bufmap(0, "t", "<M-k>", [[<C-\><C-n>":resize +2<CR>"]], opt)
-		bufmap(0, "t", "<M-h>", [[<C-\><C-n>":vertical resize -2<CR>"]], opt)
-		bufmap(0, "t", "<M-l>", [[<C-\><C-n>":vertical resize +2<CR>"]], opt)
-	end
-end
-
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local browserSyncJobId
 function _BROWSERSYNC_TOGGLE()
@@ -50,8 +32,8 @@ local function bottom_term_init()
 	vim.cmd("13sp")
 	vim.cmd("buffer" .. buf)
 	term = vim.fn.termopen("zsh")
-	vim.opt_local.number = false
-	vim.opt_local.relativenumber = false
+	-- vim.opt_local.number = false
+	-- vim.opt_local.relativenumber = false
 	cd = "cd " .. path .. "\r"
 	vim.api.nvim_chan_send(term, cd)
 	vim.api.nvim_chan_send(term, "clear\r")

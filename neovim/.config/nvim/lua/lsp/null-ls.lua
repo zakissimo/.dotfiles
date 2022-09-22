@@ -20,6 +20,7 @@ null_ls.setup({
 			extra_args = {
 				"--disable=C0111",
 				"--disable=C0103",
+				"--disable=F0401",
 				"--disable=R0903",
 				"--disable=R0904",
 				"--disable=W0231",
