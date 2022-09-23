@@ -129,6 +129,12 @@ return require("packer").startup(function(use)
 	use("kdheepak/lazygit.nvim")
 
 	use("nvim-lualine/lualine.nvim")
+	use({
+		"alvarosevilla95/luatab.nvim",
+		config = function()
+			require("luatab").setup({})
+		end,
+	})
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
