@@ -184,6 +184,8 @@ or=:\
 *.pdf=:\
 *.nix=:\
 "
+
+# export DRI_PRIME=1
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 [[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti &
