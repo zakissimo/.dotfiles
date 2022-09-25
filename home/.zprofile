@@ -184,7 +184,7 @@ or=:\
 *.pdf=:\
 *.nix=:\
 "
-./usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 [[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti &
 
