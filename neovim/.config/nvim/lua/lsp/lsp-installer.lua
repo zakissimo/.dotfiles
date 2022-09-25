@@ -11,6 +11,7 @@ local init_table = {
 	"rust_analyzer",
 	"sumneko_lua",
 	"clangd",
+	"html",
 }
 
 for idx in pairs(init_table) do
