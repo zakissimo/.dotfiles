@@ -1,4 +1,0 @@
-export QT_STYLE_OVERRIDE=kvantum
-xset s off -dpms
-xrandr --auto && xrandr --output HDMI-A-0 --same-as eDP
-/* xrandr --auto && xrandr --output DVI-I-2-1 --mode 2560x1440 --rate 144 --same-as eDP */

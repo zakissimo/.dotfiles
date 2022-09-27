@@ -3,24 +3,12 @@
 export EDITOR="nvim"
 export TERMINAL="kitty"
 
-if [ -d "$HOME/.bin" ] ;
-  then export PATH="$PATH:$HOME/.bin"
-fi
-
-if [ -d "$HOME/.local/bin" ] ;
-  then export PATH="$PATH:$HOME/.local/bin"
-fi
-
-if [ -d "$HOME/Apps" ] ;
-  then export PATH="$PATH:$HOME/Apps"
-fi
-
-if [ -d "$HOME/.cargo/bin" ] ;
-  then export PATH="$PATH:$HOME/.cargo/bin"
-fi
-
-export PNPM_HOME="/home/zak/.local/share/pnpm"
-export PATH="$PATH:$PNPM_HOME"
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.bin"
+export PATH="$PATH:$HOME/.local/bin"
+export NODEJS_HOME=$HOME/apps/node/
+export PATH=$PATH:$NODEJS_HOME/bin
+export LD_LIBRARY_PATH=$HOME/.local/lib/:$LD_LIBRARY_PATH
 
 export LF_ICONS="\
 tw=:\
@@ -184,12 +172,3 @@ or=:\
 *.pdf=:\
 *.nix=:\
 "
-
-# export DRI_PRIME=1
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti &
-
-# Swaps caps and escape if X stops running
-echo keycode 1 = Caps_Lock | sudo loadkeys
-echo keycode 58 = Escape | sudo loadkeys
