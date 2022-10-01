@@ -124,6 +124,7 @@ return require("packer").startup(function(use)
 	use("Pocco81/dap-buddy.nvim")
 	use("mfussenegger/nvim-dap-python")
 	use("theHamsta/nvim-dap-virtual-text")
+	use("jayp0521/mason-nvim-dap.nvim")
 
 	use("lewis6991/gitsigns.nvim")
 	use("kdheepak/lazygit.nvim")
