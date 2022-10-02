@@ -25,6 +25,7 @@ set.listchars = "tab:>-"
 vim.cmd("set fillchars+=eob:│")
 
 set.laststatus = 3
+set.ch = 0
 
 require("notify").setup({
   background_colour = "#000000",

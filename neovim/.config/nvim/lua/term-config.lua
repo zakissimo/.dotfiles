@@ -74,7 +74,11 @@ function _CODE_RUNNER()
 	elseif type == "sh" then
 		vim.cmd("!%:p")
 	elseif type == "c" then
-		vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
+		if vim.fn.filereadable("Makefile") then
+			vim.cmd("!make re -s -C %:p:h")
+		else
+			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
+		end
 	elseif type == "rust" then
 		vim.cmd("!rustc % && ./%:t:r")
 	elseif type == "typescript" then
