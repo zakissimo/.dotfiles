@@ -1,6 +1,5 @@
-source "$HOME"/.zprofile
+# source "$HOME"/.zprofile
 export ZSH="$HOME/.config/oh-my-zsh"
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
 
@@ -25,8 +24,8 @@ alias lg=lazygit
 #alias ls=exa
 alias lf=lf-ueberzug
 #alias la='exa -la'
-alias v=nvim.appimage
-alias nvim=nvim.appimage
+alias v=nvim
+alias gw=gcc -Wall -Wextra -Werror
 alias mpv='devour mpv'
 
 eval "$(starship init zsh)"
