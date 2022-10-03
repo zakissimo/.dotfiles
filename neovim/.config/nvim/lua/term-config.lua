@@ -88,8 +88,21 @@ function _CODE_RUNNER()
 	end
 end
 
+function _MAKE()
+	vim.cmd("w!")
+	local type = vim.bo.filetype
+	if type == "c" then
+		if vim.fn.filereadable("Makefile") then
+			vim.cmd("!make re -s -C %:p:h")
+		else
+			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
+		end
+	end
+end
+
 map("n", "<Leader>ss", ":lua _GET_DOCS()<CR>", opts)
 map("n", "<Leader>rr", ":lua _CODE_RUNNER()<CR>", opts)
+map("n", "<Leader>rm", ":lua _MAKE()<CR>", opts)
 map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 map("n", "<leader>tt", ":lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
 map("t", "<leader>tt", "<C-\\><C-n>:lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
