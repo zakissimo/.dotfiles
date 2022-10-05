@@ -92,10 +92,10 @@ function _MAKE()
 	vim.cmd("w!")
 	local type = vim.bo.filetype
 	if type == "c" then
-		if vim.fn.filereadable("Makefile") then
+		if vim.fn.filereadable("*.a") then
+			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p *.a && %:p:r")
+		elseif vim.fn.filereadable("Makefile") then
 			vim.cmd("!make re -s -C %:p:h")
-		else
-			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
 		end
 	end
 end
