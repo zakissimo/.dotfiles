@@ -25,6 +25,7 @@ alias lg=lazygit
 alias lf=lf-ueberzug
 #alias la='exa -la'
 alias v=nvim
+alias vim=nvim
 alias gw=gcc -Wall -Wextra -Werror
 alias mpv='devour mpv'
 
