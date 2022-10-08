@@ -2,11 +2,11 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
-require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/lsp/snippets/typescript" } })
-require("luasnip").filetype_extend("javascript", { "html" })
-require("luasnip").filetype_extend("javascriptreact", { "html" })
-require("luasnip").filetype_extend("typescriptreact", { "html" })
+-- require("luasnip.loaders.from_vscode").lazy_load()
+-- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/lsp/snippets/typescript" } })
+-- require("luasnip").filetype_extend("javascript", { "html" })
+-- require("luasnip").filetype_extend("javascriptreact", { "html" })
+-- require("luasnip").filetype_extend("typescriptreact", { "html" })
 
 luasnip.config.set_config({
 	history = true,

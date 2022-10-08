@@ -32,3 +32,6 @@ require("nvim-navic").setup({
 	depth_limit = 0,
 	depth_limit_indicator = "..",
 })
+
+local barbecue = require("barbecue")
+barbecue.setup()

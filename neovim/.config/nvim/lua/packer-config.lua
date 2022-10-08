@@ -40,11 +40,20 @@ return require("packer").startup(function(use)
 	use("42Paris/42header")
 	use("cacharle/c_formatter_42.vim")
 	use({ "vinicius507/norme.nvim" })
+	use("WhoIsSethDaniel/toggle-lsp-diagnostics.nvim")
 
 	use("kyazdani42/nvim-tree.lua")
 
 	use({ "SmiteshP/nvim-gps" })
 	use({ "SmiteshP/nvim-navic" })
+	use({
+		"utilyre/barbecue.nvim",
+		requires = {
+			"neovim/nvim-lspconfig",
+			"smiteshp/nvim-navic",
+			"kyazdani42/nvim-web-devicons", -- optional
+		},
+	})
 
 	use("lukas-reineke/indent-blankline.nvim")
 
