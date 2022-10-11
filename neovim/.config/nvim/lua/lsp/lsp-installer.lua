@@ -4,14 +4,8 @@ local servers = lsp_installer.get_installed_servers()
 
 local server_table = {}
 local init_table = {
-	"tailwindcss",
-	"tsserver",
-	"gopls",
-	"pyright",
-	"rust_analyzer",
 	"sumneko_lua",
 	"clangd",
-	"html",
 }
 
 for idx in pairs(init_table) do
