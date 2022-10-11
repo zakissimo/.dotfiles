@@ -74,7 +74,11 @@ function _CODE_RUNNER()
 	elseif type == "sh" then
 		vim.cmd("!%:p")
 	elseif type == "c" then
-		vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
+		if not vim.fn.isdirectory("%:p:h/.git") then
+			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p:h/*.c && %:p:r")
+		else
+			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
+		end
 	elseif type == "rust" then
 		vim.cmd("!rustc % && ./%:t:r")
 	elseif type == "typescript" then
@@ -92,8 +96,8 @@ function _MAKE()
 	vim.cmd("w!")
 	local type = vim.bo.filetype
 	if type == "c" then
-		if vim.fn.filereadable("*.a") then
-			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p *.a && %:p:r")
+		if vim.fn.filereadable("%:p:h/*.a") then
+			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r % %:p:h/*.a && %:p:r")
 		elseif vim.fn.filereadable("Makefile") then
 			vim.cmd("!make re -s -C %:p:h")
 		end
