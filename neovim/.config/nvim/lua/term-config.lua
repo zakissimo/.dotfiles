@@ -62,11 +62,6 @@ function _BOTTOM_TERM_TOGGLE()
 	end
 end
 
-local function is_git_repo()
-	local is_repo = vim.fn.system("git rev-parse --is-inside-work-tree")
-	return vim.v.shell_error == 0
-end
-
 function _CODE_RUNNER()
 	vim.cmd("w!")
 	local type = vim.bo.filetype
@@ -79,7 +74,8 @@ function _CODE_RUNNER()
 	elseif type == "sh" then
 		vim.cmd("!%:p")
 	elseif type == "c" then
-		if is_git_repo() then
+		-- if is_git_repo() then
+		if vim.fn.isdirectory(".git") ~= 0 then
 			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p:h/*.c && %:p:r")
 		else
 			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
@@ -101,9 +97,9 @@ function _MAKE()
 	vim.cmd("w!")
 	local type = vim.bo.filetype
 	if type == "c" then
-		if vim.fn.filereadable("%:p:h/*.a") then
-			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r % %:p:h/*.a && %:p:r")
-		elseif vim.fn.filereadable("Makefile") then
+		if vim.fn.filereadable("libft.a") ~= 0 then
+			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r % %:p:h/libft.a && %:p:r")
+		elseif vim.fn.filereadable("Makefile") ~= 0 then
 			vim.cmd("!make re -s -C %:p:h")
 		end
 	end
