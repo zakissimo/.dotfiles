@@ -32,8 +32,6 @@ local function bottom_term_init()
 	vim.cmd("13sp")
 	vim.cmd("buffer" .. buf)
 	term = vim.fn.termopen("zsh")
-	-- vim.opt_local.number = false
-	-- vim.opt_local.relativenumber = false
 	cd = "cd " .. path .. "\r"
 	vim.api.nvim_chan_send(term, cd)
 	vim.api.nvim_chan_send(term, "clear\r")
