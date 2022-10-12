@@ -62,6 +62,11 @@ function _BOTTOM_TERM_TOGGLE()
 	end
 end
 
+local function is_git_repo()
+	local is_repo = vim.fn.system("git rev-parse --is-inside-work-tree")
+	return vim.v.shell_error == 0
+end
+
 function _CODE_RUNNER()
 	vim.cmd("w!")
 	local type = vim.bo.filetype
@@ -74,7 +79,7 @@ function _CODE_RUNNER()
 	elseif type == "sh" then
 		vim.cmd("!%:p")
 	elseif type == "c" then
-		if not vim.fn.isdirectory("%:p:h/.git") then
+		if is_git_repo() then
 			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p:h/*.c && %:p:r")
 		else
 			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
