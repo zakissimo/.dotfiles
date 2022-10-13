@@ -43,7 +43,6 @@ return require("packer").startup(function(use)
 	use({ "vinicius507/norme.nvim" })
 	use("WhoIsSethDaniel/toggle-lsp-diagnostics.nvim")
 
-	use("SmiteshP/nvim-navic")
 	use("kyazdani42/nvim-tree.lua")
 
 	use({ "SmiteshP/nvim-gps" })
