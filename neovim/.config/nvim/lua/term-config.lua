@@ -74,7 +74,6 @@ function _CODE_RUNNER()
 	elseif type == "sh" then
 		vim.cmd("!%:p")
 	elseif type == "c" then
-		-- if is_git_repo() then
 		if vim.fn.isdirectory(".git") ~= 0 then
 			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p:h/*.c && %:p:r")
 		else
