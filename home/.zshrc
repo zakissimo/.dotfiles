@@ -30,3 +30,5 @@ alias gw=gcc -Wall -Wextra -Werror
 alias mpv='devour mpv'
 
 eval "$(starship init zsh)"
+
+# DRI_PRIME=1

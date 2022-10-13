@@ -46,6 +46,17 @@ return require("packer").startup(function(use)
 	use("SmiteshP/nvim-navic")
 	use("kyazdani42/nvim-tree.lua")
 
+	use({ "SmiteshP/nvim-gps" })
+	use({ "SmiteshP/nvim-navic" })
+	use({
+		"utilyre/barbecue.nvim",
+		requires = {
+			"neovim/nvim-lspconfig",
+			"smiteshp/nvim-navic",
+			"kyazdani42/nvim-web-devicons", -- optional
+		},
+	})
+
 	use("lukas-reineke/indent-blankline.nvim")
 
 	use("norcalli/nvim-colorizer.lua")

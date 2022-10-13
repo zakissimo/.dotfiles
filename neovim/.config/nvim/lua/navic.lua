@@ -35,3 +35,6 @@ require("nvim-navic").setup({
 
 local barbecue = require("barbecue")
 barbecue.setup()
+
+vim.api.nvim_set_hl(0, "NavicText", { fg = "#545c7e" })
+vim.api.nvim_set_hl(0, "NavicSeparator", { fg = "#545c7e" })
