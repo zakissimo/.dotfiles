@@ -90,21 +90,20 @@ function _CODE_RUNNER()
 	end
 end
 
+local bufmap = vim.api.nvim_buf_set_keymap
+
 function _MAKE()
-	vim.cmd("w!")
-	local type = vim.bo.filetype
-	if type == "c" then
-		if vim.fn.filereadable("libft.a") ~= 0 then
-			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r % %:p:h/libft.a && %:p:r")
-		elseif vim.fn.filereadable("Makefile") ~= 0 then
-			vim.cmd("!make re -s -C %:p:h")
+	local prompt = "Insert Command: "
+	vim.ui.input({ prompt = prompt }, function(input)
+		if input then
+			bufmap(0, "n", "<Leader>mm", ":!" .. input .. "<CR>", { noremap = true })
 		end
-	end
+	end)
 end
 
 map("n", "<Leader>ss", ":lua _GET_DOCS()<CR>", opts)
 map("n", "<Leader>rr", ":lua _CODE_RUNNER()<CR>", opts)
-map("n", "<Leader>rm", ":lua _MAKE()<CR>", opts)
+map("n", "<Leader>cc", ":lua _MAKE()<CR>", opts)
 map("n", "<Leader>bb", ":lua _BROWSERSYNC_TOGGLE()<CR>", opts)
 map("n", "<leader>tt", ":lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
 map("t", "<leader>tt", "<C-\\><C-n>:lua _BOTTOM_TERM_TOGGLE()<CR>", opts)
