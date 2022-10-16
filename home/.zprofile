@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 export EDITOR="nvim"
-export TERMINAL="kitty"
+export TERM="xterm-256color"
 
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.bin"

@@ -100,10 +100,10 @@ function _MAKE()
 	vim.cmd("w!")
 	local type = vim.bo.filetype
 	if type == "c" then
-		if vim.fn.filereadable("libft.a") ~= 0 then
-			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r % %:p:h/libft.a && %:p:r")
-		elseif vim.fn.filereadable("Makefile") ~= 0 then
-			vim.cmd("!make re -s -C %:p:h")
+		if vim.fn.filereadable("Makefile") ~= 0 then
+			vim.cmd("!make -j -s -C %:p:h")
+		elseif vim.fn.filereadable("libft/libft.a") ~= 0 then
+			vim.cmd("!cc -Wall -Wextra -ggdb -I Includes -I libft/libft -o %:p:r % %:p:h/libft/libft.a && %:p:r")
 		end
 	end
 end
