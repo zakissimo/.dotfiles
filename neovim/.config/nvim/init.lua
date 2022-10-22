@@ -1,4 +1,5 @@
 require("packer-config")
+require('impatient')
 require("fzf-lua-config")
 require("term-config")
 require("lsp")

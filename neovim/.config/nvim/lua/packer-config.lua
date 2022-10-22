@@ -37,6 +37,8 @@ packer.init({
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
+	use("lewis6991/impatient.nvim")
+
 	use("42Paris/42header")
 	use("cacharle/c_formatter_42.vim")
 	use({ "vinicius507/norme.nvim" })
