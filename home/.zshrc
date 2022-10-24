@@ -1,5 +1,6 @@
 # source "$HOME"/.zprofile
 export ZSH="$HOME/.config/oh-my-zsh"
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
 
@@ -21,13 +22,15 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias lg=lazygit
-#alias ls=exa
+alias ls=exa
 alias lf=lf-ueberzug
-#alias la='exa -la'
+alias la='exa -la'
 alias v=nvim
 alias vim=nvim
 alias gw=gcc -Wall -Wextra -Werror
 alias mpv='devour mpv'
+
+key
 
 eval "$(starship init zsh)"
 
