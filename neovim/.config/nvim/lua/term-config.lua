@@ -78,9 +78,9 @@ function _CODE_RUNNER()
 		vim.cmd("!%:p")
 	elseif type == "c" then
 		if vim.fn.isdirectory(".git") ~= 0 then
-			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p:h/*.c && %:p:r")
+			vim.cmd("!cc -Wall -Wextra -ggdb3 -o %:p:r %:p:h/*.c && %:p:r")
 		else
-			vim.cmd("!cc -Wall -Wextra -ggdb -o %:p:r %:p && %:p:r")
+			vim.cmd("!cc -Wall -Wextra -ggdb3 -o %:p:r %:p && %:p:r")
 		end
 	elseif type == "rust" then
 		vim.cmd("!rustc % && ./%:t:r")
