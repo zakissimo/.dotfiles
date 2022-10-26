@@ -1,11 +1,11 @@
 ### Software ###
 #Browser
 super + b
-    brave
+	brave
 
 #Kitty
 super + Return
-    kitty
+	tabbed -r 2 st -w ''
 
 #File-Manager
 super + e

@@ -13,7 +13,7 @@ options=('zipman')
 depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
 optdepends=('dmenu: feed urls to dmenu')
-source=('git://github.com/LukeSmithxyz/st')
+source=(git+https://github.com/LukeSmithxyz/st)
 sha1sums=('SKIP')
 
 provides=("${_pkgname}")
@@ -41,5 +41,5 @@ package() {
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
-	install -Dm644 .Xdefaults "${pkgdir}/usr/share/doc/${pkgname}/Xdefaults.example"
+	install -Dm644 Xdefaults "${pkgdir}/usr/share/doc/${pkgname}/Xdefaults.example"
 }
