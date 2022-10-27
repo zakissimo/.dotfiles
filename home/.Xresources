@@ -1,8 +1,8 @@
 !! Transparency (0-1):
-*.alpha: 0.7
+*.alpha: 0.65
 
 !! Set a default font and font size as below:
-*.font: CaskaydiaCove Nerd Font Mono:size=15
+*.font: CaskaydiaCove Nerd Font Mono:size=17
 
 !Tokyo Night theme
 *foreground: #a9b1d6
