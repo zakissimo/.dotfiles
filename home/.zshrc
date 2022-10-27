@@ -20,6 +20,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+KEYTIMEOUT=1
+
 alias lg=lazygit
 alias ls=exa
 alias lf=lf-ueberzug

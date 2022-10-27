@@ -29,10 +29,10 @@ map("n", "<C-Up>", ":resize +2<CR>", opts)
 map("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 map("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
-map("n", "<C-;>", ":bprevious<CR>", opts)
-map("n", "<C-'>", ":bnext<CR>", opts)
-map("n", "<C-,>", ":tabprevious<CR>", opts)
-map("n", "<C-.>", ":tabnext<CR>", opts)
+map("n", "<M-,>", ":bprevious<CR>", opts)
+map("n", "<M-.>", ":bnext<CR>", opts)
+map("n", "<M-;>", ":tabprevious<CR>", opts)
+map("n", "<M-'>", ":tabnext<CR>", opts)
 
 map("n", "<Leader>gg", ":LazyGit<CR>", opts)
 
