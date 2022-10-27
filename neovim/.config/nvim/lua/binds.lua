@@ -7,7 +7,7 @@ map("n", "<esc><esc>", ":noh<CR>", opts)
 map("n", "<C-s>", ":w<CR>", opts)
 map("n", "<A-n>", ":tabnew<CR>", opts)
 map("n", "<A-w>", ":tabclose<CR>", opts)
-map("n", "<C-b>", ":NvimTreeToggle<CR>", opts)
+map("n", "<leader>b", ":NvimTreeToggle<CR>", opts)
 
 map("n", "<C-j>", "<C-w>j", opts)
 map("n", "<C-k>", "<C-w>k", opts)

@@ -5,7 +5,7 @@ super + b
 
 #Kitty
 super + Return
-	tabbed -r 2 st -w ''
+	st
 
 #File-Manager
 super + e
