@@ -186,7 +186,7 @@ or=:\
 "
 
 # export DRI_PRIME=1
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+pidof polkit-gnome-authentication-agent-1 1>/dev/null || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 [[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti &
 
