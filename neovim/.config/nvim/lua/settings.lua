@@ -3,7 +3,10 @@ local set = vim.opt
 vim.notify = require("notify")
 vim.g.python3_host_prog = "/usr/bin/python"
 
--- set.foldenable = false
+set.foldenable = false
+set.foldmethod = 'syntax'
+set.foldnestmax = 1
+
 set.autochdir = false
 -- set.clipboard = "unnamedplus"
 set.cursorline = true
