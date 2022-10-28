@@ -46,6 +46,9 @@ return require("packer").startup(function(use)
 
 	use("kyazdani42/nvim-tree.lua")
 
+	use("RishabhRD/popfix")
+	use("RishabhRD/nvim-cheat.sh")
+
 	use({ "SmiteshP/nvim-gps" })
 	use({ "SmiteshP/nvim-navic" })
 	use({
