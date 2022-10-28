@@ -6,11 +6,11 @@
 
 !Tokyo Night theme
 *foreground: #a9b1d6
-*background: #1a1b26
+*background: #1f2335
 *cursorColor: #a9b1d6
 *borderColor: #1a1b26
-*color0: #16161e
-*color8: #4e5173
+*color0: #1f2335
+*color8: #414868
 *color1: #F7768E
 *color9: #F7768E
 *color2: #9ECE6A
