@@ -35,10 +35,10 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 			bufmap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opt)
 			bufmap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opt)
 			-- bufmap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opt)
-			bufmap(0, "t", "<M-j>", [[<C-\><C-n>":resize -2<CR>"]], opt)
-			bufmap(0, "t", "<M-k>", [[<C-\><C-n>":resize +2<CR>"]], opt)
-			bufmap(0, "t", "<M-h>", [[<C-\><C-n>":vertical resize -2<CR>"]], opt)
-			bufmap(0, "t", "<M-l>", [[<C-\><C-n>":vertical resize +2<CR>"]], opt)
+			bufmap(0, "t", "<C-Down>", [[<C-\><C-n>":resize -2<CR>"]], opt)
+			bufmap(0, "t", "<C-Up>", [[<C-\><C-n>":resize +2<CR>"]], opt)
+			bufmap(0, "t", "<C-Left>", [[<C-\><C-n>":vertical resize -2<CR>"]], opt)
+			bufmap(0, "t", "<C-Right>", [[<C-\><C-n>":vertical resize +2<CR>"]], opt)
 		end
 	end,
 })
