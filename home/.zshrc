@@ -7,7 +7,6 @@ export USER='zhabri'
 export MAIL='zhabri@student.42.fr'
 
 plugins=(
-	fzf
 	git
 	history-substring-search
 	colored-man-pages
@@ -15,6 +14,7 @@ plugins=(
 	zsh-syntax-highlighting
 	zsh-z
 	vi-mode
+	fzf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -32,6 +32,7 @@ alias mpv='devour mpv'
 alias pacfzf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudo pacman -S'
 alias yayfzf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {1} | awk "{print \$2}")'\'' | xargs -ro yay -S'
 
-eval "$(starship init zsh)"
 
+eval "$(starship init zsh)"
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 # DRI_PRIME=1
