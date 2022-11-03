@@ -1,5 +1,4 @@
 export ZSH="$HOME/.config/oh-my-zsh"
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
 
@@ -21,6 +20,7 @@ source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 KEYTIMEOUT=1
+key
 
 alias lg=lazygit
 alias ls=exa
