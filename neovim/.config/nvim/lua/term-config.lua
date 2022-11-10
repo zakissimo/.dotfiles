@@ -101,7 +101,7 @@ function _MAKE()
 	local prompt = "Insert Command: "
 	vim.ui.input({ prompt = prompt }, function(input)
 		if input then
-			bufmap(0, "n", "<Leader>mm", ":!" .. input .. "<CR>", { noremap = true })
+			bufmap(0, "n", "<Leader>mm", ":wa<CR>:!" .. input .. "<CR>", { noremap = true })
 		end
 	end)
 end
