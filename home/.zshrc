@@ -27,6 +27,7 @@ alias ls=exa
 alias lf=lf-ueberzug
 alias la='exa -la'
 alias e=emacs
+alias t=tmux
 alias v=nvim
 alias mpv='devour mpv'
 alias pacfzf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudo pacman -S'
@@ -34,5 +35,4 @@ alias yayfzf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {
 
 
 eval "$(starship init zsh)"
-[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 # DRI_PRIME=1
