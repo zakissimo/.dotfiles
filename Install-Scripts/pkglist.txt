@@ -2,7 +2,6 @@ bat
 bc
 btop
 curl
-chromium
 deno
 dunst
 eog
@@ -17,7 +16,6 @@ gxkb
 gvfs
 hsetroot
 imagemagick
-kitty
 linux-headers
 lua
 lxappearance

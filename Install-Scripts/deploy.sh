@@ -38,5 +38,3 @@ betterlockscreen -l dimblur
 
 sudo systemctl enable betterlockscreen@"$USER"
 sudo systemctl enable ly.service
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

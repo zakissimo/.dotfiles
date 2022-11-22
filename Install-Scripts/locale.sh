@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "KEYMAP=fr" >/etc/vconsole.conf
+echo "KEYMAP=us" >/etc/vconsole.conf
 
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 hwclock --systohc
