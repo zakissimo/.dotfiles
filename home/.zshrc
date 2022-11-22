@@ -5,6 +5,8 @@ export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/
 
 export USER='zhabri'
 export MAIL='zhabri@student.42.fr'
+export EDITOR="nvim"
+export TERM="st-256color"
 
 plugins=(
 	git
