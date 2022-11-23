@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
 xrandr --auto
-chosen=$(xrandr | grep "\bconnected" | cut -d" " -f1 | tail -n +2 | rofi -dmenu -p "Duplicate display: ")
-xrandr --output "$chosen" --same-as eDP
+display=$(xrandr | grep "\bconnected" | cut -d" " -f1 | tail -n +2 | rofi -dmenu -p "Select display: ")
+res=$(xrandr | grep -A11 "$display" | grep -v "$display" | cut -d' ' -f4 | rofi -dmenu -p "Select resolution: ")
+rate=$(xrandr | grep -A11 "$display" | grep -v "$display" | grep "$res" | tr -s ' ' | tr ' ' '\n' | grep -v "$res" | sed 's/+//' | sed 's/*//' | sed '/^$/d' | sort -gr | rofi -dmenu -p "Select refresh rate: ")
+xrandr --output "$display" --mode "$res" --rate "$rate" --same-as eDP
