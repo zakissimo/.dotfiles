@@ -156,16 +156,16 @@ keys = [
 ]
 
 GROUPE_ONE = ["7", "8", "9", "0"]
-GROUPE_TWO = ["6", "5"]
+GROUPE_TWO = ["5", "6"]
 
-if int(monitor_num()) > 2:
+if int(monitor_num()) == 2:
     groups = [
         Group(name="7", label="", layout="max"),
         Group(name="8", label="", layout="bsp"),
         Group(name="9", label="", layout="bsp"),
         Group(name="0", label="", layout="floating"),
-        Group(name="6", label="", layout="max"),
-        Group(name="5", label="", layout="bsp"),
+        Group(name="5", label="", layout="max"),
+        Group(name="6", label="", layout="bsp"),
     ]
 else:
     groups = [
@@ -251,20 +251,12 @@ def init_widgets_list():
             this_current_screen_border=ext_col,
             visible_groups=GROUPE_TWO,
         ),
-        widget.TextBox(
-            font="CaskaydiaCove Nerd Font",
-            text="\uE0Ba",
-            padding=3,
-            foreground=ext_col,
-            background=background,
-            fontsize=35,
-        ),
         widget.WindowName(foreground=ACTIVE, background=ext_col),
         widget.GenPollText(
             update_interval=1,
             padding=5,
             background=background,
-            mouse_callbacks={"Button1": lazy.spawn("kitty -e btop")},
+            mouse_callbacks={"Button1": lazy.spawn("st -e btop")},
             func=kekram,
         ),
         widget.Net(format="↓ {down} ↑ {up}", background=background),
@@ -275,7 +267,7 @@ def init_widgets_list():
             update_interval=3600,
             padding=13,
             background=ext_col,
-            mouse_callbacks={"Button1": lazy.spawn("kitty -e cal")},
+            mouse_callbacks={"Button1": lazy.spawn("st -e cal")},
             func=kekdate,
         ),
         widget.GenPollText(
@@ -287,16 +279,15 @@ def init_widgets_list():
 
 def init_widgets_screen1():
     widgets = init_widgets_list()
-    del widgets[2]
+    del widgets[1]
     return widgets
 
 
 def init_widgets_screen2():
     widgets = init_widgets_list()
     # Removing unwanted widgets (systray) on Monitor 2
-    del widgets[1]
+    del widgets[0]
     del widgets[-2:]
-    # del widgets[5:]
     return widgets
 
 
@@ -329,7 +320,7 @@ def init_screens():
             ext_col,
         ],
     )
-    if int(monitor_num()) != 1:
+    if int(monitor_num()) == 2:
         return [
             Screen(screen_one),
             Screen(screen_two),
