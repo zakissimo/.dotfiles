@@ -1,7 +1,14 @@
 #!/usr/bin/env sh
 
+export ZSH="$HOME/.config/oh-my-zsh"
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
+export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
+export USER='zhabri'
+export MAIL='zhabri@student.42.fr'
 export EDITOR="nvim"
-export TERM="xterm-256color"
+export TERM="st-256color"
+export TERMINAL="st-256color"
 
 if [ -d "$HOME/.bin" ] ;
   then export PATH="$PATH:$HOME/.bin"
@@ -21,7 +28,6 @@ fi
 
 export PNPM_HOME="/home/zak/.local/share/pnpm"
 export PATH="$PATH:$PNPM_HOME"
-
 export LF_ICONS="\
 tw=:\
 st=:\
@@ -187,9 +193,3 @@ or=:\
 
 # export DRI_PRIME=1
 pidof polkit-gnome-authentication-agent-1 1>/dev/null || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-
-[[ $(fgconsole 2>/dev/null) == 1 ]] && exec startx --vti &
-
-# Swaps caps and escape if X stops running
-echo keycode 1 = Caps_Lock | sudo loadkeys
-echo keycode 58 = Escape | sudo loadkeys
