@@ -1,4 +1,7 @@
 #!/bin/bash
 
 [[ -f ~/.Xresources ]] && xrdb ~/.Xresources
-qtile start >/dev/null 2>&1
+[[ -f ~/.xprofile ]] && xrdb ~/.xprofile
+sxhkd &
+
+while type dwm >/dev/null ; do dwm && continue || break ; done

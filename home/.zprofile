@@ -15,4 +15,3 @@ if [ -d "$HOME/.cargo/bin" ] ;
 fi
 
 # export DRI_PRIME=1
-pidof polkit-gnome-authentication-agent-1 1>/dev/null || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
