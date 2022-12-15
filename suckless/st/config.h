@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "FiraCode Nerd Font:pixelsize=12:antialias=true:autohint=true";
-static char *font2[] = { "JoyPixels:pixelsize=10:antialias=true:autohint=true" };
+static char *font = "FiraCode Nerd Font:pixelsize=15:antialias=true:autohint=true";
+static char *font2[] = { "JoyPixels:pixelsize=15:antialias=true:autohint=true" };
 static int borderpx = 2;
 
 /*
@@ -17,7 +17,7 @@ static int borderpx = 2;
  * 4: value of shell in /etc/passwd
  * 5: value of shell in config.h
  */
-static char *shell = "/bin/sh";
+static char *shell = "/bin/zsh";
 char *utmp = NULL;
 /* scroll program: to enable use a string like "scroll" */
 char *scroll = NULL;
@@ -254,8 +254,12 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_Down,        kscrolldown,    {.i =  1} },
 	{ MODKEY,               XK_U,           kscrollup,      {.i = -1} },
 	{ MODKEY,               XK_D,           kscrolldown,    {.i = -1} },
-	{ MODKEY,               XK_O,           changealpha,    {.f = -0.05} },
-	{ MODKEY,               XK_P,           changealpha,    {.f = +0.05} },
+	{ MODKEY,               XK_K,           kscrollup,      {.i = -1} },
+	{ MODKEY,               XK_J,           kscrolldown,    {.i = -1} },
+	{ TERMMOD,              XK_O,           changealpha,    {.f = -0.05} },
+	{ TERMMOD,              XK_P,           changealpha,    {.f = +0.05} },
+	{ TERMMOD,              XK_plus,        zoom,           {.f = +1} },
+	{ TERMMOD,              XK_underscore,  zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Up,          zoom,           {.f = +1} },
 	{ TERMMOD,              XK_Down,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
