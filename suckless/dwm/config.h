@@ -7,7 +7,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "FiraCode Nerd Font:size=17", "Noto Color Emoji:pixelsize=17:antialias=true:autohint=true"};
+static const char *fonts[]          = { "FiraCode Nerd Font:size=15", "Font Awesome 6 Free:pixelsize=15:antialias=true:autohint=true"};
 static const char dmenufont[]       = "FiraCode Nerd Font:size=11";
 static char normbgcolor[]           = "#222222";
 static char normbordercolor[]       = "#444444";
@@ -22,7 +22,7 @@ static char *colors[][3] = {
 };
 
 /* tagging */
-static const char *tags[] = { "爵", "", "", "ﱄ" };
+static const char *tags[] = { "", "", "", "ﱄ" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -44,9 +44,9 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "",      tile },    /* first entry is default */
+	{ "",      NULL },    /* no layout function means floating behavior */
+	{ "",      monocle },
 };
 
 /* key definitions */
