@@ -29,5 +29,3 @@ require("tokyonight").setup({
 	--- fucntion will be called with a Highlights and ColorScheme table
 	on_highlights = function(highlights, colors) end,
 })
-
-vim.cmd([[colorscheme tokyonight]])
