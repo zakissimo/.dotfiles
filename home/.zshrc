@@ -1,4 +1,5 @@
 export ZSH="$HOME/.config/oh-my-zsh"
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
 
@@ -13,7 +14,6 @@ plugins=(
 	zsh-syntax-highlighting
 	zsh-z
 	vi-mode
-	fzf
 )
 
 key
@@ -23,6 +23,8 @@ source $ZSH/oh-my-zsh.sh
 
 KEYTIMEOUT=1
 
+alias superminival="valgrind --leak-check=full --show-leak-kinds=all --trace-children=yes --track-fds=yes --suppressions=$HOME/Code/wip/minishell/vsupp"
+alias minival="valgrind --trace-children=yes --track-fds=yes --suppressions=vsupp"
 alias lg=lazygit
 alias ls=exa
 alias la='exa -la'
