@@ -1,11 +1,11 @@
 ### Software ###
 #Browser
 super + b
-    brave
+	brave
 
 #Kitty
 super + Return
-    kitty
+	st
 
 #File-Manager
 super + e
