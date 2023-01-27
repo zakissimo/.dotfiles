@@ -1,4 +1,8 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+if [ ! -z "$PS1" ]; then # Determine whether Bash is running interactively or not.
+  echo .zprofile loaded >> ~/log
+fi
 
 export EDITOR="nvim"
 export TERM="xterm-256color"
