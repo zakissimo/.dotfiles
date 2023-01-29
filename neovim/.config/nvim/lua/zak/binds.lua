@@ -34,8 +34,8 @@ map("n", "<M-.>", ":bnext<CR>", opts)
 map("n", "<M-;>", ":tabprevious<CR>", opts)
 map("n", "<M-'>", ":tabnext<CR>", opts)
 
-map("n", "<Leader>u", ":UndotreeToggle<CR>", opts)
-map("n", "<Leader>g", ":LazyGit<CR>", opts)
+map("n", "<Leader>uu", ":UndotreeToggle<CR>", opts)
+map("n", "<Leader>gg", ":LazyGit<CR>", opts)
 
 map("n", "<Leader>fb", ":FzfLua buffers<CR>", opts)
 map("n", "<Leader>fr", ":FzfLua registers<CR>", opts)
