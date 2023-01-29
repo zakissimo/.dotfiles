@@ -6,9 +6,9 @@ function _MAKE()
 	local prompt = "Insert Command: "
 	vim.ui.input({ prompt = prompt }, function(input)
 		if input then
-			bufmap(0, "n", "<Leader>m", ":w<CR>:!" .. input .. "<CR>", { noremap = true })
+			bufmap(0, "n", "<Leader>mm", ":w<CR>:!" .. input .. "<CR>", { noremap = true })
 		end
 	end)
 end
 
-map("n", "<Leader>c", ":lua _MAKE()<CR>", opts)
+map("n", "<Leader>cc", ":lua _MAKE()<CR>", opts)
