@@ -14,7 +14,15 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
-	use({ "github/copilot.vim" })
+	use {
+		"zbirenbaum/copilot.lua",
+		event = "VimEnter",
+		config = function ()
+			vim.defer_fn(function()
+				require "zak.copilot"
+			end, 100)
+		end
+	}
 	use({ "nvim-lua/plenary.nvim" })
 	use("kyazdani42/nvim-tree.lua")
 	use({
@@ -35,6 +43,12 @@ return require("packer").startup(function(use)
 	use("cacharle/c_formatter_42.vim")
 	use({ "vinicius507/norme.nvim" })
 
+	use({
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
+		end,
+	})
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
