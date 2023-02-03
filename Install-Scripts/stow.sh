@@ -23,9 +23,6 @@ for app in $apps; do
 	cloneAndStow "${app##*/}"
 done
 
-[ ! -d "$HOME/.config/dunst" ] && mkdir -v "$HOME"/.config/dunst
-[ ! -f "$HOME/.config/dunst/dunstrc" ] && ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
-
 [ ! -d "$HOME/.local/bin" ] && mkdir -vp "$HOME/.local/bin"
 for bin in "$HOME"/.dotfiles/bins/*; do
 	[ ! -f "$HOME/.local/bin/${bin##*/}" ] && ln "$bin" "$HOME/.local/bin/${bin##*/}"
