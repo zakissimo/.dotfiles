@@ -17,7 +17,6 @@ lsp.set_preferences({
 	},
 })
 
--- Fix Undefined global 'vim'
 lsp.configure("sumneko_lua", {
 	settings = {
 		Lua = {
@@ -65,14 +64,15 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 	end, { "i", "s" }),
 })
 
--- disable completion with tab
--- this helps with copilot setup
 cmp_mappings["<Tab>"] = nil
 cmp_mappings["<S-Tab>"] = nil
 
 local lspkind = require("lspkind")
 lsp.setup_nvim_cmp({
 	mapping = cmp_mappings,
+	sources = {
+		{ name = "copilot" },
+	},
 	formatting = {
 		-- changing the order of fields so the icon is the first
 		fields = { "menu", "abbr", "kind" },
@@ -114,7 +114,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>q", function()
 		vim.diagnostic.setloclist()
 	end, opts)
-	vim.keymap.set("n", "<leader>el", "lua <cmd>FzfLua lsp_document_diagnostics<CR>", opts)
+	vim.keymap.set("n", "<leader>el", ":FzfLua lsp_document_diagnostics<CR>", opts)
 	vim.keymap.set("n", "<leader>ek", function()
 		vim.diagnostic.goto_prev()
 	end, opts)
@@ -131,7 +131,7 @@ lsp.on_attach(function(client, bufnr)
 		vim.lsp.buf.code_action()
 	end, opts)
 	if client.name ~= "clangd" then
-		vim.keymap.set("n", "<F2>", "lua <cmd>NullFormat<CR>", opts)
+		vim.keymap.set("n", "<F2>", ":NullFormat<CR>", opts)
 	end
 end)
 
