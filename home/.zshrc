@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 export ZSH="$HOME/.config/oh-my-zsh"
@@ -15,13 +15,13 @@ export USER='zhabri'
 export MAIL='zhabri@student.42.fr'
 
 plugins=(
-	git
-	history-substring-search
-	colored-man-pages
-	zsh-autosuggestions
-	zsh-syntax-highlighting
-	zsh-z
-	vi-mode
+    git
+    history-substring-search
+    colored-man-pages
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    zsh-z
+    vi-mode
 )
 
 key
