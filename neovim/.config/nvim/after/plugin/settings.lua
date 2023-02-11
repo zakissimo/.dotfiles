@@ -32,7 +32,5 @@ set.listchars = "tab:>-"
 
 vim.cmd("set fillchars+=eob:│")
 
-set.termguicolors = true
-
 set.ch = 1
 set.ls = 3

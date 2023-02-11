@@ -43,6 +43,7 @@ return require("packer").startup(function(use)
 	use("cacharle/c_formatter_42.vim")
 	use({ "vinicius507/norme.nvim" })
 
+	use({ 'norcalli/nvim-colorizer.lua' })
 	use({
 		"numToStr/Comment.nvim",
 		config = function()

@@ -1,17 +1,11 @@
-if [ -d "$HOME/.bin" ] ;
-  then export PATH="$PATH:$HOME/.bin"
-fi
+__add_path()
+{
+	[ -d "$1" ] && export PATH="$1:$PATH";
+}
 
-if [ -d "$HOME/.local/bin" ] ;
-  then export PATH="$PATH:$HOME/.local/bin"
-fi
-
-if [ -d "$HOME/Apps" ] ;
-  then export PATH="$PATH:$HOME/Apps"
-fi
-
-if [ -d "$HOME/.cargo/bin" ] ;
-  then export PATH="$PATH:$HOME/.cargo/bin"
-fi
+__add_path "$HOME/.bin" 
+__add_path "$HOME/.local/bin" 
+__add_path "$HOME/Apps" 
+__add_path "$HOME/.cargo/bin" 
 
 # export DRI_PRIME=1
