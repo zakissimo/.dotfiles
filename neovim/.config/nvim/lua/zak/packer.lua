@@ -14,6 +14,15 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
+	use {
+		"zbirenbaum/copilot.lua",
+		event = "VimEnter",
+		config = function ()
+			vim.defer_fn(function()
+				require "zak.copilot"
+			end, 100)
+		end
+	}
 	use({ "nvim-lua/plenary.nvim" })
 	use("kyazdani42/nvim-tree.lua")
 	use({
