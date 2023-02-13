@@ -4,10 +4,10 @@ lsp.preset("recommended")
 lsp.set_preferences({
 	suggest_lsp_servers = true,
 	setup_servers_on_start = true,
-	set_lsp_keymaps = true,
+	set_lsp_keymaps = false,
 	configure_diagnostics = true,
 	cmp_capabilities = true,
-	manage_nvim_cmp = true,
+	manage_nvim_cmp = false,
 	call_servers = "local",
 	sign_icons = {
 		error = "",
@@ -68,6 +68,7 @@ cmp_mappings["<Tab>"] = nil
 cmp_mappings["<S-Tab>"] = nil
 
 local lspkind = require("lspkind")
+
 lsp.setup_nvim_cmp({
 	mapping = cmp_mappings,
 	sources = {
@@ -76,18 +77,12 @@ lsp.setup_nvim_cmp({
 	formatting = {
 		-- changing the order of fields so the icon is the first
 		fields = { "menu", "abbr", "kind" },
-
 		-- here is where the change happens
 		format = function(_, vim_item)
 			vim_item.kind = lspkind.presets.default[vim_item.kind]
 			return vim_item
 		end,
 	},
-})
-
--- disable default keymaps
-lsp.set_preferences({
-	set_lsp_keymaps = false,
 })
 
 lsp.on_attach(function(client, bufnr)

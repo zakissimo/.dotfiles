@@ -22,9 +22,9 @@ require('copilot').setup({
       accept = "<C-]>",
       accept_word = false,
       accept_line = false,
-      next = "<M-n>",
-      prev = "<M-p>",
-      dismiss = "<M-[>",
+      next = "<C-j>",
+      prev = "<C-k>",
+      dismiss = "<C-c>",
     },
   },
   filetypes = {
