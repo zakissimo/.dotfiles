@@ -4,10 +4,10 @@ lsp.preset("recommended")
 lsp.set_preferences({
 	suggest_lsp_servers = true,
 	setup_servers_on_start = true,
-	set_lsp_keymaps = false,
+	set_lsp_keymaps = true,
 	configure_diagnostics = true,
 	cmp_capabilities = true,
-	manage_nvim_cmp = false,
+	manage_nvim_cmp = true,
 	call_servers = "local",
 	sign_icons = {
 		error = "",
@@ -70,10 +70,10 @@ cmp_mappings["<S-Tab>"] = nil
 local lspkind = require("lspkind")
 
 lsp.setup_nvim_cmp({
-	mapping = cmp_mappings,
-	sources = {
-		{ name = "copilot" },
+	window = {
+		completion = cmp.config.window.bordered()
 	},
+	mapping = cmp_mappings,
 	formatting = {
 		-- changing the order of fields so the icon is the first
 		fields = { "menu", "abbr", "kind" },
@@ -135,6 +135,24 @@ lsp.nvim_workspace({
 })
 
 lsp.setup()
+
+-- local cmp_config = lsp.defaults.cmp_config({
+-- 	window = {
+-- 		completion = cmp.config.window.bordered()
+-- 	},
+-- 	mapping = cmp_mappings,
+-- 	formatting = {
+-- 		-- changing the order of fields so the icon is the first
+-- 		fields = { "menu", "abbr", "kind" },
+-- 		-- here is where the change happens
+-- 		format = function(_, vim_item)
+-- 			vim_item.kind = lspkind.presets.default[vim_item.kind]
+-- 			return vim_item
+-- 		end,
+-- 	},
+-- })
+--
+-- cmp.setup(cmp_config)
 
 vim.diagnostic.config({
 	virtual_text = false,
