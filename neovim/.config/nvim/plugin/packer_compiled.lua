@@ -128,6 +128,11 @@ _G.packer_plugins = {
     path = "/nfs/homes/zhabri/.local/share/nvim/site/pack/packer/opt/copilot.lua",
     url = "https://github.com/zbirenbaum/copilot.lua"
   },
+  ["dressing.nvim"] = {
+    loaded = true,
+    path = "/nfs/homes/zhabri/.local/share/nvim/site/pack/packer/start/dressing.nvim",
+    url = "https://github.com/stevearc/dressing.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/nfs/homes/zhabri/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -178,10 +183,10 @@ _G.packer_plugins = {
     path = "/nfs/homes/zhabri/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
-  ["norme.nvim"] = {
+  ["norminette42.nvim"] = {
     loaded = true,
-    path = "/nfs/homes/zhabri/.local/share/nvim/site/pack/packer/start/norme.nvim",
-    url = "https://github.com/vinicius507/norme.nvim"
+    path = "/nfs/homes/zhabri/.local/share/nvim/site/pack/packer/start/norminette42.nvim",
+    url = "https://github.com/hardyrafael17/norminette42.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,

@@ -14,6 +14,7 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
+	use {'stevearc/dressing.nvim'}
 	use {
 		"zbirenbaum/copilot.lua",
 		event = "VimEnter",
@@ -41,7 +42,6 @@ return require("packer").startup(function(use)
 
 	use("42Paris/42header")
 	use("cacharle/c_formatter_42.vim")
-	use({ "vinicius507/norme.nvim" })
 
 	use({ 'norcalli/nvim-colorizer.lua' })
 	use({
@@ -75,6 +75,16 @@ return require("packer").startup(function(use)
 			{ "L3MON4D3/LuaSnip" }, -- Required
 			{ "rafamadriz/friendly-snippets" }, -- Optional
 		},
+	})
+	use ({
+		'hardyrafael17/norminette42.nvim',
+		vim.defer_fn(function()
+			require("norminette").setup({
+				runOnSave = true,
+				maxErrorsToShow = 5,
+				active = true,
+			})
+		end, 100)
 	})
 
 	if packer_bootstrap then
