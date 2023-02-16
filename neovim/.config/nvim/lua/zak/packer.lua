@@ -43,6 +43,11 @@ return require("packer").startup(function(use)
 	use("42Paris/42header")
 	use("cacharle/c_formatter_42.vim")
 
+	use({"karb94/neoscroll.nvim",
+		config = function()
+			require("neoscroll").setup()
+		end,
+	})
 	use({ 'norcalli/nvim-colorizer.lua' })
 	use({
 		"numToStr/Comment.nvim",
@@ -78,13 +83,15 @@ return require("packer").startup(function(use)
 	})
 	use ({
 		'hardyrafael17/norminette42.nvim',
-		vim.defer_fn(function()
-			require("norminette").setup({
-				runOnSave = true,
-				maxErrorsToShow = 5,
-				active = true,
-			})
-		end, 100)
+		config = function ()
+			vim.defer_fn(function()
+				require("norminette").setup({
+					runOnSave = true,
+					maxErrorsToShow = 5,
+					active = true,
+				})
+			end, 100)
+		end
 	})
 
 	if packer_bootstrap then
