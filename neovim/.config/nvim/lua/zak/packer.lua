@@ -14,16 +14,16 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
-	use {'stevearc/dressing.nvim'}
-	use {
+	use({ "stevearc/dressing.nvim" })
+	use({
 		"zbirenbaum/copilot.lua",
 		event = "VimEnter",
-		config = function ()
+		config = function()
 			vim.defer_fn(function()
-				require "zak.copilot"
+				require("zak.copilot")
 			end, 100)
-		end
-	}
+		end,
+	})
 	use({ "nvim-lua/plenary.nvim" })
 	use("kyazdani42/nvim-tree.lua")
 	use({
@@ -43,12 +43,13 @@ return require("packer").startup(function(use)
 	use("42Paris/42header")
 	use("cacharle/c_formatter_42.vim")
 
-	use({"karb94/neoscroll.nvim",
+	use({
+		"karb94/neoscroll.nvim",
 		config = function()
 			require("neoscroll").setup()
 		end,
 	})
-	use({ 'norcalli/nvim-colorizer.lua' })
+	use({ "norcalli/nvim-colorizer.lua" })
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
@@ -81,9 +82,9 @@ return require("packer").startup(function(use)
 			{ "rafamadriz/friendly-snippets" }, -- Optional
 		},
 	})
-	use ({
-		'hardyrafael17/norminette42.nvim',
-		config = function ()
+	use({
+		"hardyrafael17/norminette42.nvim",
+		config = function()
 			vim.defer_fn(function()
 				require("norminette").setup({
 					runOnSave = true,
@@ -91,7 +92,7 @@ return require("packer").startup(function(use)
 					active = true,
 				})
 			end, 100)
-		end
+		end,
 	})
 
 	if packer_bootstrap then

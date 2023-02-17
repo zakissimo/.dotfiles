@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-xrandr --auto
-chosen=$(xrandr | grep "\bconnected" | cut -d" " -f1 | tail -n +2 | rofi -dmenu -p "Duplicate display: ")
-xrandr --output "$chosen" --same-as eDP
