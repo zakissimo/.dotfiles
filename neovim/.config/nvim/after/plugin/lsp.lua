@@ -137,10 +137,10 @@ local cmp_config = lsp.defaults.cmp_config({
 		end,
 	},
 	sources = cmp.config.sources({
-		{ name = 'path' },
-		{ name = 'nvim_lsp' },
-		{ name = 'luasnip' },
-	})
+		{ name = "path" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+	}),
 })
 
 cmp.setup(cmp_config)
