@@ -1,5 +1,4 @@
 export EDITOR="nvim"
-export OPENAI_API_KEY="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"
 export TERM="xterm-256color"
 export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:$HOME/.local/bin"

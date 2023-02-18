@@ -8,6 +8,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [[ -f "$HOME/zsh/keys.zsh" ]]; then
+	source "$HOME/zsh/keys.zsh"
+fi
+
 export ZSH="$HOME/.config/oh-my-zsh"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
