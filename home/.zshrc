@@ -8,8 +8,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-xrdb ~/.Xresources
-
 if [[ -f "$HOME/zsh/keys.zsh" ]]; then
 	source "$HOME/zsh/keys.zsh"
 fi

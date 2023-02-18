@@ -1,18 +1,26 @@
 --- config.def.h
 +++ config.def.h
-@@ -173,11 +173,11 @@ static uint forcemousemod = ShiftMask;
-  * Beware that overloading Button1 will disable the selection.
-  */
- static MouseShortcut mshortcuts[] = {
--	/* mask                 button   function        argument       release */
--	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
--	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
-+	/* mask                 button   function        argument      release alt */
-+	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},           1 },
-+	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\033[5;2~"}, 0, -1 },
- 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
--	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
-+	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\033[6;2~"}, 0, -1 },
- 	{ XK_ANY_MOD,           Button5, ttysend,        {.s = "\005"} },
+@@ -3,11 +3,21 @@ static const char *user  = "nobody";
+ static const char *group = "nogroup";
+ 
+ static const char *colorname[NUMCOLS] = {
+-	[INIT] =   "black",     /* after initialization */
+-	[INPUT] =  "#005577",   /* during input */
++	[INIT] = "black",       /* after initialization */
++	[INPUT] = "#005577",    /* during input */
+ 	[FAILED] = "#CC3333",   /* wrong password */
+ 	[CAPS] = "red",         /* CapsLock on */
  };
  
++/*
++ * Xresources preferences to load at startup
++ */
++ResourcePref resources[] = {
++		{ "color0",       STRING,  &colorname[INIT] },
++		{ "color4",       STRING,  &colorname[INPUT] },
++		{ "color1",       STRING,  &colorname[FAILED] },
++		{ "color3",       STRING,  &colorname[CAPS] },
++};
++
+ /* treat a cleared input like a wrong password (color) */
+ static const int failonclear = 1;
