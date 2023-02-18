@@ -70,6 +70,20 @@ cmp_mappings["<S-Tab>"] = nil
 local lspkind = require("lspkind")
 
 lsp.setup_nvim_cmp({
+	-- sources = cmp.config.sources({
+	-- 	{
+	-- 		name = "nvim_lsp",
+	-- 		entry_filter = function (entry, context)
+	-- 			local kind = entry:get_kind()
+	--
+	-- 			local line = context.cursor_line
+	-- 			local col = context.cursor.col
+	-- 			if char_before_cursor == "." then
+	-- 				if kind == 2 or kind == 5 then
+	-- 					return true
+	-- 				end
+	-- 				return false
+	-- 			end
 	window = {
 		completion = cmp.config.window.bordered()
 	},
