@@ -2,7 +2,7 @@
 *.alpha: 0.95
 
 !! Set a default font and font size as below:
-*.font: FiraCode Nerd Font:size=13
+*.font: FiraCode Nerd Font:size=15
 
 !Tokyo Night theme
 *foreground: #a9b1d6

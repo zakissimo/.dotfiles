@@ -24,6 +24,13 @@ return require("packer").startup(function(use)
 			end, 100)
 		end
 	}
+	use {
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function ()
+			require("copilot_cmp").setup()
+		end
+	}
 	use({ "nvim-lua/plenary.nvim" })
 	use("kyazdani42/nvim-tree.lua")
 	use({
