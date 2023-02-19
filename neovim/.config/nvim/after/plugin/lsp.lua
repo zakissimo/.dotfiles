@@ -92,10 +92,6 @@ local cmp_mappings = cmp.mapping.preset.insert({
 		behavior = cmp.ConfirmBehavior.Insert,
 		select = true,
 	}),
-	["<Tab>"] = cmp.mapping.confirm({
-		behavior = cmp.ConfirmBehavior.Insert,
-		select = true,
-	}),
 	["<C-j>"] = cmp.mapping(function(fallback)
 		if luasnip.expand_or_jumpable() then
 			luasnip.expand_or_jump()
@@ -117,29 +113,41 @@ local cmp_mappings = cmp.mapping.preset.insert({
 			fallback()
 		end
 	end, { "i", "s" }),
+	["<Tab>"] = cmp.mapping(function(fallback)
+			fallback()
+	end, { "i", "s" }),
+	["S-Tab>"] = cmp.mapping(function(fallback)
+			fallback()
+	end, { "i", "s" }),
 })
 
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
 local lspkind = require("lspkind")
-
 local cmp_config = lsp.defaults.cmp_config({
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
+		col_offset = -3,
+		side_padding = 0,
 	},
 	mapping = cmp_mappings,
 	formatting = {
-		-- changing the order of fields so the icon is the first
-		fields = { "menu", "abbr", "kind" },
-		-- here is where the change happens
-		format = function(_, vim_item)
-			vim_item.kind = lspkind.presets.default[vim_item.kind]
-			return vim_item
+		-- fields = { "kind", "abbr", "menu" },
+		fields = { "kind", "abbr" },
+		format = function(entry, vim_item)
+			vim_item.abbr = string.sub(vim_item.abbr, 1, 15)
+			local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50, symbol_map = { Copilot = "" } })(entry, vim_item)
+			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+			kind.kind = " " .. (strings[1] or "") .. " "
+			kind.menu = "    (" .. (strings[2] or "") .. ")"
+			return kind
 		end,
 	},
 	sources = cmp.config.sources({
+		{ name = "copilot" },
+		{ name = "nvim_lsp", max_item_count = 5 },
 		{ name = "path" },
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
+		{ name = "luasnip", max_item_count = 3 },
 	}),
 })
 
