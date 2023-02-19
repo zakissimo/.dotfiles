@@ -115,26 +115,76 @@ float alpha = 0.95;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	// TokyoNight storm
-	"#1D202F", "#f7768e", "#9ece6a", "#e0af68", "#7aa2f7", "#bb9af7", "#7dcfff",
-	"#a9b1d6", "#414868", "#f7768e", "#9ece6a", "#e0af68", "#7aa2f7", "#bb9af7",
-	[255] = 0,
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#c0caf5",
-	"#1D202F",
-	"#1D202F",
-	"#1D202F",
+    /* 8 normal colors */
+    [0] = "#1c1c1c", /* black   */
+    [1] = "#ff5555", /* red     */
+    [2] = "#50fa7b", /* green   */
+    [3] = "#f1fa8c", /* yellow  */
+    [4] = "#bd93f9", /* blue    */
+    [5] = "#ff79c6", /* magenta */
+    [6] = "#8be9fd", /* cyan    */
+    [7] = "#bbbbbb", /* white   */
+    
+    /* 8 bright colors */
+    [8]  = "#44475a", /* black   */
+    [9]  = "#ff5555", /* red     */
+    [10] = "#50fa7b", /* green   */
+    [11] = "#f1fa8c", /* yellow  */
+    [12] = "#bd93f9", /* blue    */
+    [13] = "#ff79c6", /* magenta */
+    [14] = "#8be9fd", /* cyan    */
+    [15] = "#ffffff", /* white   */
+    
+    /* special colors */
+    [256] = "#282a36", /* background */
+    [257] = "#f8f8f2", /* foreground */
+	[259] = "#a9b1d6",
+	[258] = "#1a1b26",
 };
+ 
+ /*
+  * Default colors (colorname index)
+ * foreground, background, cursor
+  */
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+unsigned int defaultcs = 257;
+unsigned int defaultrcs = 257;
 
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 258;
-unsigned int defaultbg = 259;
-unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
-
+// /* Terminal colors (16 first used in escape sequence) */
+// static const char *colorname[] = {
+// 	// TokyoNight
+// 	[259] = "#a9b1d6",
+// 	[258] = "#1a1b26",
+// 	[256] = "#a9b1d6",
+// 	[257] = "#1a1b26",
+// 	[0] = "#1a1b26",
+// 	[8] = "#414868",
+// 	[1] = "#F7768E",
+// 	[9] = "#F7768E",
+// 	[2] = "#9ECE6A",
+// 	[10] = "#9ECE6A",
+// 	[3] = "#E0AF68",
+// 	[11] = "#E0AF68",
+// 	[4] = "#7AA2F7",
+// 	[12] = "#7AA2F7",
+// 	[5] = "#9a7ecc",
+// 	[13] = "#9a7ecc",
+// 	[6] = "#4abaaf",
+// 	[14] = "#4abaaf",
+// 	[7] = "#a9b1d6",
+// 	[15] = "#a9b1d6",
+// };
+//
+// /*
+//  * Default colors (colorname index)
+//  * foreground, background, cursor, reverse cursor
+//  */
+// unsigned int defaultfg = 259;
+// unsigned int defaultbg = 258;
+// unsigned int defaultcs = 256;
+// unsigned int defaultrcs = 257;
+//
 /*
  * Default shape of cursor
  * 2: Block ("█")

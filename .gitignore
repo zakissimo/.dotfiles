@@ -1,2 +1,3 @@
 
 neovim/.config/nvim/plugin
+suckless/st-0.9/*.o
