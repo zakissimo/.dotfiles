@@ -16,15 +16,15 @@ super + r
 	rofi -show drun
 
 #Change display
-super + ctrl + alt + d
+super + ctrl + d
 	screen-select
 
 #ock screen
-super + ctrl + alt + l
+super + ctrl + l
     betterlockscreen -l dimblur
 
 #Power menu
-super + ctrl + alt + p
+super + ctrl + p
     power-menu
 
 #Power profiles
@@ -32,7 +32,7 @@ XF86Launch4
     power-profiles
 
 #Reload sxhkd:
-super + ctrl + alt + r
+super + ctrl + r
 	pkill -USR1 -x sxhkd && notify-send "sxhkd: Process has been restarted."
 
 ### Utility ###
