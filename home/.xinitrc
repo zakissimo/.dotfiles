@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sh ~/.screenlayout/wide.sh
 wal -R
 picom &
 sxhkd &
