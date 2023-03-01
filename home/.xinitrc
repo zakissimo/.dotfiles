@@ -1,7 +1,8 @@
 #!/bin/bash
 
 sh ~/.screenlayout/wide.sh
-wal -R
+# wal -R
+feh --bg-fill "$(< "${HOME}/.cache/wal/wal")"
 picom &
 sxhkd &
 

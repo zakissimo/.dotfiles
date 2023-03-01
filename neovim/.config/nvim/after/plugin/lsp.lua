@@ -7,7 +7,7 @@ lsp.set_preferences({
 	set_lsp_keymaps = true,
 	configure_diagnostics = true,
 	cmp_capabilities = true,
-	manage_nvim_cmp = true,
+	manage_nvim_cmp = false,
 	call_servers = "local",
 	sign_icons = {
 		error = "",
@@ -25,66 +25,6 @@ lsp.configure("sumneko_lua", {
 			},
 		},
 	},
-})
-
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-	["<C-Space>"] = cmp.mapping.complete(),
-	["<C-d>"] = cmp.mapping.scroll_docs(-4),
-	["<C-f>"] = cmp.mapping.scroll_docs(4),
-	["<C-e>"] = cmp.mapping.close(),
-	["<CR>"] = cmp.mapping.confirm({
-		behavior = cmp.ConfirmBehavior.Insert,
-		select = true,
-	}),
-	["<C-j>"] = cmp.mapping(function(fallback)
-		if luasnip.expand_or_jumpable() then
-			luasnip.expand_or_jump()
-		else
-			fallback()
-		end
-	end, { "i", "s" }),
-	["<C-k>"] = cmp.mapping(function(fallback)
-		if luasnip.jumpable(-1) then
-			luasnip.jump(-1)
-		else
-			fallback()
-		end
-	end, { "i", "s" }),
-	["<C-l>"] = cmp.mapping(function(fallback)
-		if luasnip.choice_active() then
-			luasnip.change_choice(1)
-		else
-			fallback()
-		end
-	end, { "i", "s" }),
-})
-
-cmp_mappings["<Tab>"] = nil
-cmp_mappings["<S-Tab>"] = nil
-
-local lspkind = require("lspkind")
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings,
-	formatting = {
-		-- changing the order of fields so the icon is the first
-		fields = { "menu", "abbr", "kind" },
-
-		-- here is where the change happens
-		format = function(_, vim_item)
-			vim_item.kind = lspkind.presets.default[vim_item.kind]
-			return vim_item
-		end,
-	},
-})
-
--- disable default keymaps
-lsp.set_preferences({
-	set_lsp_keymaps = false,
 })
 
 lsp.on_attach(function(client, bufnr)
@@ -137,6 +77,81 @@ lsp.nvim_workspace({
 })
 
 lsp.setup()
+
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local cmp_mappings = cmp.mapping.preset.insert({
+	["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+	["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+	["<C-Space>"] = cmp.mapping.complete(),
+	["<C-d>"] = cmp.mapping.scroll_docs(-4),
+	["<C-f>"] = cmp.mapping.scroll_docs(4),
+	["<C-e>"] = cmp.mapping.close(),
+	["<CR>"] = cmp.mapping.confirm({
+		behavior = cmp.ConfirmBehavior.Insert,
+		select = true,
+	}),
+	["<C-j>"] = cmp.mapping(function(fallback)
+		if luasnip.expand_or_jumpable() then
+			luasnip.expand_or_jump()
+		else
+			fallback()
+		end
+	end, { "i", "s" }),
+	["<C-k>"] = cmp.mapping(function(fallback)
+		if luasnip.jumpable(-1) then
+			luasnip.jump(-1)
+		else
+			fallback()
+		end
+	end, { "i", "s" }),
+	["<C-l>"] = cmp.mapping(function(fallback)
+		if luasnip.choice_active() then
+			luasnip.change_choice(1)
+		else
+			fallback()
+		end
+	end, { "i", "s" }),
+	["<Tab>"] = cmp.mapping(function(fallback)
+			fallback()
+	end, { "i", "s" }),
+	["S-Tab>"] = cmp.mapping(function(fallback)
+			fallback()
+	end, { "i", "s" }),
+})
+
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+local lspkind = require("lspkind")
+local cmp_config = lsp.defaults.cmp_config({
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+		col_offset = -3,
+		side_padding = 0,
+	},
+	mapping = cmp_mappings,
+	formatting = {
+		-- fields = { "kind", "abbr", "menu" },
+		fields = { "kind", "abbr" },
+		format = function(entry, vim_item)
+			vim_item.abbr = string.sub(vim_item.abbr, 1, 19)
+			local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50, symbol_map = { Copilot = "" } })(entry, vim_item)
+			local strings = vim.split(kind.kind, "%s", { trimempty = true })
+			kind.kind = " " .. (strings[1] or "") .. " "
+			kind.menu = "    (" .. (strings[2] or "") .. ")"
+			return kind
+		end,
+	},
+	sources = cmp.config.sources({
+		{ name = "copilot" },
+		{ name = "nvim_lsp", max_item_count = 5 },
+		{ name = "path" },
+		{ name = "luasnip", max_item_count = 3 },
+	}),
+})
+
+cmp.setup(cmp_config)
 
 vim.diagnostic.config({
 	virtual_text = false,
@@ -204,11 +219,9 @@ null_ls.setup({
 	},
 })
 
--- See mason-null-ls.nvim's documentation for more details:
--- https://github.com/jay-babu/mason-null-ls.nvim#setup
 require("mason-null-ls").setup({
 	ensure_installed = nil,
-	automatic_installation = true, -- You can still set this to `true`
+	automatic_installation = true,
 	automatic_setup = true,
 })
 
