@@ -15,7 +15,6 @@ plugins=(
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 	zsh-z
-	vi-mode
 	fzf
 )
 
