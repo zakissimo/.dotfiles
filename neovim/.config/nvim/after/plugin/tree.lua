@@ -3,14 +3,14 @@ require("nvim-tree").setup({
         enable = true,
     },
     disable_netrw = false,
-    hijack_netrw = true,
+    hijack_netrw = false,
     view = {
         number = false,
         relativenumber = false,
         centralize_selection = true,
     },
-    sync_root_with_cwd = true,
-    respect_buf_cwd = true,
+    sync_root_with_cwd = false,
+    respect_buf_cwd = false,
     update_cwd = true,
     update_focused_file = {
         enable = true,

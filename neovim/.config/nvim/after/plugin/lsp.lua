@@ -4,7 +4,7 @@ lsp.preset("recommended")
 lsp.set_preferences({
     suggest_lsp_servers = true,
     setup_servers_on_start = true,
-    set_lsp_keymaps = true,
+    set_lsp_keymaps = false,
     configure_diagnostics = true,
     cmp_capabilities = true,
     manage_nvim_cmp = false,
@@ -68,7 +68,7 @@ lsp.on_attach(function(client, bufnr)
         vim.lsp.buf.code_action()
     end, opts)
     if client.name ~= "clangd" then
-        vim.keymap.set("n", "<F2>", ":NullFormat<CR>", opts)
+        vim.keymap.set("n", "<F2>", ":lua vim.lsp.buf.format()<CR>", opts)
     end
 end)
 
@@ -114,14 +114,14 @@ local cmp_mappings = cmp.mapping.preset.insert({
         end
     end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-            fallback()
+        fallback()
     end, { "i", "s" }),
     ["S-Tab>"] = cmp.mapping(function(fallback)
-            fallback()
+        fallback()
     end, { "i", "s" }),
 })
 
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 local lspkind = require("lspkind")
 local cmp_config = lsp.defaults.cmp_config({
     window = {
@@ -135,8 +135,11 @@ local cmp_config = lsp.defaults.cmp_config({
         -- fields = { "kind", "abbr", "menu" },
         fields = { "kind", "abbr" },
         format = function(entry, vim_item)
-            vim_item.abbr = string.sub(vim_item.abbr, 1, 19)
-            local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50, symbol_map = { Copilot = "" } })(entry, vim_item)
+            vim_item.abbr = string.sub(vim_item.abbr, 1, 21)
+            local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50, symbol_map = { Copilot = "" } })(
+                entry,
+                vim_item
+            )
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. (strings[1] or "") .. " "
             kind.menu = "    (" .. (strings[2] or "") .. ")"
@@ -196,8 +199,9 @@ null_ls.setup({
     end,
     sources = {
         formatting.shfmt,
-        formatting.stylua,
+        formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
         formatting.autopep8,
+        formatting.clang_format.with({ extra_args = { "-style", "{IndentWidth: 4}" } }),
         formatting.prettierd.with({ filetypes = { "css", "html" } }),
         formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
         diagnostics.shellcheck,

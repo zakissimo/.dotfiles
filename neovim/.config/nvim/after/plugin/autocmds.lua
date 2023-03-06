@@ -6,11 +6,13 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     group = vim.api.nvim_create_augroup("TabSpace", { clear = true }),
     callback = function()
         local ft = vim.bo.filetype
-    set.tabstop = 4
-    set.shiftwidth = 4
         if ft == "c" then
+            set.tabstop = 4
+            set.shiftwidth = 4
             set.expandtab = false
         else
+            set.tabstop = 4
+            set.shiftwidth = 4
             set.expandtab = true
         end
     end,
@@ -43,4 +45,4 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 
 set.termguicolors = true
-require'colorizer'.setup()
+require("colorizer").setup()
