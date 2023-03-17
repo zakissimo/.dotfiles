@@ -14,44 +14,62 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     use("wbthomason/packer.nvim")
 
+    use({ "nvim-lua/plenary.nvim" })
+
+    use({ "stevearc/dressing.nvim" })
+    use({
+        "ibhagwan/fzf-lua",
+        requires = { "kyazdani42/nvim-web-devicons" },
+    })
+
+    use("folke/tokyonight.nvim")
+    use({ "rose-pine/neovim", as = "rose-pine" })
+    use("nvim-lualine/lualine.nvim")
+
+    use("mbbill/undotree")
+    use("kyazdani42/nvim-tree.lua")
+
+    use("lewis6991/gitsigns.nvim")
+    use("kdheepak/lazygit.nvim")
+
     use({
         "karb94/neoscroll.nvim",
         config = function()
             require("neoscroll").setup()
         end,
     })
-
-    use({ "stevearc/dressing.nvim" })
-    use("folke/tokyonight.nvim")
-    use({ "rose-pine/neovim", as = "rose-pine" })
-    use("nvim-lualine/lualine.nvim")
     use({
-        "ibhagwan/fzf-lua",
-        requires = { "kyazdani42/nvim-web-devicons" },
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end,
     })
-
-    use("kyazdani42/nvim-tree.lua")
-    use("mbbill/undotree")
-    use("lewis6991/gitsigns.nvim")
-    use("kdheepak/lazygit.nvim")
-
-    use("42Paris/42header")
-
-    use({ "norcalli/nvim-colorizer.lua" })
+    use({ "rcarriga/nvim-notify" })
     use({
         "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup()
         end,
     })
+    use({ "norcalli/nvim-colorizer.lua" })
+
     use({
-        "kylechui/nvim-surround",
-        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        "zbirenbaum/copilot.lua",
+        event = "VimEnter",
         config = function()
-            require("nvim-surround").setup({})
+            require("zak.copilot")
         end,
     })
-
+    use({
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+    })
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
     use({
         "VonHeikemen/lsp-zero.nvim",
@@ -78,25 +96,7 @@ return require("packer").startup(function(use)
             { "rafamadriz/friendly-snippets" }, -- Optional
         },
     })
-
-    use({
-        "zbirenbaum/copilot.lua",
-        event = "VimEnter",
-        config = function()
-            vim.defer_fn(function()
-                require("zak.copilot")
-            end, 100)
-        end,
-    })
-    use({
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua" },
-        config = function()
-            require("copilot_cmp").setup()
-        end,
-    })
-
-    use({ "nvim-lua/plenary.nvim" })
+    use("42Paris/42header")
 
     if packer_bootstrap then
         require("packer").sync()
