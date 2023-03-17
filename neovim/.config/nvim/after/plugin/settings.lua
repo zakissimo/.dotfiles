@@ -1,6 +1,6 @@
 local set = vim.opt
 
-set.autochdir = false
+set.autochdir = true
 set.cursorline = true
 set.fileencoding = "utf-8"
 set.ignorecase = true
@@ -28,7 +28,7 @@ set.incsearch = true
 set.updatetime = 50
 set.wrap = true
 set.list = true
-set.listchars = "tab:>-"
+set.listchars = "tab:>-,trail:."
 
 vim.cmd("set fillchars+=eob:│")
 

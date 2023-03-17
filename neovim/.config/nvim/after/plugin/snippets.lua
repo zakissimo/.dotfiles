@@ -1,25 +1,29 @@
 local ls = require("luasnip")
--- some shorthands...
+
 local snip = ls.snippet
--- local node = ls.snippet_node
--- local text = ls.text_node
--- local insert = ls.insert_node
+local text = ls.text_node
 local func = ls.function_node
+local insert = ls.insert_node
+-- local node = ls.snippet_node
 -- local choice = ls.choice_node
 -- local dynamicn = ls.dynamic_node
 
-local date = function()
-    return { "--Filename basename is: " .. vim.fn.expand("%:t:r") }
+local ifn = function()
+    local filename = vim.fn.expand("%:t:r") .. "_H"
+    return { "#ifndef " .. filename, "# define " .. filename }
 end
 
 ls.add_snippets(nil, {
-    all = {
+    cpp = {
         snip({
-            trig = "testus",
-            namr = "testus",
-            dscr = "testus lol",
+            trig = "ifn",
+            name = "ifndef",
+            dscr = "Include Guard Lines",
         }, {
-            func(date, {}),
+            func(ifn, {}),
+            text(" "),
+            insert(1),
+            text("#endif"),
         }),
     },
 })
