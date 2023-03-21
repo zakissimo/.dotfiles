@@ -25,6 +25,7 @@ set.undofile = true
 set.hlsearch = false
 set.incsearch = true
 
+set.timeoutlen = 200
 set.updatetime = 50
 set.wrap = true
 set.list = true
