@@ -88,18 +88,18 @@ return require("packer").startup(function(use)
             { "rafamadriz/friendly-snippets" }, -- Optional
         },
     })
-    use({
-        "hardyrafael17/norminette42.nvim",
-        config = function()
-            vim.defer_fn(function()
-                require("norminette").setup({
-                    runOnSave = true,
-                    maxErrorsToShow = 5,
-                    active = true,
-                })
-            end, 100)
-        end,
-    })
+    -- use({
+    --     "hardyrafael17/norminette42.nvim",
+    --     config = function()
+    --         vim.defer_fn(function()
+    --             require("norminette").setup({
+    --                 runOnSave = true,
+    --                 maxErrorsToShow = 5,
+    --                 active = true,
+    --             })
+    --         end, 100)
+    --     end,
+    -- })
 
     if packer_bootstrap then
         require("packer").sync()
