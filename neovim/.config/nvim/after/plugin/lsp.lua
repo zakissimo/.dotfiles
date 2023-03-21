@@ -203,7 +203,7 @@ null_ls.setup({
         formatting.shfmt,
         formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
         formatting.autopep8,
-        -- formatting.clang_format.with({ extra_args = { "-style", "{IndentWidth: 4}" } }),
+        formatting.clang_format.with({ extra_args = { "-style", "{IndentWidth: 4}" } }),
         formatting.prettierd.with({ filetypes = { "css", "html" } }),
         formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
         diagnostics.shellcheck,
