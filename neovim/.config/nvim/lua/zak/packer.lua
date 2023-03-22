@@ -14,6 +14,12 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     use("wbthomason/packer.nvim")
 
+    use({
+        "lewis6991/impatient.nvim",
+        config = function()
+            require("impatient")
+        end,
+    })
     use({ "nvim-lua/plenary.nvim" })
 
     use({ "stevearc/dressing.nvim" })

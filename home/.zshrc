@@ -38,6 +38,7 @@ alias minival="valgrind --trace-children=yes --track-fds=yes --suppressions=vsup
 alias lg=lazygit
 alias ls=exa
 alias la='exa -la'
+alias tree='exa -T'
 alias t=tmux
 alias lf=lf-ueberzug
 alias e=emacs
