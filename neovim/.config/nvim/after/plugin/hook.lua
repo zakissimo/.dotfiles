@@ -95,7 +95,7 @@ _Get_lines_from_win = function ()
             callback = function ()
                 inames = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
                 vim.pretty_print(inames)
-                close_removed_buffers(btab, inames)
+                --close_removed_buffers(btab, inames)
             end
         })
     end
