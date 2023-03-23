@@ -24,7 +24,6 @@ local get_active_bufs = function()
             table.insert(active_bufs, v)
         end
     end
-
     return active_bufs
 end
 
@@ -50,19 +49,22 @@ local set_bufs_names = function(bufs)
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, bufnames)
 end
 
-local open_hook_win = function ()
-    set_bufs_names(get_bufs_names(get_active_bufs()))
-    vim.api.nvim_open_win(buf, true, config)
-end
-
-local get_lines_from_win = function ()
+_get_lines_from_win = function ()
     if vim.fn.bufwinnr(buf) > -1 then
+        vim.api.nvim_win_close(vim.fn.win_getid(vim.fn.bufwinnr(buf)), "force")
+    else
+        set_bufs_names(get_bufs_names(get_active_bufs()))
+        vim.api.nvim_open_win(buf, true, config)
         vim.api.nvim_create_autocmd({ "BufLeave" }, {
             pattern = "hook",
             group = vim.api.nvim_create_augroup("hook", { clear = true }),
             callback = function ()
-               vim.print(vim.api.nvim_buf_get_lines(buf, 0, -1, false))
+               vim.api.nvim_buf_get_lines(buf, 0, -1, false)
             end
         })
     end
 end
+
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+map("n", "<C-b>", ":lua _get_lines_from_win()<CR>", opts)
