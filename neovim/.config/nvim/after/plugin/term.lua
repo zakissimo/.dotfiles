@@ -7,10 +7,10 @@ local function bottom_term_init()
     buf = vim.api.nvim_create_buf({}, {})
     vim.cmd("13sp")
     vim.cmd("buffer" .. buf)
-    term = vim.fn.termopen("zsh")
-    cd = "cd " .. path .. "\r"
-    vim.api.nvim_chan_send(term, cd)
-    vim.api.nvim_chan_send(term, "clear\r")
+    _ = vim.fn.termopen("zsh")
+    -- cd = "cd " .. path .. "\r"
+    -- vim.api.nvim_chan_send(term, cd)
+    -- vim.api.nvim_chan_send(term, "clear\r")
     vim.cmd("startinsert")
     return path, buf
 end

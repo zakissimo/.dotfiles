@@ -14,14 +14,54 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     use("wbthomason/packer.nvim")
 
+    use({ "nvim-lua/plenary.nvim" })
+
     use({ "stevearc/dressing.nvim" })
+    use({
+        "ibhagwan/fzf-lua",
+        requires = { "kyazdani42/nvim-web-devicons" },
+    })
+
+    use("folke/tokyonight.nvim")
+    use({ "rose-pine/neovim", as = "rose-pine" })
+    use("nvim-lualine/lualine.nvim")
+
+    use("mbbill/undotree")
+    use("kyazdani42/nvim-tree.lua")
+
+    use("lewis6991/gitsigns.nvim")
+    use("kdheepak/lazygit.nvim")
+
+    use({
+        "karb94/neoscroll.nvim",
+        config = function()
+            require("neoscroll").setup()
+        end,
+    })
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end,
+    })
+    use({
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup()
+        end,
+    })
+    use({ "norcalli/nvim-colorizer.lua" })
+
+    use("MunifTanjim/nui.nvim")
+    use("dpayne/CodeGPT.nvim")
     use({
         "zbirenbaum/copilot.lua",
         event = "VimEnter",
         config = function()
-            vim.defer_fn(function()
-                require("zak.copilot")
-            end, 100)
+            require("zak.copilot")
         end,
     })
     use({
@@ -31,38 +71,7 @@ return require("packer").startup(function(use)
             require("copilot_cmp").setup()
         end,
     })
-    use({ "nvim-lua/plenary.nvim" })
-    use("kyazdani42/nvim-tree.lua")
-    use({
-        "ibhagwan/fzf-lua",
-        requires = { "kyazdani42/nvim-web-devicons" },
-    })
-
-    use("folke/tokyonight.nvim")
-    use({ "rose-pine/neovim", as = "rose-pine" })
-    use("nvim-lualine/lualine.nvim")
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-
-    use("mbbill/undotree")
-    use("lewis6991/gitsigns.nvim")
-    use("kdheepak/lazygit.nvim")
-
-    use("42Paris/42header")
-
-    use({
-        "karb94/neoscroll.nvim",
-        config = function()
-            require("neoscroll").setup()
-        end,
-    })
-    use({ "norcalli/nvim-colorizer.lua" })
-    use({
-        "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup()
-        end,
-    })
-
     use({
         "VonHeikemen/lsp-zero.nvim",
         branch = "v1.x",
@@ -88,18 +97,7 @@ return require("packer").startup(function(use)
             { "rafamadriz/friendly-snippets" }, -- Optional
         },
     })
-    -- use({
-    --     "hardyrafael17/norminette42.nvim",
-    --     config = function()
-    --         vim.defer_fn(function()
-    --             require("norminette").setup({
-    --                 runOnSave = true,
-    --                 maxErrorsToShow = 5,
-    --                 active = true,
-    --             })
-    --         end, 100)
-    --     end,
-    -- })
+    use("42Paris/42header")
 
     if packer_bootstrap then
         require("packer").sync()

@@ -89,17 +89,17 @@ local cmp_mappings = cmp.mapping.preset.insert({
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
+        behavior = cmp.ConfirmBehavior.Replace,
         select = true,
     }),
-    ["<C-j>"] = cmp.mapping(function(fallback)
+    ["<C-k>"] = cmp.mapping(function(fallback)
         if luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
         else
             fallback()
         end
     end, { "i", "s" }),
-    ["<C-k>"] = cmp.mapping(function(fallback)
+    ["<C-j>"] = cmp.mapping(function(fallback)
         if luasnip.jumpable(-1) then
             luasnip.jump(-1)
         else
@@ -147,7 +147,7 @@ local cmp_config = lsp.defaults.cmp_config({
         end,
     },
     sources = cmp.config.sources({
-        { name = "copilot" },
+        -- { name = "copilot" },
         { name = "nvim_lsp", max_item_count = 5 },
         { name = "path" },
         { name = "luasnip", max_item_count = 3 },
@@ -181,6 +181,7 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup({
     debug = false,
     on_attach = function(client, bufnr)
+        client.offset_encoding = "utf-8"
         null_opts.on_attach(client, bufnr)
         local format_cmd = function(input)
             vim.lsp.buf.format({
@@ -198,7 +199,7 @@ null_ls.setup({
         })
     end,
     sources = {
-        formatting.shfmt,
+        formatting.shfmt.with({ extra_args = { "-i", "4" } }),
         formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
         formatting.autopep8,
         formatting.clang_format.with({ extra_args = { "-style", "{IndentWidth: 4}" } }),
