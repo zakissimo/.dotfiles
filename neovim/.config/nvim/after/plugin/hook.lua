@@ -14,52 +14,88 @@ local config = {
 }
 
 local get_active_bufs = function()
-    local buflist = vim.api.nvim_list_bufs()
-    local active_bufs = {}
+    local blist = vim.api.nvim_list_bufs()
+    local btab = {}
 
-    for _, v in ipairs(buflist) do
+    for _, v in ipairs(blist) do
+        local tmp = {}
         if vim.api.nvim_buf_is_loaded(v)
             and vim.api.nvim_buf_get_option(v, "buftype")
                 ~= "nofile" then
-            table.insert(active_bufs, v)
+            local full_fname = vim.fn.getbufinfo(v)[1].name
+            local fname = vim.fn.fnamemodify(full_fname, ':t')
+            if fname ~= "" then
+                tmp.name = fname
+                tmp.bufnr = v
+                table.insert(btab, tmp)
+            end
         end
     end
-    return active_bufs
+    return btab
 end
 
-local get_bufs_names = function(active_bufs)
-    local buf_tab = {}
+local get_bufs_names = function(btab)
+    local bnames = {}
+    for _, b in pairs(btab) do
+        table.insert(bnames, b.name)
+    end
+    return bnames
+end
 
-    for _, v in ipairs(active_bufs) do
-        local full_fname = vim.fn.getbufinfo(v)[1].name
-        local fname = vim.fn.fnamemodify(full_fname, ':t')
-        local bufnr = vim.fn.getbufinfo(v)[1].bufnr
-        if fname ~= "" then
-            buf_tab[fname] = bufnr
+local set_bufs_names = function(btab)
+    local bnames = get_bufs_names(btab)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, bnames)
+end
+
+local str_is_in_table = function(str, table)
+    for _, v in ipairs(table) do
+        if v == str then
+            return true
         end
     end
-    return buf_tab
+    return false
 end
 
-local set_bufs_names = function(bufs)
-    local bufnames = {}
-    for b, _ in pairs(bufs) do
-        table.insert(bufnames, b)
+local get_bufnr_from_name = function (btab, name)
+    for _, b in ipairs(btab) do
+        if name == b.name then
+            return b.bufnr
+        end
     end
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, bufnames)
+    return nil
 end
 
-_get_lines_from_win = function ()
+local close_removed_buffers = function(btab, inames)
+    local bnames = get_bufs_names(btab)
+    for _, b in ipairs(bnames) do
+        if not str_is_in_table(b, inames) then
+            local bufnr = get_bufnr_from_name(btab, b)
+            vim.cmd("bd " .. bufnr)
+        end
+    end
+end
+
+local once = true
+
+_Get_lines_from_win = function ()
+    local inames = {}
+
+    local btab = get_active_bufs()
+    if once then
+        set_bufs_names(btab)
+        once = false
+    end
     if vim.fn.bufwinnr(buf) > -1 then
         vim.api.nvim_win_close(vim.fn.win_getid(vim.fn.bufwinnr(buf)), "force")
     else
-        set_bufs_names(get_bufs_names(get_active_bufs()))
         vim.api.nvim_open_win(buf, true, config)
-        vim.api.nvim_create_autocmd({ "BufLeave" }, {
+        vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
             pattern = "hook",
             group = vim.api.nvim_create_augroup("hook", { clear = true }),
             callback = function ()
-               vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+                inames = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+                vim.pretty_print(inames)
+                close_removed_buffers(btab, inames)
             end
         })
     end
@@ -67,4 +103,4 @@ end
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
-map("n", "<C-b>", ":lua _get_lines_from_win()<CR>", opts)
+map("n", "<C-b>", ":lua _Get_lines_from_win()<CR>", opts)
