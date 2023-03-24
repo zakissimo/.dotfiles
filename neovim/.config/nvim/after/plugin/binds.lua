@@ -20,9 +20,6 @@ map("n", "<leader>x", ":!chmod +x %<CR>", opts)
 map("n", "<leader>pr", ":PackerSync<CR>", opts)
 map("n", "<leader>lr", ":w!<CR>:source %<CR>", opts)
 
-map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
-map("v", "S", ":s///g<Left><Left><Left>", { noremap = true })
-
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
 

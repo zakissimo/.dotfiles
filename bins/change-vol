@@ -27,7 +27,7 @@ DOWN)
 	;;
 MUTE)
 	pamixer -t
-	if $(pamixer --get-mute); then
+    if eval pamixer --get-mute; then
 		dunstify -i "$MUTED_ICON" -t 2000 "Muted" -r 123
 	else
 		send_notification UP
