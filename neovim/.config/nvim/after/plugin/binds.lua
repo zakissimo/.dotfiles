@@ -3,6 +3,8 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
+map("n", "<Leader>cc", ":lua require'zak.run'.code()<CR>", opts)
+
 map("n", "<esc><esc>", ":noh<CR>", opts)
 map("n", "<C-s>", ":w<CR>", opts)
 map("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
