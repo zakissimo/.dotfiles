@@ -22,6 +22,10 @@ return require("packer").startup(function(use)
     })
     use({ "nvim-lua/plenary.nvim" })
 
+    use({ "zakissimo/run.nvim" })
+    use({ "zakissimo/term.nvim" })
+    use({ "zakissimo/hook.nvim" })
+
     use({ "stevearc/dressing.nvim" })
     use({
         "ibhagwan/fzf-lua",
