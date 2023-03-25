@@ -3,6 +3,8 @@ local opts = { noremap = true, silent = true }
 
 vim.g.mapleader = " "
 
+map("n", "<Leader>cc", ":lua require'zak.run'.code()<CR>", opts)
+
 map("n", "<esc><esc>", ":noh<CR>", opts)
 map("n", "<C-s>", ":w<CR>", opts)
 map("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
@@ -17,9 +19,6 @@ map("x", "<leader>p", '"_dP', opts)
 map("n", "<leader>x", ":!chmod +x %<CR>", opts)
 map("n", "<leader>pr", ":PackerSync<CR>", opts)
 map("n", "<leader>lr", ":w!<CR>:source %<CR>", opts)
-
-map("n", "S", ":%s///g<Left><Left><Left>", { noremap = true })
-map("v", "S", ":s///g<Left><Left><Left>", { noremap = true })
 
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)

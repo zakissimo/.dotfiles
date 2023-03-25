@@ -1,38 +1,35 @@
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-local path, buf, term, cd
+local path, buf
 local function bottom_term_init()
     path = vim.fn.expand("%:p:h")
     buf = vim.api.nvim_create_buf({}, {})
     vim.cmd("13sp")
     vim.cmd("buffer" .. buf)
     _ = vim.fn.termopen("zsh")
-    -- cd = "cd " .. path .. "\r"
-    -- vim.api.nvim_chan_send(term, cd)
-    -- vim.api.nvim_chan_send(term, "clear\r")
     vim.cmd("startinsert")
     return path, buf
 end
 
-local bottomTermPath, bottomTermBufId
+local term_path, term_bufnr
 function _BOTTOM_TERM_TOGGLE()
     path = vim.fn.expand("%:p:h")
-    if vim.fn.bufexists(bottomTermBufId) ~= 0 then
-        if vim.fn.bufwinnr(bottomTermBufId) > -1 then
-            vim.api.nvim_win_close(vim.fn.win_getid(vim.fn.bufwinnr(bottomTermBufId)), "force")
+    if vim.fn.bufexists(term_bufnr) ~= 0 then
+        if vim.fn.bufwinnr(term_bufnr) > -1 then
+            vim.api.nvim_win_close(vim.fn.win_getid(vim.fn.bufwinnr(term_bufnr)), "force")
         else
-            if bottomTermPath ~= path then
-                vim.cmd(bottomTermBufId .. "bd!")
-                bottomTermPath, bottomTermBufId = bottom_term_init()
+            if term_path ~= path then
+                vim.cmd(term_bufnr .. "bd!")
+                term_path, term_bufnr = bottom_term_init()
             else
                 vim.cmd("13sp")
-                vim.cmd("buffer" .. bottomTermBufId)
+                vim.cmd("buffer" .. term_bufnr)
                 vim.cmd("startinsert")
             end
         end
     else
-        bottomTermPath, bottomTermBufId = bottom_term_init()
+        term_path, term_bufnr = bottom_term_init()
     end
 end
 
