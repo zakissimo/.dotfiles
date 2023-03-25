@@ -14,7 +14,17 @@ local packer_bootstrap = ensure_packer()
 return require("packer").startup(function(use)
     use("wbthomason/packer.nvim")
 
+    use({
+        "lewis6991/impatient.nvim",
+        config = function()
+            require("impatient")
+        end,
+    })
     use({ "nvim-lua/plenary.nvim" })
+
+    use({ "zakissimo/run.nvim" })
+    use({ "zakissimo/term.nvim" })
+    use({ "zakissimo/hook.nvim" })
 
     use({ "stevearc/dressing.nvim" })
     use({
@@ -56,6 +66,8 @@ return require("packer").startup(function(use)
     })
     use({ "norcalli/nvim-colorizer.lua" })
 
+    use("MunifTanjim/nui.nvim")
+    use("dpayne/CodeGPT.nvim")
     use({
         "zbirenbaum/copilot.lua",
         event = "VimEnter",

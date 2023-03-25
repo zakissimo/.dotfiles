@@ -136,22 +136,22 @@ local cmp_config = lsp.defaults.cmp_config({
         -- fields = { "kind", "abbr", "menu" },
         fields = { "kind", "abbr" },
         format = function(entry, vim_item)
-            vim_item.abbr = string.sub(vim_item.abbr, 1, 21)
+            -- vim_item.abbr = string.sub(vim_item.abbr, 1, 11)
             local kind = lspkind.cmp_format({ mode = "symbol_text", maxwidth = 50, symbol_map = { Copilot = "" } })(
                 entry,
                 vim_item
             )
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. (strings[1] or "") .. " "
-            kind.menu = "    (" .. (strings[2] or "") .. ")"
+            kind.menu = ""
             return kind
         end,
     },
     sources = cmp.config.sources({
         -- { name = "copilot" },
         { name = "nvim_lsp", max_item_count = 5 },
-        { name = "path" },
         { name = "luasnip", max_item_count = 3 },
+        { name = "path" },
     }),
 })
 
@@ -203,7 +203,7 @@ null_ls.setup({
         formatting.shfmt,
         formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
         formatting.autopep8,
-        -- formatting.clang_format.with({ extra_args = { "-style", "{IndentWidth: 4}" } }),
+        formatting.clang_format.with({ extra_args = { "-style", "{IndentWidth: 4}" } }),
         formatting.prettierd.with({ filetypes = { "css", "html" } }),
         formatting.deno_fmt.with({ extra_args = { "--options-single-quote", "--options-indent-width=4" } }),
         diagnostics.shellcheck,
