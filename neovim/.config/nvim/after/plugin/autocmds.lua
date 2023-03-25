@@ -43,6 +43,3 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
         end
     end,
 })
-
-set.termguicolors = true
-require("colorizer").setup()

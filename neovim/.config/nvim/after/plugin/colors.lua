@@ -9,3 +9,7 @@ vim.notify = function(msg, ...)
         return
     end
 end
+
+local set = vim.opt
+set.termguicolors = true
+require("colorizer").setup()
