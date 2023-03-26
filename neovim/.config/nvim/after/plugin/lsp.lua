@@ -28,7 +28,6 @@ lsp.configure("sumneko_lua", {
 })
 
 lsp.on_attach(function(client, bufnr)
-
     local opts = { buffer = bufnr, remap = false }
 
     vim.keymap.set("n", "gD", function()
@@ -150,7 +149,7 @@ local cmp_config = lsp.defaults.cmp_config({
     sources = cmp.config.sources({
         -- { name = "copilot" },
         { name = "nvim_lsp", max_item_count = 5 },
-        { name = "luasnip", max_item_count = 3 },
+        { name = "luasnip",  max_item_count = 3 },
         { name = "path" },
     }),
 })
@@ -182,7 +181,7 @@ local code_actions = null_ls.builtins.code_actions
 null_ls.setup({
     debug = false,
     on_attach = function(client, bufnr)
-        client.offset_encoding = 'utf-8'
+        client.offset_encoding = "utf-8"
         null_opts.on_attach(client, bufnr)
         local format_cmd = function(input)
             vim.lsp.buf.format({
@@ -200,7 +199,7 @@ null_ls.setup({
         })
     end,
     sources = {
-        formatting.shfmt,
+        formatting.shfmt.with({ extra_args = { "--indent", "4" } }),
         formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
         formatting.autopep8,
         formatting.clang_format.with({ extra_args = { "-style", "{IndentWidth: 4}" } }),

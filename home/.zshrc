@@ -25,7 +25,6 @@ KEYTIMEOUT=1
 
 alias lg=lazygit
 alias ls=exa
-alias lf=lf-ueberzug
 alias la='exa -la'
 alias e=emacs
 alias t=tmux

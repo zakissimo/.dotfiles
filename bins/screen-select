@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-xrandr --auto
-display=$(xrandr --listmonitors | cut -d' ' -f6 | sed '/^$/d' | rofi -dmenu -p "Select display: ")
-res=$(xrandr | grep -A11 "$display" | grep -v "$display" | cut -d' ' -f4 | rofi -dmenu -p "Select resolution: ")
-rate=$(xrandr | grep -A11 "$display" | grep -v "$display" | grep "$res" | tr -s ' ' | tr ' ' '\n' | grep -v "$res" | sed 's/+//' | sed 's/*//' | sed '/^$/d' | sort -gr | rofi -dmenu -p "Select refresh rate: ")
-xrandr --output "$display" --mode "$res" --rate "$rate" --same-as eDP
