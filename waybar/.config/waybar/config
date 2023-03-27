@@ -107,7 +107,7 @@
         "on-scroll-down": "pamixer --default-source -d 5",
         "scroll-step": 5
     },
-    
+
     "temperature": {
         "thermal-zone": 1,
         "format": "{temperatureC}°C ",
@@ -126,11 +126,13 @@
     },
 
     "bluetooth": {
-	    "format": " {status}",
-	    "format-disabled": "", // an empty format will hide the module
-	    "format-connected": " {num_connections}",
-	    "tooltip-format": "{device_alias}",
-	    "tooltip-format-connected": " {device_enumerate}",
-	    "tooltip-format-enumerate-connected": "{device_alias}"
+       "format": " {status}",
+       "format-disabled": "", // an empty format will hide the module
+       "format-connected": " {num_connections}",
+       "tooltip-format": "{device_alias}",
+       "tooltip-format-connected": " {device_enumerate}",
+       "tooltip-format-enumerate-connected": "{device_alias}"
     }
 }
+
+/* vim: set syntax=json: */
