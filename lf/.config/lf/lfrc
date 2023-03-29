@@ -4,8 +4,7 @@ set period 1
 set scrolloff 10
 set shellopts '-eu'
 set ignorecase true
-set cleaner lf-ueberzug-cleaner
-set previewer lf-ueberzug-previewer
+set previewer "~/.config/lf/previewer"
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 
 cmd extract ${{

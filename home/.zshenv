@@ -4,8 +4,7 @@ export ZSH_THEME="powerlevel10k/powerlevel10k"
 export MANPAGER="moar"
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
-export USER='zhabri'
-export MAIL='zhabri@student.42.fr'
+export XDG_CURRENT_DESKTOP="Unity"
 export EDITOR="nvim"
 export LF_ICONS="\
 tw=:\

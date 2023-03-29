@@ -1,5 +1,4 @@
 bat
-bc
 btop
 curl
 deno
@@ -37,7 +36,6 @@ peek
 pipewire
 pipewire-pulse
 python-pip
-qtile
 ripgrep
 rofi
 shellcheck
@@ -45,7 +43,6 @@ shfmt
 starship
 stow
 stylua
-sxiv
 ttf-fira-code
 ttf-fira-mono
 ttf-fira-sans
@@ -55,19 +52,9 @@ ueberzug
 unzip
 vint
 wget
-xcape
-xcb-util-cursor
-xclip
 xf86-video-amdgpu
 xf86-video-ati
 xf86-video-vmware
-xorg-server
-xorg-xdpyinfo
-xorg-xinit
-xorg-xmessage
-xorg-xrandr
-xorg-xrdb
-xorg-xset
 xterm
 yt-dlp
 zathura-pdf-mupdf

@@ -10,31 +10,15 @@ sudo sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.con
 echo "[multilib]" | sudo tee -a /etc/pacman.conf
 echo "Include = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf
 
-sudo pacman -Fy
-sudo pacman -Sy archlinux-keyring
-sudo pacman -S - <pkglist.txt
-
-pip install --upgrade pip
-pip install dbus-next psutil pywal wheel pynvim requests black autopep8 pylint pytest dbg debugpy ueberzug neovim-remote
-
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && rm -rf yay
 
-yay -S picom-jonaburg-git megasync-bin nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state stylua dracula-gtk-theme dracula-icons-git dracula-cursors-git notion-app-enhanced devour busted vim-vader-git ly lf atool i3lock-color nmap-netcat kvantum-qt5-git zeal timeshift-bin timeshit-autosnap xkb-qwerty-fr -y
+yay -S nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state dracula-gtk-theme dracula-cursors-git dracula-icons-git dracula-cursors-git devour kvantum-qt5-git zeal xkb-qwerty-fr hyprland-bin megasync-bin foot waybar-hyprland swaybg swaylock-effects wofi wlogout pcmanfm ttf-jetbrains-mono-nerd ttf-joypixels polkit-gnome python-requests swappy grim slurp pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings xdg-desktop-portal-hyprland-git chafa bat ripgrep moar man-db unzip
+
+pip install --upgrade pip
+pip install dbus-next psutil pywal wheel pynvim requests neovim-remote
 
 sudo pacman -Sdd --asdeps libvterm
 
 mkdir -p "$HOME"/.local/bin
-
-wal -i "$HOME"/.dotfiles/01kgv4.jpg
-
-git clone https://github.com/betterlockscreen/betterlockscreen.git
-cd betterlockscreen && bash install.sh user latest true
-cd .. && rm -rf betterlockscreen
-
-betterlockscreen -u "$HOME"/.dotfiles/01kgv4.jpg --fx dimblur
-betterlockscreen -l dimblur
-
-sudo systemctl enable betterlockscreen@zak
-sudo systemctl enable ly.service
