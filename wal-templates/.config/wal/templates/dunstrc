@@ -6,8 +6,8 @@
 [global]
     # Make the width 3740 (3840 - 100), have 50 left margin and 95 above
     # geometry = "3740x100-50+95"
-	width = (0,350)
-	offset = 20x50
+    width = (0,350)
+    offset = 10x10
 
     # Show multiple notifications in the same box
     separator_height = 0
@@ -26,7 +26,7 @@
     idle_threshold = 120
 
     # Font and typography settings
-    font = CaskaydiaCove Nerd Font 12
+    font = Fira Code 12
     alignment = center
     word_wrap = yes
 
@@ -63,15 +63,15 @@
 
 # Set the background and foreground (text) color for all notifications
 [urgency_low]
-    background = "{background}50"
+    background = "{background}"
     foreground = "{foreground}"
 
 [urgency_normal]
-    background = "{background}50"
+    background = "{background}"
     foreground = "{foreground}"
 
 [urgency_critical]
-    background = "{background}50"
+    background = "{background}"
     foreground = "{foreground}"
 
 # vim:ft=cfg
