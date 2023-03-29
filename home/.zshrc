@@ -1,5 +1,3 @@
-source "$HOME/.config/tmux/tmux.zsh"
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -41,10 +39,16 @@ alias la='exa -la'
 alias tree='exa -T'
 alias t=tmux
 alias lf=lf-ueberzug
-alias e=emacs
-alias v=nvim
 alias vim=nvim
 alias pacfzf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudoj pacman -S'
 alias yayfzf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {1} | awk "{print \$2}")'\'' | xargs -ro yay -S'
+
+if [ -z "$NVIM" ]
+then
+    export VISUAL="nvim --listen /tmp/nvim_socket"
+else
+    export VISUAL="nvr --remote"
+fi
+alias v="$VISUAL"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
