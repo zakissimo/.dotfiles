@@ -1,6 +1,8 @@
 export ZSH="$HOME/.config/oh-my-zsh"
 export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
+export XDG_CACHE_HOME="$HOME/.cache/"
+export XDG_CONFIG_HOME="$HOME/.config/"
 export MANPAGER="moar"
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"

@@ -64,7 +64,7 @@ cmd delete ${{
 }}
 
 cmd setBg ${{
-	[[ ${f##*.} == "jpg" ]] || [[ ${f##*.} == "png" ]] && wal -i "$f" && betterlockscreen -u "$f" --fx dimblur
+	[[ ${f##*.} == "jpg" ]] || [[ ${f##*.} == "png" ]] && set_bg "$f" &
 }}
 
 map x cut
@@ -72,7 +72,7 @@ map X $chmod +x "$fx"
 map D delete
 map E extract
 map R $vimv
-map <c-w> setBg
+map w setBg
 map <c-r> reload
 map <enter> open
 map . set hidden!
