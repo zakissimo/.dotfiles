@@ -9,6 +9,7 @@
     width = (0,350)
     offset = 10x10
 
+    corner_radius = 17
     # Show multiple notifications in the same box
     separator_height = 0
 
@@ -63,15 +64,15 @@
 
 # Set the background and foreground (text) color for all notifications
 [urgency_low]
-    background = "{background}"
+    background = "{background}80"
     foreground = "{foreground}"
 
 [urgency_normal]
-    background = "{background}"
+    background = "{background}80"
     foreground = "{foreground}"
 
 [urgency_critical]
-    background = "{background}"
+    background = "{background}80"
     foreground = "{foreground}"
 
 # vim:ft=cfg

@@ -2,7 +2,7 @@
 
 load_tmux ()
 {
-    if [ "$TERM" = "LINUX" ] || [ -n "${TMUX+1}" ] || ! type tmux >/dev/null 2>&1; then
+    if [ ! -n "$WAYLAND_DISPLAY" ] || [ -n "${TMUX+1}" ] || ! type tmux >/dev/null 2>&1; then
         return;
     fi
 

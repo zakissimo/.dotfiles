@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+killall dunst -9
+cp "$1" "$XDG_CACHE_HOME/wallpaper" && wal -i "$1" > /dev/null && swww img "$1"
+dunst &
