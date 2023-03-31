@@ -23,15 +23,5 @@ source $ZSH/oh-my-zsh.sh
 
 KEYTIMEOUT=1
 
-alias lg=lazygit
-alias ls=exa
-alias la='exa -la'
-alias e=emacs
-alias t=tmux
-alias v=nvim
-alias mpv='devour mpv'
-alias pacfzf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudo pacman -S'
-alias yayfzf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {1} | awk "{print \$2}")'\'' | xargs -ro yay -S'
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
