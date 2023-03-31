@@ -12,7 +12,7 @@ def get_time():
 
     now = datetime.now()
     today_string = now.strftime("%D")
-    log_path = f"{home}/Apps/Time4Salat.log"
+    log_path = "/tmp/Time4Salat.log"
 
     if not os.path.exists(log_path) or not os.path.getsize(log_path):
         make_log(log_path, today_string)
