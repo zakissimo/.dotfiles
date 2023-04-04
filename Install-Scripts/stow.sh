@@ -25,6 +25,7 @@ done
 
 # [ ! -d "$HOME/.config/dunst" ] && mkdir -v "$HOME"/.config/dunst
 # [ ! -f "$HOME/.config/dunst/dunstrc" ] && ln -s "$HOME"/.cache/wal/dunstrc "$HOME"/.config/dunst/dunstrc
+# ln -s ~/.cache/wal/config ~/.config/tofi/config
 
 [ ! -d "$HOME/.local/bin" ] && mkdir -vp "$HOME/.local/bin"
 for bin in "$HOME"/.dotfiles/bins/*; do
