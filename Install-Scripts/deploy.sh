@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [ "$(id -u)" = 0 ]; then
-	echo "Don't run this script as root!"
-	exit 1
+    echo "Don't run this script as root!"
+    exit 1
 fi
 
 sudo sed -i "s/^#Color$/Color/" /etc/pacman.conf
