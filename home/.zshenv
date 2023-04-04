@@ -5,7 +5,7 @@ export XDG_CACHE_HOME="$HOME/.cache/"
 export XDG_CONFIG_HOME="$HOME/.config/"
 export MANPAGER="moar"
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
-export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
+export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null"
 export XDG_CURRENT_DESKTOP="Unity"
 export EDITOR="nvim"
 export LF_ICONS="\

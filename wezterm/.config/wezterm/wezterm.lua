@@ -15,6 +15,7 @@ config.font = wezterm.font_with_fallback {
     'Fira Code',
     'CaskaydiaCove',
     'Font Awesome 5',
+    'Noto Sans Mono CJK SC',
 }
 config.window_background_opacity = 0.75
 
