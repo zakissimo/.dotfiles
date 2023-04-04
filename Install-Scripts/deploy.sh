@@ -14,7 +14,7 @@ git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && rm -rf yay
 
-yay -S nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state dracula-gtk-theme dracula-cursors-git dracula-icons-git dracula-cursors-git devour kvantum-qt5-git zeal xkb-qwerty-fr hyprland-bin megasync-bin foot waybar-hyprland swaybg swaylock-effects wofi wlogout pcmanfm ttf-jetbrains-mono-nerd ttf-joypixels polkit-gnome python-requests swappy grim slurp pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings xdg-desktop-portal-hyprland-git chafa bat ripgrep moar man-db unzip ttf-dejavu-nerd wayshot-git
+yay -S nerd-fonts-cascadia-code ttf-impallari-lobster-font nerd-fonts-jetbrains-mono xkblayout-state dracula-gtk-theme dracula-cursors-git dracula-icons-git dracula-cursors-git devour kvantum-qt5-git zeal xkb-qwerty-fr hyprland-bin megasync-bin waybar-hyprland swaybg swaylock-effects wofi wlogout pcmanfm ttf-jetbrains-mono-nerd ttf-joypixels polkit-gnome python-requests swappy grim slurp pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings xdg-desktop-portal-hyprland-git chafa bat ripgrep moar man-db unzip ttf-dejavu-nerd wayshot-git tofi wezterm
 
 pip install --upgrade pip
 pip install dbus-next psutil pywal wheel pynvim requests neovim-remote
@@ -22,3 +22,6 @@ pip install dbus-next psutil pywal wheel pynvim requests neovim-remote
 sudo pacman -Sdd --asdeps libvterm
 
 mkdir -p "$HOME"/.local/bin
+
+# Always put ohmyzsh install at the end (Nothing after is run)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

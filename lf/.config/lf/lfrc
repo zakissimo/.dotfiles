@@ -79,6 +79,6 @@ map . set hidden!
 map a push :mkDoc<space>
 map T $setsid -f $TERMINAL >/dev/null 2>&1
 map <c-f> $lf -remote "send $id select '$(fzf)'"
-map Y $printf "%s" "$fx" | xclip -selection clipboard
+map Y $printf "%s" "$fx" | wl-copy
 
 # vim: ft=bash

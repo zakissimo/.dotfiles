@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-chosen=$(printf "  Power Off\n  Restart\n  Lock" | rofi -dmenu -p 'Power menu:')
+chosen=$(printf "  Power Off\n  Restart\n  Lock" | tofi --prompt-text=)
 
 case "$chosen" in
 "  Power Off") poweroff ;;
