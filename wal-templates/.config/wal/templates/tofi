@@ -102,7 +102,7 @@
 	# alternate-result-background-corner-radius = 0
 
 	# Selection text
-	selection-color = "{color6}"
+	selection-color = "{color1}"
 	selection-background = #00000000
 	selection-background-padding = 0
 	selection-background-corner-radius = 0
