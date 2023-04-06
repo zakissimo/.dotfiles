@@ -6,13 +6,11 @@
     "passthrough": false,
     "gtk-layer-shell": true,
     "height": 50,
-    "modules-left": ["clock", "custom/Time4Salat"], //, "hyprland/window"],
+    "modules-left": ["clock", "custom/Time4Salat"],
     "modules-center": ["wlr/workspaces"],
-    "modules-right": ["network", "bluetooth", "temperature","custom/power_profile","battery","backlight","pulseaudio","pulseaudio#microphone","tray"],
-    // "hyprland/window": {
-    //     "format": "{}"
-    // },
-
+    "modules-right": ["network", "bluetooth", "custom/power_profile",
+                "cpu", "memory", "battery", "backlight", "pulseaudio",
+                "pulseaudio#microphone", "tray"],
     "wlr/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
@@ -32,7 +30,6 @@
     },
 
     "custom/power_profile":{
-        //shows the current power profile and switches to next on click
         "exec": "asusctl profile -p | sed s:'Active profile is'::",
         "interval": 30,
         "format": "󰈐{}", 
@@ -115,6 +112,22 @@
         "format": "{temperatureC}°C ",
         "critical-threshold": 80,
         "format-critical": "{temperatureF}°F "
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": " {usage}%",
+        "max-length": 10,
+        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": " {}%",
+        "max-length": 10,
+        "tooltip": true,
+        "tooltip-format": "Memory - {used:0.1f}GB used",
+        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
     },
 
     "network": {

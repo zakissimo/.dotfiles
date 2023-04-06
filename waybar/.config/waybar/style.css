@@ -57,6 +57,8 @@ tooltip {
 #network,
 #bluetooth,
 #temperature,
+#cpu,
+#memory,
 #workspaces,
 #tray,
 #backlight {
@@ -68,16 +70,12 @@ tooltip {
     border: 1px solid #181825;
 }
 
-#temperature {
+#custom-power_profile, #backlight, #network, #clock {
     border-radius: 10px 0px 0px 10px;
 }
 
 #temperature.critical {
     color: #eba0ac;
-}
-
-#backlight {
-    border-radius: 10px 0px 0px 10px;
 }
 
 #tray {
@@ -107,14 +105,12 @@ tooltip {
 
 #clock {
     color: #f7f7f7;
-    border-radius: 10px 0px 0px 10px;
     margin-left: 10px;
     border-right: 0px;
 }
 
 #network {
     color: #f9e2af;
-    border-radius: 10px 0px 0px 10px;
     border-left: 0px;
     border-right: 0px;
 }
