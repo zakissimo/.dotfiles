@@ -28,6 +28,7 @@ config.window_padding = {
 
 config.enable_tab_bar = false
 config.default_cursor_style = 'SteadyBlock'
+config.hide_mouse_cursor_when_typing = false
 
 config.keys = {
     {

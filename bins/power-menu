@@ -5,6 +5,6 @@ chosen=$(printf "  Power Off\n  Restart\n  Lock" | tofi --prompt-text=)
 case "$chosen" in
 "  Power Off") poweroff ;;
 "  Restart") reboot ;;
-"  Lock") suspend ;;
+"  Lock") swaylock ;;
 *) exit 1 ;;
 esac
