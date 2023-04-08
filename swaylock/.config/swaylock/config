@@ -5,7 +5,7 @@ screenshot
 effect-blur=9x5
 effect-vignette=0.5:0.5
 color=1f1d2e80
-font="Inter"
+font="Lobster"
 indicator
 indicator-radius=200
 indicator-thickness=20
@@ -33,6 +33,8 @@ grace=2
 grace-no-mouse
 grace-no-touch
 datestr=%a, %B %e
-timestr=%I:%M %p
+timestr=%H:%M
 fade-in=0.2
 ignore-empty-password
+hide-keyboard-layout
+
