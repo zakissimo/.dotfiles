@@ -34,9 +34,9 @@ tooltip {
 #backlight {
   background: @background;
   opacity: 0.8;
-  padding: 0px 7px;
+  padding: 0px 9px 0px 5px;
   margin-top: 5px;
-  border: 1px solid @background;
+  /* border: 1px solid @background; */
 }
 
 #custom-power_profile,
@@ -57,6 +57,7 @@ tooltip {
 #tray,
 #workspaces {
   border-radius: 10px;
+  padding: 0px 0px 0px 0px;
 }
 
 #backlight {
