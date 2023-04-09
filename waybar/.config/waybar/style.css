@@ -5,16 +5,18 @@
   min-height: 0;
 }
 
+@import "/home/zak/.cache/wal/colors-waybar.css";
+
 window#waybar {
   background: rgba(0, 0, 0, 0);
 }
 
 tooltip {
-  background: #1e1e2e;
+  background: @background;
   border-radius: 10px;
   border-width: 2px;
   border-style: solid;
-  border-color: #11111b;
+  border-color: @color1;
 }
 
 #battery,
@@ -30,11 +32,11 @@ tooltip {
 #tray,
 #workspaces,
 #backlight {
-  background: #1e1e2e;
+  background: @background;
   opacity: 0.8;
   padding: 0px 7px;
   margin-top: 5px;
-  border: 1px solid #181825;
+  border: 1px solid @background;
 }
 
 #custom-power_profile,
@@ -57,36 +59,48 @@ tooltip {
   border-radius: 10px;
 }
 
-#custom-power_profile {
-  color: #a6e3a1;
-}
-
-#clock {
-  color: #f7f7f7;
-}
-
-#network {
-  color: #f9e2af;
-}
-
-#bluetooth {
-  color: #89b4fa;
-}
-
-#pulseaudio {
-  color: #89b4fa;
-}
-
-#pulseaudio.microphone {
-  color: #cba6f7;
+#backlight {
+  color: #9ccfd8;
 }
 
 #battery {
-  color: #a6e3a1;
+  color: #31748f;
+}
+
+#cpu {
+  color: #6e6a86;
+}
+
+#memory {
+  color: #6e6a86;
+}
+
+#custom-power_profile {
+  color: #31748f;
+}
+
+#clock {
+  color: @cursor;
+}
+
+#network {
+  color: #f6c177;
+}
+
+#bluetooth {
+  color: #9ccfd8;
+}
+
+#pulseaudio {
+  color: #c4a7e7;
+}
+
+#pulseaudio.microphone {
+  color: #ebbcba;
 }
 
 #custom-Time4Salat {
-  color: #f9e2af;
+  color: #f6c177;
 }
 
 #workspaces {
@@ -94,15 +108,15 @@ tooltip {
 }
 
 #workspaces button {
-  color: #313244;
+  color: #6e6a86;
 }
 
 #workspaces button.active {
-  color: #a6adc8;
+  color: #e0def4;
 }
 
 #workspaces button:hover {
-    background: #11111b;
-    color: #cdd6f4;
+    background: #26233a;
+    color: #e0def4;
     border-radius: 10px;
 }
