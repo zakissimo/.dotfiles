@@ -33,38 +33,42 @@ cmd extract ${{
 
 cmd open ${{
     case $(file --mime-type "$(readlink -f $f)" -b) in
-	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
-	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
-	text/*|application/json|inode/x-empty) $EDITOR $fx;;
-	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-	image/svg+xml) eog $f ;;
-	image/*) eog $f ;;
-	audio/*) mpv --audio-display=no $f ;;
-	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-	application/pgp-encrypted) $EDITOR $f ;;
-	application/x-dosexec) wine $f ;;
-	*) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
+    image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
+    text/*|application/json|inode/x-empty) $EDITOR $fx;;
+    image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+    image/svg+xml) eog $f ;;
+    image/*) eog $f ;;
+    audio/*) mpv --audio-display=no $f ;;
+    video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+    application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+    application/pgp-encrypted) $EDITOR $f ;;
+    application/x-dosexec) wine $f ;;
+    *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
 }}
 
 cmd mkDoc ${{
-	input=$*
-	[[ ${input:(-1)} == "/" ]] && mkdir -p "$(echo $* | tr ' ' '\ ')" || touch "$(echo $* | tr ' ' '\ ')"
+    input=$*
+    [[ ${input:(-1)} == "/" ]] \
+    && mkdir -p "$(echo $* | tr ' ' '\ ')" \
+    || touch "$(echo $* | tr ' ' '\ ')"
 }}
 
 cmd delete ${{
-	clear; tput cup $(($(tput lines)/3)); tput bold
-	set -f
-	printf "%s\n\t" "$fx"
-	printf "Delete? [y/N]\n\t"
-	read ans
-	[ $ans = "y" ] && rm -rf -- $fx
-	clear
+    clear; tput cup $(($(tput lines)/3)); tput bold
+    set -f
+    printf "%s\n\t" "$fx"
+    printf "Delete? [y/N]\n\t"
+    read ans
+    [ $ans = "y" ] && rm -rf -- $fx
+    clear
 }}
 
 cmd setBg ${{
-	[[ ${f##*.} == "jpg" ]] || [[ ${f##*.} == "png" ]] && set-bg "$f" &
+    [[ ${f##*.} == "jpg" ]] \
+    || [[ ${f##*.} == "png" ]] \
+    && set-bg "$f" &
 }}
 
 map x cut

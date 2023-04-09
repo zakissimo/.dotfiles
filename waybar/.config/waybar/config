@@ -5,9 +5,9 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 50,
-    "modules-left": ["clock", "custom/Time4Salat"],
-    "modules-center": ["wlr/workspaces"],
+    "height": 19,
+    "modules-left": ["wlr/workspaces"],
+    "modules-center": ["clock", "custom/Time4Salat"],
     "modules-right": ["network", "bluetooth", "custom/power_profile",
                 "cpu", "memory", "battery", "backlight", "pulseaudio",
                 "pulseaudio#microphone", "tray"],
@@ -51,15 +51,15 @@
 
     "clock": {
         "format": "{:🕔 %H:%M}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>"
     },
 
     "backlight": {
         "device": "intel_backlight",
         "format": "{icon} {percent}%",
         "format-icons": ["", "", ""],
-        "on-scroll-up": "brightnessctl set 1%+",
-        "on-scroll-down": "brightnessctl set 1%-",
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-",
         "min-length": 6
     },
 
@@ -118,7 +118,7 @@
         "interval": 10,
         "format": " {usage}%",
         "max-length": 10,
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+        "on-click": "wezterm -e btop"
     },
 
     "memory": {
@@ -127,7 +127,7 @@
         "max-length": 10,
         "tooltip": true,
         "tooltip-format": "Memory - {used:0.1f}GB used",
-        "on-click": "kitty --start-as=fullscreen --title btop sh -c 'btop'"
+        "on-click": "wezterm -e btop"
     },
 
     "network": {
