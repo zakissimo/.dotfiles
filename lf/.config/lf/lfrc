@@ -68,7 +68,7 @@ cmd delete ${{
 cmd setBg ${{
     [[ ${f##*.} == "jpg" ]] \
     || [[ ${f##*.} == "png" ]] \
-    && set-bg "$f" &
+    && set-bg "$f" > /dev/null 2>&1 &
 }}
 
 map x cut

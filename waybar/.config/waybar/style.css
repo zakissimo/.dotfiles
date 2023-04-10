@@ -2,7 +2,6 @@
   font-family: "Fira Code Nerd Font";
   font-weight: bold;
   font-size: 15px;
-  /* min-height: 0; */
 }
 
 @import "/home/zak/.cache/wal/colors-waybar.css";
@@ -44,6 +43,7 @@ tooltip {
 #network,
 #clock {
   border-radius: 10px 0px 0px 10px;
+  padding: 7px;
 }
 
 #bluetooth,
@@ -81,7 +81,7 @@ tooltip {
 }
 
 #clock {
-  color: @cursor;
+  color: @foreground;
 }
 
 #network {
