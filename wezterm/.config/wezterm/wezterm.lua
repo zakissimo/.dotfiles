@@ -17,6 +17,7 @@ config.font = wezterm.font_with_fallback {
     'Font Awesome 5',
     'Noto Sans Mono CJK SC',
 }
+config.warn_about_missing_glyphs = false
 config.window_background_opacity = 0.75
 
 config.window_padding = {

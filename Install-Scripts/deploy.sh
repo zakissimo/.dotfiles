@@ -16,6 +16,8 @@ cd .. && rm -rf yay
 
 yay -S nerd-fonts-cascadia-code ttf-impallari-lobster-font xkblayout-state dracula-gtk-theme dracula-cursors-git dracula-icons-git dracula-cursors-git kvantum-qt5-git zeal xkb-qwerty-fr hyprland-bin megasync-bin waybar-hyprland swaybg swaylock-effects wofi wlogout pcmanfm ttf-jetbrains-mono-nerd ttf-joypixels polkit-gnome python-requests swappy grim slurp pamixer brightnessctl gvfs bluez bluez-utils lxappearance xfce4-settings xdg-desktop-portal-hyprland-git chafa bat ripgrep moar man-db unzip ttf-dejavu-nerd wayshot-git tofi wezterm noto-fonts-cjk noto-fonts-ar ttf-firacode-nerd
 
+# gsettings set org.gnome.desktop.interface cursor-theme Dracula-cursors
+
 pip install --upgrade pip
 pip install dbus-next psutil pywal wheel pynvim requests neovim-remote
 

@@ -2,7 +2,7 @@
   font-family: "Fira Code Nerd Font";
   font-weight: bold;
   font-size: 15px;
-  min-height: 0;
+  /* min-height: 0; */
 }
 
 @import "/home/zak/.cache/wal/colors-waybar.css";
