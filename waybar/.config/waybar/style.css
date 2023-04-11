@@ -38,7 +38,7 @@ tooltip {
   /* border: 1px solid @background; */
 }
 
-#custom-power_profile,
+#cpu,
 #backlight,
 #network,
 #clock {
@@ -120,4 +120,8 @@ tooltip {
     background: #26233a;
     color: #e0def4;
     border-radius: 10px;
+}
+
+#tray {
+  padding: 7px;
 }
