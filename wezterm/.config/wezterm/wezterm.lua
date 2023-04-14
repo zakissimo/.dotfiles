@@ -13,11 +13,13 @@ config.font_size = 17
 config.bidi_enabled = false
 config.font = wezterm.font_with_fallback {
     'Fira Code',
-    'CaskaydiaCove',
-    'Font Awesome 5',
+    'CaskaydiaCove Nerd Font',
+    'JetBrainsMono Nerd Font',
+    'Ubuntu Mono Ligaturized',
+    'Font Awesome 5 Free Solid',
     'Noto Sans Mono CJK SC',
 }
-config.warn_about_missing_glyphs = false
+config.warn_about_missing_glyphs = true
 config.window_background_opacity = 0.75
 
 config.window_padding = {
