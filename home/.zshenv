@@ -1,14 +1,15 @@
-export ZSH="$HOME/.config/oh-my-zsh"
-export ZSH_COMPDUMP="$ZSH/cache/.zcompdump-$HOST"
-export ZSH_THEME="powerlevel10k/powerlevel10k"
 export XDG_CACHE_HOME="$HOME/.cache/"
 export XDG_CONFIG_HOME="$HOME/.config/"
+export ZSH="$XDG_CACHE_HOME/oh-my-zsh"
+export ZSH_COMPDUMP="$XDG_CACHE_HOME/.zcompdump-$HOST"
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+export EDITOR="nvim"
 export MANPAGER="moar"
 export TERMINAL="wezterm"
+export GOPATH="$XDG_CONFIG_HOME/go"
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null"
 export XDG_CURRENT_DESKTOP="Unity"
-export EDITOR="nvim"
 export LF_ICONS="\
 tw=:\
 st=:\
