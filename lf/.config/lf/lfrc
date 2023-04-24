@@ -52,7 +52,8 @@ cmd mkDoc ${{
     input=$*
     [[ ${input:(-1)} == "/" ]] \
     && mkdir -p "$(echo $* | tr ' ' '\ ')" \
-    || touch "$(echo $* | tr ' ' '\ ')"
+    || (mkdir -p "$(dirname $*)" \
+        && touch "$(dirname $*)/$(basename $(echo $* | tr ' ' '\ '))")
 }}
 
 cmd delete ${{
