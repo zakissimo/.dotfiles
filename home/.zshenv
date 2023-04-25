@@ -1,6 +1,6 @@
 export XDG_CACHE_HOME="$HOME/.cache/"
 export XDG_CONFIG_HOME="$HOME/.config/"
-export ZSH="$XDG_CACHE_HOME/oh-my-zsh"
+export ZSH="$XDG_CONFIG_HOME/oh-my-zsh"
 export ZSH_COMPDUMP="$XDG_CACHE_HOME/.zcompdump-$HOST"
 export ZSH_THEME="powerlevel10k/powerlevel10k"
 export EDITOR="nvim"
