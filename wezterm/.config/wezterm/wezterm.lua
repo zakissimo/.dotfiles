@@ -12,8 +12,8 @@ config.color_scheme = 'rose-pine'
 config.font_size = 17
 config.bidi_enabled = false
 config.font = wezterm.font_with_fallback {
-    'Fira Code',
-    'CaskaydiaCove Nerd Font',
+    'FiraCode Nerd Font',
+    'CaskaydiaCove NF',
     'JetBrainsMono Nerd Font',
     'Ubuntu Mono Ligaturized',
     'Font Awesome 5 Free Solid',
