@@ -5,7 +5,7 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 39,
+    "height": 19,
     "modules-left": ["wlr/workspaces"],
     "modules-center": ["clock", "custom/Time4Salat"],
     "modules-right": ["network", "bluetooth", "cpu", "memory",
@@ -61,7 +61,7 @@
         "format-icons": ["", "", ""],
         "on-scroll-up": "brightnessctl set 5%+",
         "on-scroll-down": "brightnessctl set 5%-",
-        "min-length": 6
+        "min-length": 5
     },
 
     "battery": {

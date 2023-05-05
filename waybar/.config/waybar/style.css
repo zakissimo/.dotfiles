@@ -1,17 +1,17 @@
 * {
-  border: 10;
-  border-radius: 0;
+  border: 10px;
+  border-radius: 0px;
   font-family: "FiraCode Nerd Font";
   font-weight: bold;
   font-size: 15px;
-  min-height: 0;
+  min-height: 0px;
 }
 
 @import "/home/zak/.cache/wal/colors-waybar.css";
 
 window#waybar {
-  background: rgba(0, 0, 0, 0);
-  /* background: @background; */
+  /* background: rgba(0, 0, 0, 0); */
+  background: @background;
 }
 
 tooltip {
@@ -37,8 +37,8 @@ tooltip {
 #backlight {
   background: @background;
   opacity: 0.8;
-  padding: 0px 5px 0px 3px;
-  margin-top: 3px;
+  padding: 0px 0px 0px 0px;
+  margin-left: 10px;
   /* border: 1px solid @background; */
 }
 
@@ -46,21 +46,21 @@ tooltip {
 #backlight,
 #network,
 #clock {
-  border-radius: 10px 0px 0px 10px;
-  padding: 7px;
+  border-radius: 0px 0px 0px 0px;
+  padding: 0px;
 }
 
 #bluetooth,
 #pulseaudio.microphone,
 #battery,
 #custom-Time4Salat {
-  border-radius: 0px 10px 10px 0px;
-  margin-right: 10px;
+  border-radius: 0px 0px 0px 0px;
+  margin-right: 0px;
 }
 
 #tray,
 #workspaces {
-  border-radius: 10px;
+  border-radius: 0px;
   padding: 0px 0px 0px 0px;
 }
 
@@ -105,6 +105,7 @@ tooltip {
 }
 
 #custom-Time4Salat {
+  padding: 0px 0px 0px 10px;
   color: #f6c177;
 }
 
@@ -123,9 +124,9 @@ tooltip {
 #workspaces button:hover {
     background: #26233a;
     color: #e0def4;
-    border-radius: 10px;
+    border-radius: 0px;
 }
 
 #tray {
-  padding: 7px;
+  padding: 0px;
 }

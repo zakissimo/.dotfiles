@@ -13,10 +13,9 @@ config.font_size = 17
 config.bidi_enabled = false
 config.font = wezterm.font_with_fallback {
     'FiraCode Nerd Font',
-    'CaskaydiaCove NF',
     'JetBrainsMono Nerd Font',
+    'CaskaydiaCove NF',
     'Ubuntu Mono Ligaturized',
-    'Font Awesome 5 Free Solid',
     'Noto Sans Mono CJK SC',
 }
 config.warn_about_missing_glyphs = true
