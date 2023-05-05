@@ -8,10 +8,9 @@
     "height": 19,
     "modules-left": ["wlr/workspaces"],
     "modules-center": ["clock", "custom/Time4Salat"],
-    "modules-right": ["network", "bluetooth", "cpu", "memory",
+    "modules-right": ["network", "cpu", "memory",
                 "custom/power_profile",
-                "battery", "backlight", "pulseaudio",
-                "pulseaudio#microphone", "tray"],
+                "battery", "tray"],
     "wlr/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
