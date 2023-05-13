@@ -37,11 +37,11 @@ cmd open ${{
     image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
     text/*|application/json|inode/x-empty) $EDITOR $fx;;
     image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-    image/svg+xml) eog $f ;;
-    image/*) eog $f ;;
+    image/svg+xml) imv $f ;;
+    image/*) imv $f ;;
     audio/*) mpv --audio-display=no $f ;;
     video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-    application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+    application/pdf|application/vnd*|application/epub*) setsid -f mupdf $fx >/dev/null 2>&1 ;;
     application/pgp-encrypted) $EDITOR $f ;;
     application/x-dosexec) wine $f ;;
     *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
