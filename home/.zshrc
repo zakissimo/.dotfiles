@@ -44,7 +44,7 @@ alias tree='exa -T'
 alias t=tmux
 alias lf=lf-ueberzug
 alias v=nvim
-# alias vim=nvim
+alias vim=nvim
 alias pacfzf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudoj pacman -S'
 alias yayfzf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {1} | awk "{print \$2}")'\'' | xargs -ro yay -S'
 
