@@ -3,22 +3,23 @@
 sudo apt update && sudo apt upgrade -y
 
 apps=(
-  delta
-  exa
-  fzf
-  git
-  lua
-  nodejs
-  npm
-  ripgrep
-  ssh
-  stow
-  tmux
-  zsh
+    curl
+    delta
+    exa
+    fzf
+    git
+    lua
+    nodejs
+    npm
+    ripgrep
+    ssh
+    stow
+    tmux
+    zsh
 )
 
 for app in "${apps[@]}"; do
-    which "$app" || sudo apt install "$app"
+    which "$app" || sudo apt install "$app" -y
 done
 
 sudo chsh -s "$(which zsh)" "$(whoami)"

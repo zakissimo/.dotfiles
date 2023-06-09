@@ -1,6 +1,7 @@
 source "$HOME/.config/tmux/tmux.zsh"
 
 export ZIM_HOME="$HOME/.cache/zim"
+export ZDOTDIR="$HOME/.config/.zimrc"
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!{**/node_modules/*,**/.git/*}' 2>/dev/null"
 
