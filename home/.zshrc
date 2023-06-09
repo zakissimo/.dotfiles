@@ -18,6 +18,7 @@ source ${ZIM_HOME}/init.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+bindkey -e
 xset r rate 300 50
 setxkbmap -option "ctrl:nocaps"
 
