@@ -1,5 +1,0 @@
-export EDITOR="nvim"
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.bin"
-export PATH="$PATH:$HOME/.cargo/env"
-export PATH="$PATH:$HOME/.local/bin"
