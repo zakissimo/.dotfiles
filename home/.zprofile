@@ -1,6 +1,5 @@
 export EDITOR="nvim"
+export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.bin"
 export PATH="$PATH:$HOME/.cargo/env"
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$JUNEST_HOME/usr/bin_wrappers"
-export PATH="$HOME/.local/lib/nodejs/node-v18.13.0-linux-x64/bin:$PATH"
