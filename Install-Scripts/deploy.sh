@@ -24,6 +24,3 @@ pip install dbus-next psutil pywal wheel pynvim requests neovim-remote
 sudo pacman -Sdd --asdeps libvterm
 
 mkdir -p "$HOME"/.local/bin
-
-# Always put ohmyzsh install at the end (Nothing after is run)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

@@ -1,8 +1,5 @@
 [[ ! -f $HOME/.config/tmux/tmux.zsh ]] || source $HOME/.config/tmux/tmux.zsh
 
-export ZIM_HOME="$HOME/.cache/zim"
-export ZDOTDIR="$HOME/.config/zsh"
-
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
   curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
       https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
@@ -24,7 +21,6 @@ alias v=nvim
 alias pacf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudo pacman -S'
 alias yayf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {1} | awk "{print \$2}")'\'' | xargs -ro yay -S'
 
-KEYTIMEOUT=1
+bindkey -e
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+KEYTIMEOUT=1
