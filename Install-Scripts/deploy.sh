@@ -6,6 +6,7 @@ apps=(
     curl
     delta
     exa
+    fuse
     fzf
     git
     lua
