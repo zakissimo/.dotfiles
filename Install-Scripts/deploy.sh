@@ -4,6 +4,7 @@ sudo apt update && sudo apt upgrade -y
 
 apps=(
   delta
+  exa
   fzf
   git
   lua
