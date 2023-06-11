@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
 sudo apt update && sudo apt upgrade
+sudo apt install curl -y
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
 apps=(
-    curl
-    delta
     exa
     fuse
     fzf
     git
-    lua
     nodejs
     npm
     ripgrep
@@ -25,7 +24,7 @@ for app in "${apps[@]}"; do
         sudo apt install -y \
         --no-install-recommends \
         "$app" \
-        && rm -rf /var/lib/apt/lists/*
+        && sudo rm -rf /var/lib/apt/lists/*
 done
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
