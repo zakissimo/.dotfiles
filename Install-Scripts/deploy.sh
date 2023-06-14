@@ -28,9 +28,9 @@ cat <<'EOF'> /tmp/last.sh
 #!/usr/bin/env bash
 
 function install {
-    for app in "$@"; do
-    which "$app" \
-        || $INSTALL "$app"
+    for app in $@; do
+    which $app \
+        || $INSTALL $app
     done
 }
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
@@ -56,10 +56,11 @@ nixpkgs=(
 
 INSTALL="nix-env -iA"
 
-install '"${nixpkgs[@]}"'
+install ${nixpkgs[@]}
 
 EOF
 
+chmod +x /tmp/last.sh
 chown "$USER":"$USER" /tmp/last.sh
 
 # sudo chsh -s "$(which zsh)" "$USER"
