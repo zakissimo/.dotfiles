@@ -24,7 +24,7 @@ echo "Enter your username: "
 read -r USER
 useradd -m -G sudo -s /bin/bash "$USER"
 
-mv /.dotfiles/Install-Scripts/nix-install.sh /home/"$USER"
+cp /.dotfiles/Install-Scripts/nix-install.sh /home/"$USER"
 chown "$USER" /home/"$USER"/nix-install.sh
 chmod +x /home/"$USER"/nix-install.sh
 
