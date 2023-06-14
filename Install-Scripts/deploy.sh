@@ -13,7 +13,7 @@ apps=(curl sudo)
 
 function install {
     for app in "$@"; do
-    which "$app" \
+    command -v "$app" >/dev/null 2>&1 \
         || $INSTALL "$app"
     done
 }
