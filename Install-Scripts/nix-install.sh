@@ -2,9 +2,6 @@
 
 set -xe
 
-echo "I am $(whoami)"
-passwd
-
 function install {
     for app in "$@"; do
     which "$app" \
@@ -26,9 +23,9 @@ nixpkgs=(
     nixpkgs.lazygit
     nixpkgs.lua
     nixpkgs.nodejs
-    nixpkgs.nvim
+    nixpkgs.neovim
     nixpkgs.ripgrep
-    nixpkgs.ssh
+    nixpkgs.openssh
     nixpkgs.stow
     nixpkgs.tmux
     nixpkgs.zsh
@@ -39,3 +36,11 @@ INSTALL="nix-env -iA"
 install "${nixpkgs[@]}"
 
 sudo chsh -s "$(which zsh)" "$USER"
+
+rm -rf "$HOME"/nix-install.sh
+
+sudo rm -rf /.dotfiles
+
+git clone https://github.com/zakissimo/.dotfiles \
+    && cd .dotfiles \
+    && git remote set-url origin git@github:zakissimo/.dotfiles
