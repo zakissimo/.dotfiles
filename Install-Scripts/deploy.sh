@@ -20,8 +20,6 @@ function install {
 
 install "${apps[@]}"
 
-mkdir -p -m 0755 /nix
-
 echo "Enter your username: "
 read -r USER
 useradd -m -G sudo -s /bin/bash "$USER"
