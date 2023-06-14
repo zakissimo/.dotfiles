@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-
 function install {
     for app in "$@"; do
     which "$app" \
         || $INSTALL "$app"
     done
 }
+
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
+
+. "$HOME"/.nix-profile/etc/profile.d/nix.sh
 
 nixpkgs=(
     nixpkgs.curl
