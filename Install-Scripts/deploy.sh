@@ -20,13 +20,21 @@ function install {
 
 install "${apps[@]}"
 
+mkdir -m 0755 /nix
+
 echo "Enter your username: "
 read -r USER
 useradd -m -G sudo -s /bin/bash "$USER"
-su - "$USER"
-echo "Define user password: "
-passwd
 
+<< EOF cat > /tmp/last.sh
+#!/usr/bin/env bash
+
+function install {
+    for app in "$@"; do
+    which "$app" \
+        || $INSTALL "$app"
+    done
+}
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
 nixpkgs=(
@@ -52,6 +60,8 @@ INSTALL="nix-env -iA"
 
 install "${nixpkgs[@]}"
 
-exit
+EOF
 
-chsh -s "$(which zsh)" $USER
+# sudo chsh -s "$(which zsh)" "$USER"
+
+su - "$USER" -c "$(./tmp/last.sh)"
