@@ -5,20 +5,20 @@ set -ex
 echo "Define root password: "
 passwd
 
-command -v apt >/dev/null 2>&1 && apt update && apt upgrade && INSTALL="apt install -y --no-install-recommends"
-command -v apk >/dev/null 2>&1 && apk update && apk upgrade && INSTALL="apk add -y"
+command -v apt >/dev/null 2>&1 && apt update -y && INSTALL="apt install -y --no-install-recommends"
+command -v apk >/dev/null 2>&1 && apk update -y && INSTALL="apk add -y"
 command -v pacman >/dev/null 2>&1 && pacman update && pacman upgrade && INSTALL="pacman -S --noconfirm"
 
 apps=(curl sudo)
 
 function install {
-    for app in $1; do
+    for app in "$@"; do
     which "$app" \
-        || $2 "$app"
+        || "$INSTALL" "$app"
     done
 }
 
-install "${apps[@]}" "$INSTALL"
+install "${apps[@]}"
 
 echo "Enter your username: "
 read -r USER
@@ -48,6 +48,8 @@ nixpkgs=(
     nixpkgs.zsh
 )
 
-install "${nixpkgs[@]}" "nix-env -iA"
+INSTALL="nix-env -iA"
+
+install "${nixpkgs[@]}"
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
