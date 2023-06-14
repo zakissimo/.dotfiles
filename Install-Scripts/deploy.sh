@@ -20,7 +20,7 @@ function install {
 
 install "${apps[@]}"
 
-mkdir -m 0755 /nix
+mkdir -p -m 0755 /nix
 
 echo "Enter your username: "
 read -r USER
