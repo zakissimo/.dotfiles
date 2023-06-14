@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-set -ex
+set -xe
 
 echo "Define root password: "
 passwd
 
 command -v apt >/dev/null 2>&1 && apt update -y && INSTALL="apt install -y" && SUDO_GRP="sudo"
-command -v apk >/dev/null 2>&1 && apk update && INSTALL="apk add" && SUDO_GRP="wheel"
 command -v pacman >/dev/null 2>&1 && pacman -Syyu --noconfirm && INSTALL="pacman -S --noconfirm" && SUDO_GRP="wheel"
 
 apps=(curl sudo)
