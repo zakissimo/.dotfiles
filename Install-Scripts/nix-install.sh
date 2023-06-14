@@ -25,7 +25,6 @@ nixpkgs=(
     nixpkgs.lazygit
     nixpkgs.lua
     nixpkgs.nodejs
-    nixpkgs.npm
     nixpkgs.nvim
     nixpkgs.ripgrep
     nixpkgs.ssh

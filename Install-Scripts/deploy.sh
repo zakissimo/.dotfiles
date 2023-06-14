@@ -5,9 +5,9 @@ set -ex
 echo "Define root password: "
 passwd
 
-command -v apt >/dev/null 2>&1 && apt update -y && INSTALL="apt install -y --no-install-recommends"
-command -v apk >/dev/null 2>&1 && apk update -y && INSTALL="apk add -y"
-command -v pacman >/dev/null 2>&1 && pacman update && pacman upgrade && INSTALL="pacman -S --noconfirm"
+command -v apt >/dev/null 2>&1 && apt update -y && INSTALL="apt install -y"
+command -v apk >/dev/null 2>&1 && apk update && INSTALL="apk add"
+command -v pacman >/dev/null 2>&1 && pacman -Syyu --noconfirm && INSTALL="pacman -S --noconfirm"
 
 apps=(curl sudo)
 
@@ -21,14 +21,14 @@ function install {
 install "${apps[@]}"
 
 echo "Enter your username: "
-read -r USER
-useradd -m -G sudo -s /bin/bash "$USER"
+read -r NEW_USER
+useradd -m -G sudo -s /bin/bash "$NEW_USER"
 
-cp /.dotfiles/Install-Scripts/nix-install.sh /home/"$USER"
-chown "$USER":"$USER" /home/"$USER"/nix-install.sh
-chmod +x /home/"$USER"/nix-install.sh
+cp /.dotfiles/Install-Scripts/nix-install.sh /home/"$NEW_USER"
+chown "$NEW_USER":"$NEW_USER" /home/"$NEW_USER"/nix-install.sh
+chmod +x /home/"$NEW_USER"/nix-install.sh
 
 mkdir -p /nix
-chown -R "$USER":"$USER" /nix
+chown -R "$NEW_USER":"$NEW_USER" /nix
 
-su "$USER" -c "$(/home/"$USER"/nix-install.sh)"
+su "$NEW_USER" -c "$(/home/"$NEW_USER"/nix-install.sh)"
