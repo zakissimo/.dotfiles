@@ -23,7 +23,7 @@ install "${apps[@]}"
 echo "Enter your username: "
 read -r USER
 useradd -m -G sudo -s /bin/bash "$USER"
-su "$USER"
+su - "$USER"
 echo "Define user password: "
 passwd
 
@@ -52,4 +52,6 @@ INSTALL="nix-env -iA"
 
 install "${nixpkgs[@]}"
 
-sudo chsh -s "$(which zsh)" "$(whoami)"
+exit
+
+chsh -s "$(which zsh)" $USER
