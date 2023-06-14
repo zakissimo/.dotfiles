@@ -23,6 +23,8 @@ install "${apps[@]}"
 echo "Enter your username: "
 read -r NEW_USER
 useradd -m -G sudo -s /bin/bash "$NEW_USER"
+echo "Define user password: "
+passwd "$NEW_USER"
 
 cp /.dotfiles/Install-Scripts/nix-install.sh /home/"$NEW_USER"
 chown "$NEW_USER":"$NEW_USER" /home/"$NEW_USER"/nix-install.sh
