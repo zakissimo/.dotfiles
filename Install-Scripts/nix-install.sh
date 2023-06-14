@@ -3,6 +3,7 @@
 set -xe
 
 echo "I am $(whoami)"
+passwd
 
 function install {
     for app in "$@"; do
