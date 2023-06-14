@@ -23,7 +23,7 @@ install "${apps[@]}"
 echo "Enter your username: "
 read -r USER
 useradd -m -G sudo -s /bin/bash "$USER"
-su - "$USER"
+su "$USER"
 echo "Define user password: "
 passwd
 
