@@ -35,12 +35,6 @@ INSTALL="nix-env -iA"
 
 install "${nixpkgs[@]}"
 
-sudo chsh -s "$(which zsh)" "$USER"
-
-rm -rf "$HOME"/nix-install.sh
-
-sudo rm -rf /.dotfiles
-
-git clone https://github.com/zakissimo/.dotfiles \
+git clone https://github.com/zakissimo/.dotfiles "$HOME/.dotfiles" \
     && cd .dotfiles \
     && git remote set-url origin git@github:zakissimo/.dotfiles
