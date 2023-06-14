@@ -38,3 +38,5 @@ install "${nixpkgs[@]}"
 cd && git clone https://github.com/zakissimo/.dotfiles \
     && cd .dotfiles \
     && git remote set-url origin git@github:zakissimo/.dotfiles
+
+chsh -s "$(whereis zsh | cut -d' ' -f2)" "$USER"

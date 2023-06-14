@@ -34,8 +34,6 @@ chown -R "$NEW_USER":"$NEW_USER" /nix
 
 su "$NEW_USER" -c /home/"$NEW_USER"/nix-install.sh
 
-chsh -s "$(whereis zsh | cut -d' ' -f2)" "$NEW_USER"
-
 rm -rf /home/"$NEW_USER"/nix-install.sh
 
 rm -rf /.dotfiles
