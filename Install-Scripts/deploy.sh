@@ -25,10 +25,10 @@ read -r USER
 useradd -m -G sudo -s /bin/bash "$USER"
 
 cp /.dotfiles/Install-Scripts/nix-install.sh /home/"$USER"
-chown "$USER" /home/"$USER"/nix-install.sh
+chown "$USER":"$USER" /home/"$USER"/nix-install.sh
 chmod +x /home/"$USER"/nix-install.sh
 
 mkdir -p /nix
-chown -R "$USER" /nix
+chown -R "$USER":"$USER" /nix
 
 su "$USER" -c "$(/home/"$USER"/nix-install.sh)"
