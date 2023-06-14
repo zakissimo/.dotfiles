@@ -14,7 +14,7 @@ apps=(curl sudo)
 function install {
     for app in "$@"; do
     which "$app" \
-        || "$INSTALL" "$app"
+        || $INSTALL "$app"
     done
 }
 
