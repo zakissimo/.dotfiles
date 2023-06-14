@@ -5,9 +5,9 @@ set -ex
 echo "Define root password: "
 passwd
 
-command -v apt >/dev/null 2>&1 && apt update -y && INSTALL="apt install -y"
-command -v apk >/dev/null 2>&1 && apk update && INSTALL="apk add"
-command -v pacman >/dev/null 2>&1 && pacman -Syyu --noconfirm && INSTALL="pacman -S --noconfirm"
+command -v apt >/dev/null 2>&1 && apt update -y && INSTALL="apt install -y" && SUDO_GRP="sudo"
+command -v apk >/dev/null 2>&1 && apk update && INSTALL="apk add" && SUDO_GRP="wheel"
+command -v pacman >/dev/null 2>&1 && pacman -Syyu --noconfirm && INSTALL="pacman -S --noconfirm" && SUDO_GRP="wheel"
 
 apps=(curl sudo)
 
@@ -22,7 +22,7 @@ install "${apps[@]}"
 
 echo "Enter your username: "
 read -r NEW_USER
-useradd -m -G sudo -s /bin/bash "$NEW_USER"
+useradd -m -G "$SUDO_GRP" -s /bin/bash "$NEW_USER"
 echo "Define user password: "
 passwd "$NEW_USER"
 
