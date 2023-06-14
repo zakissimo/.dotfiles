@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+set -xe
+
+echo "I am $(whoami)"
+
 function install {
     for app in "$@"; do
     which "$app" \
