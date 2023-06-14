@@ -30,9 +30,9 @@ useradd -m -G sudo -s /bin/bash "$USER"
 #!/usr/bin/env bash
 
 function install {
-    for app in "$@"; do
-    which "$app" \
-        || $INSTALL "$app"
+    for app in '"$@"'; do
+    which '"$app"' \
+        || '$INSTALL' '"$app"'
     done
 }
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
@@ -58,9 +58,11 @@ nixpkgs=(
 
 INSTALL="nix-env -iA"
 
-install "${nixpkgs[@]}"
+install '"${nixpkgs[@]}"'
 
 EOF
+
+chown "$USER":"$USER" /tmp/last.sh
 
 # sudo chsh -s "$(which zsh)" "$USER"
 
