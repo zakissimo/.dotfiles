@@ -24,45 +24,8 @@ echo "Enter your username: "
 read -r USER
 useradd -m -G sudo -s /bin/bash "$USER"
 
-cat <<'EOF'> /tmp/last.sh
-#!/usr/bin/env bash
+mv /.dotfiles/Install-Scripts/nix-install.sh /home/"$USER"
+chown "$USER":"$USER" /home/"$USER"/nix-install.sh
+chmod +x /home/"$USER"/nix-install.sh
 
-function install {
-    for app in $@; do
-    which $app \
-        || $INSTALL $app
-    done
-}
-sh <(curl -L https://nixos.org/nix/install) --no-daemon
-
-nixpkgs=(
-    nixpkgs.curl
-    nixpkgs.delta
-    nixpkgs.exa
-    nixpkgs.fuse
-    nixpkgs.fzf
-    nixpkgs.git
-    nixpkgs.lazygit
-    nixpkgs.lua
-    nixpkgs.nodejs
-    nixpkgs.npm
-    nixpkgs.nvim
-    nixpkgs.ripgrep
-    nixpkgs.ssh
-    nixpkgs.stow
-    nixpkgs.tmux
-    nixpkgs.zsh
-)
-
-INSTALL="nix-env -iA"
-
-install ${nixpkgs[@]}
-
-EOF
-
-chmod +x /tmp/last.sh
-chown "$USER":"$USER" /tmp/last.sh
-
-# sudo chsh -s "$(which zsh)" "$USER"
-
-su - "$USER" -c "$(/tmp/last.sh)"
+su - "$USER" -c "$(/home/"$USER"/nix-install.sh)"
