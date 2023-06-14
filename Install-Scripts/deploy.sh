@@ -31,4 +31,4 @@ chmod +x /home/"$NEW_USER"/nix-install.sh
 mkdir -p /nix
 chown -R "$NEW_USER":"$NEW_USER" /nix
 
-su "$NEW_USER" -c "$(/home/"$NEW_USER"/nix-install.sh)"
+su "$NEW_USER" -c /home/"$NEW_USER"/nix-install.sh
