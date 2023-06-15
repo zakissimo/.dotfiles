@@ -35,10 +35,10 @@ case "$EXISTING_USER" in
         read -pr "Define user password? [Y/n]" USER_PASSWD
         case "$USER_PASSWD" in
             [nN])
-                echo "Skipping root password"
+                echo "Skipping user password"
                 ;;
             *)
-                echo "Define root password:"
+                echo "Define user password:"
                 passwd "$NEW_USER"
         ;;
         esac
