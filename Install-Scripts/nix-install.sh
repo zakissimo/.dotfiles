@@ -39,4 +39,7 @@ cd && git clone https://github.com/zakissimo/.dotfiles \
     && cd .dotfiles \
     && git remote set-url origin git@github:zakissimo/.dotfiles
 
-chsh -s "$(whereis zsh | cut -d' ' -f2)" "$USER"
+ZSH_PATH=$(whereis zsh | cut -d' ' -f2)
+
+sudo sh -c "echo $ZSH_PATH >> /etc/shells"
+chsh -s "$ZSH_PATH" "$USER"
