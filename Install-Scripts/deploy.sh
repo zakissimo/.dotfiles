@@ -2,7 +2,8 @@
 
 set -xe
 
-read -pr "Define root password? [Y/n]" ROOT_PASSWD
+echo "Define root password? [Y/n]"
+read -r ROOT_PASSWD
 case "$ROOT_PASSWD" in
     [nN])
         echo "Skipping root password"
@@ -27,12 +28,15 @@ function install {
 
 install "${apps[@]}"
 
-read -pr "Use existing user? [Y/n]" EXISTING_USER
+echo "Use existing user? [Y/n]"
+read -r EXISTING_USER
 case "$EXISTING_USER" in
     [nN])
-        read -pr "Enter new username:" NEW_USER
+        echo "Enter new username:"
+        read -r NEW_USER
         useradd -m -G "$SUDO_GRP" -s /bin/bash "$NEW_USER"
-        read -pr "Define user password? [Y/n]" USER_PASSWD
+        echo "Define user password? [Y/n]"
+        read -r USER_PASSWD
         case "$USER_PASSWD" in
             [nN])
                 echo "Skipping user password"
@@ -45,7 +49,8 @@ case "$EXISTING_USER" in
         ;;
     *)
         while true; do
-        read -pr "Enter existing username:" NEW_USER
+        echo "Enter existing username:"
+        read -r NEW_USER
         if id "$NEW_USER" &>/dev/null; then
             echo "User $NEW_USER exists."
             break
