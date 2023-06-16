@@ -23,7 +23,6 @@ export SAVEHIST=10000
 setopt appendhistory
 
 export EDITOR="nvim"
-export MANPAGER="moar"
 export TERMINAL="wezterm"
 
 export GOPATH="$XDG_CONFIG_HOME/go"
