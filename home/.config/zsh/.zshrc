@@ -18,8 +18,7 @@ alias la='exa -la'
 alias lg=lazygit
 alias t=tmux
 alias v=nvim
-alias pacf='pacman -Slq | fzf --multi --preview '\''cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'\'' | xargs -ro sudo pacman -S'
-alias yayf='yay -Slq | fzf --multi --preview '\''cat <(yay -Si {1}) <(yay -l {1} | awk "{print \$2}")'\'' | xargs -ro yay -S'
+alias yayf="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro sudo yay -S"
 
 bindkey -e
 
