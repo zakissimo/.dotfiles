@@ -18,7 +18,7 @@ alias la='exa -la'
 alias lg=lazygit
 alias t=tmux
 alias v=nvim
-alias yayf="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro sudo yay -S"
+alias yayf="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
 
 bindkey -e
 
