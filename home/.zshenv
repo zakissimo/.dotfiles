@@ -30,3 +30,11 @@ export PNPM_HOME="/home/zak/.local/share/pnpm"
 
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null"
+
+export LESS_TERMCAP_mb=$(printf '\e[01;31m')
+export LESS_TERMCAP_md=$(printf '\e[01;35m')
+export LESS_TERMCAP_me=$(printf '\e[0m')
+export LESS_TERMCAP_se=$(printf '\e[0m')
+export LESS_TERMCAP_so=$(printf '\e[01;33m')
+export LESS_TERMCAP_ue=$(printf '\e[0m')
+export LESS_TERMCAP_us=$(printf '\e[04;36m')
