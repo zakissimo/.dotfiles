@@ -22,4 +22,13 @@ alias yayf="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
 
 bindkey -e
 
+#Colored man pages
+export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blinking
+export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
+export LESS_TERMCAP_me=$'\E[0m'        # end mode
+export LESS_TERMCAP_se=$'\E[0m'        # end standout-mode
+export LESS_TERMCAP_so=$'\E[1;40;92m'  # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'        # end underline
+export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
+
 KEYTIMEOUT=1
