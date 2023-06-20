@@ -1,30 +1,74 @@
 #!/usr/bin/env bash
 
-sudo apt update && sudo apt upgrade
-sudo apt install curl -y
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+set -xe
 
-apps=(
-    exa
-    fuse
-    fzf
-    git
-    nodejs
-    npm
-    ripgrep
-    ssh
-    stow
-    tmux
-    zsh
-)
+echo "Define root password? [Y/n]"
+read -r ROOT_PASSWD
+case "$ROOT_PASSWD" in
+    [nN])
+        echo "Skipping root password"
+        ;;
+    *)
+        echo "Define root password:"
+        passwd
+        ;;
+esac
 
-for app in "${apps[@]}"; do
-    which "$app" \
-        || DEBIAN_FRONTEND=noninteractive \
-        sudo apt install -y \
-        --no-install-recommends \
-        "$app" \
-        && sudo rm -rf /var/lib/apt/lists/*
-done
+command -v apt >/dev/null 2>&1 && apt update -y && INSTALL="apt install -y" && SUDO_GRP="sudo"
+command -v pacman >/dev/null 2>&1 && pacman -Syyu --noconfirm && INSTALL="pacman -S --noconfirm" && SUDO_GRP="wheel"
 
-sudo chsh -s "$(which zsh)" "$(whoami)"
+apps=(curl sudo)
+
+function install {
+    for app in "$@"; do
+    command -v "$app" >/dev/null 2>&1 \
+        || $INSTALL "$app"
+    done
+}
+
+install "${apps[@]}"
+
+echo "Use existing user? [Y/n]"
+read -r EXISTING_USER
+case "$EXISTING_USER" in
+    [nN])
+        echo "Enter new username:"
+        read -r NEW_USER
+        useradd -m -G "$SUDO_GRP" -s /bin/bash "$NEW_USER"
+        echo "Define user password? [Y/n]"
+        read -r USER_PASSWD
+        case "$USER_PASSWD" in
+            [nN])
+                echo "Skipping user password"
+                ;;
+            *)
+                echo "Define user password:"
+                passwd "$NEW_USER"
+        ;;
+        esac
+        ;;
+    *)
+        while true; do
+        echo "Enter existing username:"
+        read -r NEW_USER
+        if id "$NEW_USER" &>/dev/null; then
+            echo "User $NEW_USER exists."
+            break
+        else
+            echo "User $NEW_USER does not exist. Please try again."
+        fi
+        done
+esac
+
+cp /.dotfiles/Install-Scripts/nix-install.sh /home/"$NEW_USER"
+chown "$NEW_USER":"$NEW_USER" /home/"$NEW_USER"/nix-install.sh
+chmod +x /home/"$NEW_USER"/nix-install.sh
+
+mkdir -p /nix
+chown -R "$NEW_USER":"$NEW_USER" /nix
+
+su "$NEW_USER" -c /home/"$NEW_USER"/nix-install.sh
+
+rm -rf /home/"$NEW_USER"/nix-install.sh
+
+rm -rf /.dotfiles
