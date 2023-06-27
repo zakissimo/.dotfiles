@@ -9,7 +9,7 @@ function install {
     done
 }
 
-sh <(curl -L https://nixos.org/nix/install) --no-daemon
+sh <(curl -L https://nixos.org/nix/install)
 
 . "$HOME"/.nix-profile/etc/profile.d/nix.sh
 
@@ -21,7 +21,6 @@ nixpkgs=(
     nixpkgs.fzf
     nixpkgs.git
     nixpkgs.lazygit
-    nixpkgs.lua
     nixpkgs.nodejs
     nixpkgs.neovim
     nixpkgs.ripgrep
@@ -38,8 +37,3 @@ install "${nixpkgs[@]}"
 cd && git clone https://github.com/zakissimo/.dotfiles \
     && cd .dotfiles \
     && git remote set-url origin git@github:zakissimo/.dotfiles
-
-ZSH_PATH=$(whereis zsh | cut -d' ' -f2)
-
-sudo sh -c "echo $ZSH_PATH >> /etc/shells"
-chsh -s "$ZSH_PATH" "$USER"
