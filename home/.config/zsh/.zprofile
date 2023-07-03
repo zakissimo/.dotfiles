@@ -8,7 +8,3 @@ _add_path "$PNPM_HOME"
 mdir() { mkdir $1 && cd $1 }
 
 mvf() { mv $(fzf) $(find . -type d | fzf) }
-
-[ "$(tty)" = "/dev/tty1" ] && exec Hyprland
-
-# export DRI_PRIME=1
