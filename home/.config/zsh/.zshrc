@@ -1,5 +1,3 @@
-[[ ! -f $HOME/.config/tmux/tmux.zsh ]] || source $HOME/.config/tmux/tmux.zsh
-
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
   curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
       https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
@@ -13,8 +11,10 @@ source ${ZIM_HOME}/init.zsh
 
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
+alias zel=zellij
 alias ls=exa
 alias la='exa -la'
+alias ll='exa -T --icons'
 alias lg=lazygit
 alias t=tmux
 alias v=nvim
