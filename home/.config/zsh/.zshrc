@@ -1,11 +1,13 @@
-if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
-  curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
-      https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
-fi
+[[ -z "$ZELLIJ" ]] && [[ $(command -v zellij) ]] \
+    && [[ ! $(pgrep -f 'zellij attach') ]] \
+    && sleep 0.1 && exec zellij attach -c Z
 
-if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  source ${ZIM_HOME}/zimfw.zsh init -q
-fi
+[[ ! -e ${ZIM_HOME}/zimfw.zsh ]] \
+    && curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+
+[[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]] \
+    && source ${ZIM_HOME}/zimfw.zsh init -q
 
 source ${ZIM_HOME}/init.zsh
 
