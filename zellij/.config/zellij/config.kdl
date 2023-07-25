@@ -236,10 +236,12 @@ themes {
         magenta "#c4a7e7"
         orange "#fe640b"
         cyan "#ea9a97"
-        black "#393552"
+        black "#191724"
         white "#e0def4"
     }
 }
+
+// black "#393552"
 
 // Choose the theme that is specified in the themes section.
 // Default: default
