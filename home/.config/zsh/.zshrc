@@ -24,6 +24,8 @@ alias t=tmux
 alias v=nvim
 alias yayf="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
 
+xset r rate 300 50
+setxkbmap -option caps:ctrl
 bindkey -e
 
 #Colored man pages
