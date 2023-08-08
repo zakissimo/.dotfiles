@@ -45,7 +45,8 @@ tooltip {
 #cpu,
 #backlight,
 #network,
-#clock {
+#clock,
+#idle_inhibitor {
   border-radius: 0px 0px 0px 0px;
   padding: 0px;
 }
@@ -129,4 +130,18 @@ tooltip {
 
 #tray {
   padding: 0px;
+}
+
+#idle_inhibitor {
+    background-color: rgba(0, 0, 0, 0);
+    color: #c4a7e7;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#idle_inhibitor.activated {
+    background-color: rgba(0, 0, 0, 0);
+    color: #c4a7e7;
+    border-radius: 5px;
+    margin-right: 10px;
 }

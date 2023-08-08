@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-sway-audio-idle-inhibit &
-
 swayidle -w \
     timeout 120 'swaylock' \
     timeout 180 'hyprctl dispatch dpms off' \

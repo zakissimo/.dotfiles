@@ -8,7 +8,7 @@
     "height": 19,
     "modules-left": ["wlr/workspaces"],
     "modules-center": ["clock", "custom/Time4Salat"],
-    "modules-right": ["network", "cpu", "memory",
+    "modules-right": ["idle_inhibitor", "network", "cpu", "memory",
                 "custom/power_profile",
                 "battery", "tray"],
     "wlr/workspaces": {
@@ -26,6 +26,14 @@
             "8": [],
             "9": [],
             "10": []
+        }
+    },
+
+        "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
         }
     },
 
