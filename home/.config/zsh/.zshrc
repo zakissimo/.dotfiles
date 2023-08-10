@@ -16,6 +16,7 @@ source ${ZDOTDIR}/.zprofile
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
 alias zel=zellij
+alias j=just
 alias ls=exa
 alias la='exa -la'
 alias ll='exa -T --icons'
