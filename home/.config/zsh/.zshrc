@@ -13,6 +13,7 @@ source ${ZIM_HOME}/init.zsh
 
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
+alias j=just
 alias zel=zellij
 alias ls=exa
 alias la='exa -la'
