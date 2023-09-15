@@ -11,6 +11,9 @@
 
 source ${ZIM_HOME}/init.zsh
 
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
 alias j=just
@@ -35,3 +38,6 @@ export LESS_TERMCAP_ue=$'\E[0m'        # end underline
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 
 KEYTIMEOUT=1
+
+# bun completions
+[ -s "/home/zak/.bun/_bun" ] && source "/home/zak/.bun/_bun"
