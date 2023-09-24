@@ -4,6 +4,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export ZIM_HOME="$XDG_CACHE_HOME/zim"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export ZSH_COMPDUMP="$XDG_CACHE_HOME/.zcompdump-$HOST"
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 export HISTFILE="$XDG_CACHE_HOME/.zsh_history"
 export HISTSIZE=10000
 export SAVEHIST=10000

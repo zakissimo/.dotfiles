@@ -39,3 +39,6 @@ export LESS_TERMCAP_ue=$'\E[0m'        # end underline
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 
 KEYTIMEOUT=1
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
