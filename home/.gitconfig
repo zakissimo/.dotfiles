@@ -3,13 +3,10 @@
 	email = zakaria.habri@gmail.com
 
 [core]
-    pager = delta
+    ; pager = delta
 
 [interactive]
     diffFilter = delta --color-only
-
-[include]
-    path = $HOME/.config/lazygit/themes.gitconfig
 
 [delta]
     features = collared-trogon

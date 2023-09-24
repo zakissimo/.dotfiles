@@ -17,3 +17,5 @@ export PNPM_HOME="/home/zak/.local/share/pnpm"
 
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null"
+
+[ -f "$HOME/.zshrc" ] && rm -rf "$HOME/.zshrc"

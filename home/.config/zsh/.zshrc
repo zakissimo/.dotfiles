@@ -16,7 +16,6 @@ source ${ZDOTDIR}/.zprofile
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
 alias zel=zellij
-alias j=just
 alias ls=exa
 alias la='exa -la'
 alias ll='exa -T --icons'
@@ -26,7 +25,8 @@ alias v=nvim
 alias yayf="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
 
 xset r rate 300 50
-setxkbmap -option caps:ctrl
+# Caps lock is now ctrl
+setxkbmap -option ctrl:nocaps
 bindkey -e
 
 #Colored man pages
@@ -39,7 +39,3 @@ export LESS_TERMCAP_ue=$'\E[0m'        # end underline
 export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
 
 KEYTIMEOUT=1
-
-export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
