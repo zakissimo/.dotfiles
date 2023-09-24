@@ -28,6 +28,7 @@ export TERMINAL="wezterm"
 export GOPATH="$XDG_CONFIG_HOME/go"
 export PNPM_HOME="$XDG_CONFIG_HOME/pnpm"
 export BUN_INSTALL="$XDG_CONFIG_HOME/bun"
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null"
