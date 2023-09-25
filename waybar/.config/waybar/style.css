@@ -123,9 +123,9 @@ tooltip {
 }
 
 #workspaces button:hover {
-    background: #26233a;
-    color: #e0def4;
-    border-radius: 0px;
+  background: #26233a;
+  color: #e0def4;
+  border-radius: 0px;
 }
 
 #tray {
@@ -133,15 +133,15 @@ tooltip {
 }
 
 #idle_inhibitor {
-    background-color: rgba(0, 0, 0, 0);
-    color: #c4a7e7;
-    border-radius: 5px;
-    margin-right: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  color: #c4a7e7;
+  border-radius: 5px;
+  margin-right: 10px;
 }
 
 #idle_inhibitor.activated {
-    background-color: rgba(0, 0, 0, 0);
-    color: #c4a7e7;
-    border-radius: 5px;
-    margin-right: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  color: #c4a7e7;
+  border-radius: 5px;
+  margin-right: 10px;
 }
