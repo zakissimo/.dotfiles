@@ -311,7 +311,7 @@ copy_on_select true
 
 // The folder in which Zellij will look for layouts
 //
-layout_dir "/nfs/homes/zhabri/.config/zellij"
+layout_dir "/home/zak/.config/zellij"
 
 // The folder in which Zellij will look for themes
 //
