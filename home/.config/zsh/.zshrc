@@ -27,7 +27,7 @@ alias yayf="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
 xset r rate 300 50
 setxkbmap -model pc105 -layout us_qwerty-fr,ara -option grp:alt_shift_toggle
 # Caps lock is now ctrl
-setxkbmap -option ctrl:nocaps
+# setxkbmap -option ctrl:nocaps
 bindkey -e
 
 #Colored man pages
