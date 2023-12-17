@@ -38,10 +38,12 @@
     },
 
     "custom/power_profile":{
-        "exec": "asusctl profile -p | sed s:'Active profile is'::",
+        "exec": "powerprofilesctl get | sed s:'Active profile is'::",
         "interval": 30,
-        "format": "󰈐{}", 
-        "on-click": "asusctl profile -n; pkill -SIGRTMIN+8 waybar",
+        "format": "󰈐 {}", 
+        "on-click": "powerprofilesctl set balanced",
+        "on-scroll-up": "powerprofilesctl set performance",
+        "on-scroll-down": "powerprofilesctl set power-saver",
         "signal": 8
     },
 
