@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 local config = {}
 
@@ -36,6 +37,11 @@ config.hide_mouse_cursor_when_typing = false
 config.window_close_confirmation = "NeverPrompt"
 
 config.keys = {
+    {
+        key = 'Space',
+        mods = 'ALT',
+        action = act.ActivateCopyMode,
+    },
     {
         key = "Enter",
         mods = "ALT",
