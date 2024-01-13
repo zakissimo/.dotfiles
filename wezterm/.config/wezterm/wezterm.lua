@@ -31,33 +31,50 @@ config.window_padding = {
     bottom = 0,
 }
 
-config.enable_tab_bar = false
+config.enable_tab_bar = true
+config.use_fancy_tab_bar = false
+
 config.default_cursor_style = "SteadyBlock"
 config.hide_mouse_cursor_when_typing = false
 config.window_close_confirmation = "NeverPrompt"
 
 config.keys = {
     {
-        key = 'Space',
-        mods = 'ALT',
+        key = "l",
+        mods = "ALT",
+        action = act.ActivateTabRelative(1),
+    },
+    {
+        key = "h",
+        mods = "ALT",
+        action = act.ActivateTabRelative(-1),
+    },
+    {
+        key = "n",
+        mods = "ALT",
+        action = act.SpawnTab("DefaultDomain"),
+    },
+    {
+        key = "Space",
+        mods = "ALT",
         action = act.ActivateCopyMode,
     },
     {
         key = "Enter",
         mods = "ALT",
-        action = wezterm.action.DisableDefaultAssignment,
+        action = act.DisableDefaultAssignment,
     },
     -- Make Option-Left equivalent to Alt-b which many line editors interpret as backward-word
     {
         key = "LeftArrow",
         mods = "OPT",
-        action = wezterm.action({ SendString = "\x1bb" }),
+        action = act({ SendString = "\x1bb" }),
     },
     -- Make Option-Right equivalent to Alt-f; forward-word
     {
         key = "RightArrow",
         mods = "OPT",
-        action = wezterm.action({ SendString = "\x1bf" }),
+        action = act({ SendString = "\x1bf" }),
     },
 }
 

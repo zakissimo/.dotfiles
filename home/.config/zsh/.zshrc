@@ -1,7 +1,3 @@
-[[ -z "$ZELLIJ" ]] && [[ $(command -v zellij) ]] \
-    && [[ ! $(pgrep -f 'zellij attach') ]] \
-    && sleep 0.1 && exec zellij attach -c Z
-
 [[ ! -e ${ZIM_HOME}/zimfw.zsh ]] \
     && curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
         https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
@@ -16,7 +12,6 @@ source ${ZIM_HOME}/init.zsh
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
 
 alias j=just
-alias zel=zellij
 alias ls=exa
 alias la='exa -la'
 alias ll='exa -RTXF --git --icons'
