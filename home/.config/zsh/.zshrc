@@ -7,6 +7,8 @@
 
 source ${ZIM_HOME}/init.zsh
 
+source ~/.env
+
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
