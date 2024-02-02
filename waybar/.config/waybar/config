@@ -51,7 +51,7 @@
         "tooltip" : true,
         "format" : "🕋 {}",
         "interval" : 30,
-        "exec" : "~/.config/waybar/Apps/time_for_salat"
+        "exec" : "source ~/.env && ~/.config/waybar/Apps/time_for_salat"
     },
 
     "tray": {
