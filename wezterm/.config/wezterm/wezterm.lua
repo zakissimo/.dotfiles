@@ -11,6 +11,8 @@ config.term = "xterm-256color"
 
 config.color_scheme = "rose-pine"
 
+config.enable_wayland = false
+
 config.font_size = 17
 config.bidi_enabled = false
 config.font = wezterm.font_with_fallback({
@@ -19,6 +21,7 @@ config.font = wezterm.font_with_fallback({
     "CaskaydiaCove NF",
     "Ubuntu Mono Ligaturized",
     "Noto Sans Mono CJK SC",
+    "Noto Naskh Arabic",
 })
 config.warn_about_missing_glyphs = false
 config.window_background_opacity = 0.75
