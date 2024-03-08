@@ -7,19 +7,18 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
+config.audible_bell = "Disabled"
+
 config.term = "xterm-256color"
 
 config.color_scheme = "rose-pine"
 
 config.enable_wayland = false
 
-config.font_size = 17
+config.font_size = 15
 config.bidi_enabled = false
 config.font = wezterm.font_with_fallback({
-    "FiraCode Nerd Font",
-    "JetBrainsMono Nerd Font",
-    "CaskaydiaCove NF",
-    "Ubuntu Mono Ligaturized",
+    "Fira Code",
     "Noto Sans Mono CJK SC",
     "Noto Naskh Arabic",
 })
