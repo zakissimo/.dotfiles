@@ -9,7 +9,7 @@ end
 
 config.audible_bell = "Disabled"
 
-config.term = "xterm-256color"
+config.term = "wezterm"
 
 config.color_scheme = "rose-pine"
 
@@ -18,7 +18,7 @@ config.enable_wayland = false
 config.font_size = 15
 config.bidi_enabled = false
 config.font = wezterm.font_with_fallback({
-    "Fira Code",
+    "FiraCode Nerd Font",
     "Noto Sans Mono CJK SC",
     "Noto Naskh Arabic",
 })

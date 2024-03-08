@@ -1,11 +1,11 @@
 #!/bin/bash
 
 superCopy() {
-    "$(wclip -o -sel c)" >> /tmp/tmpclip.log
+    "$(wclip -o -sel c)" >>/tmp/tmpclip.log
 }
 
 superPaste() {
-    echo -n "$(wofi -dmenu -p 'Select:' </tmp/tmpclip.log)" | wclip -sel c
+    echo -n "$(tofi -dmenu -p 'Select:' </tmp/tmpclip.log)" | wclip -sel c
 }
 
 usage() {

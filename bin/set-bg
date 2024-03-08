@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-cp "$1" "$XDG_CACHE_HOME/wallpaper" && wal -stni "$1" > /dev/null && swaybg -i "$1" && killall waybar && waybar && killall dunst
+cp "$1" "$XDG_CACHE_HOME/wallpaper" && swaybg -i "$1" &

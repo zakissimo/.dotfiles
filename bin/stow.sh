@@ -26,7 +26,3 @@ apps=$(find "$STOW_DIR" -mindepth 1 -maxdepth 1 -type d)
 for app in $apps; do
     cloneAndStow "${app##*/}"
 done
-
-for bin in "$HOME"/.dotfiles/bin/*; do
-    [ ! -f "$HOME/.local/bin/${bin##*/}" ] && ln "$bin" "$HOME/.local/bin/${bin##*/}"
-done

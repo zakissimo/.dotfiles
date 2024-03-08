@@ -7,15 +7,14 @@
   min-height: 0px;
 }
 
-@import "/home/zak/.cache/wal/colors-waybar.css";
+@import "./rose-pine.css";
 
 window#waybar {
-  /* background: rgba(0, 0, 0, 0); */
-  background: @background;
+  background: @base;
 }
 
 tooltip {
-  background: @background;
+  background: @base;
   border-radius: 10px;
   border-width: 2px;
   border-style: solid;
@@ -35,11 +34,10 @@ tooltip {
 #tray,
 #workspaces,
 #backlight {
-  background: @background;
+  background: @base;
   opacity: 0.8;
   padding: 0px 0px 0px 0px;
   margin-left: 10px;
-  /* border: 1px solid @background; */
 }
 
 #cpu,
@@ -86,7 +84,7 @@ tooltip {
 }
 
 #clock {
-  color: @foreground;
+  color: @surface;
 }
 
 #network {
