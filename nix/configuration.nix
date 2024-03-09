@@ -15,10 +15,7 @@
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Bootloader.
-  # boot.loader.systemd-boot.enable = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
 
   networking.hostName = "nix"; # Define your hostname.
   # networking.wireless.enable = true;
@@ -146,7 +143,6 @@
       fonts =
         [
           "CascadiaCode"
-          "CascadiaMono"
           "FiraCode"
           "FiraMono"
           "JetBrainsMono"
@@ -186,7 +182,6 @@
     btop
     curl
     dunst
-    dust
     eza
     fd
     feh

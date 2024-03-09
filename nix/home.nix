@@ -68,10 +68,10 @@
 
   home.activation = {
     rmDeadLinks = ''
-      find "$XDG_CONFIG_HOME" -xtype l -delete
+      find "$HOME/.config" -xtype l -delete
     '';
     linkGtk = ''
-      [ ! -L "$XDG_CONFIG_HOME/gtk-3.0/gtk.css" ] && ln -s "$XDG_CONFIG_HOME/gtk-4.0/gtk.css" "$XDG_CONFIG_HOME/gtk-3.0/gtk.css"
+      [ ! -L "$HOME/.config/gtk-3.0/gtk.css" ] && ln -s "$HOME/.config/gtk-4.0/gtk.css" "$HOME/.config/gtk-3.0/gtk.css"
     '';
     mkBinDirs = ''
       [ ! -f "$HOME/.bin" ] && mkdir -p "$HOME/.bin"
@@ -82,13 +82,13 @@
       [ ! -f "$HOME/.local/state" ] && mkdir -p "$HOME/.local/state"
     '';
     mkShellDir = ''
-      [ ! -f "$XDG_CONFIG_HOME/zsh" ] && mkdir -p "$XDG_CONFIG_HOME/zsh"
+      [ ! -f "$HOME/.config/zsh" ] && mkdir -p "$HOME/.config/zsh"
     '';
     cloneNvimConfig = ''
-      [ ! -d "$XDG_CONFIG_HOME/nvim" ] && ${pkgs.git}/bin/git clone "https://github.com/zakissimo/nvim" "$XDG_CONFIG_HOME/nvim"
+      [ ! -d "$HOME/.config/nvim" ] && ${pkgs.git}/bin/git clone "https://github.com/zakissimo/nvim" "$HOME/.config/nvim"
     '';
     cloneAndStow = ''
-      [ ! -d "$HOME/.dotfiles" ] && ${pkgs.git}/bin/git clone -b nix "https://github.com/zakissimo/.dotfiles" "$XDG_CONFIG_HOME/.dotfiles"
+      [ ! -d "$HOME/.dotfiles" ] && ${pkgs.git}/bin/git clone -b nix "https://github.com/zakissimo/.dotfiles" "$HOME/.config/.dotfiles"
       sh "$HOME/.dotfiles/bin/stow.sh" "${pkgs.stow}/bin/stow"
     '';
   };
