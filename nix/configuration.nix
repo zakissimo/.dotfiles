@@ -99,12 +99,6 @@
       enable = true;
       xwayland.enable = true;
     };
-    waybar = {
-      enable = true;
-      package = pkgs.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    };
     zsh = {
       enable = true;
     };
@@ -159,23 +153,23 @@
     binutils
     clang-tools
     cmake
-    gdb
-    gnumake
-    meson
-    ninja
-    nodejs
-    rustup
-    valgrind
     delta
+    gdb
     git
+    gnumake
     lazygit
+    meson
     neovide
     neovim
-
-    # Dev framework
+    ninja
+    nodejs
+    openssl
+    pkg-config
     qt5.qtwayland
     qt6.qmake
     qt6.qtwayland
+    rustup
+    valgrind
 
     # Terminal Applications
     bat
@@ -191,7 +185,8 @@
     imagemagick
     imv
     inotify-tools
-    man
+    man-pages
+    man-pages-posix
     mediainfo
     mpv
     odt2txt
@@ -230,6 +225,7 @@
     phinger-cursors
     rose-pine-gtk-theme
     rose-pine-icon-theme
+    sound-theme-freedesktop
 
     # Compositor utility
     hyprland-protocols
@@ -241,6 +237,7 @@
     swaylock-effects
     swaynotificationcenter
     swww
+    waybar
     wl-clipboard
     wlogout
     wlr-randr
@@ -257,6 +254,8 @@
     VISUAL = "neovide";
     EDITOR = "nvim";
     TERMINAL = "wezterm";
+
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
 
     XCURSOR_SIZE = "22";
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -308,4 +307,3 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
-

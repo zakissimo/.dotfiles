@@ -51,7 +51,7 @@
         "tooltip" : true,
         "format" : "🕋 {}",
         "interval" : 30,
-        "exec" : "source ~/.env && time_for_salat"
+        "exec" : "source ~/.env && $HOME/.local/bin/time_for_salat"
     },
 
     "tray": {
@@ -137,13 +137,6 @@
         "on-scroll-up": "pamixer --default-source -i 5",
         "on-scroll-down": "pamixer --default-source -d 5",
         "scroll-step": 5
-    },
-
-    "temperature": {
-        "thermal-zone": 1,
-        "format": "{temperatureC}°C ",
-        "critical-threshold": 80,
-        "format-critical": "{temperatureF}°F "
     },
 
     "cpu": {

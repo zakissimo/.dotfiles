@@ -66,7 +66,7 @@
     brillo
   ];
 
-  home.activation = {
+  home.activation = with pkgs; {
     rmDeadLinks = ''
       find "$HOME/.config" -xtype l -delete
     '';
@@ -74,22 +74,22 @@
       [ ! -L "$HOME/.config/gtk-3.0/gtk.css" ] && ln -s "$HOME/.config/gtk-4.0/gtk.css" "$HOME/.config/gtk-3.0/gtk.css"
     '';
     mkBinDirs = ''
-      [ ! -f "$HOME/.bin" ] && mkdir -p "$HOME/.bin"
-      [ ! -f "$HOME/.local/bin" ] && mkdir -p "$HOME/local/bin"
+      [ ! -d "$HOME/.bin" ] && mkdir -p "$HOME/.bin"
+      [ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin"
     '';
     mkDataDirs = ''
-      [ ! -f "$HOME/.local/share" ] && mkdir -p "$HOME/.local/share"
-      [ ! -f "$HOME/.local/state" ] && mkdir -p "$HOME/.local/state"
+      [ ! -d "$HOME/.local/share" ] && mkdir -p "$HOME/.local/share"
+      [ ! -d "$HOME/.local/state" ] && mkdir -p "$HOME/.local/state"
     '';
     mkShellDir = ''
-      [ ! -f "$HOME/.config/zsh" ] && mkdir -p "$HOME/.config/zsh"
+      [ ! -d "$HOME/.config/zsh" ] && mkdir -p "$HOME/.config/zsh"
     '';
     cloneNvimConfig = ''
-      [ ! -d "$HOME/.config/nvim" ] && ${pkgs.git}/bin/git clone "https://github.com/zakissimo/nvim" "$HOME/.config/nvim"
+      [ ! -d "$HOME/.config/nvim" ] && ${git}/bin/git clone "https://github.com/zakissimo/nvim" "$HOME/.config/nvim"
     '';
     cloneAndStow = ''
-      [ ! -d "$HOME/.dotfiles" ] && ${pkgs.git}/bin/git clone -b nix "https://github.com/zakissimo/.dotfiles" "$HOME/.config/.dotfiles"
-      sh "$HOME/.dotfiles/bin/stow.sh" "${pkgs.stow}/bin/stow"
+      [ ! -d "$HOME/.dotfiles" ] && ${git}/bin/git clone -b nix "https://github.com/zakissimo/.dotfiles" "$HOME/.config/.dotfiles"
+      sh "$HOME/.dotfiles/bin/stow.sh" "${stow}/bin/stow"
     '';
   };
 
@@ -100,17 +100,17 @@
       userEmail = "zakaria.habri@gmail.com";
     };
     zsh = {
+      autocd = true;
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
       historySubstringSearch.enable = true;
       syntaxHighlighting.enable = true;
 
-      autocd = true;
       defaultKeymap = "emacs";
       dotDir = ".config/zsh";
 
-      history.path = "${config.xdg.dataHome}/zsh/zsh_history";
+      history.path = "${config.xdg.cacheHome}/zsh/.zsh_history";
       historySubstringSearch = {
         searchDownKey = [ "" "^[[B" ];
         searchUpKey = [ "" "^[[A" ];
@@ -158,11 +158,15 @@
         mvf() { mv $(fzf) $(find . -type d | fzf) }
       '';
       shellAliases = {
-        ls = "eza";
-        la = "eza -la";
-        ll = "eza -RTXF --git --icons";
-        lg = "lazygit";
         v = "nvim";
+
+        la = "eza -la";
+        lg = "lazygit";
+        ll = "eza -RTXF --git --icons";
+        ls = "eza";
+
+        bld = "home-manager switch";
+        blds = "sudo nixos-rebuild switch";
       };
     };
   };
