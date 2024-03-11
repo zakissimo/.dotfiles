@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
+STOW="$1"
 LOCAL_STOW_DIR=".dotfiles/stow"
 STOW_DIR="$HOME/$LOCAL_STOW_DIR"
-STOW="$1"
 
 cloneAndStow() {
-
     files=$(find "$STOW_DIR/$1" -type f)
     directories=$(find "$STOW_DIR/$1" -type d)
 

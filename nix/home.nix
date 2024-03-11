@@ -50,13 +50,17 @@
   };
 
   xdg.mimeApps.defaultApplications = {
-    "inode/directory" = [ "pcmanfm.desktop" ];
-    "text/plain" = [ "neovide.desktop" ];
     "application/pdf" = [ "zathura.desktop" ];
+    "application/x-shellscript" = [ "neovide.desktop" ];
+    "application/xhtml+xml" = [ "firefox.desktop" ];
     "image/*" = [ "imv.desktop" ];
-    "video/png" = [ "mpv.desktop" ];
-    "video/jpg" = [ "mpv.desktop" ];
+    "inode/directory" = [ "pcmanfm.desktop" ];
+    "text/html" = [ "firefox.desktop" ];
+    "text/plain" = [ "neovide.desktop" ];
     "video/*" = [ "mpv.desktop" ];
+    "x-scheme-handler/http" = [ "firefox.desktop" ];
+    "x-scheme-handler/https" = [ "firefox.desktop" ];
+    "x-scheme-handler/magnet" = [ "fragments.desktop" ];
   };
 
   fonts.fontconfig.enable = true;
@@ -76,6 +80,7 @@
     mkBinDirs = ''
       [ ! -d "$HOME/.bin" ] && mkdir -p "$HOME/.bin"
       [ ! -d "$HOME/.local/bin" ] && mkdir -p "$HOME/.local/bin"
+      sh "$HOME/.dotfiles/bin/link-bins"
     '';
     mkDataDirs = ''
       [ ! -d "$HOME/.local/share" ] && mkdir -p "$HOME/.local/share"

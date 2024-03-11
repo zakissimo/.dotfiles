@@ -12,10 +12,16 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "amdgpu" ];
+  boot.kernelModules = [ "kvm-amd" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
 
   networking.hostName = "nix"; # Define your hostname.
   # networking.wireless.enable = true;
@@ -59,6 +65,15 @@
     opengl = {
       enable = true;
       driSupport = true;
+      driSupport32Bit = true;
+
+      extraPackages = with pkgs; [
+        amdvlk
+        rocmPackages.clr.icd
+      ];
+      extraPackages32 = with pkgs; [
+        driversi686Linux.amdvlk
+      ];
     };
   };
 
@@ -69,7 +84,7 @@
     power-profiles-daemon.enable = true;
     xserver = {
       enable = true;
-      videoDrivers = [ "virtualbox" "radeon" ];
+      videoDrivers = [ "amdgpu" ];
       xkb = {
         layout = "qwerty-fr, ara";
         options = "grp:alt_shift_toggle, ctrl:nocaps";
@@ -175,7 +190,6 @@
     bat
     btop
     curl
-    dunst
     eza
     fd
     feh
@@ -188,6 +202,7 @@
     man-pages
     man-pages-posix
     mediainfo
+    mpc-cli
     mpv
     odt2txt
     p7zip
@@ -213,6 +228,7 @@
     pcmanfm
     peek
     pavucontrol
+    rofi-wayland
     tofi
     wezterm
 
@@ -223,11 +239,13 @@
     dracula-icon-theme
     dracula-theme
     phinger-cursors
+    pywal
     rose-pine-gtk-theme
     rose-pine-icon-theme
     sound-theme-freedesktop
 
     # Compositor utility
+    eww-wayland
     hyprland-protocols
     hyprpaper
     hyprpicker
