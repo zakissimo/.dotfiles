@@ -58,6 +58,7 @@
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland
       ];
+      config.common.default = [ "*" ];
     };
   };
 
@@ -232,20 +233,8 @@
     tofi
     wezterm
 
-    # Theming
-    adwaita-qt
-    adwaita-qt6
-    catppuccin-kvantum
-    dracula-icon-theme
-    dracula-theme
-    phinger-cursors
-    pywal
-    rose-pine-gtk-theme
-    rose-pine-icon-theme
-    sound-theme-freedesktop
-
     # Compositor utility
-    eww-wayland
+    dunst
     hyprland-protocols
     hyprpaper
     hyprpicker
@@ -253,7 +242,6 @@
     swayidle
     swaylock
     swaylock-effects
-    swaynotificationcenter
     swww
     waybar
     wl-clipboard
@@ -272,6 +260,7 @@
     VISUAL = "neovide";
     EDITOR = "nvim";
     TERMINAL = "wezterm";
+    BROWSER = "firefox";
 
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
 

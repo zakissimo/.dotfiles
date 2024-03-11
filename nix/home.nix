@@ -66,9 +66,30 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    adwaita-qt
+    adwaita-qt6
     asusctl
     brillo
+    catppuccin-kvantum
+    dracula-icon-theme
+    dracula-theme
+    phinger-cursors
+    rose-pine-gtk-theme
+    rose-pine-icon-theme
+    sound-theme-freedesktop
   ];
+
+  home.sessionVariables = with pkgs; {
+    SOUND_THEME_DIR = "${sound-theme-freedesktop}";
+    ROSE_PINE_ICON_DIR = "${rose-pine-icon-theme}";
+    DRACULA_ICON_DIR = "${dracula-icon-theme}";
+
+    QT_QPA_PLATFORMTHEME = "gtk3";
+    QT_SCALE_FACTOR = "1";
+    QT_QPA_PLATFORM = "wayland-egl";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+  };
 
   home.activation = with pkgs; {
     rmDeadLinks = ''

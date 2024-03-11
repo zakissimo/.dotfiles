@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-ICON_DIR=$(nix path-info nixpkgs#rose-pine-icon-theme)
-UP_ICON="$ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-kbd.svg"
-DOWN_ICON="$ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-kbd-disabled.svg"
+UP_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-kbd.svg"
+DOWN_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-kbd-disabled.svg"
 
 light_map=("off" "low" "med" "high")
 curr_level=$(asusctl -k)
