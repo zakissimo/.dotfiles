@@ -71,6 +71,7 @@
     asusctl
     brillo
     catppuccin-kvantum
+    chromium
     dracula-icon-theme
     dracula-theme
     phinger-cursors

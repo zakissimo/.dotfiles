@@ -196,6 +196,7 @@
     bat
     btop
     curl
+    desktop-file-utils
     eza
     fd
     feh
@@ -236,7 +237,6 @@
     peek
     pavucontrol
     rofi-wayland
-    tofi
     wezterm
 
     # Compositor utility
@@ -273,7 +273,7 @@
     XCURSOR_SIZE = "22";
     WLR_NO_HARDWARE_CURSORS = "1";
 
-    NIXOS_OZONE_WL = "1";
+    # NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
     _JAVA_AWT_WM_NONREPARENTING = "1";
 
