@@ -74,6 +74,7 @@
     dracula-icon-theme
     dracula-theme
     phinger-cursors
+    playerctl
     rose-pine-gtk-theme
     rose-pine-icon-theme
     sound-theme-freedesktop

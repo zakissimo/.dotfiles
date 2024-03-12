@@ -8,9 +8,7 @@
     "height": 19,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock", "custom/Time4Salat"],
-    "modules-right": ["idle_inhibitor", "network", "cpu", "memory",
-                "custom/power_profile",
-                "battery", "tray"],
+    "modules-right": ["pulseaudio", "cpu", "memory", "custom/power_profile", "battery", "tray"],
     "wlr/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
@@ -29,26 +27,8 @@
         }
     },
 
-        "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-
-    "custom/power_profile":{
-        "exec": "powerprofilesctl get | sed s:'Active profile is'::",
-        "interval": 30,
-        "format": "󰈐 {}", 
-        "on-click": "powerprofilesctl set balanced",
-        "on-scroll-up": "powerprofilesctl set performance",
-        "on-scroll-down": "powerprofilesctl set power-saver",
-        "signal": 8
-    },
-
-   "custom/Time4Salat" : {
-        "tooltip" : true,
+    "custom/Time4Salat" : {
+        "tooltip" : false,
         "format" : "🕋 {}",
         "interval" : 30,
         "exec" : "source ~/.env && $HOME/.local/bin/time_for_salat"
@@ -75,37 +55,15 @@
                       "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
                       "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
                       "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-                      }
-            },
+            }
+        },
         "actions":  {
                     "on-click-right": "mode",
                     "on-click-forward": "tz_up",
                     "on-click-backward": "tz_down",
                     "on-scroll-up": "shift_up",
                     "on-scroll-down": "shift_down"
-                    }
-    },
-
-    "backlight": {
-        "device": "intel_backlight",
-        "format": "{icon} {percent}%",
-        "format-icons": ["", "", ""],
-        "on-scroll-up": "brightnessctl set 5%+",
-        "on-scroll-down": "brightnessctl set 5%-",
-        "min-length": 5
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+        }
     },
 
     "pulseaudio": {
@@ -128,50 +86,43 @@
         }
     },
 
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": " Muted",
-        "on-click": "pamixer --default-source -t",
-        "on-click-right": "pavucontrol",
-        "on-scroll-up": "pamixer --default-source -i 5",
-        "on-scroll-down": "pamixer --default-source -d 5",
-        "scroll-step": 5
-    },
-
     "cpu": {
         "interval": 10,
-        "format": " {usage}%",
+        "format": " {usage}%",
         "max-length": 10,
         "on-click": "wezterm -e btop"
     },
 
     "memory": {
         "interval": 30,
-        "format": " {}%",
+        "format": " {}%",
         "max-length": 10,
         "tooltip": true,
         "tooltip-format": "Memory - {used:0.1f}GB used",
         "on-click": "wezterm -e btop"
     },
 
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "  {signalStrength}%",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{essid} - {ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
+    "custom/power_profile":{
+        "exec": "powerprofilesctl get | sed s:'Active profile is'::",
+        "interval": 30,
+        "format": "󰈐 {}", 
+        "on-click": "powerprofilesctl set balanced",
+        "on-scroll-up": "powerprofilesctl set performance",
+        "on-scroll-down": "powerprofilesctl set power-saver",
+        "signal": 8
     },
 
-    "bluetooth": {
-       "format": " {status}",
-       "format-disabled": "", // an empty format will hide the module
-       "format-connected": " {num_connections}",
-       "tooltip-format": "{device_alias}",
-       "tooltip-format-connected": " {device_enumerate}",
-       "tooltip-format-enumerate-connected": "{device_alias}"
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": [" ", " ", " ", " ", " "]
     }
 }
 

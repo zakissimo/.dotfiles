@@ -22,13 +22,13 @@ tooltip {
 }
 
 #battery,
-#bluetooth,
 #clock,
 #cpu,
 #custom-Time4Salat,
 #custom-power_profile,
 #memory,
 #network,
+#bluetooth,
 #pulseaudio,
 #temperature,
 #tray,
@@ -92,7 +92,7 @@ tooltip {
 }
 
 #bluetooth {
-  color: @foam;
+  color: @iris;
 }
 
 #pulseaudio {
@@ -132,14 +132,14 @@ tooltip {
 
 #idle_inhibitor {
   background-color: rgba(0, 0, 0, 0);
-  color: @iris;
+  color: @rose;
   border-radius: 5px;
   margin-right: 10px;
 }
 
 #idle_inhibitor.activated {
   background-color: rgba(0, 0, 0, 0);
-  color: @iris;
+  color: @rose;
   border-radius: 5px;
   margin-right: 10px;
 }

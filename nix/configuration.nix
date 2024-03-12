@@ -76,13 +76,22 @@
         driversi686Linux.amdvlk
       ];
     };
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
   };
 
   services = {
+    blueman.enable = true;
     dbus.enable = true;
+    gnome = {
+      sushi.enable = true;
+      gnome-keyring.enable = true;
+    };
     gvfs.enable = true;
-    tumbler.enable = true;
     power-profiles-daemon.enable = true;
+    tumbler.enable = true;
     xserver = {
       enable = true;
       videoDrivers = [ "amdgpu" ];
@@ -102,10 +111,6 @@
         enable = true;
         wayland = true;
       };
-    };
-    gnome = {
-      sushi.enable = true;
-      gnome-keyring.enable = true;
     };
   };
 
@@ -205,6 +210,7 @@
     mediainfo
     mpc-cli
     mpv
+    networkmanagerapplet
     odt2txt
     p7zip
     pamixer
