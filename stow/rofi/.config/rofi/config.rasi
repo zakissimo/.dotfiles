@@ -1,5 +1,5 @@
 configuration{
-    modi: "run,drun,window";
+    modi: "run,drun";
     icon-theme: "Oranchelo";
     show-icons: true;
     terminal: "wezterm";
@@ -9,13 +9,10 @@ configuration{
     hide-scrollbar: true;
     display-drun: "   Apps ";
     display-run: "   Run ";
-    display-window: " 﩯  Window";
-    display-Network: " 󰤨  Network";
-    sidebar-mode: true;
+    sidebar-mode: false;
 }
 
 * {
-
     bg-col:  #191724;
     bg-col-light: #1f1d2e;
     border-col: #26233a;
@@ -28,16 +25,31 @@ configuration{
     grey: #524f67;
 
     width: 600;
-    font: "FiraCode Nerd Font 11";
+    font: "FiraCode Nerd Font 10";
+}
+
+element {
+    padding: 5px;
+    background-color: @bg-col;
+    text-color: @fg-col  ;
+}
+
+element-icon {
+    size: 25px;
+}
+
+element-text.selected {
+    text-color: @grey;
+}
+
+element.selected.normal {
+    background-color: @iris;
+    text-color: @iris;
 }
 
 element.normal.normal, element.alternate.normal {
     background-color: inherit;
     text-color:       inherit;
-}
-
-element-text.selected {
-    text-color: #f6c177;
 }
 
 element-text, element-icon, mode-switcher {
@@ -91,21 +103,6 @@ listview {
     columns: 2;
     lines: 5;
     background-color: @bg-col;
-}
-
-element {
-    padding: 5px;
-    background-color: @bg-col;
-    text-color: @fg-col  ;
-}
-
-element-icon {
-    size: 25px;
-}
-
-element selected normal {
-    background-color:  @iris ;
-    text-color: @iris  ;
 }
 
 mode-switcher {

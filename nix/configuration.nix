@@ -15,8 +15,11 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "amdgpu" ];
   boot.kernelModules = [ "kvm-amd" ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  # Bootloader
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 3;
+  };
 
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
@@ -61,6 +64,23 @@
         xdg-desktop-portal-hyprland
       ];
       config.common.default = [ "*" ];
+    };
+    mime = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = [ "zathura.desktop" ];
+        "application/x-shellscript" = [ "neovide.desktop" ];
+        "application/xhtml+xml+json" = [ "firefox.desktop" ];
+        "image/*" = [ "imv.desktop" ];
+        "inode/directory" = [ "pcmanfm.desktop" ];
+        "text/html" = [ "firefox.desktop" ];
+        "text/plain" = [ "neovide.desktop" ];
+        "video/*" = [ "mpv.desktop" ];
+        "audio/*" = [ "mpv.desktop" ];
+        "x-scheme-handler/http" = [ "firefox.desktop" ];
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
+        "x-scheme-handler/magnet" = [ "fragments.desktop" ];
+      };
     };
   };
 
@@ -233,7 +253,6 @@
     zathura
 
     # Graphical Applications
-    firefox
     firefox-wayland
     flameshot
     fragments
@@ -243,12 +262,14 @@
     peek
     pavucontrol
     rofi-wayland
-    tofi
+    via
     wezterm
 
     # Compositor utility
+    grim
     hyprland-protocols
     hyprpaper
+    slurp
     swaybg
     swayidle
     swaylock-effects

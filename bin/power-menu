@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-chosen=$(printf "  Power Off\n  Restart\n  Lock" | tofi --prompt-text=)
+chosen=$(printf "  Power Off\n󰒲  Suspend\n  Restart\n  Lock" | rofi -dmenu)
 
 case "$chosen" in
 "  Power Off") poweroff ;;
+"󰒲  Suspend") systemctl suspend ;;
 "  Restart") reboot ;;
 "  Lock") swaylock ;;
 *) exit 1 ;;

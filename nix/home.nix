@@ -136,20 +136,6 @@
 
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "application/pdf" = [ "zathura.desktop" ];
-    "application/x-shellscript" = [ "neovide.desktop" ];
-    "application/xhtml+xml" = [ "firefox.desktop" ];
-    "image/*" = [ "imv.desktop" ];
-    "inode/directory" = [ "pcmanfm.desktop" ];
-    "text/html" = [ "firefox.desktop" ];
-    "text/plain" = [ "neovide.desktop" ];
-    "video/*" = [ "mpv.desktop" ];
-    "x-scheme-handler/http" = [ "firefox.desktop" ];
-    "x-scheme-handler/https" = [ "firefox.desktop" ];
-    "x-scheme-handler/magnet" = [ "fragments.desktop" ];
-  };
-
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
@@ -271,10 +257,7 @@
       profileExtra = ''
         _add_path() { [ -d "$1" ] && export PATH="$PATH:$1" }
 
-        # _add_path "$HOME/.bin"
-        # _add_path "$HOME/.local/bin"
-        # _add_path "$HOME/.cargo/bin"
-        # _add_path "$PNPM_HOME"
+        _add_path "$PNPM_HOME"
 
         mdir() { mkdir $1 && cd $1 }
 
