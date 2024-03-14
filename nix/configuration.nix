@@ -18,7 +18,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
 
-
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
@@ -172,6 +171,9 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    # Theme
+    rose-pine-icon-theme
+
     # Dev
     (lib.hiPrio gcc)
     (lib.lowPrio clang)
@@ -245,7 +247,6 @@
     wezterm
 
     # Compositor utility
-    dunst
     hyprland-protocols
     hyprpaper
     swaybg
