@@ -46,7 +46,10 @@
 
   security = {
     polkit.enable = true;
-    pam.services.ags = { };
+    pam.services = {
+      ags = { };
+      swaylock = { };
+    };
   };
 
   xdg = {
@@ -115,6 +118,7 @@
   };
 
   programs = {
+    dconf.enable = true;
     nix-ld.enable = true;
     hyprland = {
       enable = true;
@@ -237,18 +241,16 @@
     peek
     pavucontrol
     rofi-wayland
+    tofi
     wezterm
 
     # Compositor utility
     dunst
     hyprland-protocols
     hyprpaper
-    hyprpicker
     swaybg
     swayidle
-    swaylock
     swaylock-effects
-    swww
     waybar
     wl-clipboard
     wlogout

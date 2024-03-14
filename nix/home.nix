@@ -74,6 +74,7 @@
     chromium
     dracula-icon-theme
     dracula-theme
+    obs-studio
     phinger-cursors
     playerctl
     rose-pine-gtk-theme
@@ -88,10 +89,17 @@
 
     QT_QPA_PLATFORMTHEME = "gtk3";
     QT_SCALE_FACTOR = "1";
-    QT_QPA_PLATFORM = "wayland-egl";
+    QT_QPA_PLATFORM = "wayland;xcb";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
   };
+
+  home.sessionPath = [
+    "$HOME/.bin"
+    "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
+  ];
+
 
   home.activation = with pkgs; {
     rmDeadLinks = ''
@@ -176,10 +184,10 @@
       profileExtra = ''
         _add_path() { [ -d "$1" ] && export PATH="$PATH:$1" }
 
-        _add_path "$HOME/.bin"
-        _add_path "$HOME/.local/bin"
-        _add_path "$HOME/.cargo/bin"
-        _add_path "$PNPM_HOME"
+        # _add_path "$HOME/.bin"
+        # _add_path "$HOME/.local/bin"
+        # _add_path "$HOME/.cargo/bin"
+        # _add_path "$PNPM_HOME"
 
         mdir() { mkdir $1 && cd $1 }
 

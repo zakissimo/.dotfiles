@@ -8,7 +8,7 @@
     "height": 19,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock", "custom/Time4Salat"],
-    "modules-right": ["pulseaudio", "cpu", "memory", "custom/power_profile", "battery", "tray"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "cpu", "memory", "custom/power_profile", "battery", "tray"],
     "wlr/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
@@ -63,6 +63,14 @@
                     "on-click-backward": "tz_down",
                     "on-scroll-up": "shift_up",
                     "on-scroll-down": "shift_down"
+        }
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
         }
     },
 
