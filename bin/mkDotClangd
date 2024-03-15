@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo -n "CompileFlags:
+  Add:
+" >.clangd
+
+echo "$NIX_CFLAGS_COMPILE" | grep -oE '\-[^ ]+' | while read -r path; do
+    echo "    '$path'" >>.clangd
+done

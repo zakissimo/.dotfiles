@@ -217,6 +217,7 @@
     nodejs
     openssl
     pkg-config
+    python3
     qt5.qtwayland
     qt6.qmake
     qt6.qtwayland
@@ -277,6 +278,7 @@
     catppuccin-kvantum
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.qt5ct
+    themechanger
 
     # Compositor utility
     grim
@@ -311,6 +313,7 @@
 
     QT_SCALE_FACTOR = "1";
     QT_QPA_PLATFORM = "wayland;xcb";
+    QT_QPA_PLATFORMTHEME = "qt5ct";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
