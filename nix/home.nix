@@ -139,10 +139,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    adwaita-qt
-    adwaita-qt6
     asusctl
-    catppuccin-kvantum
     chromium
     dracula-icon-theme
     dracula-theme
@@ -160,11 +157,16 @@
     ROSE_PINE_ICON_DIR = "${rose-pine-icon-theme}";
     DRACULA_ICON_DIR = "${dracula-icon-theme}";
 
-    QT_QPA_PLATFORMTHEME = "gtk3";
-    QT_SCALE_FACTOR = "1";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_CONFIG_HOME = "$HOME/.config";
+
+    ZSH_COMPDUMP = "$HOME/.cache/.zcompdump-$HOST";
+
+    GOPATH = "$HOME/.config/go";
+    PNPM_HOME = "$HOME/.config/pnpm";
+
+    FZF_DEFAULT_OPTS = "--multi --layout=reverse --inline-info --height=80%";
+    FZF_DEFAULT_COMMAND = "rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null";
   };
 
   home.sessionPath = [
@@ -244,15 +246,6 @@
 
         KEYTIMEOUT=1
       '';
-      sessionVariables = {
-        XDG_CACHE_HOME = "$HOME/.cache";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        ZSH_COMPDUMP = "$XDG_CACHE_HOME/.zcompdump-$HOST";
-        GOPATH = "$XDG_CONFIG_HOME/go";
-        PNPM_HOME = "$XDG_CONFIG_HOME/pnpm";
-        FZF_DEFAULT_OPTS = "--multi --layout=reverse --inline-info --height=80%";
-        FZF_DEFAULT_COMMAND = "rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null";
-      };
       profileExtra = ''
         _add_path() { [ -d "$1" ] && export PATH="$PATH:$1" }
 
@@ -271,7 +264,6 @@
         ls = "eza";
 
         bld = "home-manager switch";
-        blds = "sudo nixos-rebuild switch";
       };
     };
   };

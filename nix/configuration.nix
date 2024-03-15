@@ -152,6 +152,14 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
+      qt5 = {
+        enable = true;
+        platformTheme = "qt5ct";
+        style = {
+          name = "catppuccin-kvantum";
+          package = pkgs.catppuccin-kvantum;
+        };
+      };
     };
   };
 
@@ -191,9 +199,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Theme
-    rose-pine-icon-theme
-
     # Dev
     (lib.hiPrio gcc)
     (lib.lowPrio clang)
@@ -266,10 +271,18 @@
     via
     wezterm
 
+    # Theme
+    adwaita-qt
+    adwaita-qt6
+    catppuccin-kvantum
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qt5ct
+
     # Compositor utility
     grim
     hyprland-protocols
     hyprpaper
+    playerctl
     slurp
     swaybg
     swayidle
@@ -282,11 +295,12 @@
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     xdg-utils
+    xorg.xhost
 
     home-manager
   ];
 
-  environment.sessionVariables = rec {
+  environment.variables = rec {
     SUDO_EDITOR = "nvim";
     VISUAL = "neovide";
     EDITOR = "nvim";
@@ -294,6 +308,11 @@
     BROWSER = "firefox";
 
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+
+    QT_SCALE_FACTOR = "1";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
     XCURSOR_SIZE = "22";
     WLR_NO_HARDWARE_CURSORS = "1";
