@@ -142,7 +142,6 @@
     adwaita-qt
     adwaita-qt6
     asusctl
-    brillo
     catppuccin-kvantum
     chromium
     dracula-icon-theme

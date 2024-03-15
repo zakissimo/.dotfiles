@@ -220,6 +220,7 @@
 
     # Terminal Applications
     bat
+    brillo
     btop
     curl
     desktop-file-utils
