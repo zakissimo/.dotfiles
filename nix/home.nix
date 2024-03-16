@@ -8,15 +8,6 @@
 
   home.keyboard.enable = false;
 
-  home.pointerCursor = {
-    gtk.enable = true;
-    #name = "Dracula-cursors";
-    name = "Catppuccin-Mocha-Dark-Cursors";
-    #package = pkgs.dracula-theme;
-    package = pkgs.catppuccin-cursors.mochaDark;
-    size = 15;
-  };
-
   systemd.user.services = {
     polkit-gnome-authentication-agent-1 = {
       Unit = {
@@ -49,14 +40,19 @@
   };
 
   qt = {
-    enable = true;
+    enable = false;
     platformTheme = "gtk";
     style = {
-      name = "Catppuccin-Mocha-Teal";
-      package = pkgs.catppuccin-kvantum.override { variant = "Mocha"; accent = "Teal"; };
-      # name = "Catppuccin-Mocha-Lavender";
-      # package = pkgs.catppuccin-kvantum.override { variant = "Mocha"; accent = "Lavender"; };
+      name = "Catppuccin-Mocha-Lavender";
+      package = pkgs.catppuccin-kvantum.override { variant = "Mocha"; accent = "Lavender"; };
     };
+  };
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    name = "Catppuccin-Mocha-Dark-Cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
+    size = 15;
   };
 
   services.dunst = {
@@ -164,7 +160,6 @@
 
     QT_SCALE_FACTOR = "1";
     QT_QPA_PLATFORM = "wayland;xcb";
-    QT_QPA_PLATFORMTHEME = "gtk2";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 

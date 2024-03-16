@@ -191,56 +191,13 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Dev
-    (lib.hiPrio clang)
-
-    bear
+    #Dev
+    binutils
     clang-tools
     cmake
-    cmake-format
-    cmake-language-server
+    delta
     extra-cmake-modules
     gcc
-    gcc13
-    gcc_multi
-    ninja
-    pkg-config
-
-    lldb
-    gdb
-
-    libllvm
-    valgrind
-
-    faac
-    faad2
-    freeglut
-    glew
-    glfw
-    glm
-    libGL
-    libGLU
-    libcxx
-    libglvnd
-    libvdpau-va-gl
-    mesa.dev
-
-    SDL2
-    SDL2_gfx
-    SDL2_image
-    SDL2_mixer
-    SDL2_net
-    SDL2_sound
-    SDL2_ttf
-
-    vulkan-tools
-    vulkan-loader
-    vulkan-headers
-    vulkan-tools-lunarg
-
-    binutils
-    cmake
-    delta
     gdb
     git
     gnumake
@@ -254,7 +211,6 @@
     pkg-config
     python3
     qt5.qtwayland
-    qt6.qtwayland
     rustup
     valgrind
 
