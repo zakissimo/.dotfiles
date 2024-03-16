@@ -10,9 +10,11 @@
 
   home.pointerCursor = {
     gtk.enable = true;
-    name = "phinger-cursors";
-    package = pkgs.phinger-cursors;
-    size = 22;
+    #name = "Dracula-cursors";
+    name = "Catppuccin-Mocha-Dark-Cursors";
+    #package = pkgs.dracula-theme;
+    package = pkgs.catppuccin-cursors.mochaDark;
+    size = 15;
   };
 
   systemd.user.services = {
@@ -40,12 +42,20 @@
       package = pkgs.rose-pine-gtk-theme;
     };
     iconTheme = {
-      name = "rose-pine";
+      name = "rose-pine-dawn";
       package = pkgs.rose-pine-icon-theme;
     };
-    cursorTheme = {
-      name = "phinger-cursors";
-      package = pkgs.phinger-cursors;
+    font.name = "FiraCode Nerd Font Mono Medium";
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style = {
+      name = "Catppuccin-Mocha-Teal";
+      package = pkgs.catppuccin-kvantum.override { variant = "Mocha"; accent = "Teal"; };
+      # name = "Catppuccin-Mocha-Lavender";
+      # package = pkgs.catppuccin-kvantum.override { variant = "Mocha"; accent = "Lavender"; };
     };
   };
 
@@ -141,21 +151,22 @@
   home.packages = with pkgs; [
     asusctl
     chromium
-    dracula-icon-theme
-    dracula-theme
     dunst
     obs-studio
-    phinger-cursors
     playerctl
-    rose-pine-gtk-theme
-    rose-pine-icon-theme
     sound-theme-freedesktop
+    themechanger
   ];
 
   home.sessionVariables = with pkgs; {
     SOUND_THEME_DIR = "${sound-theme-freedesktop}";
     ROSE_PINE_ICON_DIR = "${rose-pine-icon-theme}";
-    DRACULA_ICON_DIR = "${dracula-icon-theme}";
+
+    QT_SCALE_FACTOR = "1";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    QT_QPA_PLATFORMTHEME = "gtk2";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";

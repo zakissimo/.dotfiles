@@ -152,14 +152,6 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      qt5 = {
-        enable = true;
-        platformTheme = "qt5ct";
-        style = {
-          name = "catppuccin-kvantum";
-          package = pkgs.catppuccin-kvantum;
-        };
-      };
     };
   };
 
@@ -200,12 +192,51 @@
 
   environment.systemPackages = with pkgs; [
     # Dev
-    (hiPrio clang-tools.override {
-      llvmPackages = llvmPackages_16;
-      enableLibcxx = false;
-    })
-    llvmPackages_16.libstdcxxClang
-    (lib.lowPrio gcc)
+    (lib.hiPrio clang)
+
+    bear
+    clang-tools
+    cmake
+    cmake-format
+    cmake-language-server
+    extra-cmake-modules
+    gcc
+    gcc13
+    gcc_multi
+    ninja
+    pkg-config
+
+    lldb
+    gdb
+
+    libllvm
+    valgrind
+
+    faac
+    faad2
+    freeglut
+    glew
+    glfw
+    glm
+    libGL
+    libGLU
+    libcxx
+    libglvnd
+    libvdpau-va-gl
+    mesa.dev
+
+    SDL2
+    SDL2_gfx
+    SDL2_image
+    SDL2_mixer
+    SDL2_net
+    SDL2_sound
+    SDL2_ttf
+
+    vulkan-tools
+    vulkan-loader
+    vulkan-headers
+    vulkan-tools-lunarg
 
     binutils
     cmake
@@ -274,12 +305,7 @@
     rofi-wayland
     via
     wezterm
-
-    # Theme
-    adwaita-qt
-    adwaita-qt6
-    catppuccin-kvantum
-    themechanger
+    xarchiver
 
     # Compositor utility
     grim
@@ -312,13 +338,6 @@
 
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
 
-    QT_SCALE_FACTOR = "1";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    QT_QPA_PLATFORMTHEME = "qt5ct";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-
-    XCURSOR_SIZE = "22";
     WLR_NO_HARDWARE_CURSORS = "1";
 
     # NIXOS_OZONE_WL = "1";
