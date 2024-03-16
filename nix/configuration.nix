@@ -200,10 +200,14 @@
 
   environment.systemPackages = with pkgs; [
     # Dev
-    (lib.hiPrio gcc)
-    (lib.lowPrio clang)
+    (hiPrio clang-tools.override {
+      llvmPackages = llvmPackages_16;
+      enableLibcxx = false;
+    })
+    llvmPackages_16.libstdcxxClang
+    (lib.lowPrio gcc)
+
     binutils
-    clang-tools
     cmake
     delta
     gdb
@@ -219,7 +223,6 @@
     pkg-config
     python3
     qt5.qtwayland
-    qt6.qmake
     qt6.qtwayland
     rustup
     valgrind
@@ -276,8 +279,6 @@
     adwaita-qt
     adwaita-qt6
     catppuccin-kvantum
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.qt5ct
     themechanger
 
     # Compositor utility
