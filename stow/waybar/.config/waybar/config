@@ -111,12 +111,10 @@
     },
 
     "custom/power_profile":{
-        "exec": "powerprofilesctl get | sed s:'Active profile is'::",
+        "exec": "powerprofilesctl get",
         "interval": 30,
         "format": "󰈐 {}", 
-        "on-click": "powerprofilesctl set balanced",
-        "on-scroll-up": "powerprofilesctl set performance",
-        "on-scroll-down": "powerprofilesctl set power-saver",
+        "on-click": "declare -A hash; hash['balanced']='power-saver'; hash['power-saver']='performance'; hash['performance']='balanced'; powerprofilesctl set ${hash[$(powerprofilesctl get)]}",
         "signal": 8
     },
 
