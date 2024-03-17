@@ -6,6 +6,7 @@ color=000000
 effect-blur=7x5
 fade-in=0.2
 grace=0
+hide-keyboard-layout
 inside-caps-lock-color=00000000
 inside-clear-color=00000000
 inside-color=00000000
