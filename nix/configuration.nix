@@ -193,6 +193,7 @@
   environment.systemPackages = with pkgs; [
     #Dev
     binutils
+    clang
     clang-tools
     cmake
     delta
@@ -211,6 +212,8 @@
     pkg-config
     python3
     qt5.qtwayland
+    qt5Full
+    qtcreator
     rustup
     valgrind
 
