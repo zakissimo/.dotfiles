@@ -112,9 +112,8 @@
 
     "custom/power_profile":{
         "exec": "powerprofilesctl get",
-        "interval": 30,
         "format": "󰈐 {}", 
-        "on-click": "declare -A hash; hash['balanced']='power-saver'; hash['power-saver']='performance'; hash['performance']='balanced'; powerprofilesctl set ${hash[$(powerprofilesctl get)]}",
+        "on-click": "declare -A hash; hash['balanced']='power-saver'; hash['power-saver']='performance'; hash['performance']='balanced'; powerprofilesctl set ${hash[$(powerprofilesctl get)]}; pkill -SIGRTMIN+8 waybar",
         "signal": 8
     },
 
