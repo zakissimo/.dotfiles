@@ -2,10 +2,10 @@ bs-hl-color=f5e0dc
 caps-lock-bs-hl-color=f5e0dc
 caps-lock-key-hl-color=a6e3a1
 clock
-color=1e1e2e
+color=000000
 effect-blur=7x5
 fade-in=0.2
-grace=2
+grace=0
 inside-caps-lock-color=00000000
 inside-clear-color=00000000
 inside-color=00000000
@@ -25,7 +25,6 @@ ring-clear-color=f5e0dc
 ring-color=b4befe
 ring-ver-color=89b4fa
 ring-wrong-color=eba0ac
-screenshots
 separator-color=00000000
 text-caps-lock-color=fab387
 text-clear-color=f5e0dc
