@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+UP_ICON="/usr/share/icons/Dracula/24/panel/xfpm-brightness-lcd.svg"
+DOWN_ICON="/usr/share/icons/Dracula/24/panel/gpm-brightness-lcd-disabled.svg"
+
+brighten() {
+	brillo -q -A 5
+	curr_level=$(brillo)
+	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$UP_ICON"
+}
+
+dim() {
+	brillo -q -U 5
+	curr_level=$(brillo)
+	dunstify "Brightness" -h int:value:"$curr_level" -t 2000 -i "$DOWN_ICON"
+}
+
+case $1 in
+"-u")
+	brighten
+	;;
+"-d")
+	dim
+	;;
+*)
+	usage
+	;;
+esac

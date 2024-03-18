@@ -1,0 +1,30 @@
+#!/bin/bash
+
+superCopy() {
+	echo "$(xclip -o -sel c)" >>/tmp/tmpclip.log
+}
+
+superPaste() {
+	echo -n "$(rofi -dmenu -p 'Select:' </tmp/tmpclip.log)" | xclip -sel c
+}
+
+usage() {
+	cat <<-EOF
+		Usage: "$0" <option>
+
+		-c for Super Copy
+		-p for Super Pasting // Using rofi -dmenu
+	EOF
+}
+
+case $1 in
+"-c")
+	superCopy
+	;;
+"-p")
+	superPaste
+	;;
+*)
+	usage
+	;;
+esac
