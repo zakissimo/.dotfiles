@@ -85,6 +85,10 @@
   };
 
   hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
     opengl = {
       enable = true;
       driSupport = true;
@@ -98,10 +102,8 @@
         driversi686Linux.amdvlk
       ];
     };
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
+    openrazer.enable = true;
+    pulseaudio.enable = false;
   };
 
   services = {
@@ -158,7 +160,6 @@
   services.printing.enable = true;
 
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -261,6 +262,7 @@
     pcmanfm
     peek
     pavucontrol
+    razergenie
     rofi-wayland
     via
     wezterm
