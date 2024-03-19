@@ -102,7 +102,10 @@
         driversi686Linux.amdvlk
       ];
     };
-    openrazer.enable = true;
+    openrazer = {
+      enable = true;
+      users = [ "zak" ];
+    };
     pulseaudio.enable = false;
   };
 
@@ -173,8 +176,12 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "zak";
-    extraGroups = [ "networkmanager" "wheel" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "plugdev" "docker" "audio" ];
     packages = with pkgs; [ ];
+  };
+
+  users.groups.plugdev = {
+    members = [ "zak" ];
   };
 
   fonts.packages = with pkgs; [
@@ -240,6 +247,7 @@
     mpv
     networkmanagerapplet
     odt2txt
+    openrazer-daemon
     p7zip
     pamixer
     power-profiles-daemon
@@ -248,6 +256,7 @@
     stow
     unrar
     unzip
+    usbutils
     vagrant
     wget
     yt-dlp
@@ -262,6 +271,7 @@
     pcmanfm
     peek
     pavucontrol
+    polychromatic
     razergenie
     rofi-wayland
     via
