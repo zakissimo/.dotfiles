@@ -25,7 +25,7 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
-  networking.hostName = "nix"; # Define your hostname.
+  networking.hostName = "nix";
   # networking.wireless.enable = true;
 
   networking.networkmanager.enable = true;
@@ -89,6 +89,7 @@
       enable = true;
       powerOnBoot = true;
     };
+    keyboard.qmk.enable = true;
     opengl = {
       enable = true;
       driSupport = true;
@@ -107,38 +108,6 @@
       users = [ "zak" ];
     };
     pulseaudio.enable = false;
-  };
-
-  services = {
-    blueman.enable = true;
-    dbus.enable = true;
-    gnome = {
-      sushi.enable = true;
-      gnome-keyring.enable = true;
-    };
-    gvfs.enable = true;
-    power-profiles-daemon.enable = true;
-    tumbler.enable = true;
-    xserver = {
-      enable = true;
-      videoDrivers = [ "amdgpu" ];
-      xkb = {
-        layout = "qwerty-fr, ara";
-        options = "grp:alt_shift_toggle, ctrl:nocaps";
-        extraLayouts.qwerty-fr = {
-          description = "Qwerty with accents";
-          languages = [ "us" "fr" ];
-          symbolsFile = builtins.fetchurl {
-            url = "https://gist.githubusercontent.com/zakissimo/bde1dc0b6e5fdce4f5a85f9cdfb76fbe/raw/0a512ef791ce4a945c5a2d3c4371747f0969c0a2/qwerty-fr";
-          };
-        };
-      };
-      libinput.enable = true;
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-    };
   };
 
   programs = {
@@ -160,17 +129,8 @@
     };
   };
 
-  services.printing.enable = true;
-
   sound.enable = true;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
 
   users.users.zak = {
     shell = pkgs.zsh;
@@ -258,6 +218,7 @@
     unzip
     usbutils
     vagrant
+    viu
     wget
     yt-dlp
     zathura
@@ -279,6 +240,8 @@
     xarchiver
 
     # Compositor utility
+    greetd.greetd
+    greetd.tuigreet
     grim
     hyprland-protocols
     hyprpaper
@@ -311,7 +274,7 @@
 
     WLR_NO_HARDWARE_CURSORS = "1";
 
-    # NIXOS_OZONE_WL = "1";
+    NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
     _JAVA_AWT_WM_NONREPARENTING = "1";
 
@@ -330,31 +293,53 @@
     GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  services = {
+    blueman.enable = true;
+    dbus.enable = true;
+    gnome = {
+      sushi.enable = true;
+      gnome-keyring.enable = true;
+    };
+    gvfs.enable = true;
+    greetd = {
+      enable = true;
+      settings = rec {
+        initial_session = {
+          command = "${pkgs.hyprland}/bin/Hyprland";
+          user = "zak";
+        };
+        default_session = initial_session;
+      };
+    };
+    openssh.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
+    power-profiles-daemon.enable = true;
+    printing.enable = true;
+    tumbler.enable = true;
+    udev.packages = [ pkgs.via ];
+    xserver = {
+      enable = true;
+      videoDrivers = [ "amdgpu" ];
+      xkb = {
+        layout = "qwerty-fr, ara";
+        options = "grp:alt_shift_toggle, ctrl:nocaps";
+        extraLayouts.qwerty-fr = {
+          description = "Qwerty with accents";
+          languages = [ "us" "fr" ];
+          symbolsFile = builtins.fetchurl {
+            url = "https://gist.githubusercontent.com/zakissimo/bde1dc0b6e5fdce4f5a85f9cdfb76fbe/raw/0a512ef791ce4a945c5a2d3c4371747f0969c0a2/qwerty-fr";
+          };
+        };
+      };
+      libinput.enable = true;
+    };
+  };
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
-
+  system.stateVersion = "23.11";
 }
