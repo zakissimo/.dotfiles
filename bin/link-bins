@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+[ ! -d "$HOME/.local/bin" ] && mkdir -vp "$HOME/.local/bin"
+for bin in "$HOME"/.dotfiles/bin/*; do
+    [ -f "$HOME/.local/bin/${bin##*/}" ] && rm "$HOME/.local/bin/${bin##*/}"
+    ln -s "$bin" "$HOME/.local/bin/${bin##*/}"
+done

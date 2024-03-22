@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+echo "ACT #32790: [DEV] Editeur de conf de sécurité" | xclip -sel c
