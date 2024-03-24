@@ -68,7 +68,7 @@
     mime = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = [ "zathura.desktop" ];
+        "application/pdf" = [ "mupdf.desktop" ];
         "application/x-shellscript" = [ "neovide.desktop" ];
         "application/xhtml+xml+json" = [ "firefox.desktop" ];
         "image/*" = [ "imv.desktop" ];
@@ -205,6 +205,7 @@
     mediainfo
     mpc-cli
     mpv
+    mupdf
     networkmanagerapplet
     odt2txt
     openrazer-daemon
@@ -221,7 +222,6 @@
     viu
     wget
     yt-dlp
-    zathura
 
     # Graphical Applications
     firefox-wayland
