@@ -1,4 +1,4 @@
-configuration{
+configuration {
     modi: "run,drun";
     icon-theme: "Oranchelo";
     show-icons: true;
@@ -6,10 +6,10 @@ configuration{
     drun-display-format: "{icon} {name}";
     location: 0;
     disable-history: false;
-    hide-scrollbar: true;
+    scrollbar: false;
     display-drun: "   Apps ";
     display-run: "   Run ";
-    sidebar-mode: false;
+    sidebar-mode: true;
 }
 
 * {
@@ -26,6 +26,11 @@ configuration{
 
     width: 600;
     font: "FiraCode Nerd Font 10";
+}
+
+scrollbar {
+    handle-color: @bg-col-light;
+    background-color: @bg-col;
 }
 
 element {
