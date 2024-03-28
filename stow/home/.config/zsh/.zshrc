@@ -9,7 +9,9 @@ source ${ZIM_HOME}/init.zsh
 
 source ${ZDOTDIR}/.zprofile
 
-[[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
+[[ -f ~/.env ]] && source ~/.env
 
 alias ls=exa
 alias la='exa -la'
