@@ -4,14 +4,14 @@ s=$(nix search nixpkgs "$1" | ansifilter)
 
 p="$(echo "$s" | grep '^*' | awk -F' ' '{print $2}' | awk -F'.' '{print $NF}')"
 readarray -t packages <<<"$(echo "$s" | grep '^*' | awk -F' ' '{print $2}' | awk -F'.' '{print $NF}')"
-readarray -t descriptions <<<"$(echo "$s" | grep -v '^*')"
+readarray -t descriptions <<<"$(echo "$s" | grep -Pv '^(\*|$)')"
 
 data='{}'
 
 for ((i = 0; i < ${#packages[@]}; i++)); do
     data=$(jq -n --arg data "$data" \
         --arg key "${packages[i]}" \
-        --arg value "$(echo "${descriptions[i]}" | xargs)" \
+        --arg value "${descriptions[i]}" \
         '$data | fromjson + { ($key) : ($value) }')
 done
 
