@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+s=$(nix search nixpkgs "$1" | ansifilter)
+
+p="$(echo "$s" | grep '^*' | awk -F' ' '{print $2}' | awk -F'.' '{print $NF}')"
+readarray -t packages <<<"$(echo "$s" | grep '^*' | awk -F' ' '{print $2}' | awk -F'.' '{print $NF}')"
+readarray -t descriptions <<<"$(echo "$s" | grep -v '^*')"
+
+data='{}'
+
+for ((i = 0; i < ${#packages[@]}; i++)); do
+    data=$(jq -n --arg data "$data" \
+        --arg key "${packages[i]}" \
+        --arg value "$(echo "${descriptions[i]}" | xargs)" \
+        '$data | fromjson + { ($key) : ($value) }')
+done
+
+tmp=$(mktemp)
+
+echo "$data" >>"$tmp"
+
+if [ "${#packages[@]}" -eq 1 ]; then
+    selected="${packages[0]}"
+else
+    selected=$(echo "$p" | fzf --preview-window 'wrap' --preview "jq -r '.\"{}\"' $tmp")
+fi
+
+rm "$tmp"
+
+if [ -n "$selected" ]; then
+    nix-shell -p "$selected" --run "$selected"
+fi

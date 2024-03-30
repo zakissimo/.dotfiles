@@ -16,7 +16,7 @@ config.color_scheme = "rose-pine"
 config.enable_wayland = false
 
 config.font_size = 15
-config.bidi_enabled = false
+config.bidi_enabled = true
 config.font = wezterm.font_with_fallback({
     "FiraCode Nerd Font",
     "Noto Sans Mono CJK SC",

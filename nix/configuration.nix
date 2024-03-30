@@ -186,6 +186,7 @@
     valgrind
 
     # Terminal Applications
+    ansifilter
     bat
     brillo
     btop
@@ -200,6 +201,7 @@
     imagemagick
     imv
     inotify-tools
+    jq
     man-pages
     man-pages-posix
     mediainfo
