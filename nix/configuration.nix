@@ -144,19 +144,32 @@
     members = [ "zak" ];
   };
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override {
-      fonts =
-        [
-          "CascadiaCode"
-          "FiraCode"
-          "FiraMono"
-          "JetBrainsMono"
-          "Noto"
-          "UbuntuMono"
-        ];
-    })
-  ];
+  fonts = {
+    enableDefaultPackages = true;
+    fontconfig = {
+      defaultFonts = {
+        serif = [ "FiraCode Nerd Font" "Noto Naskh Arabic" ];
+        sansSerif = [ "FiraCode Nerd Font" "Noto Naskh Arabic" ];
+        monospace = [ "FiraCode Nerd Font" ];
+      };
+    };
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      (nerdfonts.override {
+        fonts =
+          [
+            "CascadiaCode"
+            "FiraCode"
+            "FiraMono"
+            "JetBrainsMono"
+            "UbuntuMono"
+          ];
+      })
+    ];
+  };
+
 
   environment.systemPackages = with pkgs; [
     #Dev
@@ -176,6 +189,7 @@
     neovim
     ninja
     nodejs
+    nodePackages.pnpm
     openssl
     pkg-config
     python3

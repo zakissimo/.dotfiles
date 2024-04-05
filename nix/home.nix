@@ -36,7 +36,6 @@
       name = "rose-pine-dawn";
       package = pkgs.rose-pine-icon-theme;
     };
-    font.name = "FiraCode Nerd Font Mono Medium";
   };
 
   qt = {
@@ -163,6 +162,7 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
+    XDG_DATA_HOME = "$HOME/.local/share";
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_CONFIG_HOME = "$HOME/.config";
 
