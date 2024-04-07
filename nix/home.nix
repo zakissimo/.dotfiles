@@ -49,8 +49,8 @@
 
   home.pointerCursor = {
     gtk.enable = true;
-    name = "Catppuccin-Mocha-Dark-Cursors";
-    package = pkgs.catppuccin-cursors.mochaDark;
+    name = "Dracula-cursors";
+    package = pkgs.dracula-theme;
     size = 15;
   };
 

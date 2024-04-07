@@ -256,6 +256,7 @@
     xarchiver
 
     # Compositor utility
+    asusctl
     greetd.greetd
     greetd.tuigreet
     grim
