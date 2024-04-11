@@ -25,12 +25,16 @@ config.font = wezterm.font_with_fallback({
 config.warn_about_missing_glyphs = false
 config.window_background_opacity = 0.75
 
+config.enable_scroll_bar = false
+
 config.window_padding = {
     left = 5,
     right = 0,
-    top = 10,
+    top = 21,
     bottom = 0,
 }
+
+config.freetype_load_target = "HorizontalLcd"
 
 config.enable_tab_bar = true
 config.tab_bar_at_bottom = true

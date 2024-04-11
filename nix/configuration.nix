@@ -108,6 +108,10 @@
       users = [ "zak" ];
     };
     pulseaudio.enable = false;
+    sane = {
+      enable = true;
+      extraBackends = [ pkgs.sane-airscan ];
+    };
   };
 
   programs = {
@@ -136,7 +140,7 @@
     shell = pkgs.zsh;
     isNormalUser = true;
     description = "zak";
-    extraGroups = [ "networkmanager" "wheel" "video" "plugdev" "docker" "audio" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "plugdev" "docker" "audio" "scanner" "lp" ];
     packages = with pkgs; [ ];
   };
 
@@ -311,6 +315,11 @@
   };
 
   services = {
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
     blueman.enable = true;
     dbus.enable = true;
     gnome = {
