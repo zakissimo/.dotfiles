@@ -9,12 +9,14 @@ end
 
 config.audible_bell = "Disabled"
 
+config.term = "wezterm"
+
 config.color_scheme = "rose-pine"
 
 config.enable_wayland = false
 
 config.font_size = 15
-config.bidi_enabled = false
+config.bidi_enabled = true
 config.font = wezterm.font_with_fallback({
     "FiraCode Nerd Font",
     "Noto Sans Mono CJK SC",
@@ -26,7 +28,7 @@ config.window_background_opacity = 0.95
 config.window_padding = {
     left = 5,
     right = 0,
-    top = 10,
+    top = 25,
     bottom = 0,
 }
 
