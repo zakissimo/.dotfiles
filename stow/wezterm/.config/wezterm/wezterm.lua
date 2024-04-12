@@ -9,7 +9,7 @@ end
 
 config.audible_bell = "Disabled"
 
-config.term = "wezterm"
+config.term = "xterm"
 
 config.color_scheme = "rose-pine"
 
