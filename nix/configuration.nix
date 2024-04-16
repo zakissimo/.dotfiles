@@ -220,6 +220,7 @@
     imv
     inotify-tools
     jq
+    lf
     man-pages
     man-pages-posix
     mediainfo
