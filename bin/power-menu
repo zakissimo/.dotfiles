@@ -4,7 +4,7 @@ chosen=$(printf "  Power Off\n󰒲  Suspend\n  Restart\n  Lock" | rofi 
 
 case "$chosen" in
 "  Power Off") poweroff ;;
-"󰒲  Suspend") systemctl suspend-then-hibernate ;;
+"󰒲  Suspend") systemctl suspend ;;
 "  Restart") reboot ;;
 "  Lock") swaylock ;;
 *) exit 1 ;;

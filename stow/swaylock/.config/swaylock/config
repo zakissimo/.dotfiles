@@ -3,6 +3,7 @@ caps-lock-bs-hl-color=f5e0dc
 caps-lock-key-hl-color=a6e3a1
 clock
 color=000000
+daemonize
 effect-blur=7x5
 fade-in=0.2
 grace=0
