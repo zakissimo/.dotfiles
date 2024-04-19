@@ -4,6 +4,9 @@
 
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in
 {
   imports =
     [
@@ -267,6 +270,8 @@
     grim
     hyprland-protocols
     hyprpaper
+    unstable.hypridle
+    unstable.hyprlock
     playerctl
     slurp
     swaybg

@@ -147,6 +147,7 @@
     asusctl
     chromium
     dunst
+    nh
     obs-studio
     playerctl
     sound-theme-freedesktop
