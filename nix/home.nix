@@ -147,11 +147,14 @@
     asusctl
     chromium
     dunst
+    libreoffice
     nh
     obs-studio
     playerctl
     sound-theme-freedesktop
     themechanger
+    tor
+    tor-browser
   ];
 
   home.sessionVariables = with pkgs; {
