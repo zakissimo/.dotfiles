@@ -6,6 +6,6 @@ case "$chosen" in
 "  Power Off") poweroff ;;
 "󰒲  Suspend") systemctl suspend ;;
 "  Restart") reboot ;;
-"  Lock") swaylock ;;
+"  Lock") hyprlock ;;
 *) exit 1 ;;
 esac

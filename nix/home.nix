@@ -254,6 +254,9 @@
         [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
         [[ -f "$HOME"/.env ]] && source "$HOME"/.env
 
+        export NVM_DIR="$HOME/.config/nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
         KEYTIMEOUT=1
       '';
       profileExtra = ''

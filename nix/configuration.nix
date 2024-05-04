@@ -1,12 +1,8 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
-let
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-in
 {
   imports =
     [
@@ -268,10 +264,10 @@ in
     greetd.greetd
     greetd.tuigreet
     grim
+    hypridle
     hyprland-protocols
+    hyprlock
     hyprpaper
-    unstable.hypridle
-    unstable.hyprlock
     playerctl
     slurp
     swaybg
@@ -319,11 +315,10 @@ in
 
     GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
   };
-
   services = {
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
     };
     blueman.enable = true;
