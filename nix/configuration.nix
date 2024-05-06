@@ -195,6 +195,7 @@
     nodePackages.pnpm
     openssl
     pkg-config
+    postgresql
     python3
     qt5.qtwayland
     qt5Full
