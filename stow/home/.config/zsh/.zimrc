@@ -1,0 +1,9 @@
+zmodule zsh-users/zsh-completions --fpath src
+zmodule completion
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-history-substring-search
+zmodule git-info
+zmodule agkozak/zsh-z
+zmodule zsh-users/zsh-syntax-highlighting
+
+zmodule Ansimorph/oblong
