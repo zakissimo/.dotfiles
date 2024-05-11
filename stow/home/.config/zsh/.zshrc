@@ -1,24 +1,18 @@
-typeset -U path cdpath fpath manpath
+[[ ! -e ${ZIM_HOME}/zimfw.zsh ]] \
+    && curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+
+[[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]] \
+    && source ${ZIM_HOME}/zimfw.zsh init -q
+
+source ${ZIM_HOME}/init.zsh
 
 bindkey -e
 
-HISTSIZE="10000"
-SAVEHIST="10000"
-
-HISTFILE="/home/zak/.cache/zsh/.zsh_history"
-mkdir -p "$(dirname "$HISTFILE")"
-
-setopt HIST_FCNTL_LOCK
-setopt HIST_IGNORE_DUPS
-unsetopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-unsetopt HIST_EXPIRE_DUPS_FIRST
-setopt SHARE_HISTORY
-unsetopt EXTENDED_HISTORY
-setopt autocd
-
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
+
 [[ -f "$HOME"/.env ]] && source "$HOME"/.env
+
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 KEYTIMEOUT=1
