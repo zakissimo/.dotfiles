@@ -72,8 +72,8 @@
         "format-muted": "󰖁",
         "on-click": "pamixer -t",
         "on-click-right": "pavucontrol",
-        "on-scroll-up": "pamixer -i 5",
-        "on-scroll-down": "pamixer -d 5",
+        "on-scroll-up": "change-vol UP",
+        "on-scroll-down": "change-vol DOWN",
         "scroll-step": 5,
         "format-icons": {
             "headphone": "",
@@ -88,14 +88,14 @@
 
     "cpu": {
         "interval": 10,
-        "format": " {usage}%",
+        "format": "  {usage}%",
         "max-length": 10,
         "on-click": "wezterm -e btop"
     },
 
     "memory": {
         "interval": 30,
-        "format": " {}%",
+        "format": "  {}%",
         "max-length": 10,
         "tooltip": true,
         "tooltip-format": "Memory - {used:0.1f}GB used",
@@ -104,7 +104,7 @@
 
     "custom/power_profile":{
         "exec": "powerprofilesctl get",
-        "format": "󰈐 {}", 
+        "format": "󰈐  {}", 
         "on-click": "declare -A hash; hash['balanced']='power-saver'; hash['power-saver']='performance'; hash['performance']='balanced'; powerprofilesctl set ${hash[$(powerprofilesctl get)]}; pkill -SIGRTMIN+8 waybar",
         "signal": 8
     },
