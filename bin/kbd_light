@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-UP_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-kbd.svg"
-DOWN_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-kbd-disabled.svg"
+UP_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/gpm-brightness-kbd.svg"
+DOWN_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/gpm-brightness-kbd-disabled.svg"
 
 light_map=("off" "low" "med" "high")
 curr_level=$(asusctl -k)

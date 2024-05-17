@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
-SOUND="$SOUND_THEME_DIR/share/sounds/freedesktop/stereo/audio-volume-change.oga"
+SOUND="/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"
 
-UP_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/audio-volume-high.svg"
-DOWN_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/audio-volume-medium.svg"
-MUTED_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/audio-volume-muted.svg"
+UP_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/audio-volume-high.svg"
+DOWN_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/audio-volume-medium.svg"
+MUTED_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/audio-volume-muted.svg"
 
 function send_notification() {
     volume=$(pamixer --get-volume)

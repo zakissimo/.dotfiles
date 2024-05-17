@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-STOW="$1"
+STOW="$(which stow)"
 LOCAL_STOW_DIR=".dotfiles/stow"
 STOW_DIR="$HOME/$LOCAL_STOW_DIR"
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-UP_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-lcd.svg"
-DOWN_ICON="$ROSE_PINE_ICON_DIR/share/icons/rose-pine/16x16/panel/gpm-brightness-lcd-disabled.svg"
+UP_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/gpm-brightness-lcd.svg"
+DOWN_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/gpm-brightness-lcd-disabled.svg"
 
 brighten() {
     brillo -q -A 5
