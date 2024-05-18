@@ -2,6 +2,8 @@ amd-ucode
 amdvlk
 base
 base-devel
+bash-completion
+bat
 blueman
 bridge-utils
 btop
@@ -10,6 +12,7 @@ dnsmasq
 dunst
 efibootmgr
 eza
+fastfetch
 fd
 firefox
 flameshot
@@ -60,6 +63,7 @@ rofi-wayland
 sof-firmware
 stow
 swaybg
+tree
 ttf-fira-code
 ttf-firacode-nerd
 ttf-font-awesome

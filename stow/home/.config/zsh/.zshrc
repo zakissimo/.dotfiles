@@ -22,7 +22,7 @@ alias -- 'lg'='lazygit'
 alias -- 'll'='eza -RTXF --git --icons'
 alias -- 'ls'='eza'
 alias -- 'v'='nvim'
-alias -- 'yayf'="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs -ro yay -S"
+alias -- 'yayf'="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"
 
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blinking
 export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
