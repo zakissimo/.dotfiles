@@ -3,25 +3,14 @@
 UP_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/gpm-brightness-kbd.svg"
 DOWN_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/gpm-brightness-kbd-disabled.svg"
 
-light_map=("off" "low" "med" "high")
-curr_level=$(asusctl -k)
-curr_level=${curr_level: -2:2}
-echo "$curr_level"
-
 brighten() {
-    if [ "$curr_level" -lt 3 ]; then
-        ((curr_level++))
-        asusctl -k "${light_map[$curr_level]}"
-    fi
-    dunstify "Brightness" -h int:value:"$((curr_level * 100 / 3))" -t 2000 -i "$UP_ICON"
+    asusctl -n
+    dunstify "Brightness" -i "$UP_ICON"
 }
 
 dim() {
-    if [ "$curr_level" -gt 0 ]; then
-        ((curr_level--))
-        asusctl -k "${light_map[$curr_level]}"
-    fi
-    dunstify "Brightness" -h int:value:"$((curr_level * 100 / 3))" -t 2000 -i "$DOWN_ICON"
+    asusctl -p
+    dunstify "Brightness" -i "$UP_ICON"
 }
 
 case $1 in
