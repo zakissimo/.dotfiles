@@ -1,10 +1,11 @@
-zmodule zsh-users/zsh-completions --fpath src
+zmodule agkozak/zsh-z
 zmodule completion
-zmodule zsh-users/zsh-autosuggestions
-zmodule zsh-users/zsh-history-substring-search
 zmodule git-info
 zmodule prompt-pwd
-zmodule agkozak/zsh-z
+zmodule zimfw/gitster
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-completions --fpath src
+zmodule zsh-users/zsh-history-substring-search
 zmodule zsh-users/zsh-syntax-highlighting
 
-zmodule zimfw/gitster
+zmodule ohmyzsh/ohmyzsh --root plugins/colored-man-pages

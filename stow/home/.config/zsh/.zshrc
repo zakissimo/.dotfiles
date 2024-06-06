@@ -23,11 +23,3 @@ alias -- 'll'='eza -RTXF --git --icons'
 alias -- 'ls'='eza'
 alias -- 'v'='nvim'
 alias -- 'yayf'="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"
-
-export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blinking
-export LESS_TERMCAP_md=$'\E[1;36m'     # begin bold
-export LESS_TERMCAP_me=$'\E[0m'        # end mode
-export LESS_TERMCAP_se=$'\E[0m'        # end standout-mode
-export LESS_TERMCAP_so=$'\E[1;40;92m'  # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'        # end underline
-export LESS_TERMCAP_us=$'\E[1;32m'     # begin underline
