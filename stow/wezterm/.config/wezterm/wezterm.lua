@@ -9,7 +9,7 @@ end
 
 config.audible_bell = "Disabled"
 
-config.term = "wezterm"
+config.term = "xterm"
 
 config.color_scheme = "rose-pine"
 
@@ -47,32 +47,32 @@ config.window_close_confirmation = "NeverPrompt"
 config.keys = {
     {
         key = "w",
-        mods = "ALT",
+        mods = "CMD",
         action = act.CloseCurrentTab({ confirm = false }),
     },
     {
         key = "l",
-        mods = "ALT",
+        mods = "CMD",
         action = act.ActivateTabRelative(1),
     },
     {
         key = "h",
-        mods = "ALT",
+        mods = "CMD",
         action = act.ActivateTabRelative(-1),
     },
     {
         key = "n",
-        mods = "ALT",
+        mods = "CMD",
         action = act.SpawnTab("DefaultDomain"),
     },
     {
         key = "Space",
-        mods = "ALT",
+        mods = "CMD",
         action = act.ActivateCopyMode,
     },
     {
         key = "Enter",
-        mods = "ALT",
+        mods = "CMD",
         action = act.DisableDefaultAssignment,
     },
     -- Make Option-Left equivalent to Alt-b which many line editors interpret as backward-word

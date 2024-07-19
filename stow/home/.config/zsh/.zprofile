@@ -10,4 +10,4 @@ mdir() { mkdir $1 && cd $1 }
 
 mvf() { mv $(fzf) $(find . -type d | fzf) }
 
-[ "$(tty)" = "/dev/tty1" ] && type Hyprland > /dev/null 2>&1 && exec Hyprland
+eval "$(/opt/homebrew/bin/brew shellenv)"
