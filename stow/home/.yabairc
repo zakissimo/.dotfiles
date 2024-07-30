@@ -27,4 +27,5 @@ yabai -m space --create
 yabai -m space --create
 yabai -m space --create
 
-yabai -m rule --add app="*Wine*" manage=off
+yabai -m rule --add app="^wine64-preloader$" manage=off
+yabai -m rule --add app="^System Preferences$" manage=off

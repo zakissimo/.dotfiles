@@ -18,8 +18,7 @@ alt + cmd - l : yabai -m window --resize right:20:0
 alt - f : yabai -m window --toggle float
 alt - q : yabai -m window --close
 
-alt - return : wezterm
-alt - b : firefox
+alt - return : open -a wezterm
 
 alt - 1 : yabai -m space --focus 1
 alt - 2 : yabai -m space --focus 2
