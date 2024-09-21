@@ -22,3 +22,5 @@ export NVM_DIR="/opt/homebrew/opt/nvm"
 
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null"
+
+source $HOME/.env

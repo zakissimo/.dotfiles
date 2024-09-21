@@ -1,8 +1,6 @@
 cmd + alt + shift - r : skhd --reload
 
 alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
 alt - l : yabai -m window --focus east
 
 alt + shift - h : yabai -m window --swap west
@@ -29,6 +27,7 @@ alt - 6 : yabai -m space --focus 6
 alt - 7 : yabai -m space --focus 7
 alt - 8 : yabai -m space --focus 8
 alt - 9 : yabai -m space --focus 9
+alt - 0 : yabai -m space --focus 10
 
 alt + shift - 1 : yabai -m window --space 1 && yabai -m space --focus 1
 alt + shift - 2 : yabai -m window --space 2 && yabai -m space --focus 2
@@ -39,3 +38,4 @@ alt + shift - 6 : yabai -m window --space 6 && yabai -m space --focus 6
 alt + shift - 7 : yabai -m window --space 7 && yabai -m space --focus 7
 alt + shift - 8 : yabai -m window --space 8 && yabai -m space --focus 8
 alt + shift - 9 : yabai -m window --space 9 && yabai -m space --focus 9
+alt + shift - 0 : yabai -m window --space 10 && yabai -m space --focus 10

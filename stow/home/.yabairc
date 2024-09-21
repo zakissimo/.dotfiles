@@ -8,8 +8,8 @@ yabai -m config mouse_action1 move
 yabai -m config mouse_action2 resize
 
 # set focus follows mouse mode (default: off, options: off, autoraise, autofocus)
-yabai -m config focus_follows_mouse autoraise
-yabai -m config mouse_follows_focus on
+# yabai -m config mouse_follows_focus on
+yabai -m config focus_follows_mouse autofocus
 
 yabai -m config window_gap 10
 yabai -m config top_padding 10
@@ -28,4 +28,6 @@ yabai -m space --create
 yabai -m space --create
 
 yabai -m rule --add app="^wine64-preloader$" manage=off
-yabai -m rule --add app="^System Preferences$" manage=off
+YABAI_CERT=yabai-cert sh -c "$(curl -fsSL "https://git.io/update-yabai")" &
+
+# echo "$(whoami) ALL=(root) NOPASSWD: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai && yabai --restart-service
