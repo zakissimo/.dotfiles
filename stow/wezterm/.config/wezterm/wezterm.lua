@@ -1,5 +1,7 @@
 local wezterm = require("wezterm")
 
+local act = wezterm.action
+
 local config = {}
 
 if wezterm.config_builder then
@@ -45,5 +47,33 @@ config.tab_bar_at_bottom = true
 config.default_cursor_style = "SteadyBlock"
 config.hide_mouse_cursor_when_typing = false
 config.window_close_confirmation = "NeverPrompt"
+
+local function macCMDtoMeta()
+    local keys = "abdefghijklmnopqrstuwxyz" -- no c,v
+    local keymappings = {}
+
+    for i = 1, #keys do
+        local c = keys:sub(i, i)
+        table.insert(keymappings, {
+            key = c,
+            mods = "CMD",
+            action = act.SendKey({
+                key = c,
+                mods = "META",
+            }),
+        })
+        table.insert(keymappings, {
+            key = c,
+            mods = "CMD|CTRL",
+            action = act.SendKey({
+                key = c,
+                mods = "META|CTRL",
+            }),
+        })
+    end
+    return keymappings
+end
+
+config.keys = macCMDtoMeta()
 
 return config
