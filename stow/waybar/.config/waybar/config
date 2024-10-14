@@ -71,7 +71,7 @@
         "tooltip": false,
         "format-muted": "󰖁",
         "on-click": "pamixer -t",
-        "on-click-right": "pavucontrol",
+        "on-click-right": "pwvucontrol",
         "on-scroll-up": "change-vol UP",
         "on-scroll-down": "change-vol DOWN",
         "scroll-step": 5,

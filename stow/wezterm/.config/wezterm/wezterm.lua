@@ -15,7 +15,7 @@ config.color_scheme = "rose-pine"
 
 config.enable_wayland = false
 
-config.font_size = 15
+config.font_size = 11
 config.bidi_enabled = true
 config.font = wezterm.font_with_fallback({
     "FiraCode Nerd Font",
@@ -44,6 +44,8 @@ config.default_cursor_style = "SteadyBlock"
 config.hide_mouse_cursor_when_typing = false
 config.window_close_confirmation = "NeverPrompt"
 
+config.leader = { key = "Space", mods = "CTRL", timeout_milliseconds = 500 }
+
 config.keys = {
     {
         key = "w",
@@ -66,8 +68,8 @@ config.keys = {
         action = act.SpawnTab("DefaultDomain"),
     },
     {
-        key = "Space",
-        mods = "ALT",
+        key = "[",
+        mods = "LEADER",
         action = act.ActivateCopyMode,
     },
     {
