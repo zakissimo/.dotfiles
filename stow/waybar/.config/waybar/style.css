@@ -15,7 +15,6 @@ window#waybar {
 
 tooltip {
   background: @base;
-  /* border-radius: 10px; */
   border-width: 2px;
   border-style: solid;
   border-color: @overlay;
@@ -38,6 +37,13 @@ tooltip {
   opacity: 0.8;
   padding: 0px 0px 0px 0px;
   margin-left: 10px;
+}
+
+#custom-Time4Salat {
+  background: @base;
+  opacity: 0.8;
+  padding: 0px 0px 0px 0px;
+  margin-left: 0px;
 }
 
 #cpu,
