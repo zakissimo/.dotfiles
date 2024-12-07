@@ -5,7 +5,7 @@
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
-    "height": 19,
+    "height": 26,
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock", "custom/Time4Salat"],
     "modules-right": ["pulseaudio", "cpu", "memory", "custom/power_profile", "battery", "tray"],
@@ -29,7 +29,7 @@
 
     "custom/Time4Salat" : {
         "tooltip" : false,
-        "format" : "<b>🕋 {} </b>",
+        "format" : "<b> {} </b>",
         "interval" : 30,
         "exec" : "source ~/.env && $HOME/.local/bin/time_for_salat"
     },
@@ -40,8 +40,8 @@
     },
 
     "clock": {
-        "format": "<b>🕔 {:%H:%M} </b>",
-        "format-alt": "<b>🗓️ {:%a %d %b %Y}</b>",
+        "format": "<b> {:%H:%M} </b>",
+        "format-alt": "<b> {:%a %d %b %Y}</b>",
         "tooltip-format": "<tt>{calendar}</tt>"
     },
 
