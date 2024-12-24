@@ -4,9 +4,9 @@ export VISUAL="neovide"
 export TERMINAL="wezterm"
 export BROWSER="firefox"
 
-#export WLR_NO_HARDWARE_CURSORS="1"
-#export MOZ_ENABLE_WAYLAND="1"
-#export _JAVA_AWT_WM_NONREPARENTING="1"
+# export WLR_NO_HARDWARE_CURSORS="1"
+# export MOZ_ENABLE_WAYLAND="1"
+# export _JAVA_AWT_WM_NONREPARENTING="1"
 
 export XDG_CURRENT_DESKTOP="Hyprland"
 export XDG_SESSION_DESKTOP="Hyprland"
@@ -16,10 +16,10 @@ export GTK_USE_PORTAL="1"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 
-#export WLR_RENDERER="vulkan"
-#export GDK_BACKEND="wayland,x11"
-#export SDL_VIDEODRIVER=wayland
-#export CLUTTER_BACKEND=wayland
+# export WLR_RENDERER="vulkan"
+# export GDK_BACKEND="wayland,x11"
+# export SDL_VIDEODRIVER=wayland
+# export CLUTTER_BACKEND=wayland
 
 export QT_QPA_PLATFORM="wayland;xcb"
 export QT_QPA_PLATFORMTHEME="qt5ct"
@@ -38,6 +38,7 @@ export GOPATH="$XDG_CONFIG_HOME/go"
 export PNPM_HOME="$XDG_CONFIG_HOME/pnpm"
 export BUN_INSTALL="$XDG_CONFIG_HOME/bun"
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+export FNM_PATH="$HOME/.local/share/fnm"
 
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
 export FZF_DEFAULT_COMMAND="rg --files --hidden --ignore-file $XDG_CONFIG_HOME/.ignore 2>/dev/null"

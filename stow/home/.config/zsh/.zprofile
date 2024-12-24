@@ -5,6 +5,7 @@ _add_path "$HOME/.local/bin"
 _add_path "$HOME/.cargo/bin"
 _add_path "$PNPM_HOME"
 _add_path "$BUN_INSTALL/bin"
+_add_path "$FNM_PATH"
 
 mdir() { mkdir $1 && cd $1 }
 

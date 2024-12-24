@@ -5,15 +5,14 @@
 [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]] \
     && source ${ZIM_HOME}/zimfw.zsh init -q
 
-source ${ZIM_HOME}/init.zsh
+[ -s "$ZIM_HOME/init.zsh" ] && source "$ZIM_HOME/init.zsh"
+[ -s "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+[ -d "$FNM_PATH" ] && eval "`fnm env`"
+[ -s "$HOME/.env" ] && source "$HOME/.env"
 
 bindkey -e
-
-[[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
-
-[[ -f "$HOME"/.env ]] && source "$HOME"/.env
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 
 KEYTIMEOUT=1
 
