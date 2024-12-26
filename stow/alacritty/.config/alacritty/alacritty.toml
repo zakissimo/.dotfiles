@@ -6,7 +6,7 @@ args = ["-l"]
 [window]
 startup_mode = "Windowed"
 title = "Alacritty"
-padding = { x = 15, y = 15 }
+padding = { x = 5, y = 5 }
 dynamic_title = true
 decorations_theme_variant = "None"
 decorations = "None"

@@ -140,6 +140,7 @@ keybinds {
         bind "Ctrl q" { Quit; }
         bind "Alt b" { NewPane; }
         bind "Alt n" { NewTab; }
+        bind "Alt w" { CloseTab; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
