@@ -1,5 +1,5 @@
-suckless/st/st2
-suckless/st-0.9/x.o
 neovim/.config/nvim/plugin/packer_compiled.lua
-waybar/.config/waybar/scripts/nohup.out
-waybar/.config/waybar/nohup.out
+chadwm/config.h
+chadwm/dwm
+*nohup.out
+*.o
