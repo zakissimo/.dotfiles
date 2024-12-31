@@ -10,11 +10,13 @@
 [ -d "$FNM_PATH" ] && eval "`fnm env`"
 [ -s "$HOME/.env" ] && source "$HOME/.env"
 
+xset r rate 200 50
+
+KEYTIMEOUT=1
+
 bindkey -e
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
-
-KEYTIMEOUT=1
 
 alias -- 'la'='eza -la'
 alias -- 'lg'='lazygit'

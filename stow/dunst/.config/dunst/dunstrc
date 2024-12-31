@@ -5,7 +5,7 @@
     follow="mouse"
     width=350
     origin="top-right"
-    offset="22x22"
+    offset="43x13"
     progress_bar=true
     progress_bar_height=10
     progress_bar_frame_width=1

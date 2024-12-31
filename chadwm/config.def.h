@@ -7,13 +7,13 @@ static const unsigned int borderpx = 0; /* border pixel of windows */
 static const unsigned int default_border =
     0; /* to switch back to default border after dynamic border resizing via
           keybinds */
-static const unsigned int snap = 32;   /* snap pixel */
-static const unsigned int gappih = 10; /* horiz inner gap between windows */
-static const unsigned int gappiv = 10; /* vert inner gap between windows */
+static const unsigned int snap = 32;  /* snap pixel */
+static const unsigned int gappih = 0; /* horiz inner gap between windows */
+static const unsigned int gappiv = 0; /* vert inner gap between windows */
 static const unsigned int gappoh =
-    10; /* horiz outer gap between windows and screen edge */
+    0; /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov =
-    10; /* vert outer gap between windows and screen edge */
+    0; /* vert outer gap between windows and screen edge */
 static const int smartgaps =
     0; /* 1 means no outer gap when there is only one window */
 static const unsigned int systraypinning =
@@ -70,7 +70,15 @@ static const char* colors[][3] = {
 };
 
 /* tagging */
-static char* tags[] = {"", "", "", "", ""};
+static char* tags[] = {"󰘦", "", "", "󱜏", ""};
+
+enum WorkSpace {
+    Coding = 1 << 0,
+    Browsing = 1 << 1,
+    Trading = 1 << 2,
+    Media = 1 << 3,
+    Misc = 1 << 4
+};
 
 static const char* eww[] = {"eww", "open", "eww", NULL};
 
@@ -100,8 +108,8 @@ static const Rule rules[] = {
        monitor */
     {"Wine", NULL, NULL, 0, 0, 1, -1},
     {"sierrachart_64.exe", NULL, NULL, 0, 0, 1, -1},
-    {"Gimp", NULL, NULL, 0, 0, 1, -1},
-    // {"Firefox", NULL, NULL, 1 << 8, 0, 0, -1},
+    {"Gimp", NULL, NULL, Misc, 0, 1, -1},
+    {"Firefox", NULL, NULL, Browsing, 0, 0, -1},
 };
 
 /* layout(s) */
@@ -208,7 +216,7 @@ static const Key keys[] = {
 
     // layout
     {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
-    {MODKEY | ShiftMask, XK_f, setlayout, {.v = &layouts[1]}},
+    {MODKEY | ShiftMask, XK_t, setlayout, {.v = &layouts[1]}},
     {MODKEY, XK_m, setlayout, {.v = &layouts[2]}},
     {MODKEY | ControlMask, XK_g, setlayout, {.v = &layouts[10]}},
     {MODKEY | ControlMask | ShiftMask, XK_t, setlayout, {.v = &layouts[13]}},

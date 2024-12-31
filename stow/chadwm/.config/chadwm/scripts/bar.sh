@@ -1,4 +1,4 @@
-#!/bin/dash
+#!/usr/bin/env bash
 
 # ^c$var^ = fg color
 # ^b$var^ = bg color
@@ -6,30 +6,37 @@
 # load colors
 # . ~/.config/chadwm/scripts/bar_themes/rosepine
 
-get_battery_icon() {
-    percentage="$(cat /sys/class/power_supply/BAT0/capacity)"
-
-    if [ "$percentage" -eq 100 ]; then
-        printf " "
-    elif [ "$percentage" -ge 90 ]; then
-        printf "󰁹 "
-    elif [ "$percentage" -ge 70 ]; then
-        printf "󰂂 "
-    elif [ "$percentage" -ge 50 ]; then
-        printf "󰁿 "
-    elif [ "$percentage" -ge 30 ]; then
-        printf "󰁼 "
-    elif [ "$percentage" -ge 10 ]; then
-        printf "󰁻 "
-    else
-        printf "󰁺 "
-    fi
-    printf "%s%%" "$percentage"
-}
-
 battery() {
-    battery_icon=$(get_battery_icon)
-    printf "%s" "$battery_icon"
+    percentage="$(cat /sys/class/power_supply/BAT*/capacity)"
+
+    case "$(cat /sys/class/power_supply/BAT*/status)" in
+    Full) printf " %s" "Full" ;;
+    Charging) printf " %s" "Charging" ;;
+    Discharging)
+        case "$(cat /sys/class/power_supply/BAT*/status)" in
+        90)
+            printf "󰁹 "
+            ;;
+        70)
+            printf "󰂂 "
+            ;;
+        50)
+            printf "󰁿 "
+            ;;
+        30)
+            printf "󰁼 "
+            ;;
+        10)
+            printf "󰁻 "
+            ;;
+        *)
+            printf "󰁺 "
+            ;;
+        esac
+        printf "%s%%" "$percentage"
+        ;;
+    esac
+
 }
 
 cpu() {
@@ -45,16 +52,14 @@ mem() {
 }
 
 net() {
-    eth_down=1
-    [ "up" = "$(cat /sys/class/net/eth*/operstate 2>/dev/null)" ] && printf "󰈀 %s" "Connected" && eth_down=0
-    [ "up" = "$(cat /sys/class/net/enp*/operstate 2>/dev/null)" ] && printf "󰈀 %s" "Connected" && eth_down=0
+    while read -r status; do
+        [ "$status" == "up" ] && printf "󰈀 %s" "Connected" && return
+    done < <(cat /sys/class/net/e*/operstate 2>/dev/null)
 
-    if [ "$eth_down" -eq 1 ]; then
-        case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
-        up) printf "󰤨 %s" "Connected" ;;
-        down) printf "󰤭 %s" "Disconnected" ;;
-        esac
-    fi
+    case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
+    up) printf "󰤨 %s" "Connected" ;;
+    down) printf "󰤭 %s" "Disconnected" ;;
+    esac
 }
 
 clock() {
@@ -68,5 +73,5 @@ time_for_salat() {
 }
 
 while true; do
-    sleep 5 && xsetroot -name "  $(battery) $(cpu) $(mem) $(net) $(clock) $(time_for_salat)"
+    sleep 3 && xsetroot -name "  $(battery) $(cpu) $(mem) $(net) $(clock) $(time_for_salat)"
 done
