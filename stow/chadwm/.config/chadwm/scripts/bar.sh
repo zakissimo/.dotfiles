@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-# ^c$var^ = fg color
-# ^b$var^ = bg color
-
-# load colors
-# . ~/.config/chadwm/scripts/bar_themes/rosepine
-
 battery() {
     percentage="$(cat /sys/class/power_supply/BAT*/capacity)"
 
@@ -51,15 +45,29 @@ mem() {
     printf " %s%%" "$memory_usage"
 }
 
-net() {
-    while read -r status; do
-        [ "$status" == "up" ] && printf "󰈀 %s" "Connected" && return
-    done < <(cat /sys/class/net/e*/operstate 2>/dev/null)
+net_update() {
+    sum=0
+    for arg; do
+        read -r i <"$arg"
+        sum=$((sum + i))
+    done
+    cache=/tmp/${1##*/}
+    [ -f "$cache" ] && read -r old <"$cache" || old=0
+    printf %d\\n "$sum" >"$cache"
+    printf %d\\n $((sum - old))
+}
 
-    case "$(cat /sys/class/net/wl*/operstate 2>/dev/null)" in
-    up) printf "󰤨 %s" "Connected" ;;
-    down) printf "󰤭 %s" "Disconnected" ;;
-    esac
+net() {
+    rx=$(net_update /sys/class/net/[ew]*/statistics/rx_bytes)
+    tx=$(net_update /sys/class/net/[ew]*/statistics/tx_bytes)
+
+    printf "🔻%4sB 🔺%4sB\\n" $(numfmt --to=iec $rx $tx)
+}
+
+today() {
+    date=$(date +"%a %d %b")
+
+    printf "󰃭 %s" "$date"
 }
 
 clock() {
@@ -73,5 +81,5 @@ time_for_salat() {
 }
 
 while true; do
-    sleep 3 && xsetroot -name "  $(battery) $(cpu) $(mem) $(net) $(clock) $(time_for_salat)"
+    sleep 3 && xsetroot -name "  $(cpu) $(mem) | $(net) | $(battery) | $(today) $(clock) | $(time_for_salat)"
 done

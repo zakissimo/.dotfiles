@@ -10,7 +10,7 @@
 [ -d "$FNM_PATH" ] && eval "`fnm env`"
 [ -s "$HOME/.env" ] && source "$HOME/.env"
 
-xset r rate 200 50
+[ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && xset r rate 200 50
 
 KEYTIMEOUT=1
 
