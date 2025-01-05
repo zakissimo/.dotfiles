@@ -106,8 +106,8 @@ static const Rule rules[] = {
      */
     /* class      instance    title       tags mask     iscentered   isfloating
        monitor */
-    {"Wine", NULL, NULL, 0, 0, 1, -1},
-    {"sierrachart_64.exe", NULL, NULL, 0, 0, 1, -1},
+    {"Wine", NULL, NULL, 0, 1, 1, -1},
+    {"Pavucontrol", NULL, NULL, 0, 0, 1, -1},
     {"Gimp", NULL, NULL, Misc, 0, 1, -1},
     {"Firefox", NULL, NULL, Browsing, 0, 0, -1},
 };

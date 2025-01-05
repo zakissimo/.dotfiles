@@ -5,7 +5,7 @@ battery() {
 
     case "$(cat /sys/class/power_supply/BAT*/status)" in
     Full) printf " %s" "Full" ;;
-    Charging) printf " %s" "Charging" ;;
+    Charging) printf " %s (%s%%)" "Charging" "$percentage" ;;
     Discharging)
         case "$(cat /sys/class/power_supply/BAT*/status)" in
         90)
@@ -65,9 +65,8 @@ net() {
 }
 
 today() {
-    date=$(date +"%a %d %b")
-
-    printf "󰃭 %s" "$date"
+    today=$(date '+%a %d %b')
+    printf "󰃭 %s" "$today"
 }
 
 clock() {
@@ -81,5 +80,5 @@ time_for_salat() {
 }
 
 while true; do
-    sleep 3 && xsetroot -name "  $(cpu) $(mem) | $(net) | $(battery) | $(today) $(clock) | $(time_for_salat)"
+    sleep 3 && xsetroot -name "  $(cpu) $(mem) | $(net) | $(battery) | $(today) $(clock) | $(time_for_salat) "
 done
