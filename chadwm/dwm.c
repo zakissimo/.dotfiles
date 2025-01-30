@@ -20,13 +20,13 @@
  *
  * To understand everything else, start reading main().
  */
+#include <X11/XKBlib.h>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
 #include <X11/cursorfont.h>
 #include <X11/keysym.h>
-#include <errno.h>
 #include <limits.h>
 #include <locale.h>
 #include <signal.h>
@@ -272,7 +272,7 @@ static Atom getatomprop(Client* c, Atom prop);
 static Picture geticonprop(Window w, unsigned int* icw, unsigned int* ich);
 static int getrootptr(int* x, int* y);
 static long getstate(Window w);
-static unsigned int getsystraywidth();
+static unsigned int getsystraywidth(void);
 static int gettextprop(Window w, Atom atom, char* text, unsigned int size);
 static void grabbuttons(Client* c, int focused);
 static void grabkeys(void);
@@ -1368,13 +1368,13 @@ void dragmfact(const Arg* arg) {
 #if VANITYGAPS_PATCH
             py = ay + ah / 2 + (ah - 2 * ih) * (m->mfact / 2.0) + ih / 2;
 #else
-            py = ay + ah / 2 + ah * m->mfact / 2.0;
+            py = ay + ah / 2.0 + ah * m->mfact / 2.0;
 #endif           // VANITYGAPS_PATCH
         } else { // vertical split
 #if VANITYGAPS_PATCH
             px = ax + aw / 2 + (aw - 2 * iv) * m->mfact / 2.0 + iv / 2;
 #else
-            px = ax + aw / 2 + aw * m->mfact / 2.0;
+            px = ax + aw / 2.0 + aw * m->mfact / 2.0;
 #endif // VANITYGAPS_PATCH
             py = ay + ah / 2;
         }
@@ -1940,7 +1940,7 @@ long getstate(Window w) {
     return result;
 }
 
-unsigned int getsystraywidth() {
+unsigned int getsystraywidth(void) {
     unsigned int w = 0;
     Client* i;
     if (showsystray)
@@ -2069,7 +2069,7 @@ void keypress(XEvent* e) {
     XKeyEvent* ev;
 
     ev = &e->xkey;
-    keysym = XKeycodeToKeysym(dpy, (KeyCode)ev->keycode, 0);
+    keysym = XkbKeycodeToKeysym(dpy, (KeyCode)ev->keycode, 0, 0);
     for (i = 0; i < LENGTH(keys); i++)
         if (keysym == keys[i].keysym &&
             CLEANMASK(keys[i].mod) == CLEANMASK(ev->state) && keys[i].func)
@@ -3480,7 +3480,7 @@ void updatebarpos(Monitor* m) {
         m->by = -bh - m->gappoh;
 }
 
-void updateclientlist() {
+void updateclientlist(void) {
     Client* c;
     Monitor* m;
 

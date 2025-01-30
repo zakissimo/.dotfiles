@@ -3,3 +3,4 @@ chadwm/config.h
 chadwm/dwm
 *nohup.out
 *.o
+chadwm/.cache/clangd/index
