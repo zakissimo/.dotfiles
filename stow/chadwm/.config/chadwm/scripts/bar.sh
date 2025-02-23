@@ -4,7 +4,7 @@ battery() {
     percentage="$(cat /sys/class/power_supply/BAT*/capacity)"
 
     case "$(cat /sys/class/power_supply/BAT*/status)" in
-    Full) printf " %s" "Full" ;;
+    Full | "Not charging") printf " %s" "Full" ;;
     Charging) printf " %s (%s%%)" "Charging" "$percentage" ;;
     Discharging)
         case "$(cat /sys/class/power_supply/BAT*/status)" in

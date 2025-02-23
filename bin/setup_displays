@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+setup_displays() {
+    displays=$(xrandr | grep " connected " | cut -d' ' -f1)
+
+    current=""
+    second_display=""
+
+    for next in $displays; do
+        if [ -z "$current" ]; then
+            # First display: set resolution and mark as current
+            xrandr --output "$next" --mode 2560x1440 -r 60
+            current=$next
+        else
+            [ -z "$second_display" ] && second_display=$next
+            # Subsequent displays: set resolution and position to the left of the current display
+            xrandr --output "$next" --mode 2560x1440 -r 60 --left-of "$current"
+            current=$next
+        fi
+    done
+
+    xrandr --output "$second_display" --primary
+}
+
+setup_displays
