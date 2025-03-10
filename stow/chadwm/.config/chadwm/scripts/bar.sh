@@ -61,7 +61,7 @@ net() {
     rx=$(net_update /sys/class/net/[ew]*/statistics/rx_bytes)
     tx=$(net_update /sys/class/net/[ew]*/statistics/tx_bytes)
 
-    printf "🔻%4sB 🔺%4sB\\n" $(numfmt --to=iec $rx $tx)
+    printf "🔻%4sB/s 🔺%4sB/s\\n" $(numfmt --to=iec $rx $tx)
 }
 
 today() {

@@ -1,11 +1,11 @@
 [global]
-    browser="firefox -new-tab"
+    browser="zen-browser -new-tab"
     dmenu="rofi -dmenu"
     monitor=0
     follow="mouse"
     width=350
     origin="top-right"
-    offset="13x43"
+    offset=(13, 43)
     progress_bar=true
     progress_bar_height=10
     progress_bar_frame_width=1
@@ -22,7 +22,7 @@
     corner_radius=7
     sort=yes
     idle_threshold=120
-    font="FontAwesome 5 Free Solid 10"
+    font="FiraCode Nerd Font 10"
     line_height=0
     markup=full
     format="<span weight='bold' font='12'>%s</span>\n%b"

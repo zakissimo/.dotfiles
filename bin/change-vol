@@ -10,7 +10,7 @@ function send_notification() {
     volume=$(pamixer --get-volume)
     icon="$1_ICON"
     [[ $1 = "UP" ]] && icon=$UP_ICON || icon=$DOWN_ICON
-    dunstify -h int:value:"$volume" -i "${icon}" "Volume: ${volume}%" -t 2000 -r 123
+    notify-send -h int:value:"$volume" -i "${icon}" "Volume: ${volume}%" -t 2000 -r 123
 }
 
 case $1 in

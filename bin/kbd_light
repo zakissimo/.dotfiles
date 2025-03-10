@@ -5,12 +5,12 @@ DOWN_ICON="/usr/share/icons/rose-pine-icons/16x16/panel/gpm-brightness-kbd-disab
 
 brighten() {
     asusctl -n
-    dunstify "Brightness" -i "$UP_ICON"
+    notify-send "Brightness" -i "$UP_ICON"
 }
 
 dim() {
     asusctl -p
-    dunstify "Brightness" -i "$UP_ICON"
+    notify-send "Brightness" -i "$UP_ICON"
 }
 
 case $1 in
