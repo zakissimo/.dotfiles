@@ -23,7 +23,7 @@ config.font = wezterm.font_with_fallback({
   "Noto Naskh Arabic",
 })
 config.warn_about_missing_glyphs = true
-config.window_background_opacity = 1
+config.window_background_opacity = 0.89
 
 config.enable_scroll_bar = false
 
@@ -36,7 +36,7 @@ config.window_padding = {
 
 config.freetype_load_target = "HorizontalLcd"
 
-config.enable_tab_bar = true
+config.enable_tab_bar = false
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 
@@ -44,49 +44,49 @@ config.default_cursor_style = "SteadyBlock"
 config.hide_mouse_cursor_when_typing = false
 config.window_close_confirmation = "NeverPrompt"
 
-config.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 500 }
+config.disable_default_key_bindings = false
 
 config.keys = {
-  {
-    key = "w",
-    mods = "ALT",
-    action = act.CloseCurrentTab({ confirm = false }),
-  },
-  {
-    key = "l",
-    mods = "ALT",
-    action = act.ActivateTabRelative(1),
-  },
-  {
-    key = "h",
-    mods = "ALT",
-    action = act.ActivateTabRelative(-1),
-  },
-  {
-    key = "n",
-    mods = "ALT",
-    action = act.SpawnTab("DefaultDomain"),
-  },
+  --   {
+  --     key = "w",
+  --     mods = "ALT",
+  --     action = act.CloseCurrentTab({ confirm = false }),
+  --   },
+  --   {
+  --     key = "l",
+  --     mods = "ALT",
+  --     action = act.ActivateTabRelative(1),
+  --   },
+  --   {
+  --     key = "h",
+  --     mods = "ALT",
+  --     action = act.ActivateTabRelative(-1),
+  --   },
+  --   {
+  --     key = "n",
+  --     mods = "ALT",
+  --     action = act.SpawnTab("DefaultDomain"),
+  --   },
   {
     key = "Space",
-    mods = "LEADER",
+    mods = "CTRL|SHIFT",
     action = act.ActivateCopyMode,
   },
-  {
-    key = "Enter",
-    mods = "ALT",
-    action = act.DisableDefaultAssignment,
-  },
-  {
-    key = "LeftArrow",
-    mods = "OPT",
-    action = act({ SendString = "\x1bb" }),
-  },
-  {
-    key = "RightArrow",
-    mods = "OPT",
-    action = act({ SendString = "\x1bf" }),
-  },
+  --   {
+  --     key = "Enter",
+  --     mods = "ALT",
+  --     action = act.DisableDefaultAssignment,
+  --   },
+  --   {
+  --     key = "LeftArrow",
+  --     mods = "OPT",
+  --     action = act({ SendString = "\x1bb" }),
+  --   },
+  --   {
+  --     key = "RightArrow",
+  --     mods = "OPT",
+  --     action = act({ SendString = "\x1bf" }),
+  --   },
 }
 
 config.colors = {

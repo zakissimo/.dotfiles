@@ -7,21 +7,24 @@ battery() {
     Full | "Not charging") printf " %s" "Full" ;;
     Charging) printf " %s (%s%%)" "Charging" "$percentage" ;;
     Discharging)
-        case "$(cat /sys/class/power_supply/BAT*/status)" in
-        90)
+        case "$percentage" in
+        9[0-9] | 100)
             printf "󰁹 "
             ;;
-        70)
+        7[0-9] | 8[0-9])
             printf "󰂂 "
             ;;
-        50)
+        5[0-9] | 6[0-9])
             printf "󰁿 "
             ;;
-        30)
+        3[0-9] | 4[0-9])
             printf "󰁼 "
             ;;
-        10)
+        1[0-9] | 2[0-9])
             printf "󰁻 "
+            ;;
+        0*[0-9])
+            printf "󰁺 "
             ;;
         *)
             printf "󰁺 "
@@ -71,7 +74,8 @@ today() {
 
 clock() {
     time=$(date '+%H:%M')
-    printf "󱑆 %s" "$time"
+    ny_time=$(TZ="America/New_York" date "+%H:%M")
+    printf "󱑆 %s  %s" "$time" "$ny_time"
 }
 
 time_for_salat() {
