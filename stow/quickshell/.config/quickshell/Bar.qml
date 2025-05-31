@@ -1,11 +1,11 @@
+import "Widgets"
+import "Singletons/Themes"
+
 import Quickshell
 import Quickshell.Hyprland
 
 import QtQuick
 import QtQuick.Layouts
-
-import "Widgets"
-import "Singletons/Themes"
 
 Scope {
     id: root
@@ -14,6 +14,8 @@ Scope {
         model: Quickshell.screens
 
         PanelWindow {
+            id: window
+
             property var modelData
             screen: modelData
 
@@ -26,6 +28,11 @@ Scope {
             color: Colors.base
             implicitHeight: 25
             HyprlandWindow.opacity: 1.0
+
+            Calendar {
+                id: calendar
+                parentWin: window
+            }
 
             RowLayout {
                 id: rootBlocks
@@ -51,7 +58,12 @@ Scope {
 
                     spacing: 10
 
-                    Clocks {}
+                    Clocks {
+                        clickable: true
+                        onClicked: {
+                            calendar.togglePopup();
+                        }
+                    }
                 }
 
                 Item {

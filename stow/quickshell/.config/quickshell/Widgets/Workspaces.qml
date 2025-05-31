@@ -1,9 +1,9 @@
-import QtQuick
+import "../Singletons"
+import "../Singletons/Themes"
 
 import Quickshell.Hyprland
 
-import "../Singletons"
-import "../Singletons/Themes"
+import QtQuick
 
 BarBlock {
     id: root

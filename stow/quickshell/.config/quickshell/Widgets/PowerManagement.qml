@@ -1,7 +1,7 @@
-import QtQuick
-
 import "../Singletons"
 import "../Singletons/Themes"
+
+import QtQuick
 
 BarBlock {
     Text {

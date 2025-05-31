@@ -1,9 +1,9 @@
 pragma Singleton
 
-import QtQuick
-
 import Quickshell
 import Quickshell.Io
+
+import QtQuick
 
 Singleton {
     id: root
@@ -19,6 +19,16 @@ Singleton {
 
     readonly property string downBytesFile: "/tmp/quickshell_down_bytes"
     readonly property string upBytesFile: "/tmp/quickshell_up_bytes"
+
+    function openNetworkEditor() {
+        networkEditorCmd.running = true;
+    }
+
+    Process {
+        id: networkEditorCmd
+        command: ["sh", "-c", "nm-connection-editor"]
+        running: false
+    }
 
     Process {
         id: networkDownSpeedCmd

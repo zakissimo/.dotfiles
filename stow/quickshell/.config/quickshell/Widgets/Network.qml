@@ -1,7 +1,7 @@
-import QtQuick
-
 import "../Singletons"
 import "../Singletons/Themes"
+
+import QtQuick
 
 BarBlock {
 
@@ -27,6 +27,13 @@ BarBlock {
     Text {
         color: Colors.text
         text: Icons.netStatus[Network.vpnActive][Network.connectionType]
+
+        MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onClicked: Network.openNetworkEditor()
+            cursorShape: Qt.PointingHandCursor
+        }
     }
 
     Text {
