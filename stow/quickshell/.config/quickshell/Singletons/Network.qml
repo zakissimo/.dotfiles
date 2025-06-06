@@ -90,14 +90,28 @@ Singleton {
         command: ["sh", "-c", "nmcli -t -f TYPE,STATE d | grep ':connected' | cut -d: -f1"]
         running: true
         stdout: SplitParser {
+            splitMarker: ""
             onRead: data => {
-                const line = data.trim();
-                if (line === "wireguard")
-                    root.vpnActive = true;
-                if (line === "ethernet")
-                    root.connectionType = "ethernet";
-                else if (line === "wifi")
-                    root.connectionType = "wifi";
+                const arr = data.trim().split("\n");
+
+                let foundVpn = false;
+                for (let type of arr) {
+                    if (type === "wireguard") {
+                        foundVpn = true;
+                    }
+
+                    if (type === "ethernet") {
+                        root.connectionType = "ethernet";
+                    }
+
+                    if (type === "wifi") {
+                        root.connectionType = "wifi";
+                    }
+                }
+
+                if (foundVpn != root.vpnActive) {
+                    root.vpnActive = foundVpn;
+                }
             }
         }
     }

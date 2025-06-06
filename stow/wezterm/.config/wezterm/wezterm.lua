@@ -132,7 +132,7 @@ config.colors = {
 
 wezterm.on("format-tab-title", function(tab)
   return {
-    { Text = " " .. tab.active_pane.title .. " " },
+    { Text = " " .. tab.tab_id .. " " },
   }
 end)
 
