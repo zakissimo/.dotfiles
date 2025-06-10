@@ -29,6 +29,13 @@ Singleton {
         }
     }
 
+    property var volume: {
+        "up": "󰕾 ",
+        "mid": "󰖀 ",
+        "low": "󰕿 ",
+        "muted": "󰝟 "
+    }
+
     property string plug: ""
     property var batteries: ["󰁹 ", "󰂂 ", "󰁿 ", "󰁼 ", "󰁻 ", "󰁺 "]
 

@@ -10,9 +10,21 @@ Singleton {
     property string local
     property string ny
     property string salat
+    property string date
 
     Process {
         id: localDateCmd
+
+        command: ["date", "+%a %d %b"]
+        running: true
+
+        stdout: SplitParser {
+            onRead: data => root.date = data
+        }
+    }
+
+    Process {
+        id: localTimeCmd
 
         command: ["date", "+%H:%M"]
         running: true
@@ -23,7 +35,7 @@ Singleton {
     }
 
     Process {
-        id: nyDateCmd
+        id: nyTimeCmd
         environment: ({
                 "TZ": "America/New_York"
             })
@@ -51,7 +63,8 @@ Singleton {
         repeat: true
         onTriggered: {
             localDateCmd.running = true;
-            nyDateCmd.running = true;
+            localTimeCmd.running = true;
+            nyTimeCmd.running = true;
             salatTimeCmd.running = true;
         }
     }

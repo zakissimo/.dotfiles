@@ -77,6 +77,8 @@ Scope {
                     spacing: 10
                     Layout.rightMargin: 10
 
+                    Date {}
+                    Audio {}
                     Network {}
                     Resources {}
                     PowerManagement {}
