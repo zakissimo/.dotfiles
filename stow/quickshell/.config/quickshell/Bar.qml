@@ -34,55 +34,72 @@ Scope {
                 parentWin: window
             }
 
-            RowLayout {
+            Item {
                 id: rootBlocks
 
-                spacing: 0
                 anchors.fill: parent
 
-                RowLayout {
-                    id: leftBlock
-
-                    Layout.leftMargin: 10
-
-                    Workspaces {}
-                }
-
                 Item {
-                    id: leftSpacer
-                    Layout.fillWidth: true
-                }
+                    anchors.left: parent.left
+                    anchors.leftMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    implicitWidth: leftBlock.implicitWidth
+                    implicitHeight: leftBlock.implicitHeight
 
-                RowLayout {
-                    id: centerBlock
+                    RowLayout {
+                        id: leftBlock
 
-                    spacing: 10
+                        spacing: 10
 
-                    Clocks {
-                        clickable: true
-                        onClicked: {
-                            calendar.togglePopup();
-                        }
+                        Workspaces {}
                     }
                 }
 
                 Item {
-                    id: rightSpacer
-                    Layout.fillWidth: true
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.horizontalCenterOffset: date.width / 2
+                    implicitWidth: centerBlock.implicitWidth
+                    implicitHeight: centerBlock.implicitHeight
+
+                    RowLayout {
+                        id: centerBlock
+
+                        spacing: 10
+
+                        Clocks {}
+                        Date {
+                            id: date
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: calendar.togglePopup()
+                    }
                 }
 
-                RowLayout {
-                    id: rightBlock
+                Item {
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+                    implicitWidth: rightBlock.implicitWidth
+                    implicitHeight: rightBlock.implicitHeight
 
-                    spacing: 10
-                    Layout.rightMargin: 10
+                    RowLayout {
+                        id: rightBlock
 
-                    Date {}
-                    Audio {}
-                    Network {}
-                    Resources {}
-                    PowerManagement {}
-                    SysTray {}
+                        spacing: 10
+
+                        Audio {}
+                        Network {}
+                        Resources {}
+                        PowerManagement {}
+                        SysTray {}
+                    }
                 }
 
                 Binding {

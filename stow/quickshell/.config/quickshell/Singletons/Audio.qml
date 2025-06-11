@@ -1,6 +1,7 @@
 pragma Singleton
 
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Pipewire
 
 Singleton {
@@ -21,6 +22,16 @@ Singleton {
             sink.audio.muted = false;
             sink.audio.volume = volume;
         }
+    }
+
+    function openAudioControls(): void {
+        openAudioControlsCommand.running = true;
+    }
+
+    Process {
+        id: openAudioControlsCommand
+        command: ["sh", "-c", "pavucontrol"]
+        running: false
     }
 
     PwObjectTracker {

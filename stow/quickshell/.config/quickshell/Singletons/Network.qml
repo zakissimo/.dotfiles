@@ -21,11 +21,11 @@ Singleton {
     readonly property string upBytesFile: "/tmp/quickshell_up_bytes"
 
     function openNetworkEditor() {
-        networkEditorCmd.running = true;
+        openNetworkControlCmd.running = true;
     }
 
     Process {
-        id: networkEditorCmd
+        id: openNetworkControlCmd
         command: ["sh", "-c", "nm-connection-editor"]
         running: false
     }

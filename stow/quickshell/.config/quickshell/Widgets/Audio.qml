@@ -24,10 +24,10 @@ BarBlock {
         }
 
         MouseArea {
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
+            anchors.fill: parent
+            hoverEnabled: true
+            cursorShape: Qt.PointingHandCursor
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
 
             onWheel: event => {
                 if (event.angleDelta.y > 0)
@@ -36,7 +36,12 @@ BarBlock {
                     Audio.setVolume(Audio.volume - 0.1);
             }
 
-            onClicked: Audio.toggleMute()
+            onClicked: mouse => {
+                if (mouse.button === Qt.LeftButton)
+                    Audio.openAudioControls();
+                else if (mouse.button === Qt.RightButton)
+                    Audio.toggleMute();
+            }
         }
     }
 }
