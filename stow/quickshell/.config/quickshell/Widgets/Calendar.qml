@@ -22,6 +22,7 @@ LazyLoader {
     }
 
     PopupWindow {
+
         anchor.window: popupLoader.parentWin
         anchor.rect.x: popupLoader.parentWin.width / 2 - width / 2
         anchor.rect.y: popupLoader.parentWin.height + 3
@@ -30,7 +31,8 @@ LazyLoader {
 
         Rectangle {
             anchors.fill: parent
-            color: Colors.base
+            color: Colors.surface
+            // color: "transparent"
             radius: 7
             border.color: Colors.overlay
             border.width: 3

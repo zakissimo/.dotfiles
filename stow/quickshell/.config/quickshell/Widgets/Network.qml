@@ -31,8 +31,12 @@ BarBlock {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
-            onClicked: Network.openNetworkEditor()
+            acceptedButtons: Qt.LeftButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
+            onClicked: mouse => {
+                if (mouse.button === Qt.RightButton)
+                    Network.openNetworkEditor();
+            }
         }
     }
 

@@ -2,6 +2,7 @@ import "Widgets"
 import "Singletons/Themes"
 
 import Quickshell
+import Quickshell.Wayland
 import Quickshell.Hyprland
 
 import QtQuick
@@ -16,6 +17,7 @@ Scope {
         PanelWindow {
             id: window
 
+            WlrLayershell.namespace: "quickshell:bar"
             property var modelData
             screen: modelData
 
@@ -25,12 +27,13 @@ Scope {
                 right: true
             }
 
-            color: Colors.base
+            color: "transparent"
             implicitHeight: 25
             HyprlandWindow.opacity: 1.0
 
             Calendar {
                 id: calendar
+
                 parentWin: window
             }
 

@@ -38,9 +38,9 @@ BarBlock {
 
             onClicked: mouse => {
                 if (mouse.button === Qt.LeftButton)
-                    Audio.openAudioControls();
-                else if (mouse.button === Qt.RightButton)
                     Audio.toggleMute();
+                if (mouse.button === Qt.RightButton)
+                    Audio.openAudioControls();
             }
         }
     }
