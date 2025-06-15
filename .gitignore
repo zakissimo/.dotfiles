@@ -4,3 +4,5 @@ chadwm/dwm
 *nohup.out
 *.o
 chadwm/.cache/clangd/index
+stow/hyprland/.config/hypr/monitors.conf
+stow/hyprland/.config/hypr/workspaces.conf
