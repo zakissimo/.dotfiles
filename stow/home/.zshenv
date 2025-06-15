@@ -2,7 +2,7 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export VISUAL="neovide"
 export TERMINAL="wezterm"
-export BROWSER="firefox"
+export BROWSER="zen-browser"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
