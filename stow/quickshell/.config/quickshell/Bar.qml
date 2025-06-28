@@ -1,5 +1,5 @@
-import "Widgets"
-import "Singletons/Themes"
+import "root:/Widgets"
+import "root:/Singletons/Themes"
 
 import Quickshell
 import Quickshell.Wayland
@@ -27,7 +27,7 @@ Scope {
                 right: true
             }
 
-            color: "transparent"
+            color: Colors.base
             implicitHeight: 25
             HyprlandWindow.opacity: 1.0
 

@@ -6,9 +6,7 @@ import QtQuick.Layouts
 Rectangle {
     id: root
 
-    // color: "transparent"
-    color: Colors.surface
-    // color: Qt.rgba(1, 1, 1, 0.1)  // semi-transparent blue
+    color: Colors.overlay
     radius: 7
     Layout.preferredHeight: 19
     Layout.preferredWidth: childrenRect.width + 19
