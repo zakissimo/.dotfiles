@@ -23,3 +23,30 @@ alias -- 'ls'='eza'
 alias -- 'v'='nvim'
 alias -- 'zel'='zellij attach -c Z'
 alias -- 'yayf'="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"
+
+zellij_tab_name_update() {
+  if [[ -n $ZELLIJ ]]; then
+    tab_name=''
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+        tab_name+=$(basename "$(git rev-parse --show-toplevel)")/
+        tab_name+=$(git rev-parse --show-prefix)
+        tab_name=${tab_name%/}
+    else
+        tab_name=$PWD
+            if [[ $tab_name == $HOME ]]; then
+            tab_name="~"
+             else
+            tab_name=${tab_name##*/}
+             fi
+    fi
+    zellij action rename-tab $tab_name >/dev/null 2>&1
+  fi
+}
+
+chpwd() {
+  zellij_tab_name_update
+}
+
+precmd() {
+  zellij_tab_name_update
+}
