@@ -1,6 +1,6 @@
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
-export VISUAL="neovide"
+export VISUAL="nvim"
 export TERMINAL="wezterm"
 export BROWSER="zen-browser"
 
