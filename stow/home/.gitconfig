@@ -1,0 +1,21 @@
+[user]
+    email = zakaria.habri@gmail.com
+    name = Zakaria Habri
+
+[core]
+    editor = nvim
+
+[merge]
+    tool = diffview
+[mergetool]
+    prompt     = false
+    keepBackup = false
+[mergetool "diffview"]
+    cmd = nvim -n -c "DiffviewOpen" "$MERGE"
+    trustExitCode = true
+
+[diff]
+    tool = diffview
+[difftool "diffview"]
+    cmd  = nvim -n -c "DiffviewOpen --imply-local" "$LOCAL" "$REMOTE"
+    trustExitCode = true
