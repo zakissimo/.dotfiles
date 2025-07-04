@@ -1,7 +1,6 @@
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export VISUAL="nvim"
-export TERMINAL="wezterm"
 export BROWSER="zen-browser"
 
 export XDG_CACHE_HOME="$HOME/.cache"

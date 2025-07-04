@@ -25,6 +25,9 @@ config.font = wezterm.font_with_fallback({
 config.warn_about_missing_glyphs = true
 config.window_background_opacity = 0.89
 
+config.anti_alias_custom_block_glyphs = false
+config.custom_block_glyphs = false
+
 config.enable_scroll_bar = false
 
 config.window_padding = {

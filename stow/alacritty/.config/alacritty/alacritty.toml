@@ -6,7 +6,7 @@ args = ["-l"]
 [window]
 startup_mode = "Windowed"
 title = "Alacritty"
-padding = { x = 5, y = 5 }
+padding = { x = 15, y = 15 }
 dynamic_title = true
 decorations_theme_variant = "None"
 decorations = "None"
@@ -21,7 +21,7 @@ multiplier = 3
 
 [font]
 normal = { family = "FiraCode Nerd Font" }
-size = 9
+size = 11
 builtin_box_drawing = true
 
 
