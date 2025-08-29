@@ -50,3 +50,5 @@ chpwd() {
 precmd() {
   zellij_tab_name_update
 }
+
+eval "$(starship init zsh)"

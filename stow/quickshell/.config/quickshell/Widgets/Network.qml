@@ -5,7 +5,7 @@ import QtQuick
 
 BarBlock {
 
-    function bytesToMB(bytes, decimals = 2) {
+    function bytesToMB(bytes, decimals = 1) {
         if (bytes === 0 || isNaN(bytes)) {
             return '0B/s';
         }
@@ -19,9 +19,9 @@ BarBlock {
 
         const converted = bytes / Math.pow(k, i);
 
-        let output = isNaN(converted) ? "0.00B/s" : converted.toFixed(dm) + sizes[i] + "/s";
+        let output = isNaN(converted) ? "0.0B/s" : converted.toFixed(dm) + sizes[i] + "/s";
 
-        return output.padStart(11, ' ');
+        return output.padStart(10, ' ');
     }
 
     Text {

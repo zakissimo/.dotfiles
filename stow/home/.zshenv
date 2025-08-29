@@ -2,6 +2,7 @@ export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export VISUAL="nvim"
 export BROWSER="zen-browser"
+export TERM="xterm-265color"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -17,7 +18,6 @@ setopt appendhistory
 export GOPATH="$XDG_CONFIG_HOME/go"
 export PNPM_HOME="$XDG_CONFIG_HOME/pnpm"
 export BUN_INSTALL="$XDG_CONFIG_HOME/bun"
-export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 export FNM_PATH="$HOME/.local/share/fnm"
 
 export FZF_DEFAULT_OPTS="--multi --layout=reverse --inline-info --height=80%"
