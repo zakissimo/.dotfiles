@@ -6,6 +6,7 @@ _add_path "$HOME/.cargo/bin"
 _add_path "$PNPM_HOME"
 _add_path "$BUN_INSTALL/bin"
 _add_path "$FNM_PATH"
+_add_path "/var/lib/snapd/snap/bin"
 
 mdir() { mkdir $1 && cd $1 }
 
