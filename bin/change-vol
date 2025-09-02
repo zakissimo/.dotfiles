@@ -17,14 +17,14 @@ case $1 in
 UP)
     pamixer -u
     pamixer -i 5 --allow-boost
-    send_notification "$1"
     pw-play $SOUND
+    send_notification "$1"
     ;;
 DOWN)
     pamixer -u
     pamixer -d 5 --allow-boost
-    send_notification "$1"
     pw-play $SOUND
+    send_notification "$1"
     ;;
 MUTE)
     pamixer -t

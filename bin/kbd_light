@@ -10,7 +10,7 @@ brighten() {
 
 dim() {
     asusctl -p
-    notify-send "Brightness" -i "$UP_ICON"
+    notify-send "Brightness" -i "$DOWN_ICON"
 }
 
 case $1 in
