@@ -45,13 +45,47 @@ LazyLoader {
                 RowLayout {
                     Layout.fillWidth: true
                     spacing: 5
-                    // You'd add buttons here to navigate months
+
+                    MouseArea {
+                        width: 20
+                        height: 20
+                        onClicked: Calendar.prevMonth()
+                        Rectangle {
+                            anchors.fill: parent
+                            color: Colors.overlay
+                            radius: 3
+                            Text {
+                                text: "<"
+                                color: Colors.text
+                                anchors.centerIn: parent
+                                font.pixelSize: 14
+                            }
+                        }
+                    }
+
                     Text {
                         text: Calendar.monthNames[Calendar.currentMonth] + " " + Calendar.currentYear
                         color: Colors.text
                         font.pixelSize: 16
                         Layout.fillWidth: true
                         horizontalAlignment: Text.AlignHCenter
+                    }
+
+                    MouseArea {
+                        width: 20
+                        height: 20
+                        onClicked: Calendar.nextMonth()
+                        Rectangle {
+                            anchors.fill: parent
+                            color: Colors.overlay
+                            radius: 3
+                            Text {
+                                text: ">"
+                                color: Colors.text
+                                anchors.centerIn: parent
+                                font.pixelSize: 14
+                            }
+                        }
                     }
                 }
 
@@ -96,7 +130,7 @@ LazyLoader {
                                     Layout.fillWidth: true
                                     Layout.fillHeight: true
                                     color: {
-                                        if (Calendar.currentDay === parseInt(Calendar.grid[globalIndex])) {
+                                        if (Calendar.isCurrentMonth && Calendar.todayDay === parseInt(Calendar.grid[globalIndex])) {
                                             return Colors.highlightHigh; // Highlight current day
                                         }
                                         return "transparent";

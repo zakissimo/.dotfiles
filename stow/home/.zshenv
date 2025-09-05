@@ -17,3 +17,5 @@ export GOPATH="$XDG_CONFIG_HOME/go"
 export PNPM_HOME="$XDG_CONFIG_HOME/pnpm"
 export BUN_INSTALL="$XDG_CONFIG_HOME/bun"
 export FNM_PATH="$HOME/.local/share/fnm"
+
+export OLLAMA_NO_GPU=1

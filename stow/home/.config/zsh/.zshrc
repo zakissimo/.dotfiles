@@ -60,13 +60,13 @@ mvf() { mv $(fzf) $(find . -type d | fzf) }
 
 zel () {
     echo -n "\033]1337;SetUserVar=IN_ZELLIJ=MQo\007"
-    command zellij attach -c Z
+    command zellij attach -c Code
     echo -n "\x1b]1337;SetUserVar=IN_ZELLIJ\007"
 }
 
-zellij () {
+zell () {
     echo -n "\033]1337;SetUserVar=IN_ZELLIJ=MQo\007"
-    command zellij $@
+    command zellij attach -c Play
     echo -n "\x1b]1337;SetUserVar=IN_ZELLIJ\007"
 }
 
