@@ -107,6 +107,7 @@ inxi
 iptables-nft
 iwd
 kanshi
+keyd
 kitty
 konsole
 kvantum
@@ -164,6 +165,7 @@ paru
 pavucontrol-gtk3
 pcmanfm
 pcmanfm-qt
+peek
 perf
 picom
 pipewire
@@ -231,7 +233,6 @@ tree
 tree-sitter
 ttf-adwaita-mono-nerd
 ttf-amiri
-ttf-fira-code
 ttf-firacode-nerd
 ttf-font-awesome-5
 ttf-ibm-plex
