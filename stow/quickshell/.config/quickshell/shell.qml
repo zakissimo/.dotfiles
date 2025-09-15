@@ -4,4 +4,5 @@ import Quickshell
 
 ShellRoot {
     Bar {}
+    Search {}
 }

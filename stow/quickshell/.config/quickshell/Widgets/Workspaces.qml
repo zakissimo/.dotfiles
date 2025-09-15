@@ -1,5 +1,5 @@
-import "root:/Singletons"
-import "root:/Singletons/Themes"
+import qs.Singletons
+import qs.Singletons.Themes
 
 import Quickshell.Hyprland
 

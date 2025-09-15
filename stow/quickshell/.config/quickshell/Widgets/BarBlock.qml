@@ -1,4 +1,4 @@
-import "root:/Singletons/Themes"
+import qs.Singletons.Themes
 
 import QtQuick
 import QtQuick.Layouts

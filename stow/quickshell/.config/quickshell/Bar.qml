@@ -1,5 +1,5 @@
-import "root:/Widgets"
-import "root:/Singletons/Themes"
+import qs.Widgets
+import qs.Singletons.Themes
 
 import Quickshell
 import Quickshell.Wayland
@@ -8,116 +8,112 @@ import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 
-Scope {
-    id: root
+Variants {
+    model: Quickshell.screens
 
-    Variants {
-        model: Quickshell.screens
+    PanelWindow {
+        id: window
 
-        PanelWindow {
-            id: window
+        WlrLayershell.namespace: "quickshell:bar"
+        property var modelData
+        screen: modelData
 
-            WlrLayershell.namespace: "quickshell:bar"
-            property var modelData
-            screen: modelData
+        anchors {
+            top: true
+            left: true
+            right: true
+        }
 
-            anchors {
-                top: true
-                left: true
-                right: true
-            }
+        color: Colors.base
+        implicitHeight: 25
+        HyprlandWindow.opacity: 1.0
 
-            color: Colors.base
-            implicitHeight: 25
-            HyprlandWindow.opacity: 1.0
+        Calendar {
+            id: calendar
 
-            Calendar {
-                id: calendar
+            parentWin: window
+        }
 
-                parentWin: window
+        Item {
+            id: rootBlocks
+
+            anchors.fill: parent
+
+            Item {
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                implicitWidth: leftBlock.implicitWidth
+                implicitHeight: leftBlock.implicitHeight
+
+                RowLayout {
+                    id: leftBlock
+
+                    spacing: 10
+
+                    Workspaces {}
+                }
             }
 
             Item {
-                id: rootBlocks
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.horizontalCenterOffset: date.width / 2
+                implicitWidth: centerBlock.implicitWidth
+                implicitHeight: centerBlock.implicitHeight
 
-                anchors.fill: parent
+                RowLayout {
+                    id: centerBlock
 
-                Item {
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-                    implicitWidth: leftBlock.implicitWidth
-                    implicitHeight: leftBlock.implicitHeight
+                    spacing: 10
 
-                    RowLayout {
-                        id: leftBlock
-
-                        spacing: 10
-
-                        Workspaces {}
+                    Clocks {}
+                    Date {
+                        id: date
                     }
                 }
 
-                Item {
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.horizontalCenterOffset: date.width / 2
-                    implicitWidth: centerBlock.implicitWidth
-                    implicitHeight: centerBlock.implicitHeight
+                MouseArea {
+                    anchors.fill: parent
 
-                    RowLayout {
-                        id: centerBlock
-
-                        spacing: 10
-
-                        Clocks {}
-                        Date {
-                            id: date
-                        }
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-
-                        hoverEnabled: true
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: calendar.togglePopup()
-                    }
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: calendar.togglePopup()
                 }
+            }
 
-                Item {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-                    implicitWidth: rightBlock.implicitWidth
-                    implicitHeight: rightBlock.implicitHeight
+            Item {
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                implicitWidth: rightBlock.implicitWidth
+                implicitHeight: rightBlock.implicitHeight
 
-                    RowLayout {
-                        id: rightBlock
+                RowLayout {
+                    id: rightBlock
 
-                        spacing: 10
+                    spacing: 10
 
-                        Audio {}
-                        Network {}
-                        Resources {}
-                        PowerManagement {}
-                        SysTray {}
-                    }
+                    Audio {}
+                    Network {}
+                    Resources {}
+                    PowerManagement {}
+                    SysTray {}
                 }
+            }
 
-                Binding {
-                    target: centerBlock.Layout
-                    property: "leftMargin"
-                    value: rightBlock ? rightBlock.implicitWidth : 0
-                    when: rightBlock && rightBlock.implicitWidth > 0
-                }
+            Binding {
+                target: centerBlock.Layout
+                property: "leftMargin"
+                value: rightBlock ? rightBlock.implicitWidth : 0
+                when: rightBlock && rightBlock.implicitWidth > 0
+            }
 
-                Binding {
-                    target: centerBlock.Layout
-                    property: "rightMargin"
-                    value: leftBlock ? leftBlock.implicitWidth : 0
-                    when: leftBlock && leftBlock.implicitWidth > 0
-                }
+            Binding {
+                target: centerBlock.Layout
+                property: "rightMargin"
+                value: leftBlock ? leftBlock.implicitWidth : 0
+                when: leftBlock && leftBlock.implicitWidth > 0
             }
         }
     }

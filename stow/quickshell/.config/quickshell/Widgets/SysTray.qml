@@ -51,13 +51,13 @@ RowLayout {
             IconImage {
                 id: icon
                 anchors.centerIn: parent
-                source: item.icon
+                source: delegate.item.icon
                 implicitSize: 16
             }
 
             QsMenuAnchor {
                 id: menuAnchor
-                menu: item.menu
+                menu: delegate.item.menu
 
                 anchor.window: delegate.QsWindow.window
                 anchor.adjustment: PopupAdjustment.Flip

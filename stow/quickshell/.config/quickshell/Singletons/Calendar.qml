@@ -25,7 +25,7 @@ Singleton {
 
     Process {
         id: calProcess
-        command: ["cal", (currentMonth + 1).toString(), currentYear.toString()]
+        command: ["cal", (root.currentMonth + 1).toString(), root.currentYear.toString()]
         running: true
 
         stdout: StdioCollector {
@@ -34,7 +34,7 @@ Singleton {
             }
         }
 
-        onExited: {
+        function onExited(exitCode, exitStatus) {
             if (exitCode !== 0) {
                 console.error("cal command failed with exit code:", exitCode);
                 // Fallback to old method if cal fails
