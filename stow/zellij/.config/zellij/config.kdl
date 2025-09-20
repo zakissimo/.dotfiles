@@ -137,7 +137,7 @@ keybinds clear-defaults=true {
         bind "Alt l" { MoveFocusOrTab "right"; }
         bind "Alt n" { NewTab; }
         bind "Alt w" { CloseTab; }
-        bind "Alt q" { Detach; }
+        // bind "Alt q" { Detach; }
     }
     shared_except "locked" "move" {
         // bind "Alt m" { SwitchToMode "move"; }

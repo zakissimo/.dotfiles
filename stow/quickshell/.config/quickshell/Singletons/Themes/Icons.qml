@@ -36,6 +36,12 @@ Singleton {
         "muted": "󰝟 "
     }
 
+    property var brightness: {
+        "up": "󰃠 ",
+        "mid": "󰃟 ",
+        "low": "󰃞 "
+    }
+
     property string plug: ""
     property var batteries: ["󰁹 ", "󰂂 ", "󰁿 ", "󰁼 ", "󰁻 ", "󰁺 "]
 
