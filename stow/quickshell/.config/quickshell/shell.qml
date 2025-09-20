@@ -1,8 +1,11 @@
 //@ pragma UseQApplication
 
+import qs.OSD
+
 import Quickshell
 
 ShellRoot {
     Bar {}
-    Search {}
+    AppLauncher {}
+    VolumeOSD {}
 }

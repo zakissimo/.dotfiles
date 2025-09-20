@@ -55,10 +55,10 @@ PanelWindow {
         width: 500
         height: 300
         radius: 7
-        color: Colors.overlay
+        color: Colors.base
 
         border.width: 1
-        border.color: Colors.muted
+        border.color: Colors.highlightMed
 
         // Add scale and opacity properties for animation
         property real scaleValue: visible ? 1.0 : 0.98
