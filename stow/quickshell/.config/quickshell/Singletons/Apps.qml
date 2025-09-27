@@ -16,9 +16,7 @@ Singleton {
         if (!app)
             return;
 
-        console.log("Launching app:", app.name);
         if (app.runInTerminal) {
-            console.log("full cmd:", `/usr/bin/kitty --hold -e ${app.execString}`);
             Quickshell.execDetached(`/usr/bin/kitty --hold -e ${app.execString}`);
         } else {
             app.execute();
@@ -29,7 +27,6 @@ Singleton {
         if (!cmd)
             return;
 
-        console.log("Executing cmd:", cmd);
         Quickshell.execDetached(cmd);
     }
 }

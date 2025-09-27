@@ -2,6 +2,7 @@ import qs.Singletons
 import qs.Singletons.Themes
 
 import Quickshell
+import Quickshell.Hyprland
 
 import QtQuick
 import QtQuick.Layouts
@@ -9,6 +10,20 @@ import QtQuick.Controls
 
 PanelWindow {
     id: panel
+
+    GlobalShortcut {
+        name: "increaseVolume"
+        onPressed: {
+            Audio.increaseVolume()
+        }
+    }
+
+    GlobalShortcut {
+        name: "decreaseVolume"
+        onPressed: {
+            Audio.decreaseVolume()
+        }
+    }
 
     focusable: false
     visible: false
