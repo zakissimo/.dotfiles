@@ -21,13 +21,6 @@ PanelWindow {
 
     color: "transparent"
 
-    function toggle() {
-        panel.visible = !panel.visible;
-        if (panel.visible) {
-            focusTimer.restart();
-        }
-    }
-
     GlobalShortcut {
         name: "search"
         onPressed: {
@@ -60,79 +53,6 @@ PanelWindow {
         border.width: 1
         border.color: Colors.highlightMed
 
-        // Add scale and opacity properties for animation
-        property real scaleValue: visible ? 1.0 : 0.98
-        property real opacityValue: visible ? 1.0 : 0
-
-        transform: Scale {
-            origin.x: background.width / 2
-            origin.y: background.height / 2
-            xScale: background.scaleValue
-            yScale: background.scaleValue
-        }
-
-        opacity: opacityValue
-
-        // Define states for different visual appearances
-        states: [
-            State {
-                name: "open"
-                when: panel.visible
-                PropertyChanges {
-                    background.scaleValue: 1.0
-                    background.opacityValue: 1.0
-                }
-            },
-            State {
-                name: "closed"
-                when: !panel.visible
-                PropertyChanges {
-                    background.scaleValue: 0.98
-                    background.opacityValue: 0.0
-                }
-            }
-        ]
-
-        // Define transitions between states
-        transitions: [
-            Transition {
-                from: "closed"
-                to: "open"
-                SequentialAnimation {
-                    NumberAnimation {
-                        target: background
-                        property: "background.opacityValue"
-                        duration: 80
-                        easing.type: Easing.OutQuad
-                    }
-                    NumberAnimation {
-                        target: background
-                        property: "scaleValue"
-                        duration: 120
-                        easing.type: Easing.OutQuad
-                    }
-                }
-            },
-            Transition {
-                from: "open"
-                to: "closed"
-                SequentialAnimation {
-                    NumberAnimation {
-                        target: background
-                        property: "scaleValue"
-                        duration: 80
-                        easing.type: Easing.InQuad
-                    }
-                    NumberAnimation {
-                        target: background
-                        property: "opacityValue"
-                        duration: 120
-                        easing.type: Easing.InQuad
-                    }
-                }
-            }
-        ]
-
         TextField {
             id: textField
 
@@ -141,16 +61,28 @@ PanelWindow {
             anchors.topMargin: 15
             width: parent.width - 20
             height: 40
-            placeholderText: "Search applications..."
+            placeholderText: ""
 
             background: Rectangle {
                 color: Colors.surface
-                border.color: Colors.muted
+                border.color: Colors.highlightMed
                 border.width: 1
                 radius: 6
             }
 
-            onTextChanged: background.updateFilter(textField.text)
+            Text {
+                id: searchIcon
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                text: "\uf002"
+                font.pixelSize: 18
+                color: Colors.highlightMed
+            }
+
+            leftPadding: searchIcon.visible ? searchIcon.width + 20 : 10
+
+            onTextChanged: panel.updateFilter(textField.text)
 
             focus: true
             selectByMouse: true
@@ -248,30 +180,34 @@ PanelWindow {
                 }
             }
         }
+    }
 
-        function updateFilter(query) {
-            filteredModel.clear();
+    function toggle() {
+        panel.visible = !panel.visible;
+    }
 
-            let apps = Apps.list;
-            let q = query ? query.toLowerCase() : "";
+    function updateFilter(query) {
+        filteredModel.clear();
 
-            for (let i = 0; i < apps.length; i++) {
-                let app = apps[i];
-                if (q.length === 0 || app.name.toLowerCase().includes(q) || app.execString.toLowerCase().includes(q)) {
-                    filteredModel.append({
-                        "name": app.name,
-                        "icon": app.icon,
-                        "execString": app.execString,
-                        "entryObject": app
-                    });
-                }
+        let apps = Apps.list;
+        let q = query ? query.toLowerCase() : "";
+
+        for (let i = 0; i < apps.length; i++) {
+            let app = apps[i];
+            if (q.length === 0 || app.name.toLowerCase().includes(q) || app.execString.toLowerCase().includes(q)) {
+                filteredModel.append({
+                    "name": app.name,
+                    "icon": app.icon,
+                    "execString": app.execString,
+                    "entryObject": app
+                });
             }
         }
     }
 
     onVisibleChanged: {
         if (visible) {
-            background.updateFilter("");
+            panel.updateFilter("");
             listView.currentIndex = 0;
         } else {
             textField.clear();
@@ -279,10 +215,7 @@ PanelWindow {
         }
     }
 
-    Timer {
-        id: focusTimer
-        interval: 500
-        repeat: false
-        onTriggered: textField.forceActiveFocus()
+    Component.onCompleted: {
+        panel.updateFilter("");
     }
 }

@@ -9,4 +9,5 @@ ShellRoot {
     AppLauncher {}
     VolumeOSD {}
     BrightnessOSD {}
+    Notifications {}
 }
