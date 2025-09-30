@@ -1,7 +1,6 @@
+import QtQuick
 import qs.Singletons
 import qs.Singletons.Themes
-
-import QtQuick
 
 BarBlock {
     Text {
@@ -12,14 +11,12 @@ BarBlock {
 
             let icon = "";
             let volume = Math.round(Audio.volume * 100);
-
             if (volume > 75)
                 icon = Icons.volume["up"];
             else if (volume > 30)
                 icon = Icons.volume["mid"];
             else
                 icon = Icons.volume["low"];
-
             return icon + volume + "%";
         }
 
@@ -28,20 +25,22 @@ BarBlock {
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
             acceptedButtons: Qt.LeftButton | Qt.RightButton
-
-            onWheel: event => {
+            onWheel: (event) => {
                 if (event.angleDelta.y > 0)
                     Audio.setVolume(Audio.volume + 0.1);
                 else if (event.angleDelta.y < 0)
                     Audio.setVolume(Audio.volume - 0.1);
             }
-
-            onClicked: mouse => {
+            onClicked: (mouse) => {
                 if (mouse.button === Qt.LeftButton)
                     Audio.toggleMute();
+
                 if (mouse.button === Qt.RightButton)
                     Audio.openAudioControls();
+
             }
         }
+
     }
+
 }

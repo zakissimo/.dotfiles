@@ -1,15 +1,19 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import Quickshell
+import Quickshell.Hyprland
 import qs.Singletons
 import qs.Singletons.Themes
 
-import Quickshell
-import Quickshell.Hyprland
-
-import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls
-
 PanelWindow {
     id: panel
+
+    focusable: false
+    visible: false
+    implicitHeight: Screen.height
+    implicitWidth: Screen.width
+    color: "transparent"
 
     GlobalShortcut {
         name: "increaseBrightness"
@@ -25,31 +29,23 @@ PanelWindow {
         }
     }
 
-    focusable: false
-    visible: false
-
-    implicitHeight: Screen.height
-    implicitWidth: Screen.width
-
-    color: "transparent"
-
     Rectangle {
         id: background
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 70
-
         width: 300
         height: 50
         radius: 20
         color: Colors.base
-
         border.width: 1
         border.color: Colors.highlightMed
 
         RowLayout {
             id: row
+
+            spacing: 5
 
             anchors {
                 verticalCenter: parent.verticalCenter
@@ -58,28 +54,22 @@ PanelWindow {
                 margins: 25
             }
 
-            spacing: 5
-
             Text {
                 id: logo
 
                 color: Colors.text
                 font.pixelSize: 30
-
                 verticalAlignment: Text.AlignVCenter
                 Layout.alignment: Qt.AlignVCenter
-
                 text: {
                     let icon = "";
                     let volume = Math.round(Brightness.level * 100);
-
                     if (volume > 75)
                         icon = Icons.brightness["up"];
                     else if (volume > 30)
                         icon = Icons.brightness["mid"];
                     else
                         icon = Icons.brightness["low"];
-
                     return icon;
                 }
             }
@@ -89,7 +79,6 @@ PanelWindow {
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignVCenter
-
                 from: 0
                 to: 100
                 value: Math.round(Brightness.level * 100)
@@ -107,28 +96,33 @@ PanelWindow {
                     width: bar.visualPosition * bar.width
                     height: bar.height
                 }
+
             }
+
         }
+
     }
 
     Timer {
         id: hideTimer
+
         interval: 1500
         repeat: false
         onTriggered: panel.visible = false
     }
 
     Connections {
-        target: Brightness
-
         function onLevelChanged() {
             console.log("level changed");
             panel.visible = true;
             hideTimer.restart();
         }
+
+        target: Brightness
     }
 
     mask: Region {
         item: background
     }
+
 }

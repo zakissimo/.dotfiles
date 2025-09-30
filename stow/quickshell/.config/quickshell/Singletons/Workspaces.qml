@@ -1,9 +1,7 @@
-pragma Singleton
-
+import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-
-import QtQuick
+pragma Singleton
 
 Singleton {
     id: root
@@ -11,30 +9,30 @@ Singleton {
     property var byMonitor: groupByMonitor(Hyprland.workspaces.values)
 
     function groupByMonitor(wsList) {
-        let monitorMap = {};
-
+        let monitorMap = {
+        };
         for (let ws of wsList) {
-            let monitorId = ws?.monitor?.id;
-
+            let monitorId = ws && ws.monitor && ws.monitor.id ? ws.monitor.id : null;
             if (monitorId !== undefined && monitorId !== null) {
-                if (!monitorMap[monitorId]) {
+                if (!monitorMap[monitorId])
                     monitorMap[monitorId] = [];
-                }
+
                 monitorMap[monitorId].push(ws);
             }
         }
-
         return monitorMap;
     }
 
-    function switchWorkspace(w: int): void {
+    function switchWorkspace(w: int) {
         Hyprland.dispatch(`workspace ${w}`);
     }
 
     Connections {
-        target: Hyprland
         function onRawEvent(event) {
             root.byMonitor = root.groupByMonitor(Hyprland.workspaces.values);
         }
+
+        target: Hyprland
     }
+
 }

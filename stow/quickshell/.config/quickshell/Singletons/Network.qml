@@ -1,22 +1,17 @@
-pragma Singleton
-
+import QtQuick
 import Quickshell
 import Quickshell.Io
-
-import QtQuick
+pragma Singleton
 
 Singleton {
     id: root
 
     property int vpnActive: 0
     property string connectionType: "none"
-
     property string downSpeed
     property string upSpeed
-
     property string oldDownBytes: "0"
     property string oldUpBytes: "0"
-
     readonly property string downBytesFile: "/tmp/quickshell_down_bytes"
     readonly property string upBytesFile: "/tmp/quickshell_up_bytes"
 
@@ -26,12 +21,14 @@ Singleton {
 
     Process {
         id: openNetworkControlCmd
+
         command: ["sh", "-c", "nm-connection-editor"]
         running: false
     }
 
     Process {
         id: networkDownSpeedCmd
+
         command: ["sh", "-c", `
             current_sum=0
             for bytes in $(cat /sys/class/net/[ew]*/statistics/rx_bytes); do
@@ -49,16 +46,19 @@ Singleton {
             echo "$current_sum" > "${root.downBytesFile}"
         `]
         running: true
+
         stdout: SplitParser {
-            onRead: data => {
+            onRead: (data) => {
                 const speed = parseInt(data.trim()) || 0;
                 root.downSpeed = Math.max(0, speed);
             }
         }
+
     }
 
     Process {
         id: networkUpSpeedCmd
+
         command: ["sh", "-c", `
             current_sum=0
             for bytes in $(cat /sys/class/net/[ew]*/statistics/tx_bytes); do
@@ -76,12 +76,14 @@ Singleton {
             echo "$current_sum" > "${root.upBytesFile}"
         `]
         running: true
+
         stdout: SplitParser {
-            onRead: data => {
+            onRead: (data) => {
                 const speed = parseInt(data.trim()) || 0;
                 root.upSpeed = Math.max(0, speed);
             }
         }
+
     }
 
     Process {
@@ -89,31 +91,29 @@ Singleton {
 
         command: ["sh", "-c", "nmcli -t -f TYPE,STATE d | grep ':connected' | cut -d: -f1"]
         running: true
+
         stdout: SplitParser {
             splitMarker: ""
-            onRead: data => {
+            onRead: (data) => {
                 const arr = data.trim().split("\n");
-
                 let foundVpn = false;
                 for (let type of arr) {
-                    if (type === "wireguard") {
+                    if (type === "wireguard")
                         foundVpn = true;
-                    }
 
-                    if (type === "ethernet") {
+                    if (type === "ethernet")
                         root.connectionType = "ethernet";
-                    }
 
-                    if (type === "wifi") {
+                    if (type === "wifi")
                         root.connectionType = "wifi";
-                    }
-                }
 
-                if (foundVpn != root.vpnActive) {
-                    root.vpnActive = foundVpn;
                 }
+                if (foundVpn != root.vpnActive)
+                    root.vpnActive = foundVpn;
+
             }
         }
+
     }
 
     Timer {
@@ -126,4 +126,5 @@ Singleton {
             networkUpSpeedCmd.running = true;
         }
     }
+
 }

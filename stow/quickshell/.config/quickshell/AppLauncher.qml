@@ -1,25 +1,53 @@
-import qs.Singletons
-import qs.Singletons.Themes
-
-import Quickshell
-import Quickshell.Wayland
-import Quickshell.Hyprland
-
 import QtQuick
 import QtQuick.Controls
+import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Wayland
+import qs.Singletons
+import qs.Singletons.Themes
 
 PanelWindow {
     id: panel
 
-    WlrLayershell.namespace: "quickshell:search"
+    function toggle() {
+        panel.visible = !panel.visible;
+    }
 
+    function updateFilter(query) {
+        filteredModel.clear();
+        let apps = Apps.list;
+        let q = query ? query.toLowerCase() : "";
+        for (let i = 0; i < apps.length; i++) {
+            let app = apps[i];
+            if (q.length === 0 || app.name.toLowerCase().includes(q) || app.execString.toLowerCase().includes(q))
+                filteredModel.append({
+                "name": app.name,
+                "icon": app.icon,
+                "execString": app.execString,
+                "entryObject": app
+            });
+
+        }
+    }
+
+    WlrLayershell.namespace: "quickshell:search"
     focusable: true
     visible: false
-
     implicitHeight: Screen.height
     implicitWidth: Screen.width
-
     color: "transparent"
+    onVisibleChanged: {
+        if (visible) {
+            panel.updateFilter("");
+            listView.currentIndex = 0;
+        } else {
+            textField.clear();
+            filteredModel.clear();
+        }
+    }
+    Component.onCompleted: {
+        panel.updateFilter("");
+    }
 
     GlobalShortcut {
         name: "search"
@@ -30,26 +58,24 @@ PanelWindow {
 
     MouseArea {
         z: 0
-
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked: function (mouse) {
-            if (!background.contains(Qt.point(mouse.x, mouse.y))) {
+        onClicked: function(mouse) {
+            if (!background.contains(Qt.point(mouse.x, mouse.y)))
                 panel.toggle();
-            }
+
         }
     }
 
     Rectangle {
         id: background
-        z: 1
 
+        z: 1
         anchors.centerIn: parent
         width: 500
         height: 300
         radius: 7
         color: Colors.base
-
         border.width: 1
         border.color: Colors.highlightMed
 
@@ -62,32 +88,11 @@ PanelWindow {
             width: parent.width - 20
             height: 40
             placeholderText: ""
-
-            background: Rectangle {
-                color: Colors.surface
-                border.color: Colors.highlightMed
-                border.width: 1
-                radius: 6
-            }
-
-            Text {
-                id: searchIcon
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                anchors.leftMargin: 10
-                text: "\uf002"
-                font.pixelSize: 18
-                color: Colors.highlightMed
-            }
-
             leftPadding: searchIcon.visible ? searchIcon.width + 20 : 10
-
             onTextChanged: panel.updateFilter(textField.text)
-
             focus: true
             selectByMouse: true
-
-            Keys.onPressed: event => {
+            Keys.onPressed: (event) => {
                 if (event.key === Qt.Key_Up) {
                     if (listView.currentIndex > 0) {
                         listView.currentIndex--;
@@ -117,12 +122,30 @@ PanelWindow {
                     event.accepted = false;
                 }
             }
-
             onActiveFocusChanged: {
-                if (activeFocus) {
+                if (activeFocus)
                     selectAll();
-                }
+
             }
+
+            Text {
+                id: searchIcon
+
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                text: "\uf002"
+                font.pixelSize: 18
+                color: Colors.highlightMed
+            }
+
+            background: Rectangle {
+                color: Colors.surface
+                border.color: Colors.highlightMed
+                border.width: 1
+                radius: 6
+            }
+
         }
 
         ListModel {
@@ -131,11 +154,11 @@ PanelWindow {
 
         Rectangle {
             id: listViewBackground
+
             anchors.top: textField.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-
             anchors.margins: 9
             color: Colors.surface
             radius: 4
@@ -144,22 +167,22 @@ PanelWindow {
 
             ListView {
                 id: listView
+
                 anchors.fill: parent
                 anchors.margins: 2
-
                 clip: true
-
                 model: filteredModel
+
                 delegate: Rectangle {
                     id: delegate
+
+                    required property string name
+                    required property string icon
 
                     width: ListView.view.width
                     height: 35
                     color: ListView.isCurrentItem ? Colors.highlightMed : "transparent"
                     radius: 2
-
-                    required property string name
-                    required property string icon
 
                     Row {
                         anchors.fill: parent
@@ -176,46 +199,15 @@ PanelWindow {
                             text: delegate.name
                             color: Colors.text
                         }
+
                     }
+
                 }
+
             }
+
         }
+
     }
 
-    function toggle() {
-        panel.visible = !panel.visible;
-    }
-
-    function updateFilter(query) {
-        filteredModel.clear();
-
-        let apps = Apps.list;
-        let q = query ? query.toLowerCase() : "";
-
-        for (let i = 0; i < apps.length; i++) {
-            let app = apps[i];
-            if (q.length === 0 || app.name.toLowerCase().includes(q) || app.execString.toLowerCase().includes(q)) {
-                filteredModel.append({
-                    "name": app.name,
-                    "icon": app.icon,
-                    "execString": app.execString,
-                    "entryObject": app
-                });
-            }
-        }
-    }
-
-    onVisibleChanged: {
-        if (visible) {
-            panel.updateFilter("");
-            listView.currentIndex = 0;
-        } else {
-            textField.clear();
-            filteredModel.clear();
-        }
-    }
-
-    Component.onCompleted: {
-        panel.updateFilter("");
-    }
 }

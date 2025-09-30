@@ -1,13 +1,22 @@
 //@ pragma UseQApplication
 
+import Quickshell
 import qs.OSD
 
-import Quickshell
-
 ShellRoot {
-    Bar {}
-    AppLauncher {}
-    VolumeOSD {}
-    BrightnessOSD {}
-    Notifications {}
+    Bar {
+    }
+
+    AppLauncher {
+    }
+
+    VolumeOSD {
+    }
+
+    BrightnessOSD {
+    }
+
+    Notifications {
+    }
+
 }

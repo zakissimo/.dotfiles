@@ -1,9 +1,7 @@
-pragma Singleton
-
+import QtQuick
 import Quickshell
 import Quickshell.Io
-
-import QtQuick
+pragma Singleton
 
 Singleton {
     id: root
@@ -11,10 +9,9 @@ Singleton {
     property string batteryStatus
     property string batteryCapacity
     property string powerProfileStatus
+    property var powerProfiles: ["power-saver", "balanced", "performance"]
 
-    property list<string> powerProfiles: ["power-saver", "balanced", "performance"]
-
-    function switchProfile(): void {
+    function switchProfile() {
         let index = (powerProfiles.indexOf(powerProfileStatus) + 1) % powerProfiles.length;
         setPowerProfileCmd.command = ["sh", "-c", `powerprofilesctl set ${powerProfiles[index]}`];
     }
@@ -26,10 +23,11 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: data => {
+            onRead: (data) => {
                 root.batteryStatus = data;
             }
         }
+
     }
 
     Process {
@@ -39,8 +37,11 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: data => root.batteryCapacity = data
+            onRead: (data) => {
+                return root.batteryCapacity = data;
+            }
         }
+
     }
 
     Process {
@@ -50,15 +51,17 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: data => root.powerProfileStatus = data
+            onRead: (data) => {
+                return root.powerProfileStatus = data;
+            }
         }
+
     }
 
     Process {
         id: setPowerProfileCmd
 
         command: []
-
         onCommandChanged: setPowerProfileCmd.running = true
         onRunningChanged: getPowerProfileCmd.running = true
     }
@@ -72,4 +75,5 @@ Singleton {
             capacityCmd.running = true;
         }
     }
+
 }

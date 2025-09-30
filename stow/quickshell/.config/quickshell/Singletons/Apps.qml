@@ -1,32 +1,33 @@
+import Quickshell
 pragma Singleton
 
-import Quickshell
-
 Singleton {
-
-    readonly property list<DesktopEntry> list: Array.from(DesktopEntries.applications.values).sort((a, b) => a.name.localeCompare(b.name))
+    readonly property var list: Array.from(DesktopEntries.applications.values).sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    })
 
     function getIcon(iconName) {
         if (!iconName || iconName.length == 0)
             return false;
+
         return Quickshell.iconPath(iconName, true);
     }
 
     function launch(app) {
         if (!app)
-            return;
+            return ;
 
-        if (app.runInTerminal) {
+        if (app.runInTerminal)
             Quickshell.execDetached(`/usr/bin/kitty --hold -e ${app.execString}`);
-        } else {
+        else
             app.execute();
-        }
     }
 
     function exec(cmd) {
         if (!cmd)
-            return;
+            return ;
 
         Quickshell.execDetached(cmd);
     }
+
 }

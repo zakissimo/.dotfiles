@@ -1,9 +1,7 @@
-pragma Singleton
-
+import QtQuick
 import Quickshell
 import Quickshell.Io
-
-import QtQuick
+pragma Singleton
 
 Singleton {
     id: root
@@ -16,16 +14,17 @@ Singleton {
 
         command: ["sh", "-c", "top -bn2 | grep \"Cpu(s)\" | awk '{print 100 - $8}'"]
         running: true
+
         stdout: SplitParser {
-            onRead: data => {
+            onRead: (data) => {
                 const cpuValue = parseFloat(data.trim());
-                if (!isNaN(cpuValue)) {
+                if (!isNaN(cpuValue))
                     root.cpu = cpuValue.toFixed(1);
-                } else {
+                else
                     root.cpu = "0.0";
-                }
             }
         }
+
     }
 
     Process {
@@ -33,16 +32,17 @@ Singleton {
 
         command: ["sh", "-c", "free | awk '/Mem/ { print ($3/$2) * 100 }'"]
         running: true
+
         stdout: SplitParser {
-            onRead: data => {
+            onRead: (data) => {
                 const ramValue = parseFloat(data.trim());
-                if (!isNaN(ramValue)) {
+                if (!isNaN(ramValue))
                     root.ram = ramValue.toFixed(1);
-                } else {
+                else
                     root.ram = "0.0";
-                }
             }
         }
+
     }
 
     Timer {
@@ -54,4 +54,5 @@ Singleton {
             ramCmd.running = true;
         }
     }
+
 }

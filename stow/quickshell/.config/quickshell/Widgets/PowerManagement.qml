@@ -1,7 +1,6 @@
+import QtQuick
 import qs.Singletons
 import qs.Singletons.Themes
-
-import QtQuick
 
 BarBlock {
     Text {
@@ -17,6 +16,7 @@ BarBlock {
             onClicked: PowerManagement.switchProfile()
             cursorShape: Qt.PointingHandCursor
         }
+
     }
 
     Text {
@@ -28,22 +28,22 @@ BarBlock {
                 return Icons.plug + " (" + PowerManagement.batteryCapacity + "%)";
             } else if (PowerManagement.batteryStatus === "Discharging") {
                 const percentage = parseInt(PowerManagement.batteryCapacity);
-                if (percentage >= 90) {
+                if (percentage >= 90)
                     return Icons.batteries[0] + " (" + percentage + "%)";
-                } else if (percentage >= 70) {
+                else if (percentage >= 70)
                     return Icons.batteries[1] + " (" + percentage + "%)";
-                } else if (percentage >= 50) {
+                else if (percentage >= 50)
                     return Icons.batteries[2] + " (" + percentage + "%)";
-                } else if (percentage >= 30) {
+                else if (percentage >= 30)
                     return Icons.batteries[3] + " (" + percentage + "%)";
-                } else if (percentage >= 10) {
+                else if (percentage >= 10)
                     return Icons.batteries[4] + " (" + percentage + "%)";
-                } else {
+                else
                     return Icons.batteries[5] + " (" + percentage + "%)";
-                }
             } else {
                 return Icons.batteries[5] + " (" + PowerManagement.batteryCapacity + "%)";
             }
         }
     }
+
 }

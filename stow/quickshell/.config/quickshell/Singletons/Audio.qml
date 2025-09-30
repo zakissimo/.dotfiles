@@ -1,49 +1,48 @@
-pragma Singleton
-
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
+pragma Singleton
 
 Singleton {
     id: root
 
     readonly property PwNode sink: Pipewire.defaultAudioSink
     readonly property PwNode source: Pipewire.defaultAudioSource
+    readonly property bool muted: sink && sink.audio ? sink.audio.muted : false
+    readonly property real volume: sink && sink.audio ? sink.audio.volume : 0
 
-    readonly property bool muted: sink?.audio?.muted ?? false
-    readonly property real volume: sink?.audio?.volume ?? 0
-
-    function toggleMute(): void {
+    function toggleMute() {
         sink.audio.muted = !sink.audio.muted;
     }
 
     function increaseVolume(step = 0.05) {
-        if (sink?.ready && sink?.audio) {
-            let newVolume = Math.min(sink.audio.volume + step, 1.0);
+        if (sink && sink.ready && sink.audio) {
+            let newVolume = Math.min(sink.audio.volume + step, 1);
             setVolume(newVolume);
         }
     }
 
     function decreaseVolume(step = 0.05) {
-        if (sink?.ready && sink?.audio) {
-            let newVolume = Math.max(sink.audio.volume - step, 0.0);
+        if (sink && sink.ready && sink.audio) {
+            let newVolume = Math.max(sink.audio.volume - step, 0);
             setVolume(newVolume);
         }
     }
 
-    function setVolume(volume: real): void {
-        if (sink?.ready && sink?.audio) {
+    function setVolume(volume: real) {
+        if (sink && sink.ready && sink.audio) {
             sink.audio.muted = false;
             sink.audio.volume = volume;
         }
     }
 
-    function openAudioControls(): void {
+    function openAudioControls() {
         openAudioControlsCommand.running = true;
     }
 
     Process {
         id: openAudioControlsCommand
+
         command: ["sh", "-c", "pavucontrol"]
         running: false
     }
@@ -51,4 +50,5 @@ Singleton {
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
     }
+
 }

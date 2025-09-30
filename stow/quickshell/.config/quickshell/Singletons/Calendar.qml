@@ -1,70 +1,31 @@
-pragma Singleton
-
+import QtQuick
 import Quickshell
 import Quickshell.Io
-
-import QtQuick
+pragma Singleton
 
 Singleton {
     id: root
+
     // Today's date for highlighting
     property int todayYear: new Date().getFullYear()
     property int todayMonth: new Date().getMonth()
     property int todayDay: new Date().getDate()
-
     property int currentYear: todayYear
     property int currentMonth: todayMonth
     property int currentDay: todayDay
-
     property var monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     property var dayNamesShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
-
     property var grid: []
-
     property bool isCurrentMonth: currentYear === todayYear && currentMonth === todayMonth
-
-    Process {
-        id: calProcess
-        command: ["cal", (root.currentMonth + 1).toString(), root.currentYear.toString()]
-        running: true
-
-        stdout: StdioCollector {
-            onStreamFinished: {
-                root.parseCalOutput(text);
-            }
-        }
-
-        function onExited(exitCode, exitStatus) {
-            if (exitCode !== 0) {
-                console.error("cal command failed with exit code:", exitCode);
-                // Fallback to old method if cal fails
-                root.generateGridFallback();
-            }
-        }
-    }
-
-    onCurrentMonthChanged: {
-        calProcess.running = false;
-        calProcess.running = true;
-        isCurrentMonth = currentYear === todayYear && currentMonth === todayMonth;
-    }
-
-    onCurrentYearChanged: {
-        calProcess.running = false;
-        calProcess.running = true;
-        isCurrentMonth = currentYear === todayYear && currentMonth === todayMonth;
-    }
 
     function parseCalOutput(output) {
         var lines = output.split('\n');
         if (lines.length < 3) {
             generateGridFallback();
-            return;
+            return ;
         }
-
         // Skip the header (month year) and day names
         var calendarLines = lines.slice(2);
-
         var gridData = [];
         for (var i = 0; i < calendarLines.length; i++) {
             var line = calendarLines[i];
@@ -79,7 +40,6 @@ Singleton {
                 }
             }
         }
-
         // Remove trailing empty rows
         while (gridData.length >= 7) {
             var lastWeekStart = gridData.length - 7;
@@ -90,37 +50,28 @@ Singleton {
                     break;
                 }
             }
-            if (isEmptyWeek) {
+            if (isEmptyWeek)
                 gridData.splice(lastWeekStart, 7);
-            } else {
+            else
                 break;
-            }
         }
-
         root.grid = gridData;
     }
 
     function generateGridFallback() {
         var days = daysInMonth(currentYear, currentMonth);
         var firstDayOfWeek = getFirstDayOfMonth(currentYear, currentMonth);
-
         var gridData = [];
         var dayCounter = 1;
-
         for (var i = 0; i < firstDayOfWeek; i++) {
             gridData.push("");
         }
-
         for (var j = 1; j <= days; j++) {
             gridData.push(j.toString());
         }
-
         // Calculate number of weeks needed
         var totalCells = Math.ceil((firstDayOfWeek + days) / 7) * 7;
-        while (gridData.length < totalCells) {
-            gridData.push("");
-        }
-
+        while (gridData.length < totalCells)gridData.push("")
         // Remove trailing empty rows
         while (gridData.length >= 7) {
             var lastWeekStart = gridData.length - 7;
@@ -131,13 +82,11 @@ Singleton {
                     break;
                 }
             }
-            if (isEmptyWeek) {
+            if (isEmptyWeek)
                 gridData.splice(lastWeekStart, 7);
-            } else {
+            else
                 break;
-            }
         }
-
         root.grid = gridData;
     }
 
@@ -182,4 +131,38 @@ Singleton {
         calProcess.running = false;
         calProcess.running = true;
     }
+
+    onCurrentMonthChanged: {
+        calProcess.running = false;
+        calProcess.running = true;
+        isCurrentMonth = currentYear === todayYear && currentMonth === todayMonth;
+    }
+    onCurrentYearChanged: {
+        calProcess.running = false;
+        calProcess.running = true;
+        isCurrentMonth = currentYear === todayYear && currentMonth === todayMonth;
+    }
+
+    Process {
+        id: calProcess
+
+        function onExited(exitCode, exitStatus) {
+            if (exitCode !== 0) {
+                console.error("cal command failed with exit code:", exitCode);
+                // Fallback to old method if cal fails
+                root.generateGridFallback();
+            }
+        }
+
+        command: ["cal", (root.currentMonth + 1).toString(), root.currentYear.toString()]
+        running: true
+
+        stdout: StdioCollector {
+            onStreamFinished: {
+                root.parseCalOutput(text);
+            }
+        }
+
+    }
+
 }

@@ -1,12 +1,10 @@
-import qs.Widgets
-import qs.Singletons.Themes
-
-import Quickshell
-import Quickshell.Wayland
-import Quickshell.Hyprland
-
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Hyprland
+import Quickshell.Wayland
+import qs.Singletons.Themes
+import qs.Widgets
 
 Variants {
     model: Quickshell.screens
@@ -14,19 +12,19 @@ Variants {
     PanelWindow {
         id: window
 
-        WlrLayershell.namespace: "quickshell:bar"
         property var modelData
+
+        WlrLayershell.namespace: "quickshell:bar"
         screen: modelData
+        color: Colors.base
+        implicitHeight: 25
+        HyprlandWindow.opacity: 1
 
         anchors {
             top: true
             left: true
             right: true
         }
-
-        color: Colors.base
-        implicitHeight: 25
-        HyprlandWindow.opacity: 1.0
 
         Calendar {
             id: calendar
@@ -51,8 +49,11 @@ Variants {
 
                     spacing: 10
 
-                    Workspaces {}
+                    Workspaces {
+                    }
+
                 }
+
             }
 
             Item {
@@ -67,19 +68,22 @@ Variants {
 
                     spacing: 10
 
-                    Clocks {}
+                    Clocks {
+                    }
+
                     Date {
                         id: date
                     }
+
                 }
 
                 MouseArea {
                     anchors.fill: parent
-
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onClicked: calendar.togglePopup()
                 }
+
             }
 
             Item {
@@ -94,12 +98,23 @@ Variants {
 
                     spacing: 10
 
-                    Audio {}
-                    Network {}
-                    Resources {}
-                    PowerManagement {}
-                    SysTray {}
+                    Audio {
+                    }
+
+                    Network {
+                    }
+
+                    Resources {
+                    }
+
+                    PowerManagement {
+                    }
+
+                    SysTray {
+                    }
+
                 }
+
             }
 
             Binding {
@@ -115,6 +130,9 @@ Variants {
                 value: leftBlock ? leftBlock.implicitWidth : 0
                 when: leftBlock && leftBlock.implicitWidth > 0
             }
+
         }
+
     }
+
 }

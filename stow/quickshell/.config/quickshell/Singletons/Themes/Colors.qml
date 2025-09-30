@@ -1,29 +1,37 @@
-pragma Singleton
-
-import Quickshell
 import QtQuick
+import Quickshell
+pragma Singleton
 
 Singleton {
     id: root
-    property string activeTheme: "rosePine"
 
-    component Theme: QtObject {
-        property color base
-        property color surface
-        property color overlay
-        property color muted
-        property color text
-        property color foam
-        property color rose
-        property color pine
-        property color iris
-        property color highlightLow
-        property color highlightMed
-        property color highlightHigh
+    property string activeTheme: "rosePine"
+    readonly property Theme theme: {
+        switch (activeTheme) {
+        case "dark":
+            return darkTheme;
+        case "light":
+            return lightTheme;
+        default:
+            return rosePineTheme;
+        }
     }
+    property color base: theme.base
+    property color surface: theme.surface
+    property color overlay: theme.overlay
+    property color muted: theme.muted
+    property color text: theme.text
+    property color foam: theme.foam
+    property color rose: theme.rose
+    property color pine: theme.pine
+    property color iris: theme.iris
+    property color highlightLow: theme.highlightLow
+    property color highlightMed: theme.highlightMed
+    property color highlightHigh: theme.highlightHigh
 
     Theme {
         id: rosePineTheme
+
         base: "#191724"
         surface: "#1f1d2e"
         overlay: "#26233a"
@@ -40,6 +48,7 @@ Singleton {
 
     Theme {
         id: darkTheme
+
         base: "#1e1e1e"
         surface: "#2d2d2d"
         overlay: "#3f3f3f"
@@ -56,6 +65,7 @@ Singleton {
 
     Theme {
         id: lightTheme
+
         base: "#ffffff"
         surface: "#f0f0f0"
         overlay: "#e0e0e0"
@@ -70,27 +80,19 @@ Singleton {
         highlightHigh: "#cccccc"
     }
 
-    readonly property Theme theme: {
-        switch (activeTheme) {
-        case "dark":
-            return darkTheme;
-        case "light":
-            return lightTheme;
-        default:
-            return rosePineTheme;
-        }
+    component Theme: QtObject {
+        property color base
+        property color surface
+        property color overlay
+        property color muted
+        property color text
+        property color foam
+        property color rose
+        property color pine
+        property color iris
+        property color highlightLow
+        property color highlightMed
+        property color highlightHigh
     }
 
-    property color base: theme.base
-    property color surface: theme.surface
-    property color overlay: theme.overlay
-    property color muted: theme.muted
-    property color text: theme.text
-    property color foam: theme.foam
-    property color rose: theme.rose
-    property color pine: theme.pine
-    property color iris: theme.iris
-    property color highlightLow: theme.highlightLow
-    property color highlightMed: theme.highlightMed
-    property color highlightHigh: theme.highlightHigh
 }
