@@ -85,13 +85,16 @@ PanelWindow {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.topMargin: 15
-            width: parent.width - 20
+            bottomPadding: 0
+            focus: true
+            font.pixelSize: 16
             height: 40
-            placeholderText: ""
             leftPadding: searchIcon.visible ? searchIcon.width + 20 : 10
             onTextChanged: panel.updateFilter(textField.text)
-            focus: true
+            placeholderText: ""
             selectByMouse: true
+            topPadding: 0
+            width: parent.width - 20
             Keys.onPressed: (event) => {
                 if (event.key === Qt.Key_Up) {
                     if (listView.currentIndex > 0) {
@@ -137,6 +140,13 @@ PanelWindow {
                 text: "\uf002"
                 font.pixelSize: 18
                 color: Colors.highlightMed
+            }
+
+            cursorDelegate: Rectangle {
+                width: 8
+                height: textField.height
+                color: Colors.muted
+                visible: textField.activeFocus
             }
 
             background: Rectangle {
