@@ -33,6 +33,7 @@ Singleton {
         if (sink && sink.ready && sink.audio) {
             sink.audio.muted = false;
             sink.audio.volume = volume;
+            playSound.running = true;
         }
     }
 
@@ -44,6 +45,13 @@ Singleton {
         id: openAudioControlsCommand
 
         command: ["sh", "-c", "pavucontrol"]
+        running: false
+    }
+
+    Process {
+        id: playSound
+
+        command: ["pw-play", "/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"]
         running: false
     }
 
