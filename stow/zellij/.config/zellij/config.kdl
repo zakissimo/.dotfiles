@@ -120,7 +120,7 @@ keybinds clear-defaults=true {
         bind "Alt b" { NewPane; }
         bind "Alt n" { NewTab; }
         bind "Alt w" { CloseTab; }
-        bind "Alt q" { Detach; }
+        bind "Alt x" { Detach; }
 
         bind "Alt +" { Resize "Increase"; }
         bind "Alt =" { Resize "Increase"; }

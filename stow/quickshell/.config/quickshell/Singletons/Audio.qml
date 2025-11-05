@@ -1,3 +1,4 @@
+import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
@@ -41,6 +42,14 @@ Singleton {
         openAudioControlsCommand.running = true;
     }
 
+    function refreshAudioState() {
+        if (sink && sink.audio) {
+            let wasMuted = sink.audio.muted;
+            sink.audio.muted = !wasMuted;
+            sink.audio.muted = wasMuted;
+        }
+    }
+
     Process {
         id: openAudioControlsCommand
 
@@ -57,6 +66,16 @@ Singleton {
 
     PwObjectTracker {
         objects: [Pipewire.defaultAudioSink, Pipewire.defaultAudioSource]
+    }
+
+    Connections {
+        function onVolumeChanged() {
+            if (isNaN(root.sink.audio.volume))
+                root.refreshAudioState();
+
+        }
+
+        target: root.sink.audio
     }
 
 }

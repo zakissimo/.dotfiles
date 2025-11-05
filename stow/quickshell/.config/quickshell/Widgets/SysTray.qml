@@ -5,20 +5,14 @@ import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 
 RowLayout {
-    visible: repeater.count > 0
     spacing: 5
 
     Repeater {
         id: repeater
 
-        MouseArea {
-            // Tooltip {
-            //     relativeItem: delegate.containsMouse ? delegate : null
-            //     Label {
-            //         text: delegate.item.tooltipTitle || delegate.item.id
-            //     }
-            // }
+        model: SystemTray.items
 
+        MouseArea {
             id: delegate
 
             required property SystemTrayItem modelData
@@ -63,14 +57,6 @@ RowLayout {
                 }
             }
 
-        }
-
-        model: ScriptModel {
-            values: {
-                [pe_unknown].filter((item) => {
-                    return (item.id != "spotify-client" && item.id != "chrome_status_icon_1");
-                });
-            }
         }
 
     }
