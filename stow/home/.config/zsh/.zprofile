@@ -13,5 +13,3 @@ _add_path "/var/lib/snapd/snap/bin"
 
 _add_xdg_data_dir "/var/lib/flatpak/exports/share"
 _add_xdg_data_dir "$HOME/.local/share/flatpak/exports/share"
-
-# [ "$(tty)" = "/dev/tty1" ] && type Hyprland > /dev/null 2>&1 && exec Hyprland

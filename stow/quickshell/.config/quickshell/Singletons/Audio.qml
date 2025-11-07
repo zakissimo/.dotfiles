@@ -75,7 +75,7 @@ Singleton {
 
         }
 
-        target: root.sink.audio
+        target: root.sink ? root.sink.audio : null
     }
 
 }
