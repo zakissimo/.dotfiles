@@ -1,6 +1,7 @@
+pragma Singleton
+
 import Quickshell
 import Quickshell.Io
-pragma Singleton
 
 Singleton {
     id: root
@@ -27,11 +28,10 @@ Singleton {
         command: ["brightnessctl", "g"]
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 root.level = parseInt(data.trim()) / root.maxBrightness;
             }
         }
-
     }
 
     Process {
@@ -41,11 +41,10 @@ Singleton {
         command: ["brightnessctl", "m"]
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 root.maxBrightness = parseInt(data.trim());
             }
         }
-
     }
 
     Process {
@@ -54,11 +53,9 @@ Singleton {
         running: false
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 getBrightnessCmd.running = true;
             }
         }
-
     }
-
 }

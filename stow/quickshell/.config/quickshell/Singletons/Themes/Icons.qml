@@ -1,5 +1,6 @@
-import Quickshell
 pragma Singleton
+
+import Quickshell
 
 Singleton {
     property string clock: "󱑆 "

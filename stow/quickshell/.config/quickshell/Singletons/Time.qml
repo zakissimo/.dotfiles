@@ -1,7 +1,9 @@
+pragma Singleton
+
 import QtQuick
+
 import Quickshell
 import Quickshell.Io
-pragma Singleton
 
 Singleton {
     id: root
@@ -18,11 +20,10 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 return root.date = data;
             }
         }
-
     }
 
     Process {
@@ -32,28 +33,26 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 return root.local = data;
             }
         }
-
     }
 
     Process {
         id: nyTimeCmd
 
         environment: ({
-            "TZ": "America/New_York"
-        })
+                "TZ": "America/New_York"
+            })
         command: ["date", "+%H:%M"]
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 return root.ny = data;
             }
         }
-
     }
 
     Process {
@@ -63,11 +62,10 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 return root.salat = data;
             }
         }
-
     }
 
     Timer {
@@ -81,5 +79,4 @@ Singleton {
             salatTimeCmd.running = true;
         }
     }
-
 }

@@ -1,7 +1,9 @@
+pragma Singleton
+
 import QtQuick
+
 import Quickshell
 import Quickshell.Io
-pragma Singleton
 
 Singleton {
     id: root
@@ -16,7 +18,7 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 const cpuValue = parseFloat(data.trim());
                 if (!isNaN(cpuValue))
                     root.cpu = cpuValue.toFixed(1);
@@ -24,7 +26,6 @@ Singleton {
                     root.cpu = "0.0";
             }
         }
-
     }
 
     Process {
@@ -34,7 +35,7 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 const ramValue = parseFloat(data.trim());
                 if (!isNaN(ramValue))
                     root.ram = ramValue.toFixed(1);
@@ -42,7 +43,6 @@ Singleton {
                     root.ram = "0.0";
             }
         }
-
     }
 
     Timer {
@@ -54,5 +54,4 @@ Singleton {
             ramCmd.running = true;
         }
     }
-
 }

@@ -1,4 +1,5 @@
 import QtQuick
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -12,5 +13,4 @@ BarBlock {
         color: Colors.text
         text: Icons.ram + Resources.ram.padStart(4, ' ') + "%"
     }
-
 }

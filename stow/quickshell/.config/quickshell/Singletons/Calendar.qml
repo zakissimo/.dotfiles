@@ -1,7 +1,9 @@
+pragma Singleton
+
 import QtQuick
+
 import Quickshell
 import Quickshell.Io
-pragma Singleton
 
 Singleton {
     id: root
@@ -22,7 +24,7 @@ Singleton {
         var lines = output.split('\n');
         if (lines.length < 3) {
             generateGridFallback();
-            return ;
+            return;
         }
         // Skip the header (month year) and day names
         var calendarLines = lines.slice(2);
@@ -71,7 +73,8 @@ Singleton {
         }
         // Calculate number of weeks needed
         var totalCells = Math.ceil((firstDayOfWeek + days) / 7) * 7;
-        while (gridData.length < totalCells)gridData.push("")
+        while (gridData.length < totalCells)
+            gridData.push("");
         // Remove trailing empty rows
         while (gridData.length >= 7) {
             var lastWeekStart = gridData.length - 7;
@@ -162,7 +165,5 @@ Singleton {
                 root.parseCalOutput(text);
             }
         }
-
     }
-
 }

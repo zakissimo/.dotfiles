@@ -1,5 +1,6 @@
-import Quickshell
 pragma Singleton
+
+import Quickshell
 
 Singleton {
     readonly property var list: Array.from(DesktopEntries.applications.values).sort((a, b) => {
@@ -15,7 +16,7 @@ Singleton {
 
     function launch(app) {
         if (!app)
-            return ;
+            return;
 
         if (app.runInTerminal)
             Quickshell.execDetached(`/usr/bin/kitty --hold -e ${app.execString}`);
@@ -25,9 +26,8 @@ Singleton {
 
     function exec(cmd) {
         if (!cmd)
-            return ;
+            return;
 
         Quickshell.execDetached(cmd);
     }
-
 }

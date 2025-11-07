@@ -1,8 +1,10 @@
 import QtQuick
 import QtQuick.Layouts
+
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
+
 import qs.Singletons.Themes
 import qs.Widgets
 
@@ -49,11 +51,8 @@ Variants {
 
                     spacing: 10
 
-                    Workspaces {
-                    }
-
+                    Workspaces {}
                 }
-
             }
 
             Item {
@@ -68,13 +67,11 @@ Variants {
 
                     spacing: 10
 
-                    Clocks {
-                    }
+                    Clocks {}
 
                     Date {
                         id: date
                     }
-
                 }
 
                 MouseArea {
@@ -83,7 +80,6 @@ Variants {
                     cursorShape: Qt.PointingHandCursor
                     onClicked: calendar.togglePopup()
                 }
-
             }
 
             Item {
@@ -98,23 +94,16 @@ Variants {
 
                     spacing: 10
 
-                    Audio {
-                    }
+                    Audio {}
 
-                    Network {
-                    }
+                    Network {}
 
-                    Resources {
-                    }
+                    Resources {}
 
-                    PowerManagement {
-                    }
+                    PowerManagement {}
 
-                    SysTray {
-                    }
-
+                    SysTray {}
                 }
-
             }
 
             Binding {
@@ -130,9 +119,6 @@ Variants {
                 value: leftBlock ? leftBlock.implicitWidth : 0
                 when: leftBlock && leftBlock.implicitWidth > 0
             }
-
         }
-
     }
-
 }

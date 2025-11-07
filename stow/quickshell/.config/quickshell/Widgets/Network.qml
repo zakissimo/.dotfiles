@@ -1,4 +1,5 @@
 import QtQuick
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -25,13 +26,11 @@ BarBlock {
             hoverEnabled: true
             acceptedButtons: Qt.LeftButton | Qt.RightButton
             cursorShape: Qt.PointingHandCursor
-            onClicked: (mouse) => {
+            onClicked: mouse => {
                 if (mouse.button === Qt.RightButton)
                     Network.openNetworkEditor();
-
             }
         }
-
     }
 
     Text {
@@ -49,5 +48,4 @@ BarBlock {
             return Icons.arrowUp + speed;
         }
     }
-
 }

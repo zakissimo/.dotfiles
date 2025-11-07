@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
+
 import Quickshell
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -25,10 +27,9 @@ PanelWindow {
     implicitHeight: Screen.height
     implicitWidth: Screen.width
     Component.onCompleted: {
-        Notifications.incoming.connect((n) => {
+        Notifications.incoming.connect(n => {
             if (!n.lastGeneration)
                 panel.showNotification(n);
-
         });
     }
 
@@ -106,15 +107,11 @@ PanelWindow {
                     wrapMode: Text.WordWrap
                     elide: Text.ElideRight
                 }
-
             }
-
         }
-
     }
 
     mask: Region {
         item: background
     }
-
 }

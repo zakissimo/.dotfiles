@@ -1,8 +1,10 @@
 import QtQuick
 import QtQuick.Controls
+
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Wayland
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -21,12 +23,11 @@ PanelWindow {
             let app = apps[i];
             if (q.length === 0 || app.name.toLowerCase().includes(q) || app.execString.toLowerCase().includes(q))
                 filteredModel.append({
-                "name": app.name,
-                "icon": app.icon,
-                "execString": app.execString,
-                "entryObject": app
-            });
-
+                    "name": app.name,
+                    "icon": app.icon,
+                    "execString": app.execString,
+                    "entryObject": app
+                });
         }
     }
 
@@ -60,10 +61,9 @@ PanelWindow {
         z: 0
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
-        onClicked: function(mouse) {
+        onClicked: function (mouse) {
             if (!background.contains(Qt.point(mouse.x, mouse.y)))
                 panel.toggle();
-
         }
     }
 
@@ -96,7 +96,7 @@ PanelWindow {
             selectByMouse: true
             topPadding: 0
             width: parent.width - 20
-            Keys.onPressed: (event) => {
+            Keys.onPressed: event => {
                 if (event.key === Qt.Key_Up) {
                     if (listView.currentIndex > 0) {
                         listView.currentIndex--;
@@ -129,7 +129,6 @@ PanelWindow {
             onActiveFocusChanged: {
                 if (activeFocus)
                     selectAll();
-
             }
 
             Text {
@@ -156,7 +155,6 @@ PanelWindow {
                 border.width: 1
                 radius: 6
             }
-
         }
 
         ListModel {
@@ -210,15 +208,9 @@ PanelWindow {
                             text: delegate.name
                             color: Colors.text
                         }
-
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

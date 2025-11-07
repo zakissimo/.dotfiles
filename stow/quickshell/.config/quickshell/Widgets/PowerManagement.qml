@@ -1,4 +1,5 @@
 import QtQuick
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -16,7 +17,6 @@ BarBlock {
             onClicked: PowerManagement.switchProfile()
             cursorShape: Qt.PointingHandCursor
         }
-
     }
 
     Text {
@@ -45,5 +45,4 @@ BarBlock {
             }
         }
     }
-
 }

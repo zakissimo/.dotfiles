@@ -1,7 +1,9 @@
+pragma Singleton
+
 import QtQuick
+
 import Quickshell
 import Quickshell.Io
-pragma Singleton
 
 Singleton {
     id: root
@@ -48,12 +50,11 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 const speed = parseInt(data.trim()) || 0;
                 root.downSpeed = Math.max(0, speed);
             }
         }
-
     }
 
     Process {
@@ -78,12 +79,11 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 const speed = parseInt(data.trim()) || 0;
                 root.upSpeed = Math.max(0, speed);
             }
         }
-
     }
 
     Process {
@@ -94,7 +94,7 @@ Singleton {
 
         stdout: SplitParser {
             splitMarker: ""
-            onRead: (data) => {
+            onRead: data => {
                 const arr = data.trim().split("\n");
                 let foundVpn = false;
                 for (let type of arr) {
@@ -106,14 +106,11 @@ Singleton {
 
                     if (type === "wifi")
                         root.connectionType = "wifi";
-
                 }
                 if (foundVpn != root.vpnActive)
                     root.vpnActive = foundVpn;
-
             }
         }
-
     }
 
     Timer {
@@ -126,5 +123,4 @@ Singleton {
             networkUpSpeedCmd.running = true;
         }
     }
-
 }

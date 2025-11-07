@@ -1,7 +1,9 @@
+pragma Singleton
+
 import QtQuick
+
 import Quickshell
 import Quickshell.Io
-pragma Singleton
 
 Singleton {
     id: root
@@ -23,11 +25,10 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 root.batteryStatus = data;
             }
         }
-
     }
 
     Process {
@@ -37,11 +38,10 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 return root.batteryCapacity = data;
             }
         }
-
     }
 
     Process {
@@ -51,11 +51,10 @@ Singleton {
         running: true
 
         stdout: SplitParser {
-            onRead: (data) => {
+            onRead: data => {
                 return root.powerProfileStatus = data;
             }
         }
-
     }
 
     Process {
@@ -75,5 +74,4 @@ Singleton {
             capacityCmd.running = true;
         }
     }
-
 }

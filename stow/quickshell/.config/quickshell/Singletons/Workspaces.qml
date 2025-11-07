@@ -1,7 +1,9 @@
+pragma Singleton
+
 import QtQuick
+
 import Quickshell
 import Quickshell.Hyprland
-pragma Singleton
 
 Singleton {
     id: root
@@ -9,8 +11,7 @@ Singleton {
     property var byMonitor: groupByMonitor(Hyprland.workspaces.values)
 
     function groupByMonitor(wsList) {
-        let monitorMap = {
-        };
+        let monitorMap = {};
         for (let ws of wsList) {
             let monitorId = ws && ws.monitor && ws.monitor.id ? ws.monitor.id : null;
             if (monitorId !== undefined && monitorId !== null) {
@@ -34,5 +35,4 @@ Singleton {
 
         target: Hyprland
     }
-
 }

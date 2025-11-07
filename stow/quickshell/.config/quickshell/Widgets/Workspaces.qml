@@ -1,5 +1,7 @@
 import QtQuick
+
 import Quickshell.Hyprland
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -13,7 +15,6 @@ BarBlock {
         Component.onCompleted: {
             if (root.monitor && Workspaces.byMonitor[root.monitor.id])
                 root.activeWorkspaces = Workspaces.byMonitor[root.monitor.id];
-
         }
         spacing: 10
         height: Math.max(1, childrenRect.height)
@@ -60,7 +61,6 @@ BarBlock {
                         top: workspaceText.bottom
                         topMargin: -3
                     }
-
                 }
 
                 MouseArea {
@@ -69,11 +69,7 @@ BarBlock {
                     onClicked: Workspaces.switchWorkspace(root.activeWorkspaces[index].id)
                     cursorShape: Qt.PointingHandCursor
                 }
-
             }
-
         }
-
     }
-
 }

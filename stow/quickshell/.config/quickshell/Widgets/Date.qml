@@ -1,4 +1,5 @@
 import QtQuick
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -7,5 +8,4 @@ BarBlock {
         color: Colors.text
         text: Icons.calendar + Time.date
     }
-
 }

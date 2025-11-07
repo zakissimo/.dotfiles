@@ -4,19 +4,13 @@ import Quickshell
 import qs.OSD
 
 ShellRoot {
-    Bar {
-    }
+    Bar {}
 
-    AppLauncher {
-    }
+    AppLauncher {}
 
-    VolumeOSD {
-    }
+    VolumeOSD {}
 
-    BrightnessOSD {
-    }
+    BrightnessOSD {}
 
-    Notifications {
-    }
-
+    Notifications {}
 }

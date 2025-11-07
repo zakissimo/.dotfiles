@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+
 import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
@@ -22,7 +23,7 @@ RowLayout {
             implicitWidth: icon.implicitWidth + 5
             acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
             hoverEnabled: true
-            onClicked: (event) => {
+            onClicked: event => {
                 if (event.button == Qt.LeftButton)
                     item.activate();
                 else if (event.button == Qt.MiddleButton)
@@ -30,7 +31,7 @@ RowLayout {
                 else if (event.button == Qt.RightButton)
                     menuAnchor.open();
             }
-            onWheel: (event) => {
+            onWheel: event => {
                 event.accepted = true;
                 const points = event.angleDelta.y / 120;
                 item.scroll(points, false);
@@ -56,9 +57,6 @@ RowLayout {
                     menuAnchor.anchor.rect = widgetRect;
                 }
             }
-
         }
-
     }
-
 }

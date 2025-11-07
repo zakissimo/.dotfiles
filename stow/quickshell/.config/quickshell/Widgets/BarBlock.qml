@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+
 import qs.Singletons.Themes
 
 Rectangle {
@@ -8,7 +9,7 @@ Rectangle {
     default property alias content: internalRow.children
     property bool clickable: false
 
-    signal clicked()
+    signal clicked
 
     color: Colors.overlay
     radius: 7
@@ -33,5 +34,4 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 10
     }
-
 }

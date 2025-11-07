@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
+
 import Quickshell
+
 import qs.Singletons
 import qs.Singletons.Themes
 
@@ -59,9 +61,7 @@ LazyLoader {
                                 anchors.centerIn: parent
                                 font.pixelSize: 14
                             }
-
                         }
-
                     }
 
                     Text {
@@ -88,11 +88,8 @@ LazyLoader {
                                 anchors.centerIn: parent
                                 font.pixelSize: 14
                             }
-
                         }
-
                     }
-
                 }
 
                 RowLayout {
@@ -109,9 +106,7 @@ LazyLoader {
                             horizontalAlignment: Text.AlignHCenter
                             Layout.fillWidth: true
                         }
-
                     }
-
                 }
 
                 // Calendar Grid (Days)
@@ -158,21 +153,12 @@ LazyLoader {
                                         font.pixelSize: 14
                                         anchors.centerIn: parent
                                     }
-
                                 }
-
                             }
-
                         }
-
                     }
-
                 }
-
             }
-
         }
-
     }
-
 }

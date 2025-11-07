@@ -1,8 +1,10 @@
+pragma Singleton
+
 import QtQuick
+
 import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Pipewire
-pragma Singleton
 
 Singleton {
     id: root
@@ -72,10 +74,8 @@ Singleton {
         function onVolumeChanged() {
             if (isNaN(root.sink.audio.volume))
                 root.refreshAudioState();
-
         }
 
         target: root.sink ? root.sink.audio : null
     }
-
 }
