@@ -2,9 +2,10 @@ import QtQuick
 
 import qs.Singletons
 import qs.Singletons.Themes
+import qs.Widgets.TextVariants
 
 BarBlock {
-    Text {
+    Body {
         id: powerIcon
 
         color: Colors.text
@@ -19,7 +20,7 @@ BarBlock {
         }
     }
 
-    Text {
+    Body {
         color: Colors.text
         text: {
             if (PowerManagement.batteryStatus === "Full" || PowerManagement.batteryStatus === "Not charging") {

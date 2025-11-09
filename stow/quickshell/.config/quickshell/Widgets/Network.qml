@@ -2,6 +2,7 @@ import QtQuick
 
 import qs.Singletons
 import qs.Singletons.Themes
+import qs.Widgets.TextVariants
 
 BarBlock {
     function bytesToMB(bytes, decimals = 1) {
@@ -17,7 +18,7 @@ BarBlock {
         return output.padStart(10, ' ');
     }
 
-    Text {
+    Body {
         color: Colors.text
         text: Icons.netStatus[Network.vpnActive][Network.connectionType]
 
@@ -33,7 +34,7 @@ BarBlock {
         }
     }
 
-    Text {
+    Body {
         color: Colors.text
         text: {
             let speed = bytesToMB(Network.downSpeed);
@@ -41,7 +42,7 @@ BarBlock {
         }
     }
 
-    Text {
+    Body {
         color: Colors.text
         text: {
             let speed = bytesToMB(Network.upSpeed);

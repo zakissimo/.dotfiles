@@ -5,6 +5,8 @@ import Quickshell.Hyprland
 import qs.Singletons
 import qs.Singletons.Themes
 
+import qs.Widgets.TextVariants
+
 BarBlock {
     id: root
 
@@ -41,7 +43,7 @@ BarBlock {
                 width: workspaceText.width
                 height: workspaceText.height * 2
 
-                Text {
+                Body {
                     id: workspaceText
 
                     anchors.centerIn: parent
