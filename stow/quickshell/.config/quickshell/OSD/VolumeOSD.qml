@@ -1,10 +1,13 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+
 import Quickshell
 import Quickshell.Hyprland
+
 import qs.Singletons
 import qs.Singletons.Themes
+import qs.Widgets.TextVariants
 
 PanelWindow {
     id: panel
@@ -54,7 +57,7 @@ PanelWindow {
                 margins: 25
             }
 
-            Text {
+            Body {
                 id: logo
 
                 color: Colors.text
@@ -99,11 +102,8 @@ PanelWindow {
                     width: bar.visualPosition * bar.width
                     height: bar.height
                 }
-
             }
-
         }
-
     }
 
     Timer {
@@ -131,5 +131,4 @@ PanelWindow {
     mask: Region {
         item: background
     }
-
 }
