@@ -19,4 +19,4 @@ run_wine_regedit() {
 
 # Try both wine locations
 run_wine_regedit "wine"
-run_wine_regedit "/opt/wine-cachyos/bin/wine"
+# run_wine_regedit "/opt/wine-cachyos/bin/wine"
