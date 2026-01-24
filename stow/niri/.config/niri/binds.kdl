@@ -1,0 +1,107 @@
+binds {
+    Mod+O repeat=false { toggle-overview; }
+
+    Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+
+    Mod+Return { spawn "kitty"; }
+    Mod+B { spawn "zen-browser"; }
+
+    Mod+Q { close-window; }
+
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-or-workspace-down; }
+    Mod+K { focus-window-or-workspace-up; }
+    Mod+L { focus-column-right; }
+
+    Mod+Shift+H { consume-or-expel-window-left; }
+    Mod+Shift+L { consume-or-expel-window-right; }
+    Mod+Shift+J { move-column-to-workspace-down; }
+    Mod+Shift+K { move-column-to-workspace-up; }
+
+    Mod+Comma { focus-monitor-previous; }
+    Mod+Period { focus-monitor-next; }
+    Mod+Shift+Comma { move-column-to-monitor-previous; }
+    Mod+Shift+Period { move-column-to-monitor-next; }
+
+    Mod+Alt+H { set-column-width "-10%"; }
+    Mod+Alt+L { set-column-width "+10%"; }
+    Mod+Alt+J { set-window-height "-10%"; }
+    Mod+Alt+K { set-window-height "+10%"; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End { move-column-to-last; }
+
+    Mod+WheelScrollDown { focus-workspace-down; }
+    Mod+WheelScrollUp { focus-workspace-up; }
+    Mod+Shift+WheelScrollDown { move-column-to-workspace-down; }
+    Mod+Shift+WheelScrollUp { move-column-to-workspace-up; }
+
+    Mod+WheelScrollRight { focus-column-left; }
+    Mod+WheelScrollLeft { focus-column-right; }
+    Mod+Shift+WheelScrollLeft { move-column-right; }
+    Mod+Shift+WheelScrollRight { move-column-left; }
+
+    Mod+F { toggle-window-floating; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+
+    Mod+T hotkey-overlay-title="Toggle tabbed display" { toggle-column-tabbed-display; }
+
+    Mod+Shift+P { screenshot; }
+
+    // Applications such as remote-desktop clients and software KVM switches may
+    // request that niri stops processing the keyboard shortcuts defined here
+    // so they may, for example, forward the key presses as-is to a remote machine.
+    // It's a good idea to bind an escape hatch to toggle the inhibitor,
+    // so a buggy application can't hold your session hostage.
+    //
+    // The allow-inhibiting=false property can be applied to other binds as well,
+    // which ensures niri always processes them, even when an inhibitor is active.
+    // Mod+Escape allow-inhibiting=false {
+    //     toggle-keyboard-shortcuts-inhibit
+    // }
+
+    // Powers off the monitors. To turn them back on, do any input like
+    // moving the mouse or pressing any other key.
+    // Ctrl+Alt+P {
+    //     power-off-monitors
+    // }
+
+    XF86AudioRaiseVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"
+    }
+    XF86AudioLowerVolume allow-when-locked=true {
+        spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"
+    }
+    XF86AudioMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+    }
+    XF86AudioMicMute allow-when-locked=true {
+        spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+    }
+    XF86AudioPlay allow-when-locked=true {
+        spawn-sh "playerctl play-pause"
+    }
+    XF86AudioStop allow-when-locked=true {
+        spawn-sh "playerctl stop"
+    }
+    XF86AudioPrev allow-when-locked=true {
+        spawn-sh "playerctl previous"
+    }
+    XF86AudioNext allow-when-locked=true {
+        spawn-sh "playerctl next"
+    }
+    XF86MonBrightnessUp allow-when-locked=true {
+        spawn "brightnessctl" "--class=backlight" "set" "+10%"
+    }
+    XF86MonBrightnessDown allow-when-locked=true {
+        spawn "brightnessctl" "--class=backlight" "set" "10%-"
+    }
+
+    Mod+Shift+Q { quit; }
+}
+

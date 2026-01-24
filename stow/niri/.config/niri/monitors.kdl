@@ -1,0 +1,14 @@
+output "DP-1" {
+    position x=0 y=0
+}
+output "eDP-1" {
+    mode "2560x1440"
+    scale 1.0
+    position x=3440 y=0
+}
+output "HDMI-A-1" {
+    mode "2560x1440"
+    scale 1.0
+    position x=440 y=-1440
+}
+

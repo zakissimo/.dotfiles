@@ -1,0 +1,30 @@
+input {
+    keyboard {
+        xkb {
+            layout "fr, ara"
+            variant "us,"
+            options "grp:alt_shift_toggle"
+            // options = "grp:alt_shift_toggle, ctrl:nocaps"
+        }
+        repeat-rate 50
+        repeat-delay 300
+    }
+    touchpad {
+        tap
+        natural-scroll
+    }
+    mouse {
+    }
+    focus-follows-mouse
+}
+
+cursor {
+    // hide-when-typing
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+

@@ -1,0 +1,56 @@
+include "env.kdl"
+include "input.kdl"
+include "layout.kdl"
+include "binds.kdl"
+
+include "dms/cursor.kdl"
+include "dms/outputs.kdl"
+
+spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+
+// move wine systray to correct place
+spawn-at-startup "xembedsniproxy"
+// allow root to connect to XWayland for Gparted
+spawn-at-startup "xhost" "+SI:localuser:root"
+
+spawn-at-startup "dms run"
+spawn-at-startup "bash" "-lc" "source ~/.config/zsh/.zprofile"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
+
+animations {
+}
+
+window-rule {
+    geometry-corner-radius 5
+    clip-to-geometry true
+    draw-border-with-background false
+    variable-refresh-rate false
+}
+
+window-rule {
+    match app-id="(?i)wine"
+    match app-id="\\.exe$"
+    open-floating true
+}
+
+window-rule {
+    match app-id="sierrachart_64.exe" title="^Sierra Chart "
+    open-floating false
+}
+
+window-rule {
+    match app-id="sierrachart_64.exe" title="^Sierra Chart.*Login$"
+    open-floating true
+}
+
+window-rule {
+    match app-id="kitty"
+    default-column-width { proportion 0.5; }
+}

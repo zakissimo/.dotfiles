@@ -1,0 +1,11 @@
+{
+  "id": "timeForSalat",
+  "name": "Time For Salat",
+  "description": "Display Islamic prayer times from Mawaqit",
+  "version": "0.0.1",
+  "author": "zak",
+  "icon": "mosque",
+  "component": "./PrayerWidget.qml",
+  "settings": "./PrayerSettings.qml",
+  "permissions": ["settings_read", "settings_write"]
+}
