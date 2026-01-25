@@ -1,4 +1,4 @@
-_add_path() { [ -d "$1" ] && export PATH="$PATH:$1" }
+_add_path() { [ -d "$1" ] && export PATH="$PATH:$1"; }
 _add_xdg_data_dir() {
   [ -d "$1" ] && export XDG_DATA_DIRS="$1${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
 }

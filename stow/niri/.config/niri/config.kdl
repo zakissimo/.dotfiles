@@ -6,16 +6,6 @@ include "binds.kdl"
 include "dms/cursor.kdl"
 include "dms/outputs.kdl"
 
-spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
-
-// move wine systray to correct place
-spawn-at-startup "xembedsniproxy"
-// allow root to connect to XWayland for Gparted
-spawn-at-startup "xhost" "+SI:localuser:root"
-
-spawn-at-startup "dms run"
-spawn-at-startup "bash" "-lc" "source ~/.config/zsh/.zprofile"
-
 hotkey-overlay {
     skip-at-startup
 }
@@ -37,6 +27,11 @@ window-rule {
 window-rule {
     match app-id="(?i)wine"
     match app-id="\\.exe$"
+    open-floating true
+}
+
+window-rule {
+    match title="^Settings$"
     open-floating true
 }
 
