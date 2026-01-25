@@ -1,0 +1,11 @@
+{
+  "id": "nyTime",
+  "name": "New-York Time",
+  "description": "Display New-York Time",
+  "version": "0.0.1",
+  "author": "zak",
+  "icon": "nest_clock_farsight_analog",
+  "component": "./nyTimeWidget.qml",
+  "settings": "./nyTimeSettings.qml",
+  "permissions": ["settings_read", "settings_write"]
+}

@@ -7,3 +7,4 @@ chadwm/.cache/clangd/index
 stow/hyprland/.config/hypr/monitors.conf
 stow/hyprland/.config/hypr/workspaces.conf
 stow/quickshell/.config/quickshell/.qmlls.ini
+stow/DankMaterialShell/.config/DankMaterialShell/themes/*

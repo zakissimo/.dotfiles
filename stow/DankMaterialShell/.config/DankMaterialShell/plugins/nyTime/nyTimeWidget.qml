@@ -9,13 +9,17 @@ import qs.Modules.Plugins
 PluginComponent {
     id: root
 
-    property string kaaba: "󰆦"
+    property string usaFlag: " "
+
     property string time
 
     Process {
-        id: salatTimeCmd
+        id: nyTimeCmd
 
-        command: ["bash", "-c", ". ~/.env && time_for_salat"]
+        environment: ({
+                "TZ": "America/New_York"
+            })
+        command: ["date", "+%H:%M"]
         running: true
 
         stdout: SplitParser {
@@ -30,7 +34,7 @@ PluginComponent {
         running: true
         repeat: true
         onTriggered: {
-            salatTimeCmd.running = true;
+            nyTimeCmd.running = true;
         }
     }
 
@@ -41,7 +45,7 @@ PluginComponent {
             leftPadding: Theme.spacingXS
 
             StyledText {
-                text: root.kaaba
+                text: root.usaFlag
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.iconSizeSmall - 1
                 color: Theme.backgroundText

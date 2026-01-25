@@ -1,5 +1,20 @@
 {
   "timeForSalat": {
     "enabled": true
+  },
+  "worldClock": {
+    "enabled": true,
+    "timezones": [
+      {
+        "timezone": "America/New_York",
+        "label": "NY"
+      }
+    ]
+  },
+  "nyTime": {
+    "enabled": true
+  },
+  "network": {
+    "enabled": true
   }
 }
