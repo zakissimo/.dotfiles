@@ -27,16 +27,19 @@ window-rule {
 window-rule {
     match app-id="(?i)wine"
     match app-id="\\.exe$"
-    open-floating true
-}
-
-window-rule {
     match title="^Settings$"
     open-floating true
 }
 
 window-rule {
     match app-id="sierrachart_64.exe" title="^Sierra Chart "
+    default-column-width { proportion 1.0; }
+    open-floating false
+}
+
+window-rule {
+    match app-id="sierrachart_64.exe" title=" Log$"
+    default-column-width { proportion 0.3; }
     open-floating false
 }
 
