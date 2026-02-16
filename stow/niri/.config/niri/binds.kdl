@@ -2,6 +2,7 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
     Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+    Mod+P { spawn "dms" "screenshot" "--no-file"; }
 
     Mod+Return { spawn "kitty"; }
     Mod+B { spawn "zen-browser"; }
