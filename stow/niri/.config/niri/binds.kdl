@@ -1,6 +1,7 @@
 binds {
     Mod+O repeat=false { toggle-overview; }
 
+    Mod+Ctrl+l { spawn "dms" "ipc" "call" "lock" "lock"; }
     Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     Mod+P { spawn "dms" "screenshot" "--no-file"; }
 

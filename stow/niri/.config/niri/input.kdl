@@ -3,8 +3,7 @@ input {
         xkb {
             layout "fr, ara"
             variant "us,"
-            options "grp:alt_shift_toggle"
-            // options = "grp:alt_shift_toggle, ctrl:nocaps"
+            options "grp:alt_shift_toggle, ctrl:nocaps"
         }
         repeat-rate 50
         repeat-delay 300
