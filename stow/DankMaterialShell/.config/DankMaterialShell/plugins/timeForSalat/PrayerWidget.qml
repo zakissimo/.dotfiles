@@ -11,12 +11,13 @@ PluginComponent {
 
     property string kaaba: "󰆦"
     property string time
+    property string slug: pluginData?.slug ?? ""
 
     Process {
         id: salatTimeCmd
 
-        command: ["bash", "-c", ". ~/.env && time_for_salat"]
-        running: true
+        command: slug ? ["time_for_salat", slug] : []
+        running: slug !== ""
 
         stdout: SplitParser {
             onRead: data => {

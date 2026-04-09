@@ -6,7 +6,7 @@ binds {
     Mod+P { spawn "dms" "screenshot" "--no-file"; }
 
     Mod+Return { spawn "kitty"; }
-    Mod+B { spawn "zen-browser"; }
+    Mod+B { spawn "firefox"; }
 
     Mod+Q { close-window; }
 
