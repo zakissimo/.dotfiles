@@ -31,7 +31,7 @@ Pass `-n` / `--dry-run` to any command to preview without modifying anything. Th
   - `home/` — shell/top-level: `.zshenv`, `.gitconfig`, `.config/zsh/` (zimfw), `.local/share/rose-pine`
   - `niri/` — the compositor. `config.kdl` includes `env.kdl`, `input.kdl`, `layout.kdl`, `binds.kdl`
   - `DankMaterialShell/` — DMS settings, themes, and custom QML plugins (`nyTime`, `timeForSalat`)
-  - `kitty/`, `rofi/`, `starship/`, `zellij/`, `gtk-3.0/`, `gtk-4.0/`, `qt5ct/`, `qt6ct/`, `Kvantum/`
+  - `kitty/`, `rofi/`, `starship/`, `zellij/`, `Kvantum/` (DMS + matugen owns all GTK and Qt theming on disk — intentionally not tracked)
 - `bin/` — personal utility scripts (bash/zsh) symlinked onto PATH via `link-bins`: `change-vol`, `kbd_light`, `mon_light`, `tmpclip`, `vimv`.
 - `wine/` — wine registry themes + `set_wine_theme.sh <file.reg>` applies via `wine regedit`.
 - `png/` — wallpaper assets.

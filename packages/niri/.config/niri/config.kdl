@@ -6,6 +6,8 @@ include "binds.kdl"
 include "dms/cursor.kdl"
 include "dms/outputs.kdl"
 
+spawn-at-startup "xhost" "+SI:localuser:root"
+
 hotkey-overlay {
     skip-at-startup
 }
