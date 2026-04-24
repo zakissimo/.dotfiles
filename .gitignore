@@ -1,11 +1,4 @@
-neovim/.config/nvim/plugin/packer_compiled.lua
-chadwm/config.h
-chadwm/dwm
 *nohup.out
 *.o
-chadwm/.cache/clangd/index
-stow/hyprland/.config/hypr/monitors.conf
-stow/hyprland/.config/hypr/workspaces.conf
-stow/quickshell/.config/quickshell/.qmlls.ini
-stow/DankMaterialShell/.config/DankMaterialShell/settings.json
+packages/DankMaterialShell/.config/DankMaterialShell/settings.json
 *plugin_settings.json

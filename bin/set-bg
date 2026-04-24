@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-pgrep -f swaybg &&
-    pkill -f swaybg
-
-cp "$1" "$XDG_CACHE_HOME/wallpaper" &&
-    swaybg -i "$1" &
