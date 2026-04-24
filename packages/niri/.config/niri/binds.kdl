@@ -25,11 +25,6 @@ binds {
     Mod+Shift+Comma { move-column-to-monitor-previous; }
     Mod+Shift+Period { move-column-to-monitor-next; }
 
-    Mod+Alt+H { set-column-width "-10%"; }
-    Mod+Alt+L { set-column-width "+10%"; }
-    Mod+Alt+J { set-window-height "-10%"; }
-    Mod+Alt+K { set-window-height "+10%"; }
-
     Mod+Home { focus-column-first; }
     Mod+End { focus-column-last; }
     Mod+Ctrl+Home { move-column-to-first; }

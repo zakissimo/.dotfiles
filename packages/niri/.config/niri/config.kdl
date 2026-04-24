@@ -6,6 +6,8 @@ include "binds.kdl"
 include "dms/cursor.kdl"
 include "dms/outputs.kdl"
 
+include "host.kdl"
+
 spawn-at-startup "xhost" "+SI:localuser:root"
 spawn-at-startup "dms" "run" "--session"
 

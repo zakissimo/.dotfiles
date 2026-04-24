@@ -41,6 +41,7 @@ Pass `-n` / `--dry-run` to any command to preview without modifying anything. Th
 Gitignored because they're machine-specific and written by tools at runtime. Do not commit them; do not be surprised when `include` lines resolve to missing files on a fresh clone:
 
 - `packages/niri/.config/niri/dms/cursor.kdl`, `dms/outputs.kdl` — written by DankMaterialShell
+- `~/.config/niri/host.kdl` — per-host niri overrides (extra `input {}` / `binds {}` blocks that merge with the committed base). Lives outside the stow source; niri refuses to load if missing, so `touch ~/.config/niri/host.kdl` after a fresh clone even if you have no overrides.
 - `packages/DankMaterialShell/.config/DankMaterialShell/settings.json` — DMS user settings
 - `packages/DankMaterialShell/.config/DankMaterialShell/plugins/*/plugin_settings.json` and any `*plugin_settings.json` — per-host plugin state
 
