@@ -2,3 +2,6 @@
 *.o
 packages/DankMaterialShell/.config/DankMaterialShell/settings.json
 *plugin_settings.json
+# matugen-generated browser themes (regenerated on every wallpaper/theme change)
+packages/DankMaterialShell/.config/DankMaterialShell/firefox.css
+packages/DankMaterialShell/.config/DankMaterialShell/zen.css
