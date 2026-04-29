@@ -54,6 +54,14 @@ window-rule {
 }
 
 window-rule {
+    match app-id="^com\\.chatterino\\.chatterino$"
+    open-floating true
+    default-floating-position x=2023 y=67 relative-to="top-left"
+    default-column-width { fixed 479; }
+    default-window-height { fixed 921; }
+}
+
+window-rule {
     match app-id="kitty"
     default-column-width { proportion 0.5; }
 }

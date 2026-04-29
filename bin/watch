@@ -1,0 +1,10 @@
+#!/bin/bash
+
+flatpak run com.chatterino.chatterino -c "$1" >/tmp/chatterino.log 2>&1 &
+CHATTERINO_PID=$!
+echo "Chatterino wrapper PID: $CHATTERINO_PID"
+
+trap 'echo "Killing chatterino..."; kill $CHATTERINO_PID 2>/dev/null; flatpak kill com.chatterino.chatterino 2>/dev/null' EXIT
+
+streamlink --player mpv twitch.tv/"$1" best
+echo "Streamlink exited"
