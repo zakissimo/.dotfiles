@@ -1,0 +1,100 @@
+[Default Applications]
+# Browser
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/chrome=firefox.desktop
+x-scheme-handler/about=firefox.desktop
+text/html=firefox.desktop
+application/xhtml+xml=firefox.desktop
+application/x-extension-htm=firefox.desktop
+application/x-extension-html=firefox.desktop
+application/x-extension-shtml=firefox.desktop
+application/x-extension-xhtml=firefox.desktop
+application/x-extension-xht=firefox.desktop
+
+# Claude (preserved)
+x-scheme-handler/claude=claude.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+
+# Images → Gwenview
+image/png=org.kde.gwenview.desktop
+image/jpeg=org.kde.gwenview.desktop
+image/gif=org.kde.gwenview.desktop
+image/webp=org.kde.gwenview.desktop
+image/bmp=org.kde.gwenview.desktop
+image/tiff=org.kde.gwenview.desktop
+image/svg+xml=org.kde.gwenview.desktop
+image/x-icon=org.kde.gwenview.desktop
+image/heif=org.kde.gwenview.desktop
+image/avif=org.kde.gwenview.desktop
+
+# PDFs / ebooks → Okular
+application/pdf=org.kde.okular.desktop
+application/x-pdf=org.kde.okular.desktop
+application/epub+zip=org.kde.okular.desktop
+application/x-mobipocket-ebook=org.kde.okular.desktop
+application/x-cbz=org.kde.okular.desktop
+application/x-cbr=org.kde.okular.desktop
+
+# Archives → Ark
+application/zip=org.kde.ark.desktop
+application/x-tar=org.kde.ark.desktop
+application/gzip=org.kde.ark.desktop
+application/x-gzip=org.kde.ark.desktop
+application/x-compressed-tar=org.kde.ark.desktop
+application/x-bzip2=org.kde.ark.desktop
+application/x-bzip-compressed-tar=org.kde.ark.desktop
+application/x-xz=org.kde.ark.desktop
+application/x-xz-compressed-tar=org.kde.ark.desktop
+application/zstd=org.kde.ark.desktop
+application/x-zstd-compressed-tar=org.kde.ark.desktop
+application/x-7z-compressed=org.kde.ark.desktop
+application/x-rar=org.kde.ark.desktop
+application/vnd.rar=org.kde.ark.desktop
+
+# Code / data / plain text → Neovim in kitty
+text/plain=nvim-kitty.desktop
+text/markdown=nvim-kitty.desktop
+text/x-markdown=nvim-kitty.desktop
+application/json=nvim-kitty.desktop
+application/x-yaml=nvim-kitty.desktop
+text/yaml=nvim-kitty.desktop
+text/x-shellscript=nvim-kitty.desktop
+application/x-shellscript=nvim-kitty.desktop
+application/sql=nvim-kitty.desktop
+text/x-sql=nvim-kitty.desktop
+application/xml=nvim-kitty.desktop
+text/xml=nvim-kitty.desktop
+application/javascript=nvim-kitty.desktop
+text/javascript=nvim-kitty.desktop
+text/x-python=nvim-kitty.desktop
+text/css=nvim-kitty.desktop
+application/toml=nvim-kitty.desktop
+text/x-c=nvim-kitty.desktop
+text/x-c++=nvim-kitty.desktop
+text/x-makefile=nvim-kitty.desktop
+text/csv=nvim-kitty.desktop
+text/tab-separated-values=nvim-kitty.desktop
+
+# Audio / video → mpv
+video/mp4=mpv.desktop
+video/x-matroska=mpv.desktop
+video/webm=mpv.desktop
+video/quicktime=mpv.desktop
+video/x-msvideo=mpv.desktop
+audio/mpeg=mpv.desktop
+audio/flac=mpv.desktop
+audio/ogg=mpv.desktop
+audio/x-wav=mpv.desktop
+audio/wav=mpv.desktop
+
+# Folders — keep terminal-first
+inode/directory=kitty-open.desktop
+
+[Added Associations]
+x-scheme-handler/http=firefox.desktop;zen.desktop;
+x-scheme-handler/https=firefox.desktop;zen.desktop;
+text/html=firefox.desktop;zen.desktop;
+application/json=nvim-kitty.desktop;firefox.desktop;
+application/pdf=org.kde.okular.desktop;firefox.desktop;
+inode/directory=kitty-open.desktop;org.kde.dolphin.desktop;
