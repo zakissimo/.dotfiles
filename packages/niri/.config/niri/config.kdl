@@ -37,6 +37,11 @@ window-rule {
 }
 
 window-rule {
+    match app-id="^steam_app_\\d+$"
+    open-fullscreen true
+}
+
+window-rule {
     match app-id="sierrachart_64.exe" title="^Sierra Chart "
     default-column-width { proportion 1.0; }
     open-floating false
@@ -64,4 +69,22 @@ window-rule {
 window-rule {
     match app-id="kitty"
     default-column-width { proportion 0.5; }
+}
+
+// Transient Qt apps (image viewers, archives, system tools) → floating
+window-rule {
+    match app-id="^org\\.kde\\.gwenview$"
+    match app-id="^org\\.kde\\.ark$"
+    match app-id="^org\\.kde\\.partitionmanager$"
+    match app-id="^qt6ct$"
+    match app-id="^kvantummanager$"
+    open-floating true
+}
+
+// Firefox popups/dialogs → floating; main browser windows stay tiled.
+// Main window titles end with "— Mozilla Firefox"; popups don't.
+window-rule {
+    match app-id="^firefox$"
+    exclude title="Mozilla Firefox$"
+    open-floating true
 }

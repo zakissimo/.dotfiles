@@ -19,3 +19,9 @@
 [difftool "diffview"]
     cmd  = nvim -n -c "DiffviewOpen --imply-local" "$LOCAL" "$REMOTE"
     trustExitCode = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
