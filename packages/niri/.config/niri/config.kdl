@@ -37,11 +37,6 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^steam_app_\\d+$"
-    open-fullscreen true
-}
-
-window-rule {
     match app-id="sierrachart_64.exe" title="^Sierra Chart "
     default-column-width { proportion 1.0; }
     open-floating false
