@@ -3,6 +3,7 @@ binds {
 
     Mod+Ctrl+b { spawn "dms" "ipc" "call" "bar" "toggle" "index" "0"; }
     Mod+Ctrl+l { spawn "dms" "ipc" "call" "lock" "lock"; }
+    Mod+Ctrl+Shift+L { spawn "/home/zak/.local/bin/sc-lock"; }
     Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     Mod+P { spawn "dms" "screenshot" "--no-file"; }
 
