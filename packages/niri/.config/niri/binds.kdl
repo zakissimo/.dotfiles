@@ -6,6 +6,7 @@ binds {
     Mod+Ctrl+Shift+L { spawn "/home/zak/.local/bin/sc-lock"; }
     Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
     Mod+P { spawn "dms" "screenshot" "--no-file"; }
+    Mod+S { spawn "/home/zak/.local/bin/sc-shot"; }
 
     Mod+Return { spawn "kitty"; }
     // Mod+B { spawn "firefox"; }
