@@ -3,13 +3,12 @@ binds {
 
     Mod+Ctrl+b { spawn "dms" "ipc" "call" "bar" "toggle" "index" "0"; }
     Mod+Ctrl+l { spawn "dms" "ipc" "call" "lock" "lock"; }
-    Mod+Ctrl+Shift+L { spawn "/home/zak/.local/bin/sc-lock"; }
     Mod+Space { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
-    Mod+P { spawn "dms" "screenshot" "--no-file"; }
+
+    Mod+P { screenshot; }
     Mod+S { spawn "/home/zak/.local/bin/sc-shot"; }
 
     Mod+Return { spawn "kitty"; }
-    // Mod+B { spawn "firefox"; }
 
     Mod+Q { close-window; }
 
@@ -50,8 +49,6 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
 
     Mod+T hotkey-overlay-title="Toggle tabbed display" { toggle-column-tabbed-display; }
-
-    Mod+Shift+P { screenshot; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
