@@ -46,6 +46,12 @@ _prepend_path "$HOME/.cargo/bin"
 _prepend_path "$HOME/.local/bin"
 _prepend_path "$HOME/.bin"
 
+# Seed the system base BEFORE prepending flatpak dirs. .zshenv runs before
+# /etc/profile.d/flatpak.sh, so without this a fresh zsh (e.g. a TTY login) ends
+# up with XDG_DATA_DIRS = flatpak-only, missing /usr/share — which breaks apps
+# that look there (Plasma's plasmashell crash-loops -> black screen).
+export XDG_DATA_DIRS="${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+
 _prepend_xdg_data_dir "$HOME/.local/share/flatpak/exports/share"
 _prepend_xdg_data_dir "/var/lib/flatpak/exports/share"
 
