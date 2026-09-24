@@ -7,6 +7,9 @@ binds {
 
     Mod+P { screenshot; }
     Mod+S { spawn "/home/zak/.local/bin/sc-shot"; }
+    // Voice commentary toggle: press to start, press again to transcribe.
+    // repeat=false so holding the key cannot fire the toggle twice.
+    Mod+V repeat=false { spawn "/home/zak/.local/bin/sc-voice"; }
 
     Mod+Return { spawn "kitty"; }
 
