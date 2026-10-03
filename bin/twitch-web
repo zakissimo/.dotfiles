@@ -1,0 +1,734 @@
+#!/usr/bin/env python3
+"""
+twitch-web — a local web frontend for Twitch.
+
+  * sidebar of the followed channels that are live (Helix)
+  * ad-free video, because streamlink sits in the pipeline and filters
+    `twitch-stitched-ad` segments before anything reaches the browser
+  * chat over Twitch's IRC WebSocket (read-only, anonymous)
+
+Reuses the credentials that `twitch` already set up:
+  ~/.config/twitch/config          CLIENT_ID=...
+  ~/.local/state/twitch/tokens.json access + refresh token
+
+Run it, then open http://127.0.0.1:8777
+"""
+
+from __future__ import annotations
+
+import http.server
+import json
+import os
+import shutil
+import signal
+import socket
+import subprocess
+import sys
+import tempfile
+import threading
+import time
+import urllib.parse
+import urllib.request
+
+CFG = os.path.expanduser("~/.config/twitch/config")
+TOKENS = os.path.expanduser("~/.local/state/twitch/tokens.json")
+UID_CACHE = os.path.expanduser("~/.local/state/twitch/user_id")
+
+PORT = int(os.environ.get("TWITCH_WEB_PORT", "8777"))
+SL_PORT = int(os.environ.get("TWITCH_SL_PORT", "9100"))
+SL_HOST = "127.0.0.1"
+
+
+def die(msg: str) -> None:
+    print(f"twitch-web: {msg}", file=sys.stderr)
+    raise SystemExit(1)
+
+
+# --------------------------------------------------------------------------- auth
+
+def client_id() -> str:
+    try:
+        with open(CFG) as fh:
+            for line in fh:
+                if line.startswith("CLIENT_ID="):
+                    return line.split("=", 1)[1].strip()
+    except FileNotFoundError:
+        pass
+    die("no CLIENT_ID; run `twitch` once to set up credentials")
+    return ""
+
+
+def _post(url: str, data: dict) -> dict:
+    body = urllib.parse.urlencode(data).encode()
+    req = urllib.request.Request(url, data=body, method="POST")
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.load(r)
+
+
+def access_token() -> str:
+    try:
+        with open(TOKENS) as fh:
+            tok = json.load(fh)
+    except (FileNotFoundError, json.JSONDecodeError):
+        die("no tokens; run `twitch` once to authorize")
+        return ""
+    if time.time() < tok.get("expires_at", 0):
+        return tok["access_token"]
+    # refresh (refresh tokens are single-use, so persist the new pair immediately)
+    new = _post("https://id.twitch.tv/oauth2/token", {
+        "client_id": client_id(),
+        "grant_type": "refresh_token",
+        "refresh_token": tok["refresh_token"],
+    })
+    if "access_token" not in new:
+        die("token refresh failed; run `twitch` to re-authorize")
+    out = {
+        "access_token": new["access_token"],
+        "refresh_token": new.get("refresh_token", tok["refresh_token"]),
+        "expires_at": time.time() + new.get("expires_in", 14400) - 60,
+    }
+    with open(TOKENS, "w") as fh:
+        json.dump(out, fh)
+    os.chmod(TOKENS, 0o600)
+    return out["access_token"]
+
+
+def helix(path: str) -> dict:
+    req = urllib.request.Request(
+        f"https://api.twitch.tv/helix/{path}",
+        headers={"Client-Id": client_id(), "Authorization": f"Bearer {access_token()}"},
+    )
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.load(r)
+
+
+def user_id() -> str:
+    try:
+        with open(UID_CACHE) as fh:
+            uid = fh.read().strip()
+            if uid:
+                return uid
+    except FileNotFoundError:
+        pass
+    uid = helix("users")["data"][0]["id"]
+    with open(UID_CACHE, "w") as fh:
+        fh.write(uid)
+    return uid
+
+
+# ------------------------------------------------------------------- streamlink
+
+def _slim(s: dict, avatars: dict) -> dict:
+    return {
+        "id": s["user_id"],
+        "login": s["user_login"],
+        "name": s["user_name"],
+        "game": s.get("game_name") or "",
+        "title": s.get("title") or "",
+        "viewers": s.get("viewer_count", 0),
+        "started_at": s.get("started_at"),
+        "avatar": avatars.get(s["user_id"], ""),
+    }
+
+
+def build_live() -> dict:
+    """Followed channels that are live, plus suggestions.
+
+    Twitch's real recommendations live in the private GQL API, so "suggested"
+    here means: top live channels in the games the follows are playing, minus
+    anyone already followed.
+    """
+    followed = helix(f"streams/followed?user_id={user_id()}&first=100")["data"]
+    followed.sort(key=lambda x: x.get("viewer_count", 0), reverse=True)
+    mine = {x["user_login"] for x in followed}
+
+    games, seen = [], set()
+    for x in followed:
+        g = x.get("game_id")
+        if g and g not in seen:
+            seen.add(g)
+            games.append(g)
+
+    try:
+        if games:
+            q = "&".join(f"game_id={g}" for g in games[:3])
+            pool = helix(f"streams?{q}&first=60")["data"]
+        else:
+            pool = helix("streams?first=60")["data"]
+    except Exception:  # noqa: BLE001 - suggestions are optional
+        pool = []
+    sugg, seen_login = [], set()
+    for x in pool:
+        lg = x["user_login"]
+        if lg in mine or lg in seen_login:
+            continue
+        seen_login.add(lg)
+        sugg.append(x)
+        if len(sugg) >= 15:
+            break
+
+    avatars: dict[str, str] = {}
+    ids = [x["user_id"] for x in followed + sugg]
+    for i in range(0, len(ids), 100):
+        batch = "&".join(f"id={x}" for x in ids[i:i + 100])
+        try:
+            for u in helix(f"users?{batch}")["data"]:
+                avatars[u["id"]] = (u.get("profile_image_url") or "").replace("300x300", "70x70")
+        except Exception:  # noqa: BLE001 - avatars are cosmetic
+            pass
+
+    return {
+        "streams": [_slim(x, avatars) for x in followed],
+        "suggested": [_slim(x, avatars) for x in sugg],
+    }
+
+
+_EMOTE_CACHE: dict[str, tuple[float, dict, str]] = {}
+_EMOTE_TTL = 600  # seconds; a safety net - live changes arrive over the EventAPI
+
+
+def _seventv(url: str) -> dict:
+    req = urllib.request.Request(url, headers={"User-Agent": "twitch-web"})
+    with urllib.request.urlopen(req, timeout=15) as r:
+        return json.load(r)
+
+
+def _collect(emotes: list, out: dict) -> None:
+    for e in emotes or []:
+        name = e.get("name")
+        host = ((e.get("data") or {}).get("host") or {})
+        base = host.get("url") or ""
+        if not name or not base:
+            continue
+        # host.url is protocol-relative, e.g. //cdn.7tv.app/emote/<id>
+        files = {f.get("name") for f in (host.get("files") or [])}
+        fname = "2x.webp" if "2x.webp" in files else ("1x.webp" if "1x.webp" in files else "2x.webp")
+        out[name] = f"https:{base}/{fname}"
+
+
+def seventv_emotes(twitch_id: str) -> tuple[dict, str]:
+    """({emote name -> image url}, emote_set_id) for 7TV global + channel set.
+
+    The set id lets the page subscribe to 7TV's EventAPI, so a mod adding or
+    removing an emote shows up live instead of waiting for the cache to expire.
+    """
+    hit = _EMOTE_CACHE.get(twitch_id)
+    if hit and time.time() - hit[0] < _EMOTE_TTL:
+        return hit[1], hit[2]
+    out: dict = {}
+    set_id = ""
+    try:
+        _collect(_seventv("https://7tv.io/v3/emote-sets/global").get("emotes", []), out)
+    except Exception:  # noqa: BLE001 - emotes are cosmetic
+        pass
+    try:
+        user = _seventv(f"https://7tv.io/v3/users/twitch/{twitch_id}")
+        eset = user.get("emote_set") or {}
+        set_id = eset.get("id") or ""
+        _collect(eset.get("emotes") or [], out)
+    except Exception:  # noqa: BLE001 - channel may not be on 7TV
+        pass
+    _EMOTE_CACHE[twitch_id] = (time.time(), out, set_id)
+    return out, set_id
+
+
+class Streamer:
+    """Owns at most one streamlink process serving the current channel over HTTP."""
+
+    def __init__(self) -> None:
+        self.proc: subprocess.Popen | None = None       # streamlink
+        self.ff: subprocess.Popen | None = None         # ffmpeg -> HLS
+        self.hls_dir: str | None = None
+        self.channel: str | None = None
+        self.lock = threading.Lock()
+
+    def _port_open(self) -> bool:
+        with socket.socket() as s:
+            s.settimeout(0.3)
+            return s.connect_ex((SL_HOST, SL_PORT)) == 0
+
+    def stop(self) -> None:
+        with self.lock:
+            self._stop_locked()
+
+    def _stop_locked(self) -> None:
+        if self.ff and self.ff.poll() is None:
+            self.ff.terminate()
+            try:
+                self.ff.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                self.ff.kill()
+        self.ff = None
+        if self.hls_dir:
+            shutil.rmtree(self.hls_dir, ignore_errors=True)
+            self.hls_dir = None
+        if self.proc and self.proc.poll() is None:
+            self.proc.terminate()
+            try:
+                self.proc.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                self.proc.kill()
+        self.proc = None
+        self.channel = None
+        # the port lingers briefly after the process dies
+        for _ in range(20):
+            if not self._port_open():
+                break
+            time.sleep(0.1)
+
+    def start(self, channel: str, quality: str = "best") -> tuple[bool, str]:
+        with self.lock:
+            if self.channel == channel and self.proc and self.proc.poll() is None:
+                return True, "already running"
+            self._stop_locked()
+            cmd = [
+                "streamlink",
+                "--player-external-http",
+                "--player-external-http-interface", SL_HOST,
+                "--player-external-http-port", str(SL_PORT),
+                "--player-external-http-continuous", "yes",
+                f"twitch.tv/{channel}", quality,
+            ]
+            # --twitch-low-latency trims the HLS live edge to 2 segments. That is
+            # great for latency and bad for smoothness in a browser, where MSE has
+            # no slack to absorb a hiccup. Opt in with TWITCH_LOW_LATENCY=1.
+            if os.environ.get("TWITCH_LOW_LATENCY") == "1":
+                cmd.insert(-2, "--twitch-low-latency")
+            self.proc = subprocess.Popen(
+                cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True,
+            )
+            self.channel = channel
+            # wait for the HTTP server to come up (resolving the stream takes a moment)
+            for _ in range(150):
+                if self.proc.poll() is not None:
+                    err = (self.proc.stderr.read() or "").strip() if self.proc.stderr else ""
+                    self.proc = None
+                    self.channel = None
+                    return False, err.splitlines()[-1] if err else "streamlink exited"
+                if self._port_open():
+                    return self._start_hls()
+                time.sleep(0.2)
+            self._stop_locked()
+            return False, "timed out waiting for streamlink"
+
+    def _start_hls(self) -> tuple[bool, str]:
+        """Remux the TS into HLS with fMP4 segments.
+
+        hls.js then handles live playback - live edge, buffering, recovery -
+        and because the segments are already fMP4 it feeds MSE directly with no
+        JavaScript transmuxing, which is what produced macroblocking before.
+        """
+        self.hls_dir = tempfile.mkdtemp(prefix="twitch-web-")
+        m3u8 = os.path.join(self.hls_dir, "stream.m3u8")
+        cmd = [
+            "ffmpeg", "-hide_banner", "-loglevel", "error",
+            "-fflags", "+genpts", "-i", f"http://{SL_HOST}:{SL_PORT}/",
+            "-c", "copy",
+            # TS carries AAC in ADTS framing; MP4/fMP4 needs raw AAC (ASC headers)
+            "-bsf:a", "aac_adtstoasc",
+            "-f", "hls",
+            "-hls_time", "2",
+            "-hls_list_size", "6",
+            "-hls_flags", "delete_segments+independent_segments+omit_endlist",
+            "-hls_segment_type", "fmp4",
+            "-hls_fmp4_init_filename", "init.mp4",
+            "-hls_segment_filename", os.path.join(self.hls_dir, "seg%05d.m4s"),
+            m3u8,
+        ]
+        errlog = open("/tmp/twitch-web-ffmpeg.log", "ab", buffering=0)
+        self.ff = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=errlog)
+        # wait for the playlist to list at least one segment
+        for _ in range(200):
+            if self.ff.poll() is not None:
+                self._stop_locked()
+                return False, "ffmpeg exited (see /tmp/twitch-web-ffmpeg.log)"
+            try:
+                if ".m4s" in open(m3u8).read():
+                    return True, "ok"
+            except OSError:
+                pass
+            time.sleep(0.2)
+        self._stop_locked()
+        return False, "timed out waiting for HLS segments"
+
+
+STREAMER = Streamer()
+
+
+# ------------------------------------------------------------------------ server
+
+class Handler(http.server.BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+    server_version = "twitch-web"
+
+    def log_message(self, fmt, *args):  # quieter console
+        if "/stream" not in self.path:
+            sys.stderr.write("  %s\n" % (fmt % args))
+
+    # -- helpers
+    def _json(self, obj, code=200):
+        body = json.dumps(obj).encode()
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _html(self, body: str):
+        raw = body.encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(raw)))
+        self.end_headers()
+        self.wfile.write(raw)
+
+    # -- routes
+    def do_GET(self):
+        url = urllib.parse.urlparse(self.path)
+        q = urllib.parse.parse_qs(url.query)
+
+        if url.path == "/":
+            return self._html(PAGE)
+
+        if url.path == "/api/live":
+            try:
+                payload = build_live()
+            except Exception as exc:  # noqa: BLE001 - surface it in the UI
+                return self._json({"error": str(exc)}, 500)
+            return self._json(payload)
+
+        if url.path == "/api/emotes":
+            uid = (q.get("uid") or [""])[0]
+            if not uid:
+                return self._json({"emotes": {}, "set_id": ""})
+            emotes, set_id = seventv_emotes(uid)
+            return self._json({"emotes": emotes, "set_id": set_id})
+
+        if url.path == "/api/status":
+            return self._json({"channel": STREAMER.channel})
+
+        if url.path == "/api/stop":
+            STREAMER.stop()
+            return self._json({"ok": True})
+
+        if url.path.startswith("/hls/"):
+            return self._serve_hls(os.path.basename(url.path))
+
+        self.send_error(404)
+
+    def do_POST(self):
+        url = urllib.parse.urlparse(self.path)
+        if url.path == "/api/watch":
+            length = int(self.headers.get("Content-Length") or 0)
+            payload = json.loads(self.rfile.read(length) or b"{}")
+            channel = (payload.get("channel") or "").strip().lower()
+            if not channel:
+                return self._json({"error": "no channel"}, 400)
+            ok, msg = STREAMER.start(channel, payload.get("quality") or "best")
+            return self._json({"ok": ok, "message": msg, "channel": channel if ok else None},
+                              200 if ok else 500)
+        self.send_error(404)
+
+    def _serve_hls(self, name: str):
+        """Serve ffmpeg's HLS output (playlist, init segment, media segments)."""
+        d = STREAMER.hls_dir
+        if not d:
+            return self.send_error(503, "nothing playing")
+        path = os.path.join(d, name)
+        if not os.path.isfile(path):
+            return self.send_error(404)
+        ctype = ("application/vnd.apple.mpegurl" if name.endswith(".m3u8")
+                 else "video/iso.segment" if name.endswith(".m4s")
+                 else "video/mp4")
+        try:
+            with open(path, "rb") as fh:
+                body = fh.read()
+        except OSError:
+            return self.send_error(404)
+        self.send_response(200)
+        self.send_header("Content-Type", ctype)
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        try:
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError):
+            pass
+
+
+class Server(http.server.ThreadingHTTPServer):
+    daemon_threads = True
+    allow_reuse_address = True
+
+
+PAGE = r"""<!doctype html>
+<html lang=en><head><meta charset=utf-8>
+<title>twitch</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1.6.5/dist/hls.min.js"></script>
+<style>
+:root{--bg:#0e0e10;--bg2:#18181b;--bg3:#1f1f23;--fg:#efeff1;--dim:#adadb8;--acc:#a970ff;--line:#2a2a2e}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,sans-serif;display:flex;overflow:hidden}
+#side{width:72px;flex:none;background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center}
+#refresh{margin:10px 0 2px;background:none;border:0;color:var(--dim);cursor:pointer;font-size:17px;line-height:1;padding:4px}
+#refresh:hover{color:var(--fg)}
+#list{overflow-y:auto;overflow-x:hidden;flex:1;width:100%;display:flex;flex-direction:column;align-items:center;gap:9px;padding:4px 0 14px;scrollbar-width:none}
+#list::-webkit-scrollbar{display:none}
+.av{width:44px;height:44px;flex:none;border-radius:50%;cursor:pointer;outline:2px solid transparent;outline-offset:2px;transition:outline-color .12s,transform .12s}
+.av img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:var(--bg3);display:block}
+.av:hover{transform:scale(1.08)}
+.av.on{outline-color:var(--acc)}
+.sep{width:30px;height:1px;background:var(--line);margin:4px 0;flex:none}
+.sg img{filter:grayscale(.55);opacity:.55}
+.sg:hover img{filter:none;opacity:1}
+#main{flex:1;display:flex;min-width:0}
+#stage{flex:1;display:flex;flex-direction:column;min-width:0;background:#000}
+video{width:100%;flex:1;min-height:0;background:#000;outline:none}
+#bar{padding:8px 14px;background:var(--bg2);border-top:1px solid var(--line);display:flex;gap:14px;align-items:center;font-size:13px}
+#bar a{color:var(--acc);text-decoration:none;font-size:12px;flex:none;border:1px solid var(--line);border-radius:4px;padding:3px 8px}
+#bar a:hover{border-color:var(--acc);background:var(--bg3)}
+#bar a{color:var(--acc);text-decoration:none;font-size:12px;flex:none;border:1px solid var(--line);border-radius:4px;padding:3px 8px}
+#bar a:hover{border-color:var(--acc);background:var(--bg3)}
+#bar select{background:var(--bg3);color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:3px 6px;font-size:12px;flex:none}
+#bar button{background:var(--acc);border:0;color:#fff;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:12px;flex:none}
+#bar .t{color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#chat{width:380px;flex:none;background:var(--bg2);border-left:1px solid var(--line);display:flex;flex-direction:column}
+#chat h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+#msgs{flex:1;overflow-y:auto;padding:8px 12px;font-size:15px;line-height:1.5;word-wrap:break-word}
+#msgs div{margin-bottom:5px}
+#msgs .u{font-weight:700}
+#msgs img{height:28px;vertical-align:middle;margin:-2px 0}
+#empty{color:var(--dim);padding:40px;text-align:center;margin:auto}
+</style></head><body>
+
+<aside id=side>
+  <button id=refresh title="reload">&#8635;</button>
+  <div id=list></div>
+</aside>
+
+<div id=main>
+  <div id=stage>
+    <video id=v autoplay muted playsinline controls></video>
+    <div id=bar><b id=now>nothing playing</b><button id=unmute hidden>&#128266; unmute</button><a id=ext href="#" target=_blank rel=noopener hidden title="open on twitch.tv - follow/unfollow there, the API cannot">twitch.tv &#8599;</a><select id=q title="stream quality"><option value=best>best</option><option value=1080p60>1080p60</option><option value=720p60>720p60</option><option value=720p>720p</option><option value=480p>480p</option></select><span class=t id=title></span></div>
+  </div>
+  <aside id=chat><h2>Chat</h2><div id=msgs><div id=empty>pick a channel</div></div></aside>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let sock = null, current = null, currentStream = null, hls = null, EMOTES = {}, esock = null;
+
+function uptime(iso){
+  if(!iso) return '';
+  const m = Math.floor((Date.now() - new Date(iso)) / 60000);
+  return (m >= 60 ? Math.floor(m/60)+'h '+(m%60)+'m' : m+'m');
+}
+
+async function loadLive(){
+  const list = $('#list');
+  const r = await fetch('/api/live').then(r => r.json()).catch(e => ({error:String(e)}));
+  if(r.error){ list.innerHTML = ''; list.title = r.error; return; }
+  list.innerHTML = '';
+
+  const add = (s, cls) => {
+    const el = document.createElement('div');
+    el.className = 'av ' + cls + (s.login === current ? ' on' : '');
+    el.dataset.login = s.login;
+    // no labels in the rail, so the tooltip carries everything
+    el.title = s.name + '\n' + (s.game || '-') + ' - ' + s.viewers.toLocaleString()
+             + ' viewers - ' + uptime(s.started_at) + (s.title ? '\n' + s.title : '');
+    const img = document.createElement('img');
+    img.src = s.avatar || ''; img.alt = s.name; img.loading = 'lazy';
+    el.appendChild(img);
+    el.onclick = () => watch(s);
+    list.appendChild(el);
+  };
+
+  (r.streams || []).forEach(s => add(s, 'fl'));
+  if((r.suggested || []).length){
+    const sep = document.createElement('div');
+    sep.className = 'sep';
+    list.appendChild(sep);
+    r.suggested.forEach(s => add(s, 'sg'));
+  }
+}
+
+async function watch(s){
+  current = s.login; currentStream = s;
+  $('#now').textContent = s.name;
+  $('#title').textContent = s.title || '';
+  $('#ext').href = 'https://twitch.tv/' + s.login;
+  $('#ext').hidden = false;
+  $('#ext').href = 'https://twitch.tv/' + s.login;
+  $('#ext').hidden = false;
+  document.querySelectorAll('.av').forEach(e => e.classList.toggle('on', e.dataset.login === s.login));
+
+  const r = await fetch('/api/watch', {method:'POST', headers:{'Content-Type':'application/json'},
+                                       body: JSON.stringify({channel: s.login, quality: $('#q').value})}).then(r => r.json());
+  if(!r.ok){ $('#now').textContent = 'failed: ' + r.message; return; }
+
+  const v = $('#v');
+  if(hls){ hls.destroy(); hls = null; }
+
+  // Firefox blocks autoplay with sound, so start muted and offer unmute.
+  // Play only once the manifest is parsed: calling play() before hls.js has
+  // attached its MediaSource cancels it, which showed up as a bogus AbortError.
+  const start = async () => {
+    v.muted = true;
+    try { await v.play(); }
+    catch(e){ if(e.name !== 'AbortError') $('#now').textContent = s.name + ' (press play)'; }
+    $('#unmute').hidden = false;
+  };
+
+  if(window.Hls && Hls.isSupported()){
+    hls = new Hls({liveSyncDurationCount:3, backBufferLength:30, maxBufferLength:20});
+    hls.on(Hls.Events.ERROR, (_e, d) => {
+      if(d.fatal) $('#now').textContent = 'player error: ' + d.type + ' / ' + d.details;
+    });
+    hls.on(Hls.Events.MANIFEST_PARSED, start);
+    hls.loadSource('/hls/stream.m3u8');
+    hls.attachMedia(v);
+  } else {
+    v.src = '/hls/stream.m3u8';   // native HLS (safari); firefox needs hls.js
+    start();
+  }
+  $('#unmute').onclick = () => { v.muted = false; v.volume = 1; $('#unmute').hidden = true; };
+
+  // 7TV emotes for this channel (global set + channel set), fetched via the
+  // server so there is no CORS question and the result is cached per channel
+  EMOTES = {};
+  fetch('/api/emotes?uid=' + encodeURIComponent(s.id || ''))
+    .then(r => r.json())
+    .then(d => { EMOTES = d.emotes || {}; emoteEvents(d.set_id); })
+    .catch(() => {});
+
+  chat(s.login);
+}
+
+function emoteEvents(setId){
+  // 7TV EventAPI - live emote set changes, so a mod adding or removing an
+  // emote takes effect without a refetch. op 35 = subscribe, op 0 = dispatch.
+  if(esock){ esock.onclose = null; esock.close(); esock = null; }
+  if(!setId) return;
+  const sid = setId;
+  esock = new WebSocket('wss://events.7tv.io/v3');
+  esock.onopen = () => esock.send(JSON.stringify({
+    op: 35, d: {type: 'emote_set.update', condition: {object_id: sid}}
+  }));
+  esock.onmessage = ev => {
+    let m; try { m = JSON.parse(ev.data); } catch(e){ return; }
+    if(m.op !== 0 || !m.d || m.d.type !== 'emote_set.update') return;
+    const b = m.d.body || {};
+    for(const it of (b.pulled || [])){
+      const n = (it.old_value || {}).name;
+      if(n) delete EMOTES[n];
+    }
+    for(const it of (b.pushed || [])){
+      const v = it.value || {};
+      const host = (v.data || {}).host || {};
+      if(v.name && host.url){
+        const files = (host.files || []).map(f => f.name);
+        const f = files.includes('2x.webp') ? '2x.webp' : (files[0] || '2x.webp');
+        EMOTES[v.name] = 'https:' + host.url + '/' + f;
+      }
+    }
+  };
+  esock.onclose = () => { if(currentStream) setTimeout(() => emoteEvents(sid), 5000); };
+}
+
+function chat(channel){
+  if(sock){ sock.onclose = null; sock.close(); }
+  const msgs = $('#msgs'); msgs.innerHTML = '';
+  sock = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
+  sock.onopen = () => {
+    sock.send('CAP REQ :twitch.tv/tags');
+    sock.send('NICK justinfan' + Math.floor(Math.random()*90000+10000));
+    sock.send('JOIN #' + channel);
+  };
+  sock.onmessage = ev => {
+    for(const line of ev.data.split('\r\n')){
+      if(!line) continue;
+      if(line.startsWith('PING')){ sock.send('PONG :tmi.twitch.tv'); continue; }
+      const m = line.match(/^@([^ ]*) :([^!]+)![^ ]+ PRIVMSG #[^ ]+ :(.*)$/);
+      if(!m) continue;
+      const tags = Object.fromEntries(m[1].split(';').map(p => p.split('=')));
+      add(tags['display-name'] || m[2], m[3], tags.color, tags.emotes);
+    }
+  };
+  sock.onclose = () => { if(current === channel) setTimeout(() => chat(channel), 2000); };
+}
+
+function esc(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function render(chunk){
+  if(!chunk) return '';
+  // split on whitespace but keep it, so spacing survives the substitution
+  return chunk.split(/(\s+)/).map(w => {
+    const u = EMOTES[w];
+    return u ? '<img src="' + u + '" alt="' + esc(w) + '" title="' + esc(w) + '">' : esc(w);
+  }).join('');
+}
+
+function add(user, text, color, emotes){
+  // emote tag indexes are code-point offsets, so work on an array of code points
+  const cps = [...text];
+  const marks = [];
+  if(emotes){
+    for(const part of emotes.split('/')){
+      if(!part) continue;
+      const [id, ranges] = part.split(':');
+      for(const r of (ranges || '').split(',')){
+        const [a, b] = r.split('-').map(Number);
+        if(!isNaN(a)) marks.push({a, b, id});
+      }
+    }
+  }
+  marks.sort((x, y) => x.a - y.a);
+  let out = '', i = 0;
+  for(const mk of marks){
+    out += render(cps.slice(i, mk.a).join(''));
+    out += `<img src="https://static-cdn.jtvnw.net/emoticons/v2/${mk.id}/default/dark/1.0" alt="">`;
+    i = mk.b + 1;
+  }
+  out += render(cps.slice(i).join(''));
+
+  const msgs = $('#msgs');
+  const stuck = msgs.scrollTop + msgs.clientHeight >= msgs.scrollHeight - 40;
+  const d = document.createElement('div');
+  d.innerHTML = `<span class=u style="color:${color || '#a970ff'}">${esc(user)}</span>: ${out}`;
+  msgs.appendChild(d);
+  while(msgs.children.length > 300) msgs.removeChild(msgs.firstChild);
+  if(stuck) msgs.scrollTop = msgs.scrollHeight;
+}
+
+$('#q').onchange = () => { if(currentStream) watch(currentStream); };
+$('#refresh').onclick = loadLive;
+loadLive();
+setInterval(() => { if(!document.hidden) loadLive(); }, 90000);
+document.addEventListener('visibilitychange', () => { if(!document.hidden) loadLive(); });
+</script></body></html>
+"""
+
+
+def main() -> None:
+    if not shutil.which("streamlink"):
+        die("streamlink not found")
+    srv = Server(("127.0.0.1", PORT), Handler)
+
+    def bye(*_):
+        # shutdown() blocks until serve_forever() returns, so it must not run on
+        # the thread that is inside serve_forever() - that deadlocks.
+        threading.Thread(target=lambda: (STREAMER.stop(), srv.shutdown()), daemon=True).start()
+
+    signal.signal(signal.SIGINT, bye)
+    signal.signal(signal.SIGTERM, bye)
+    print(f"twitch-web  ->  http://127.0.0.1:{PORT}   (ctrl-c to stop)")
+    try:
+        srv.serve_forever()
+    finally:
+        STREAMER.stop()
+
+
+if __name__ == "__main__":
+    main()
