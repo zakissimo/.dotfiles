@@ -1,10 +1,167 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# twitch — watch a stream in mpv with Chatterino chat alongside.
+#
+#   twitch              pick from the followed channels that are live
+#   twitch <channel>    go straight to a channel
+#
+# Quitting mpv drops back to the picker instead of exiting, so switching
+# channels is just `q` then pick again. Chatterino is never restarted on a
+# switch — `chatterino -a` activates the tab in the running instance.
+#
+# The picker needs a Twitch API token; first use walks through a one-time
+# device-code login. Passing a channel name directly never requires auth.
 
-flatpak run com.chatterino.chatterino -c "$1" >/tmp/chatterino.log 2>&1 &
-CHATTERINO_PID=$!
-echo "Chatterino wrapper PID: $CHATTERINO_PID"
+set -uo pipefail
 
-trap 'echo "Killing chatterino..."; kill $CHATTERINO_PID 2>/dev/null; flatpak kill com.chatterino.chatterino 2>/dev/null' EXIT
+CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/twitch"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/twitch"
+CONF="$CFG_DIR/config"
+TOKENS="$STATE_DIR/tokens.json"
+SCOPES="user:read:follows"
+CHATTERINO="com.chatterino.chatterino"
+STARTED_CHAT=0
 
-streamlink --player mpv twitch.tv/"$1" best
-echo "Streamlink exited"
+mkdir -p "$CFG_DIR" "$STATE_DIR"
+
+die()  { printf 'twitch: %s\n' "$*" >&2; exit 1; }
+need() { command -v "$1" >/dev/null || die "missing dependency: $1"; }
+for d in curl jq fzf streamlink mpv; do need "$d"; done
+
+# ---------- one-time client id ----------
+ensure_client_id() {
+  [ -f "$CONF" ] && . "$CONF"
+  [ -n "${CLIENT_ID:-}" ] && return 0
+  cat >&2 <<'MSG'
+
+The channel picker needs a Twitch application Client ID (free, one minute):
+
+  1. https://dev.twitch.tv/console/apps  ->  "Register Your Application"
+  2. Name:         anything
+     Redirect URL: https://localhost
+                   (must be https; it is never used by the device-code flow
+                    below, but the form requires a value)
+     Category:     Application Integration
+     Client Type:  Public      <-- important: a public client needs no secret
+  3. Copy the Client ID below.
+
+MSG
+  if { exec 3</dev/tty; } 2>/dev/null; then
+    read -rp "Client ID: " CLIENT_ID <&3 || true
+    exec 3<&-
+  else
+    read -rp "Client ID: " CLIENT_ID || true
+  fi
+  [ -n "${CLIENT_ID:-}" ] || die "no client id given"
+  printf 'CLIENT_ID=%s\n' "$CLIENT_ID" >"$CONF"
+  chmod 600 "$CONF"
+}
+
+save_tokens() {
+  jq --argjson now "$(date +%s)" \
+     '{access_token, refresh_token, expires_at: ($now + ((.expires_in // 14400) - 60))}' \
+     >"$TOKENS" <<<"$1"
+  chmod 600 "$TOKENS"
+}
+
+device_login() {
+  local d dc code uri interval resp waited=0
+  d=$(curl -sS -X POST https://id.twitch.tv/oauth2/device \
+        -d "client_id=$CLIENT_ID" --data-urlencode "scopes=$SCOPES")
+  dc=$(jq -r '.device_code // empty' <<<"$d")
+  [ -n "$dc" ] || die "device authorization failed: $d"
+  code=$(jq -r '.user_code' <<<"$d")
+  uri=$(jq -r '.verification_uri' <<<"$d")
+  interval=$(jq -r '.interval // 5' <<<"$d")
+  printf '\n  Open : %s\n  Code : %s\n\n  waiting' "$uri" "$code" >&2
+  while [ "$waited" -lt 600 ]; do
+    sleep "$interval"; waited=$((waited + interval))
+    resp=$(curl -sS -X POST https://id.twitch.tv/oauth2/token \
+             -d "client_id=$CLIENT_ID" -d "device_code=$dc" \
+             -d "grant_type=urn:ietf:params:oauth:grant-type:device_code")
+    if jq -e '.access_token' >/dev/null 2>&1 <<<"$resp"; then
+      save_tokens "$resp"; printf ' ok\n\n' >&2; return 0
+    fi
+    printf '.' >&2
+  done
+  die "timed out waiting for authorization"
+}
+
+refresh_tokens() {
+  local rt resp
+  rt=$(jq -r '.refresh_token // empty' "$TOKENS" 2>/dev/null) || return 1
+  [ -n "$rt" ] || return 1
+  resp=$(curl -sS -X POST https://id.twitch.tv/oauth2/token \
+           -d "client_id=$CLIENT_ID" -d "grant_type=refresh_token" \
+           --data-urlencode "refresh_token=$rt")
+  jq -e '.access_token' >/dev/null 2>&1 <<<"$resp" || return 1
+  save_tokens "$resp"
+}
+
+access_token() {
+  if [ -f "$TOKENS" ] && [ "$(date +%s)" -lt "$(jq -r '.expires_at // 0' "$TOKENS")" ]; then
+    jq -r '.access_token' "$TOKENS"; return 0
+  fi
+  refresh_tokens || device_login
+  jq -r '.access_token' "$TOKENS"
+}
+
+api() { # api <path-with-query>
+  curl -sS -H "Client-Id: $CLIENT_ID" -H "Authorization: Bearer $(access_token)" \
+       "https://api.twitch.tv/helix/$1"
+}
+
+user_id() {
+  local id
+  id=$(cat "$STATE_DIR/user_id" 2>/dev/null) && [ -n "$id" ] && { printf '%s' "$id"; return 0; }
+  id=$(api users | jq -r '.data[0].id // empty')
+  [ -n "$id" ] || die "could not resolve your user id (is the token valid?)"
+  printf '%s' "$id" >"$STATE_DIR/user_id"
+  printf '%s' "$id"
+}
+
+pick() {
+  local rows
+  ensure_client_id
+  rows=$(api "streams/followed?user_id=$(user_id)&first=100" \
+         | jq -r '.data[]? | [.user_login, (.viewer_count|tostring), .game_name, .title] | @tsv')
+  [ -n "$rows" ] || { printf 'twitch: nobody you follow is live.\n' >&2; return 1; }
+  printf '%s\n' "$rows" \
+    | sort -t$'\t' -k2 -nr \
+    | awk -F'\t' '{printf "%-20s %6s  %-20.20s  %.70s\n", $1, $2, $3, $4}' \
+    | fzf --prompt='twitch > ' --height=45% --reverse --no-multi \
+          --header='enter: watch   esc: quit' \
+    | awk '{print $1}'
+}
+
+chat_open() {
+  local ch="$1"
+  if pgrep -af "$CHATTERINO" >/dev/null 2>&1; then
+    flatpak run "$CHATTERINO" -a "t:$ch" >/dev/null 2>&1 &
+  else
+    flatpak run "$CHATTERINO" -c "t:$ch" >/tmp/chatterino.log 2>&1 &
+    STARTED_CHAT=1
+  fi
+}
+
+watch() {
+  local ch="$1"
+  chat_open "$ch"
+  streamlink --player mpv "twitch.tv/$ch" best
+}
+
+cleanup() {
+  [ "$STARTED_CHAT" = 1 ] && flatpak kill "$CHATTERINO" 2>/dev/null
+  return 0
+}
+trap cleanup EXIT
+
+main() {
+  local ch="${1:-}"
+  [ -n "$ch" ] && watch "$ch"
+  while ch=$(pick); do
+    [ -n "$ch" ] || break
+    watch "$ch"
+  done
+}
+
+main "$@"
