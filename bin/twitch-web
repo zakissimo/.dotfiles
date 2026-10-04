@@ -18,7 +18,9 @@ from __future__ import annotations
 
 import http.server
 import json
+import collections
 import os
+import re
 import shutil
 import signal
 import socket
@@ -34,6 +36,9 @@ CFG = os.path.expanduser("~/.config/twitch/config")
 TOKENS = os.path.expanduser("~/.local/state/twitch/tokens.json")
 UID_CACHE = os.path.expanduser("~/.local/state/twitch/user_id")
 
+QUALITIES = {"best", "1080p60", "720p60", "720p", "480p", "360p", "160p", "worst", "audio_only"}
+CHANNEL_RE = re.compile(r"[a-z0-9_]{1,25}")
+
 PORT = int(os.environ.get("TWITCH_WEB_PORT", "8777"))
 SL_PORT = int(os.environ.get("TWITCH_SL_PORT", "9100"))
 SL_HOST = "127.0.0.1"
@@ -46,16 +51,29 @@ def die(msg: str) -> None:
 
 # --------------------------------------------------------------------------- auth
 
+class AuthError(RuntimeError):
+    """Credentials missing or unusable. Raised, never die()d, from request threads."""
+
+
+_CLIENT_ID: str | None = None
+_TOKEN_LOCK = threading.Lock()
+_TOKEN_CACHE: dict | None = None
+
+
 def client_id() -> str:
+    global _CLIENT_ID
+    if _CLIENT_ID:
+        return _CLIENT_ID
     try:
         with open(CFG) as fh:
             for line in fh:
                 if line.startswith("CLIENT_ID="):
-                    return line.split("=", 1)[1].strip()
+                    _CLIENT_ID = line.split("=", 1)[1].strip()
+                    if _CLIENT_ID:
+                        return _CLIENT_ID
     except FileNotFoundError:
         pass
-    die("no CLIENT_ID; run `twitch` once to set up credentials")
-    return ""
+    raise AuthError("no CLIENT_ID; run `twitch` once to set up credentials")
 
 
 def _post(url: str, data: dict) -> dict:
@@ -65,32 +83,67 @@ def _post(url: str, data: dict) -> dict:
         return json.load(r)
 
 
-def access_token() -> str:
+def _read_tokens() -> dict:
+    with open(TOKENS) as fh:
+        return json.load(fh)
+
+
+def _write_tokens(out: dict) -> None:
+    """Atomic: a crash mid-write must not leave a truncated token file."""
+    fd, tmp = tempfile.mkstemp(dir=os.path.dirname(TOKENS), prefix=".tokens.")
     try:
-        with open(TOKENS) as fh:
-            tok = json.load(fh)
-    except (FileNotFoundError, json.JSONDecodeError):
-        die("no tokens; run `twitch` once to authorize")
-        return ""
-    if time.time() < tok.get("expires_at", 0):
-        return tok["access_token"]
-    # refresh (refresh tokens are single-use, so persist the new pair immediately)
-    new = _post("https://id.twitch.tv/oauth2/token", {
-        "client_id": client_id(),
-        "grant_type": "refresh_token",
-        "refresh_token": tok["refresh_token"],
-    })
-    if "access_token" not in new:
-        die("token refresh failed; run `twitch` to re-authorize")
-    out = {
-        "access_token": new["access_token"],
-        "refresh_token": new.get("refresh_token", tok["refresh_token"]),
-        "expires_at": time.time() + new.get("expires_in", 14400) - 60,
-    }
-    with open(TOKENS, "w") as fh:
-        json.dump(out, fh)
-    os.chmod(TOKENS, 0o600)
-    return out["access_token"]
+        with os.fdopen(fd, "w") as fh:
+            json.dump(out, fh)
+        os.chmod(tmp, 0o600)
+        os.replace(tmp, TOKENS)
+    except BaseException:
+        os.unlink(tmp)
+        raise
+
+
+def access_token() -> str:
+    """Current access token, refreshing if due.
+
+    Serialised: refresh tokens are single-use, so two threads refreshing at once
+    would invalidate each other and force an interactive re-login.
+    """
+    global _TOKEN_CACHE
+    with _TOKEN_LOCK:
+        tok = _TOKEN_CACHE
+        if tok is None:
+            try:
+                tok = _read_tokens()
+            except (FileNotFoundError, json.JSONDecodeError) as exc:
+                raise AuthError("no tokens; run `twitch` once to authorize") from exc
+        if time.time() < tok.get("expires_at", 0):
+            _TOKEN_CACHE = tok
+            return tok["access_token"]
+        # re-read before refreshing: another process may have rotated it already
+        try:
+            disk = _read_tokens()
+            if time.time() < disk.get("expires_at", 0):
+                _TOKEN_CACHE = disk
+                return disk["access_token"]
+            tok = disk
+        except (FileNotFoundError, json.JSONDecodeError):
+            pass
+        new = _post("https://id.twitch.tv/oauth2/token", {
+            "client_id": client_id(),
+            "grant_type": "refresh_token",
+            "refresh_token": tok["refresh_token"],
+        })
+        if "access_token" not in new:
+            raise AuthError("token refresh failed; run `twitch` to re-authorize")
+        out = {
+            "access_token": new["access_token"],
+            "refresh_token": new.get("refresh_token", tok["refresh_token"]),
+            # int, not float: the bash `twitch` reads this with [ -lt ], which
+            # errors on a decimal and then refreshes on every run
+            "expires_at": int(time.time() + new.get("expires_in", 14400) - 60),
+        }
+        _write_tokens(out)
+        _TOKEN_CACHE = out
+        return out["access_token"]
 
 
 def helix(path: str) -> dict:
@@ -131,7 +184,7 @@ def _slim(s: dict, avatars: dict) -> dict:
     }
 
 
-def build_live() -> dict:
+def build_live(recent: list | None = None) -> dict:
     """Followed channels that are live, plus suggestions.
 
     Twitch's real recommendations live in the private GQL API, so "suggested"
@@ -167,21 +220,55 @@ def build_live() -> dict:
         if len(sugg) >= 15:
             break
 
-    avatars: dict[str, str] = {}
+    # Profile images effectively never change, so only ask about ids we have not
+    # seen. This was the bulk of the Helix traffic: ~115 users re-fetched on
+    # every sidebar refresh, four times a minute.
     ids = [x["user_id"] for x in followed + sugg]
-    for i in range(0, len(ids), 100):
-        batch = "&".join(f"id={x}" for x in ids[i:i + 100])
+    with _AVATAR_LOCK:
+        fresh = time.time() - _AVATARS_AT[0] < _AVATAR_TTL
+        if not fresh:
+            _AVATARS.clear()
+            _AVATARS_AT[0] = time.time()
+        missing = [i for i in ids if i not in _AVATARS]
+    for i in range(0, len(missing), 100):
+        batch = "&".join(f"id={x}" for x in missing[i:i + 100])
         try:
-            for u in helix(f"users?{batch}")["data"]:
-                avatars[u["id"]] = (u.get("profile_image_url") or "").replace("300x300", "70x70")
+            got = helix(f"users?{batch}")["data"]
         except Exception:  # noqa: BLE001 - avatars are cosmetic
+            continue
+        with _AVATAR_LOCK:
+            for u in got:
+                _AVATARS[u["id"]] = (u.get("profile_image_url") or "").replace("300x300", "70x70")
+    with _AVATAR_LOCK:
+        avatars = {i: _AVATARS[i] for i in ids if i in _AVATARS}
+
+    # which of the recently watched channels are live (the page keeps the
+    # names/avatars itself, so only live state and metadata are needed here)
+    recent_live: dict = {}
+    if recent:
+        try:
+            qq = "&".join(f"user_login={urllib.parse.quote(x)}" for x in recent[:20])
+            for st in helix(f"streams?{qq}")["data"]:
+                recent_live[st["user_login"]] = {
+                    "game": st.get("game_name") or "",
+                    "title": st.get("title") or "",
+                    "viewers": st.get("viewer_count", 0),
+                    "started_at": st.get("started_at"),
+                }
+        except Exception:  # noqa: BLE001 - recents are a convenience
             pass
 
     return {
         "streams": [_slim(x, avatars) for x in followed],
         "suggested": [_slim(x, avatars) for x in sugg],
+        "recent_live": recent_live,
     }
 
+
+_AVATARS: dict[str, str] = {}
+_AVATARS_AT = [0.0]
+_AVATAR_TTL = 6 * 3600
+_AVATAR_LOCK = threading.Lock()
 
 _EMOTE_CACHE: dict[str, tuple[float, dict, str]] = {}
 _EMOTE_TTL = 600  # seconds; a safety net - live changes arrive over the EventAPI
@@ -201,8 +288,12 @@ def _collect(emotes: list, out: dict) -> None:
         if not name or not base:
             continue
         # host.url is protocol-relative, e.g. //cdn.7tv.app/emote/<id>
+        if not base.startswith("//cdn.7tv.app/"):
+            continue  # only ever build URLs for 7TV's own CDN
         files = {f.get("name") for f in (host.get("files") or [])}
-        fname = "2x.webp" if "2x.webp" in files else ("1x.webp" if "1x.webp" in files else "2x.webp")
+        fname = next((n for n in ("2x.webp", "1x.webp") if n in files), None)
+        if not fname:
+            continue  # no usable size; emitting a known-absent name just 404s
         out[name] = f"https:{base}/{fname}"
 
 
@@ -228,6 +319,9 @@ def seventv_emotes(twitch_id: str) -> tuple[dict, str]:
         _collect(eset.get("emotes") or [], out)
     except Exception:  # noqa: BLE001 - channel may not be on 7TV
         pass
+    if len(_EMOTE_CACHE) > 200:          # keep it from growing without bound
+        for k in [k for k, v in _EMOTE_CACHE.items() if time.time() - v[0] > _EMOTE_TTL][:100]:
+            _EMOTE_CACHE.pop(k, None)
     _EMOTE_CACHE[twitch_id] = (time.time(), out, set_id)
     return out, set_id
 
@@ -240,7 +334,29 @@ class Streamer:
         self.ff: subprocess.Popen | None = None         # ffmpeg -> HLS
         self.hls_dir: str | None = None
         self.channel: str | None = None
-        self.lock = threading.Lock()
+        self.quality: str | None = None
+        self.sl_err: collections.deque = collections.deque(maxlen=50)
+        self.lock = threading.Lock()        # serialises start/stop; held for seconds
+        self.state = threading.Lock()       # guards the fields above; held for microseconds
+        self.last_seen = 0.0                # monotonic time of the last /hls/ request
+
+    def lock_snapshot(self):
+        """Short lock for reading state. Never the big one: start() holds that
+        across process spawning, and segment requests must not queue behind it."""
+        return self.state
+
+    def _drain(self, proc: subprocess.Popen) -> None:
+        """Keep streamlink's stderr pipe empty.
+
+        Nothing read it before, so once it filled the 64 KiB pipe buffer
+        streamlink would block on its next write and the stream would stall
+        silently. Kept in a bounded deque so startup errors are still reportable.
+        """
+        try:
+            for line in proc.stderr:
+                self.sl_err.append(line.rstrip())
+        except (ValueError, OSError):
+            pass
 
     def _port_open(self) -> bool:
         with socket.socket() as s:
@@ -253,23 +369,32 @@ class Streamer:
 
     def _stop_locked(self) -> None:
         if self.ff and self.ff.poll() is None:
-            self.ff.terminate()
+            # SIGKILL, not SIGTERM: ffmpeg blocks on the read from streamlink and
+            # ignores SIGTERM until that returns, so a graceful stop burned the
+            # full 5s timeout on every channel switch. The HLS output is deleted
+            # below anyway, so there is nothing worth shutting down cleanly.
+            self.ff.kill()
             try:
-                self.ff.wait(timeout=5)
+                self.ff.wait(timeout=2)
             except subprocess.TimeoutExpired:
-                self.ff.kill()
+                pass
         self.ff = None
         if self.hls_dir:
-            shutil.rmtree(self.hls_dir, ignore_errors=True)
-            self.hls_dir = None
+            d, _ = self.hls_dir, None
+            with self.state:
+                self.hls_dir = None
+            shutil.rmtree(d, ignore_errors=True)
         if self.proc and self.proc.poll() is None:
             self.proc.terminate()
             try:
-                self.proc.wait(timeout=5)
+                self.proc.wait(timeout=2)
             except subprocess.TimeoutExpired:
                 self.proc.kill()
+                self.proc.wait(timeout=2)
         self.proc = None
-        self.channel = None
+        with self.state:
+            self.channel = None
+            self.quality = None
         # the port lingers briefly after the process dies
         for _ in range(20):
             if not self._port_open():
@@ -278,9 +403,13 @@ class Streamer:
 
     def start(self, channel: str, quality: str = "best") -> tuple[bool, str]:
         with self.lock:
-            if self.channel == channel and self.proc and self.proc.poll() is None:
+            if (self.channel == channel and self.quality == quality
+                    and self.proc and self.proc.poll() is None
+                    and self.ff and self.ff.poll() is None):
                 return True, "already running"
+            t0 = time.time()
             self._stop_locked()
+            t_stop = time.time() - t0
             cmd = [
                 "streamlink",
                 "--player-external-http",
@@ -294,20 +423,29 @@ class Streamer:
             # no slack to absorb a hiccup. Opt in with TWITCH_LOW_LATENCY=1.
             if os.environ.get("TWITCH_LOW_LATENCY") == "1":
                 cmd.insert(-2, "--twitch-low-latency")
+            self.sl_err.clear()
             self.proc = subprocess.Popen(
                 cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True,
             )
-            self.channel = channel
+            threading.Thread(target=self._drain, args=(self.proc,), daemon=True).start()
+            with self.state:
+                self.channel = channel
+                self.quality = quality
             # wait for the HTTP server to come up (resolving the stream takes a moment)
-            for _ in range(150):
+            for _ in range(300):
                 if self.proc.poll() is not None:
-                    err = (self.proc.stderr.read() or "").strip() if self.proc.stderr else ""
-                    self.proc = None
-                    self.channel = None
-                    return False, err.splitlines()[-1] if err else "streamlink exited"
+                    time.sleep(0.1)                     # let the drain thread catch up
+                    err = list(self.sl_err)
+                    self._stop_locked()
+                    return False, err[-1] if err else "streamlink exited"
                 if self._port_open():
-                    return self._start_hls()
-                time.sleep(0.2)
+                    t_sl = time.time() - t0
+                    ok, msg = self._start_hls()
+                    print(f"  [switch] stop {t_stop:.1f}s  streamlink {t_sl - t_stop:.1f}s"
+                          f"  hls {time.time() - t0 - t_sl:.1f}s  total {time.time() - t0:.1f}s",
+                          file=sys.stderr)
+                    return ok, msg
+                time.sleep(0.05)
             self._stop_locked()
             return False, "timed out waiting for streamlink"
 
@@ -318,8 +456,10 @@ class Streamer:
         and because the segments are already fMP4 it feeds MSE directly with no
         JavaScript transmuxing, which is what produced macroblocking before.
         """
-        self.hls_dir = tempfile.mkdtemp(prefix="twitch-web-")
-        m3u8 = os.path.join(self.hls_dir, "stream.m3u8")
+        hls_dir = tempfile.mkdtemp(prefix="twitch-web-")
+        with self.state:
+            self.hls_dir = hls_dir
+        m3u8 = os.path.join(hls_dir, "stream.m3u8")
         cmd = [
             "ffmpeg", "-hide_banner", "-loglevel", "error",
             "-fflags", "+genpts", "-i", f"http://{SL_HOST}:{SL_PORT}/",
@@ -329,16 +469,18 @@ class Streamer:
             "-f", "hls",
             "-hls_time", "2",
             "-hls_list_size", "6",
-            "-hls_flags", "delete_segments+independent_segments+omit_endlist",
+            # program_date_time stamps each segment with wall-clock time, which lets
+            # the page measure how far behind live the playing frame is
+            "-hls_flags", "delete_segments+independent_segments+omit_endlist+program_date_time",
             "-hls_segment_type", "fmp4",
             "-hls_fmp4_init_filename", "init.mp4",
-            "-hls_segment_filename", os.path.join(self.hls_dir, "seg%05d.m4s"),
+            "-hls_segment_filename", os.path.join(hls_dir, "seg%05d.m4s"),
             m3u8,
         ]
-        errlog = open("/tmp/twitch-web-ffmpeg.log", "ab", buffering=0)
-        self.ff = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=errlog)
+        with open("/tmp/twitch-web-ffmpeg.log", "ab", buffering=0) as errlog:
+            self.ff = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=errlog)
         # wait for the playlist to list at least one segment
-        for _ in range(200):
+        for _ in range(400):
             if self.ff.poll() is not None:
                 self._stop_locked()
                 return False, "ffmpeg exited (see /tmp/twitch-web-ffmpeg.log)"
@@ -347,7 +489,7 @@ class Streamer:
                     return True, "ok"
             except OSError:
                 pass
-            time.sleep(0.2)
+            time.sleep(0.05)
         self._stop_locked()
         return False, "timed out waiting for HLS segments"
 
@@ -361,26 +503,43 @@ class Handler(http.server.BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     server_version = "twitch-web"
 
-    def log_message(self, fmt, *args):  # quieter console
-        if "/stream" not in self.path:
-            sys.stderr.write("  %s\n" % (fmt % args))
+    def log_message(self, fmt, *args):  # quieter console, with timing
+        msg = fmt % args
+        if "/hls/" in msg and " 200 " in msg:
+            return                      # segment polling drowns out everything else
+        sys.stderr.write("  %.2f  %s\n" % (time.time() % 100, msg))
 
     # -- helpers
+    def _same_origin(self) -> bool:
+        """A loopback server is reachable from every page the browser has open.
+
+        Require the Host to be our own (blocks DNS rebinding) and any Origin that
+        is sent to match it (blocks cross-origin POSTs, which need no preflight
+        when the body is text/plain).
+        """
+        allowed = {f"127.0.0.1:{PORT}", f"localhost:{PORT}"}
+        if (self.headers.get("Host") or "") not in allowed:
+            return False
+        origin = self.headers.get("Origin")
+        if origin and urllib.parse.urlparse(origin).netloc not in allowed:
+            return False
+        return True
+
     def _json(self, obj, code=200):
         body = json.dumps(obj).encode()
         self.send_response(code)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
         self.end_headers()
         self.wfile.write(body)
 
-    def _html(self, body: str):
-        raw = body.encode()
+    def _html(self, body: bytes):
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
-        self.send_header("Content-Length", str(len(raw)))
+        self.send_header("Content-Length", str(len(body)))
         self.end_headers()
-        self.wfile.write(raw)
+        self.wfile.write(body)
 
     # -- routes
     def do_GET(self):
@@ -388,28 +547,66 @@ class Handler(http.server.BaseHTTPRequestHandler):
         q = urllib.parse.parse_qs(url.query)
 
         if url.path == "/":
-            return self._html(PAGE)
+            return self._html(PAGE_BYTES)
+
+        if url.path.startswith("/api/") and not self._same_origin():
+            return self._json({"error": "bad origin"}, 403)
 
         if url.path == "/api/live":
             try:
-                payload = build_live()
+                rec = [x for x in (q.get("recent") or [""])[0].split(",") if x]
+                payload = build_live(rec)
+            except AuthError as exc:
+                return self._json({"error": str(exc)}, 401)
             except Exception as exc:  # noqa: BLE001 - surface it in the UI
                 return self._json({"error": str(exc)}, 500)
             return self._json(payload)
 
+        if url.path == "/api/search":
+            term = (q.get("q") or [""])[0].strip()
+            if not term:
+                return self._json({"results": []})
+            try:
+                found = helix("search/channels?query="
+                              + urllib.parse.quote(term) + "&first=12")["data"]
+            except Exception as exc:  # noqa: BLE001
+                return self._json({"error": str(exc)}, 500)
+            # search/channels has no viewer count, so fetch it for the live ones
+            live_ids = [d["id"] for d in found if d.get("is_live")]
+            counts: dict = {}
+            if live_ids:
+                try:
+                    qq = "&".join(f"user_id={i}" for i in live_ids)
+                    for st in helix(f"streams?{qq}")["data"]:
+                        counts[st["user_id"]] = st.get("viewer_count", 0)
+                except Exception:  # noqa: BLE001 - counts are cosmetic
+                    pass
+            return self._json({"results": [
+                {
+                    "id": d["id"],
+                    "login": d["broadcaster_login"],
+                    "name": d["display_name"],
+                    "game": d.get("game_name") or "",
+                    "title": d.get("title") or "",
+                    "live": bool(d.get("is_live")),
+                    "viewers": counts.get(d["id"], 0),
+                    "started_at": d.get("started_at"),
+                    "avatar": (d.get("thumbnail_url") or "").replace("300x300", "70x70"),
+                }
+                for d in found
+            ]})
+
         if url.path == "/api/emotes":
             uid = (q.get("uid") or [""])[0]
-            if not uid:
+            if not uid.isdigit():          # twitch user ids are numeric
                 return self._json({"emotes": {}, "set_id": ""})
             emotes, set_id = seventv_emotes(uid)
             return self._json({"emotes": emotes, "set_id": set_id})
 
         if url.path == "/api/status":
-            return self._json({"channel": STREAMER.channel})
-
-        if url.path == "/api/stop":
-            STREAMER.stop()
-            return self._json({"ok": True})
+            with STREAMER.lock_snapshot():
+                ch = STREAMER.channel
+            return self._json({"channel": ch})
 
         if url.path.startswith("/hls/"):
             return self._serve_hls(os.path.basename(url.path))
@@ -418,22 +615,41 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
     def do_POST(self):
         url = urllib.parse.urlparse(self.path)
+        if not self._same_origin():
+            return self._json({"error": "bad origin"}, 403)
+
+        if url.path == "/api/stop":
+            STREAMER.stop()
+            return self._json({"ok": True})
+
         if url.path == "/api/watch":
-            length = int(self.headers.get("Content-Length") or 0)
-            payload = json.loads(self.rfile.read(length) or b"{}")
-            channel = (payload.get("channel") or "").strip().lower()
-            if not channel:
-                return self._json({"error": "no channel"}, 400)
-            ok, msg = STREAMER.start(channel, payload.get("quality") or "best")
+            try:
+                length = int(self.headers.get("Content-Length") or 0)
+                payload = json.loads(self.rfile.read(length) or b"{}")
+                channel = (payload.get("channel") or "").strip().lower()
+                quality = (payload.get("quality") or "best").strip()
+                # both end up in streamlink's argv, where any `--opt=value` token
+                # would be honoured, so neither may be free-form
+                if not CHANNEL_RE.fullmatch(channel):
+                    return self._json({"error": "bad channel"}, 400)
+                if quality not in QUALITIES:
+                    return self._json({"error": "bad quality"}, 400)
+                ok, msg = STREAMER.start(channel, quality)
+            except AuthError as exc:
+                return self._json({"error": str(exc)}, 401)
+            except Exception as exc:  # noqa: BLE001 - never drop the connection
+                return self._json({"error": str(exc)}, 500)
             return self._json({"ok": ok, "message": msg, "channel": channel if ok else None},
                               200 if ok else 500)
         self.send_error(404)
 
     def _serve_hls(self, name: str):
         """Serve ffmpeg's HLS output (playlist, init segment, media segments)."""
-        d = STREAMER.hls_dir
+        with STREAMER.lock_snapshot():
+            d = STREAMER.hls_dir
         if not d:
             return self.send_error(503, "nothing playing")
+        STREAMER.last_seen = time.monotonic()
         path = os.path.join(d, name)
         if not os.path.isfile(path):
             return self.send_error(404)
@@ -471,7 +687,22 @@ PAGE = r"""<!doctype html>
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,sans-serif;display:flex;overflow:hidden}
 #side{width:72px;flex:none;background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center}
-#refresh{margin:10px 0 2px;background:none;border:0;color:var(--dim);cursor:pointer;font-size:17px;line-height:1;padding:4px}
+#find svg{display:block;pointer-events:none}
+#find{margin:10px 0 0;background:none;border:0;color:var(--dim);cursor:pointer;font-size:17px;line-height:1;padding:4px}
+#find:hover{color:var(--fg)}
+#search{position:fixed;left:80px;top:12px;z-index:50}
+#sbox{width:min(520px,70vw);background:var(--bg2);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.6)}
+#sin{width:100%;background:var(--bg3);border:0;border-bottom:1px solid var(--line);color:var(--fg);font-size:16px;padding:12px 14px;outline:none}
+#sres{max-height:52vh;overflow-y:auto}
+.sr{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:8px 12px;cursor:pointer}
+.sr:hover,.sr.sel{background:var(--bg3)}
+.sr img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--bg3)}
+.sr b{font-size:14px;font-weight:600}
+.sr .g{color:var(--dim);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr .v{color:#eb0400;font-size:11px;white-space:nowrap}
+.sr.off img{filter:grayscale(1);opacity:.45}
+.sr.off .v{color:var(--dim)}
+#refresh{margin:4px 0 2px;background:none;border:0;color:var(--dim);cursor:pointer;font-size:17px;line-height:1;padding:4px}
 #refresh:hover{color:var(--fg)}
 #list{overflow-y:auto;overflow-x:hidden;flex:1;width:100%;display:flex;flex-direction:column;align-items:center;gap:9px;padding:4px 0 14px;scrollbar-width:none}
 #list::-webkit-scrollbar{display:none}
@@ -481,6 +712,8 @@ body{background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,sans-serif;di
 .av.on{outline-color:var(--acc)}
 .sep{width:30px;height:1px;background:var(--line);margin:4px 0;flex:none}
 .sg img{filter:grayscale(.55);opacity:.55}
+.av.off img{filter:grayscale(1);opacity:.35}
+.av.off:hover img{filter:grayscale(.3);opacity:.7}
 .sg:hover img{filter:none;opacity:1}
 #main{flex:1;display:flex;min-width:0}
 #stage{flex:1;display:flex;flex-direction:column;min-width:0;background:#000}
@@ -488,36 +721,79 @@ video{width:100%;flex:1;min-height:0;background:#000;outline:none}
 #bar{padding:8px 14px;background:var(--bg2);border-top:1px solid var(--line);display:flex;gap:14px;align-items:center;font-size:13px}
 #bar a{color:var(--acc);text-decoration:none;font-size:12px;flex:none;border:1px solid var(--line);border-radius:4px;padding:3px 8px}
 #bar a:hover{border-color:var(--acc);background:var(--bg3)}
-#bar a{color:var(--acc);text-decoration:none;font-size:12px;flex:none;border:1px solid var(--line);border-radius:4px;padding:3px 8px}
-#bar a:hover{border-color:var(--acc);background:var(--bg3)}
 #bar select{background:var(--bg3);color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:3px 6px;font-size:12px;flex:none}
 #bar button{background:var(--acc);border:0;color:#fff;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:12px;flex:none}
+#viewers{margin-left:auto;flex:none;color:#eb0400;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
 #bar .t{color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #chat{width:380px;flex:none;background:var(--bg2);border-left:1px solid var(--line);display:flex;flex-direction:column}
 #chat h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin:0;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
 #msgs{flex:1;overflow-y:auto;padding:8px 12px;font-size:15px;line-height:1.5;word-wrap:break-word}
 #msgs div{margin-bottom:5px}
+#dwrap{float:right;text-transform:none;letter-spacing:0;font-size:11px}
+#lag{color:var(--fg);font-variant-numeric:tabular-nums}
+#delay{width:42px;background:var(--bg3);color:var(--fg);border:1px solid var(--line);border-radius:3px;padding:1px 4px;font-size:11px}
 #msgs .u{font-weight:700}
 #msgs img{height:28px;vertical-align:middle;margin:-2px 0}
 #empty{color:var(--dim);padding:40px;text-align:center;margin:auto}
 </style></head><body>
 
 <aside id=side>
+  <button id=find title="search channels  (/)"><svg width=17 height=17 viewBox="0 0 24 24" fill=none stroke=currentColor stroke-width=2 stroke-linecap=round><circle cx=11 cy=11 r=7></circle><path d="M20 20l-4.3-4.3"></path></svg></button>
   <button id=refresh title="reload">&#8635;</button>
   <div id=list></div>
 </aside>
 
+<div id=search hidden>
+  <div id=sbox>
+    <input id=sin placeholder="search channels..." autocomplete=off spellcheck=false>
+    <div id=sres></div>
+  </div>
+</div>
+
 <div id=main>
   <div id=stage>
     <video id=v autoplay muted playsinline controls></video>
-    <div id=bar><b id=now>nothing playing</b><button id=unmute hidden>&#128266; unmute</button><a id=ext href="#" target=_blank rel=noopener hidden title="open on twitch.tv - follow/unfollow there, the API cannot">twitch.tv &#8599;</a><select id=q title="stream quality"><option value=best>best</option><option value=1080p60>1080p60</option><option value=720p60>720p60</option><option value=720p>720p</option><option value=480p>480p</option></select><span class=t id=title></span></div>
+    <div id=bar><b id=now>nothing playing</b><button id=unmute hidden>&#128266; unmute</button><a id=ext href="#" target=_blank rel=noopener hidden title="open on twitch.tv - follow/unfollow there, the API cannot">twitch.tv &#8599;</a><select id=q title="stream quality"><option value=best>best</option><option value=1080p60>1080p60</option><option value=720p60>720p60</option><option value=720p>720p</option><option value=480p>480p</option></select><span class=t id=title></span><span id=viewers></span></div>
   </div>
-  <aside id=chat><h2>Chat</h2><div id=msgs><div id=empty>pick a channel</div></div></aside>
+  <aside id=chat><h2>Chat <span id=dwrap>lag <b id=lag>-</b> + <input id=delay type=number min=-10 max=60 step=1> s</span></h2><div id=msgs><div id=empty>pick a channel</div></div></aside>
 </div>
 
 <script>
 const $ = s => document.querySelector(s);
 let sock = null, current = null, currentStream = null, hls = null, EMOTES = {}, esock = null;
+let CHAT_OFFSET = 0;                 // manual nudge, seconds (covers streamlink's own buffer)
+let MEASURED = 8000;                 // ms the video is behind wall clock, from EXT-X-PROGRAM-DATE-TIME
+try { const v = localStorage.getItem('chatOffset'); if(v !== null) CHAT_OFFSET = +v; } catch(e){}
+const CHAT_DELAY = () => Math.max(0, MEASURED + CHAT_OFFSET * 1000);
+
+// hls.playingDate is the wall-clock time of the frame currently on screen, so
+// the difference from now is exactly how far behind live the picture is.
+setInterval(() => {
+  const d = hls && hls.playingDate;
+  if(d){
+    MEASURED = Math.max(0, Date.now() - d.getTime());
+    $('#lag').textContent = (MEASURED / 1000).toFixed(1) + 's';
+  } else {
+    $('#lag').textContent = '-';
+  }
+}, 1000);
+
+function recents(){
+  try { return JSON.parse(localStorage.getItem('recent') || '[]'); } catch(e){ return []; }
+}
+function pushRecent(s){
+  try {
+    const r = recents().filter(x => x.login !== s.login);
+    r.unshift({login:s.login, name:s.name, avatar:s.avatar || '', id:s.id || ''});
+    localStorage.setItem('recent', JSON.stringify(r.slice(0, 6)));
+  } catch(e){}
+}
+
+function setViewers(n, started){
+  const el = $('#viewers');
+  el.textContent = (n == null) ? ''
+    : ('\u25cf ' + (n || 0).toLocaleString() + (started ? '  ' + uptime(started) : ''));
+}
 
 function uptime(iso){
   if(!iso) return '';
@@ -525,56 +801,142 @@ function uptime(iso){
   return (m >= 60 ? Math.floor(m/60)+'h '+(m%60)+'m' : m+'m');
 }
 
-async function loadLive(){
+let RAIL = {streams: [], suggested: [], recent_live: {}};
+let lastLoad = 0;
+
+async function loadLive(force){
+  // the interval and the visibilitychange handler can fire together; one
+  // refresh per ~15s is plenty for a sidebar
+  if(!force && Date.now() - lastLoad < 15000) return;
+  lastLoad = Date.now();
+  const rec = recents();
+  const qs = rec.length ? '?recent=' + encodeURIComponent(rec.map(x => x.login).join(',')) : '';
+  const r = await fetch('/api/live' + qs).then(r => r.json()).catch(e => ({error:String(e)}));
+  if(r.error){ $('#now').textContent = 'api: ' + r.error; return; }
+  RAIL = r;
+  renderRail();
+}
+
+// Pure render from RAIL + localStorage, so clicking a channel can reorder the
+// recents row without five more Helix calls.
+function renderRail(){
   const list = $('#list');
-  const r = await fetch('/api/live').then(r => r.json()).catch(e => ({error:String(e)}));
-  if(r.error){ list.innerHTML = ''; list.title = r.error; return; }
+  const rec = recents();
+  const r = RAIL;
   list.innerHTML = '';
 
-  const add = (s, cls) => {
+  const addAvatar = (s, cls) => {
+    const off = s.live === false;
     const el = document.createElement('div');
-    el.className = 'av ' + cls + (s.login === current ? ' on' : '');
+    el.className = 'av ' + cls + (off ? ' off' : '') + (s.login === current ? ' on' : '');
     el.dataset.login = s.login;
     // no labels in the rail, so the tooltip carries everything
-    el.title = s.name + '\n' + (s.game || '-') + ' - ' + s.viewers.toLocaleString()
-             + ' viewers - ' + uptime(s.started_at) + (s.title ? '\n' + s.title : '');
+    el.title = off ? (s.name + '\noffline')
+             : (s.name + '\n' + (s.game || '-') + ' - ' + (s.viewers || 0).toLocaleString()
+                + ' viewers - ' + uptime(s.started_at) + (s.title ? '\n' + s.title : ''));
     const img = document.createElement('img');
     img.src = s.avatar || ''; img.alt = s.name; img.loading = 'lazy';
     el.appendChild(img);
-    el.onclick = () => watch(s);
+    el.onclick = () => off
+      ? window.open('https://twitch.tv/' + s.login, '_blank', 'noopener')
+      : watch(s);
     list.appendChild(el);
   };
+  const sep = () => { const d = document.createElement('div'); d.className = 'sep'; list.appendChild(d); };
 
-  (r.streams || []).forEach(s => add(s, 'fl'));
+  // recently watched first, so flicking between two streams is one click
+  const liveMap = r.recent_live || {};
+  // deliberately NOT deduplicated against follows: most watched channels are
+  // followed, and the point of this row is a fixed spot to click without
+  // hunting through the follows list
+  if(rec.length){
+    rec.forEach(x => addAvatar(Object.assign({}, x, liveMap[x.login] || {},
+                                             {live: !!liveMap[x.login]}), 'rc'));
+    sep();
+  }
+
+  // keep the player bar's viewer count fresh for whatever is playing
+  if(current){
+    const cur = (r.streams || []).concat(r.suggested || []).find(x => x.login === current)
+              || (liveMap[current] ? Object.assign({login:current}, liveMap[current]) : null);
+    if(cur) setViewers(cur.viewers, cur.started_at);
+  }
+
+  (r.streams || []).forEach(s => addAvatar(s, 'fl'));
   if((r.suggested || []).length){
-    const sep = document.createElement('div');
-    sep.className = 'sep';
-    list.appendChild(sep);
-    r.suggested.forEach(s => add(s, 'sg'));
+    sep();
+    r.suggested.forEach(s => addAvatar(s, 'sg'));
   }
 }
 
+// One token for everything a channel switch owns: anything that comes back
+// late (a fetch, a reconnect timer, a socket) checks it and bows out, instead
+// of stomping on the channel you have since moved to.
+let GEN = 0;
+
+function teardownPlayer(){
+  if(hls){ hls.destroy(); hls = null; }
+  const v = $('#v');
+  try { v.pause(); } catch(e){}
+  v.removeAttribute('src');
+  v.load();
+}
+
 async function watch(s){
+  const gen = ++GEN;
   current = s.login; currentStream = s;
+  pushRecent(s);
+  renderRail();            // recents come from localStorage; no refetch needed
   $('#now').textContent = s.name;
   $('#title').textContent = s.title || '';
   $('#ext').href = 'https://twitch.tv/' + s.login;
   $('#ext').hidden = false;
-  $('#ext').href = 'https://twitch.tv/' + s.login;
-  $('#ext').hidden = false;
+  setViewers(s.viewers, s.started_at);
   document.querySelectorAll('.av').forEach(e => e.classList.toggle('on', e.dataset.login === s.login));
 
-  const r = await fetch('/api/watch', {method:'POST', headers:{'Content-Type':'application/json'},
-                                       body: JSON.stringify({channel: s.login, quality: $('#q').value})}).then(r => r.json());
-  if(!r.ok){ $('#now').textContent = 'failed: ' + r.message; return; }
+  // drop the old player before the await, so its error handler cannot report
+  // "network error" against the stream the server has already torn down
+  teardownPlayer();
+
+  // chat and emotes do not depend on the video pipeline, so start them now
+  // instead of after /api/watch returns - no reason to make chat wait ~2s
+  EMOTES = {};
+  fetch('/api/emotes?uid=' + encodeURIComponent(s.id || ''))
+    .then(r => r.json())
+    .then(d => { if(gen === GEN){ EMOTES = d.emotes || {}; emoteEvents(d.set_id, gen); } })
+    .catch(() => {});
+  chat(s.login, gen);
+
+  let r;
+  try {
+    r = await fetch('/api/watch', {method:'POST', headers:{'Content-Type':'application/json'},
+                                   body: JSON.stringify({channel: s.login, quality: $('#q').value})})
+          .then(r => r.json());
+  } catch(e){ r = {ok:false, message:String(e)}; }
+  if(gen !== GEN) return;                       // a newer click won
+  if(!r.ok){
+    teardownPlayer();
+    $('#now').textContent = 'failed: ' + (r.message || 'unknown');
+    $('#title').textContent = ''; setViewers(null);
+    return;
+  }
 
   const v = $('#v');
-  if(hls){ hls.destroy(); hls = null; }
 
   // Firefox blocks autoplay with sound, so start muted and offer unmute.
   // Play only once the manifest is parsed: calling play() before hls.js has
   // attached its MediaSource cancels it, which showed up as a bogus AbortError.
   const start = async () => {
+    // Try with sound first. Firefox only allows that if autoplay is permitted
+    // for this origin, so fall back to muted rather than not playing at all.
+    v.muted = false; v.volume = 1;
+    try {
+      await v.play();
+      $('#unmute').hidden = true;
+      return;
+    } catch(e){
+      if(e.name === 'AbortError') return;   // hls.js attaching cancelled it
+    }
     v.muted = true;
     try { await v.play(); }
     catch(e){ if(e.name !== 'AbortError') $('#now').textContent = s.name + ' (press play)'; }
@@ -582,7 +944,10 @@ async function watch(s){
   };
 
   if(window.Hls && Hls.isSupported()){
-    hls = new Hls({liveSyncDurationCount:3, backBufferLength:30, maxBufferLength:20});
+    // 2 segments, not 3: Twitch's GOP is 2s and -c copy can only cut on
+    // keyframes, so each segment is 2s. 3 meant a 6s wait before playback.
+    hls = new Hls({liveSyncDurationCount:2, backBufferLength:30, maxBufferLength:20,
+                   startPosition:-1});
     hls.on(Hls.Events.ERROR, (_e, d) => {
       if(d.fatal) $('#now').textContent = 'player error: ' + d.type + ' / ' + d.details;
     });
@@ -595,18 +960,9 @@ async function watch(s){
   }
   $('#unmute').onclick = () => { v.muted = false; v.volume = 1; $('#unmute').hidden = true; };
 
-  // 7TV emotes for this channel (global set + channel set), fetched via the
-  // server so there is no CORS question and the result is cached per channel
-  EMOTES = {};
-  fetch('/api/emotes?uid=' + encodeURIComponent(s.id || ''))
-    .then(r => r.json())
-    .then(d => { EMOTES = d.emotes || {}; emoteEvents(d.set_id); })
-    .catch(() => {});
-
-  chat(s.login);
 }
 
-function emoteEvents(setId){
+function emoteEvents(setId, gen){
   // 7TV EventAPI - live emote set changes, so a mod adding or removing an
   // emote takes effect without a refetch. op 35 = subscribe, op 0 = dispatch.
   if(esock){ esock.onclose = null; esock.close(); esock = null; }
@@ -634,15 +990,39 @@ function emoteEvents(setId){
       }
     }
   };
-  esock.onclose = () => { if(currentStream) setTimeout(() => emoteEvents(sid), 5000); };
+  esock.onclose = () => { if(gen === GEN) setTimeout(() => { if(gen === GEN) emoteEvents(sid, gen); }, 5000); };
 }
 
-function chat(channel){
+const PENDING = new Map();   // msg-id -> {timeout, login} for messages still held back
+
+function clearPending(){
+  for(const p of PENDING.values()) clearTimeout(p.t);
+  PENDING.clear();
+}
+
+function dropMsg(mid){
+  if(!mid) return;
+  const p = PENDING.get(mid);
+  if(p){ clearTimeout(p.t); PENDING.delete(mid); }      // never shown at all
+  const el = MSGS().querySelector('[data-mid="' + CSS.escape(mid) + '"]');
+  if(el) el.remove();                                   // already on screen
+}
+
+function dropUser(login){
+  if(!login) return;
+  for(const [mid, p] of PENDING){
+    if(p.login === login){ clearTimeout(p.t); PENDING.delete(mid); }
+  }
+  MSGS().querySelectorAll('[data-user="' + CSS.escape(login) + '"]').forEach(e => e.remove());
+}
+
+function chat(channel, gen){
   if(sock){ sock.onclose = null; sock.close(); }
+  clearPending();
   const msgs = $('#msgs'); msgs.innerHTML = '';
   sock = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
   sock.onopen = () => {
-    sock.send('CAP REQ :twitch.tv/tags');
+    sock.send('CAP REQ :twitch.tv/tags twitch.tv/commands');
     sock.send('NICK justinfan' + Math.floor(Math.random()*90000+10000));
     sock.send('JOIN #' + channel);
   };
@@ -650,27 +1030,75 @@ function chat(channel){
     for(const line of ev.data.split('\r\n')){
       if(!line) continue;
       if(line.startsWith('PING')){ sock.send('PONG :tmi.twitch.tv'); continue; }
-      const m = line.match(/^@([^ ]*) :([^!]+)![^ ]+ PRIVMSG #[^ ]+ :(.*)$/);
-      if(!m) continue;
-      const tags = Object.fromEntries(m[1].split(';').map(p => p.split('=')));
-      add(tags['display-name'] || m[2], m[3], tags.color, tags.emotes);
+      // Tokenise properly. Matching command names anywhere in the line let a
+      // chatter put "CLEARCHAT #x" in a message body and wipe or censor the pane.
+      const p = line.match(/^(?:@(\S*) )?(?::(\S+) )?(\S+)(?: (.*))?$/);
+      if(!p) continue;
+      const tags = Object.fromEntries((p[1] || '').split(';').filter(Boolean).map(x => {
+        const i = x.indexOf('='); return [x.slice(0, i), x.slice(i + 1)];
+      }));
+      const prefix = p[2] || '', cmd = p[3], rest = p[4] || '';
+
+      if(cmd === 'CLEARMSG'){ dropMsg(tags['target-msg-id']); continue; }
+
+      if(cmd === 'CLEARCHAT'){
+        const sep = rest.indexOf(' :');
+        const who = sep >= 0 ? rest.slice(sep + 2).trim() : '';
+        if(who) dropUser(who);
+        else { MSGS().innerHTML = ''; clearPending(); }
+        continue;
+      }
+
+      if(cmd !== 'PRIVMSG') continue;
+      const sep = rest.indexOf(' :');
+      if(sep < 0) continue;
+      const login = (prefix.split('!')[0] || '').toLowerCase();
+      const m = [null, login, rest.slice(sep + 2)];
+      const mid = tags.id || '';
+      // The video runs several seconds behind live, so showing chat as it
+      // arrives spoils reactions. Hold each line for the configured delay, and
+      // drop it if the channel changed while it was waiting.
+      const chan = gen;
+      const args = [tags['display-name'] || login, m[2], tags.color, tags.emotes, mid, login];
+      const wait = CHAT_DELAY();
+      if(wait > 0){
+        const t = setTimeout(() => {
+          PENDING.delete(mid);
+          if(chan === GEN) addMessage(...args);
+        }, wait);
+        if(mid) PENDING.set(mid, {t, login});
+      } else {
+        addMessage(...args);
+      }
     }
   };
-  sock.onclose = () => { if(current === channel) setTimeout(() => chat(channel), 2000); };
+  sock.onclose = () => { if(gen === GEN) setTimeout(() => { if(gen === GEN) chat(channel, gen); }, 2000); };
 }
 
-function esc(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+const ESC = {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'};
+function esc(s){ return s.replace(/[&<>"']/g, c => ESC[c]); }
+const MSGS = () => $('#msgs');
 
-function render(chunk){
-  if(!chunk) return '';
-  // split on whitespace but keep it, so spacing survives the substitution
-  return chunk.split(/(\s+)/).map(w => {
+function emoteImg(url, name){
+  const im = document.createElement('img');
+  im.src = url; im.alt = name || ''; if(name) im.title = name;
+  return im;
+}
+
+// Append a plain-text chunk to `frag`, swapping 7TV emote words for images.
+// Built with DOM nodes rather than an HTML string: emote names and URLs are
+// third-party data and must never be parsed as markup.
+function render(chunk, frag){
+  if(!chunk) return;
+  for(const w of chunk.split(/(\s+)/)){
+    if(!w) continue;
     const u = EMOTES[w];
-    return u ? '<img src="' + u + '" alt="' + esc(w) + '" title="' + esc(w) + '">' : esc(w);
-  }).join('');
+    if(u) frag.appendChild(emoteImg(u, w));
+    else frag.appendChild(document.createTextNode(w));
+  }
 }
 
-function add(user, text, color, emotes){
+function addMessage(user, text, color, emotes, mid, login){
   // emote tag indexes are code-point offsets, so work on an array of code points
   const cps = [...text];
   const marks = [];
@@ -685,35 +1113,179 @@ function add(user, text, color, emotes){
     }
   }
   marks.sort((x, y) => x.a - y.a);
-  let out = '', i = 0;
+
+  const body = document.createDocumentFragment();
+  let i = 0;
   for(const mk of marks){
-    out += render(cps.slice(i, mk.a).join(''));
-    out += `<img src="https://static-cdn.jtvnw.net/emoticons/v2/${mk.id}/default/dark/1.0" alt="">`;
+    // ignore malformed or overlapping ranges rather than garbling the line
+    if(!(mk.a >= i && mk.b >= mk.a && mk.b < cps.length)) continue;
+    render(cps.slice(i, mk.a).join(''), body);
+    body.appendChild(emoteImg(
+      'https://static-cdn.jtvnw.net/emoticons/v2/' +
+      encodeURIComponent(mk.id) + '/default/dark/1.0', ''));
     i = mk.b + 1;
   }
-  out += render(cps.slice(i).join(''));
+  render(cps.slice(i).join(''), body);
 
-  const msgs = $('#msgs');
-  const stuck = msgs.scrollTop + msgs.clientHeight >= msgs.scrollHeight - 40;
+  const msgs = MSGS();
+  const stuck = msgs.scrollTop + msgs.clientHeight >= msgs.scrollHeight - 60;
   const d = document.createElement('div');
-  d.innerHTML = `<span class=u style="color:${color || '#a970ff'}">${esc(user)}</span>: ${out}`;
+  if(mid) d.dataset.mid = mid;
+  if(login) d.dataset.user = login;
+  const nick = document.createElement('span');
+  nick.className = 'u';
+  // assigning .style.color cannot escape the attribute the way interpolation can
+  nick.style.color = /^#[0-9a-fA-F]{3,8}$/.test(color || '') ? color : '#a970ff';
+  nick.textContent = user;
+  d.append(nick, document.createTextNode(': '), body);
   msgs.appendChild(d);
   while(msgs.children.length > 300) msgs.removeChild(msgs.firstChild);
-  if(stuck) msgs.scrollTop = msgs.scrollHeight;
+
+  if(stuck){
+    // Emote images have no known width until they load, so the line rewraps and
+    // grows after we scroll. Pin now, again after layout, and once more as each
+    // image resolves - otherwise chat drifts just above the bottom.
+    const pin = () => { msgs.scrollTop = msgs.scrollHeight; };
+    pin();
+    requestAnimationFrame(pin);
+    d.querySelectorAll('img').forEach(im => {
+      if(im.complete) return;
+      im.addEventListener('load', pin, {once:true});
+      im.addEventListener('error', pin, {once:true});
+    });
+  }
 }
 
 $('#q').onchange = () => { if(currentStream) watch(currentStream); };
-$('#refresh').onclick = loadLive;
-loadLive();
-setInterval(() => { if(!document.hidden) loadLive(); }, 90000);
+let sItems = [], sIdx = -1, sTimer = null;
+
+function openSearch(){
+  $('#search').hidden = false;
+  $('#sin').value = ''; $('#sres').innerHTML = '';
+  sItems = []; sIdx = -1;
+  $('#sin').focus();
+}
+function closeSearch(){ $('#search').hidden = true; }
+
+function renderSearch(){
+  const box = $('#sres');
+  box.innerHTML = '';
+  sItems.forEach((it, i) => {
+    const el = document.createElement('div');
+    el.className = 'sr' + (it.live ? '' : ' off') + (i === sIdx ? ' sel' : '');
+    const img = document.createElement('img');
+    img.src = it.avatar || ''; img.alt = '';
+    const mid = document.createElement('div');
+    mid.innerHTML = '<b></b><div class=g></div>';
+    mid.querySelector('b').textContent = it.name;
+    mid.querySelector('.g').textContent = it.live ? (it.game || '-') : 'offline';
+    const right = document.createElement('div');
+    right.className = 'v';
+    right.textContent = it.live ? ('* ' + it.viewers.toLocaleString()) : '';
+    el.append(img, mid, right);
+    el.onclick = () => pick(i);
+    box.appendChild(el);
+  });
+  const sel = box.querySelector('.sel');
+  if(sel) sel.scrollIntoView({block:'nearest'});
+}
+
+let sSeq = 0;
+function moveSel(d){
+  // just move the class; rebuilding all rows per keypress was wasteful
+  const rows = $('#sres').children;
+  if(!rows.length) return;
+  if(rows[sIdx]) rows[sIdx].classList.remove('sel');
+  sIdx = Math.max(0, Math.min(sIdx + d, rows.length - 1));
+  rows[sIdx].classList.add('sel');
+  rows[sIdx].scrollIntoView({block:'nearest'});
+}
+
+async function doSearch(){
+  const t = $('#sin').value.trim();
+  if(!t){ sItems = []; $('#sres').innerHTML = ''; return; }
+  const seq = ++sSeq;
+  const r = await fetch('/api/search?q=' + encodeURIComponent(t))
+    .then(r => r.json()).catch(() => ({results: []}));
+  if(seq !== sSeq) return;            // a later query already answered
+  sItems = r.results || [];
+  sIdx = sItems.findIndex(x => x.live);          // first live result
+  if(sIdx < 0 && sItems.length) sIdx = 0;
+  renderSearch();
+}
+
+function pick(i){
+  const it = sItems[i];
+  if(!it) return;
+  closeSearch();
+  if(it.live) watch(it);
+  else window.open('https://twitch.tv/' + it.login, '_blank', 'noopener');
+}
+
+$('#find').onclick = () => { $('#search').hidden ? openSearch() : closeSearch(); };
+document.addEventListener('pointerdown', e => {
+  if($('#search').hidden) return;
+  if($('#sbox').contains(e.target) || e.target.id === 'find') return;
+  closeSearch();   // deliberately not preventDefault: the click still lands
+});
+$('#sin').oninput = () => { clearTimeout(sTimer); sTimer = setTimeout(doSearch, 250); };
+
+document.addEventListener('keydown', e => {
+  if(!$('#search').hidden){
+    if(e.key === 'Escape'){ closeSearch(); }
+    else if(e.key === 'ArrowDown'){ e.preventDefault(); moveSel(1); }
+    else if(e.key === 'ArrowUp'){ e.preventDefault(); moveSel(-1); }
+    else if(e.key === 'Enter'){ e.preventDefault(); pick(sIdx); }
+    return;
+  }
+  const tag = (e.target.tagName || '').toLowerCase();
+  if(tag === 'input' || tag === 'select' || tag === 'textarea') return;
+  if(e.key === '/' || (e.key.toLowerCase() === 'k' && (e.ctrlKey || e.metaKey))){
+    e.preventDefault(); openSearch();
+  }
+});
+
+$('#delay').value = CHAT_OFFSET;
+$('#delay').onchange = () => {
+  CHAT_OFFSET = +$('#delay').value || 0;
+  try { localStorage.setItem('chatOffset', CHAT_OFFSET); } catch(e){}
+};
+// sendBeacon survives unload where fetch does not; without this, closing the
+// tab leaves streamlink and ffmpeg pulling the stream indefinitely
+addEventListener('pagehide', () => { try { navigator.sendBeacon('/api/stop'); } catch(e){} });
+
+$('#refresh').onclick = () => loadLive(true);
+loadLive(true);
+setInterval(() => { if(!document.hidden) loadLive(true); }, 90000);
 document.addEventListener('visibilitychange', () => { if(!document.hidden) loadLive(); });
 </script></body></html>
 """
 
 
+PAGE_BYTES = PAGE.encode()
+
+
+def _watchdog() -> None:
+    """Stop the pipeline when nothing is consuming it.
+
+    The page sends /api/stop on unload, but that misses a crashed browser or a
+    suspended machine - without this, streamlink and ffmpeg keep pulling the
+    stream forever.
+    """
+    while True:
+        time.sleep(5)
+        with STREAMER.lock_snapshot():
+            running = STREAMER.channel is not None
+        idle = time.monotonic() - (STREAMER.last_seen or 0)
+        if running and STREAMER.last_seen and idle > 30:
+            print(f"  [watchdog] no HLS requests for {idle:.0f}s, stopping", file=sys.stderr)
+            STREAMER.stop()
+
+
 def main() -> None:
-    if not shutil.which("streamlink"):
-        die("streamlink not found")
+    for tool in ("streamlink", "ffmpeg"):
+        if not shutil.which(tool):
+            die(f"{tool} not found")
     srv = Server(("127.0.0.1", PORT), Handler)
 
     def bye(*_):
@@ -721,6 +1293,7 @@ def main() -> None:
         # the thread that is inside serve_forever() - that deadlocks.
         threading.Thread(target=lambda: (STREAMER.stop(), srv.shutdown()), daemon=True).start()
 
+    threading.Thread(target=_watchdog, daemon=True).start()
     signal.signal(signal.SIGINT, bye)
     signal.signal(signal.SIGTERM, bye)
     print(f"twitch-web  ->  http://127.0.0.1:{PORT}   (ctrl-c to stop)")

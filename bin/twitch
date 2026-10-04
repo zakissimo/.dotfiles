@@ -25,11 +25,12 @@ mkdir -p "$CFG_DIR" "$STATE_DIR"
 
 die()  { printf 'twitch: %s\n' "$*" >&2; exit 1; }
 need() { command -v "$1" >/dev/null || die "missing dependency: $1"; }
-for d in curl jq fzf streamlink mpv; do need "$d"; done
+for d in curl jq fzf streamlink mpv flatpak; do need "$d"; done
 
 # ---------- one-time client id ----------
 ensure_client_id() {
-  [ -f "$CONF" ] && . "$CONF"
+  # read, never source: $CONF holds a value pasted at an interactive prompt
+  [ -f "$CONF" ] && CLIENT_ID=$(sed -n 's/^CLIENT_ID=//p' "$CONF" | head -1)
   [ -n "${CLIENT_ID:-}" ] && return 0
   cat >&2 <<'MSG'
 
@@ -52,15 +53,27 @@ MSG
     read -rp "Client ID: " CLIENT_ID || true
   fi
   [ -n "${CLIENT_ID:-}" ] || die "no client id given"
+  case "$CLIENT_ID" in
+    *[!a-zA-Z0-9]*) die "that does not look like a Client ID" ;;
+  esac
   printf 'CLIENT_ID=%s\n' "$CLIENT_ID" >"$CONF"
   chmod 600 "$CONF"
 }
 
 save_tokens() {
-  jq --argjson now "$(date +%s)" \
-     '{access_token, refresh_token, expires_at: ($now + ((.expires_in // 14400) - 60))}' \
-     >"$TOKENS" <<<"$1"
-  chmod 600 "$TOKENS"
+  # `>"$TOKENS"` truncates before jq runs, so a non-JSON response (captive
+  # portal, HTML error page) would wipe working tokens. Write via a temp file.
+  local tmp
+  tmp=$(mktemp "$STATE_DIR/.tokens.XXXXXX") || die "mktemp failed"
+  if jq --argjson now "$(date +%s)" \
+       '{access_token, refresh_token, expires_at: ($now + ((.expires_in // 14400) - 60))}' \
+       >"$tmp" <<<"$1" && [ -s "$tmp" ]; then
+    chmod 600 "$tmp"
+    mv -f "$tmp" "$TOKENS"
+  else
+    rm -f "$tmp"
+    die "unexpected token response: $1"
+  fi
 }
 
 device_login() {
@@ -81,7 +94,10 @@ device_login() {
     if jq -e '.access_token' >/dev/null 2>&1 <<<"$resp"; then
       save_tokens "$resp"; printf ' ok\n\n' >&2; return 0
     fi
-    printf '.' >&2
+    case "$(jq -r '.message // empty' <<<"$resp")" in
+      *authorization_pending*|"") printf '.' >&2 ;;
+      *) printf '\n' >&2; die "authorization failed: $(jq -r '.message' <<<"$resp")" ;;
+    esac
   done
   die "timed out waiting for authorization"
 }
@@ -98,7 +114,11 @@ refresh_tokens() {
 }
 
 access_token() {
-  if [ -f "$TOKENS" ] && [ "$(date +%s)" -lt "$(jq -r '.expires_at // 0' "$TOKENS")" ]; then
+  local exp
+  # strip any fractional part: [ -lt ] errors on a decimal, which silently
+  # forced a refresh on every run and burned a single-use refresh token
+  exp=$(jq -r '(.expires_at // 0) | floor' "$TOKENS" 2>/dev/null || echo 0)
+  if [ -f "$TOKENS" ] && [ "$(date +%s)" -lt "${exp:-0}" ]; then
     jq -r '.access_token' "$TOKENS"; return 0
   fi
   refresh_tokens || device_login
@@ -106,24 +126,36 @@ access_token() {
 }
 
 api() { # api <path-with-query>
-  curl -sS -H "Client-Id: $CLIENT_ID" -H "Authorization: Bearer $(access_token)" \
-       "https://api.twitch.tv/helix/$1"
+  local tok resp
+  tok=$(access_token) || return 1
+  resp=$(curl -sS -H "Client-Id: $CLIENT_ID" -H "Authorization: Bearer $tok" \
+              "https://api.twitch.tv/helix/$1") || return 1
+  # without this a 401 yields no .data and reads as "nobody you follow is live"
+  if ! jq -e 'has("data")' >/dev/null 2>&1 <<<"$resp"; then
+    printf 'twitch: API error: %s\n' "$(jq -r '.message // .' <<<"$resp" 2>/dev/null)" >&2
+    return 1
+  fi
+  printf '%s' "$resp"
 }
 
 user_id() {
-  local id
+  local id resp
   id=$(cat "$STATE_DIR/user_id" 2>/dev/null) && [ -n "$id" ] && { printf '%s' "$id"; return 0; }
-  id=$(api users | jq -r '.data[0].id // empty')
-  [ -n "$id" ] || die "could not resolve your user id (is the token valid?)"
+  resp=$(api users) || return 1
+  id=$(jq -r '.data[0].id // empty' <<<"$resp")
+  # return non-zero rather than die: this runs inside $( ), where exit would
+  # only kill the subshell and the caller would see an empty string
+  [ -n "$id" ] || return 1
   printf '%s' "$id" >"$STATE_DIR/user_id"
   printf '%s' "$id"
 }
 
 pick() {
-  local rows
+  local rows uid resp
   ensure_client_id
-  rows=$(api "streams/followed?user_id=$(user_id)&first=100" \
-         | jq -r '.data[]? | [.user_login, (.viewer_count|tostring), .game_name, .title] | @tsv')
+  uid=$(user_id) || { printf 'twitch: could not resolve your user id (token valid?)\n' >&2; return 1; }
+  resp=$(api "streams/followed?user_id=$uid&first=100") || return 1
+  rows=$(jq -r '.data[]? | [.user_login, (.viewer_count|tostring), .game_name, .title] | @tsv' <<<"$resp")
   [ -n "$rows" ] || { printf 'twitch: nobody you follow is live.\n' >&2; return 1; }
   printf '%s\n' "$rows" \
     | sort -t$'\t' -k2 -nr \
@@ -135,7 +167,7 @@ pick() {
 
 chat_open() {
   local ch="$1"
-  if pgrep -af "$CHATTERINO" >/dev/null 2>&1; then
+  if pgrep -f -- "^flatpak run .*com\.chatterino\.chatterino" >/dev/null 2>&1; then
     flatpak run "$CHATTERINO" -a "t:$ch" >/dev/null 2>&1 &
   else
     flatpak run "$CHATTERINO" -c "t:$ch" >/tmp/chatterino.log 2>&1 &
