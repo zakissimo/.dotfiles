@@ -828,6 +828,9 @@ video{width:100%;flex:1;min-height:0;background:#000;outline:none}
 #delay{width:42px;background:var(--bg3);color:var(--fg);border:1px solid var(--line);border-radius:3px;padding:1px 4px;font-size:11px}
 #msgs .u{font-weight:700}
 #msgs img{height:28px;vertical-align:middle;margin:-2px 0}
+#msgs img.gif{height:auto;max-width:100%;max-height:170px;display:block;margin:4px 0;border-radius:4px}
+#msgs div.first{background:rgba(169,112,255,.12);border-left:3px solid var(--acc);padding:4px 8px;margin:6px 0;border-radius:0 3px 3px 0}
+#msgs .fl{display:block;color:var(--acc);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
 #empty{color:var(--dim);padding:40px;text-align:center;margin:auto}
 </style></head><body>
 
@@ -1179,16 +1182,21 @@ function chat(channel, gen){
       // arrives spoils reactions. Hold each line for the configured delay, and
       // drop it if the channel changed while it was waiting.
       const chan = gen;
-      const args = [tags['display-name'] || login, m[2], tags.color, tags.emotes, mid, login];
+      const msg = {
+        user: tags['display-name'] || login, text: m[2], color: tags.color,
+        emotes: tags.emotes, gifs: tags.gifs, mid, login,
+        // undocumented but long-standing: what drives Twitch's own highlight
+        first: tags['first-msg'] === '1',
+      };
       const wait = CHAT_DELAY();
       if(wait > 0){
         const t = setTimeout(() => {
           PENDING.delete(mid);
-          if(chan === GEN) addMessage(...args);
+          if(chan === GEN) addMessage(msg);
         }, wait);
         if(mid) PENDING.set(mid, {t, login});
       } else {
-        addMessage(...args);
+        addMessage(msg);
       }
     }
   };
@@ -1198,6 +1206,20 @@ function chat(channel, gen){
 const ESC = {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'};
 function esc(s){ return s.replace(/[&<>"']/g, c => ESC[c]); }
 const MSGS = () => $('#msgs');
+
+// Tier 2/3 subscribers can post GIFs; Twitch sends them in the `gifs` tag as
+// `start-end|id|url` and leaves a bracketed alt text in the message body.
+// The URL is chat-controlled, so only load it from the CDNs Twitch's own
+// picker uses - an arbitrary <img src> would hand a chatter the viewer's IP.
+// Twitch requires the URL be passed through unmodified, so it is never rewritten.
+const GIF_HOSTS = ['giphy.com', 'tenor.com'];
+function gifUrl(raw){
+  let u;
+  try { u = new URL(raw); } catch { return ''; }
+  if(u.protocol !== 'https:') return '';
+  const h = u.hostname;
+  return GIF_HOSTS.some(d => h === d || h.endsWith('.' + d)) ? raw : '';
+}
 
 function emoteImg(url, name){
   const im = document.createElement('img');
@@ -1218,7 +1240,8 @@ function render(chunk, frag){
   }
 }
 
-function addMessage(user, text, color, emotes, mid, login){
+function addMessage(msg){
+  const {user, text, color, emotes, mid, login, gifs, first} = msg;
   // emote tag indexes are code-point offsets, so work on an array of code points
   const cps = [...text];
   const marks = [];
@@ -1232,6 +1255,18 @@ function addMessage(user, text, color, emotes, mid, login){
       }
     }
   }
+  if(gifs){
+    for(const part of gifs.split(',')){
+      if(!part) continue;
+      // split on the first two pipes only - the URL's query string may hold one
+      const i1 = part.indexOf('|'), i2 = part.indexOf('|', i1 + 1);
+      if(i1 < 0 || i2 < 0) continue;
+      const [a, b] = part.slice(0, i1).split('-').map(Number);
+      const url = gifUrl(part.slice(i2 + 1));
+      // an unrecognised host falls through to the alt text already in the body
+      if(url && !isNaN(a)) marks.push({a, b, gif: url});
+    }
+  }
   marks.sort((x, y) => x.a - y.a);
 
   const body = document.createDocumentFragment();
@@ -1240,9 +1275,16 @@ function addMessage(user, text, color, emotes, mid, login){
     // ignore malformed or overlapping ranges rather than garbling the line
     if(!(mk.a >= i && mk.b >= mk.a && mk.b < cps.length)) continue;
     render(cps.slice(i, mk.a).join(''), body);
-    body.appendChild(emoteImg(
-      'https://static-cdn.jtvnw.net/emoticons/v2/' +
-      encodeURIComponent(mk.id) + '/default/dark/1.0', ''));
+    if(mk.gif){
+      const im = emoteImg(mk.gif, cps.slice(mk.a, mk.b + 1).join('').replace(/^\[|\]$/g, ''));
+      im.className = 'gif';
+      im.loading = 'lazy';
+      body.appendChild(im);
+    } else {
+      body.appendChild(emoteImg(
+        'https://static-cdn.jtvnw.net/emoticons/v2/' +
+        encodeURIComponent(mk.id) + '/default/dark/1.0', ''));
+    }
     i = mk.b + 1;
   }
   render(cps.slice(i).join(''), body);
@@ -1252,12 +1294,21 @@ function addMessage(user, text, color, emotes, mid, login){
   const d = document.createElement('div');
   if(mid) d.dataset.mid = mid;
   if(login) d.dataset.user = login;
+  const parts = [];
+  if(first){
+    d.className = 'first';
+    const fl = document.createElement('span');
+    fl.className = 'fl';
+    fl.textContent = 'first time chatting';
+    parts.push(fl);
+  }
   const nick = document.createElement('span');
   nick.className = 'u';
   // assigning .style.color cannot escape the attribute the way interpolation can
   nick.style.color = /^#[0-9a-fA-F]{3,8}$/.test(color || '') ? color : '#a970ff';
   nick.textContent = user;
-  d.append(nick, document.createTextNode(': '), body);
+  parts.push(nick, document.createTextNode(': '), body);
+  d.append(...parts);
   msgs.appendChild(d);
   while(msgs.children.length > 300) msgs.removeChild(msgs.firstChild);
 
