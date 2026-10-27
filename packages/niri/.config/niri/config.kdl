@@ -36,6 +36,14 @@ window-rule {
     open-floating true
 }
 
+// Battle.net desktop app → floating. It shares app-id "steam_app_default" with
+// World of Warcraft itself (both run from the same umu prefix), so the title is
+// what separates them — matching app-id alone would float the game too.
+window-rule {
+    match app-id="^steam_app_default$" title="^Battle\\.net"
+    open-floating true
+}
+
 window-rule {
     match app-id="sierrachart_64.exe" title="^Sierra Chart "
     default-column-width { proportion 1.0; }
